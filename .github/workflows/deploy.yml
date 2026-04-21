@@ -23,11 +23,14 @@ jobs:
         with:
           node-version: 20
           cache: npm
-      - run: npm ci
-      - run: npm run build
+          cache-dependency-path: frontend_new/package-lock.json
+      - working-directory: frontend_new
+        run: npm ci
+      - working-directory: frontend_new
+        run: npm run build
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: dist
+          path: frontend_new/dist
 
   deploy:
     needs: build
