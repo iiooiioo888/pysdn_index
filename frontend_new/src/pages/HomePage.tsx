@@ -2,6 +2,7 @@ import { lazy, Suspense, useEffect } from 'react'
 import { Navbar } from '../components/Navbar'
 import { Hero } from '../components/Hero'
 import { useCanvasBackground } from '../hooks/useCanvasBackground'
+import { useHomeHashScroll } from '../hooks/useHomeHashScroll'
 import { useReveal } from '../hooks/useAnimations'
 
 const About = lazy(() => import('../components/About').then((m) => ({ default: m.About })))
@@ -17,6 +18,7 @@ const Footer = lazy(() => import('../components/Footer').then((m) => ({ default:
 export function HomePage() {
   const canvasRef = useCanvasBackground()
   const observe = useReveal()
+  useHomeHashScroll()
 
   useEffect(() => {
     const timer = setTimeout(() => {

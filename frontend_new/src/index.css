@@ -17,6 +17,18 @@
 
 /* ===== Design Tokens ===== */
 :root {
+  /* Fixed nav + notch / home indicator safe areas */
+  --nav-safe-top: env(safe-area-inset-top, 0px);
+  --nav-safe-left: env(safe-area-inset-left, 0px);
+  --nav-safe-right: env(safe-area-inset-right, 0px);
+  --nav-row-min-h: 64px;
+  /* Hero & standalone pages: clear nav + breathing room */
+  --page-top-offset: max(
+    clamp(96px, 13vh, 124px),
+    calc(var(--nav-row-min-h) + var(--nav-safe-top) + 24px)
+  );
+  --anchor-offset: calc(var(--nav-row-min-h) + var(--nav-safe-top) + 12px);
+
   --bg: #06060a;
   --bg-elevated: #0c0c14;
   --bg-card: rgba(255, 255, 255, 0.035);
@@ -153,7 +165,7 @@
 .section {
   padding: clamp(72px, 12vw, 128px) 0;
   position: relative;
-  scroll-margin-top: 80px;
+  scroll-margin-top: var(--anchor-offset);
 }
 .section::after {
   content: '';

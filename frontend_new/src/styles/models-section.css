@@ -1,6 +1,6 @@
 /* ===== Models library (#models) — Atlas-style list layout ===== */
 main.models-page-main {
-  padding-top: clamp(100px, 14vh, 132px);
+  padding-top: var(--page-top-offset);
 }
 
 .section.models-section {

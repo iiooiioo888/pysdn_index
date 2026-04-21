@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useLangQuery } from '../hooks/useLangQuery'
 import { PATHS } from '../routes/paths'
+import { withSearchParam } from '../routes/langQuery'
 import {
   useTypingAnimation,
   useCountUp,
@@ -120,29 +121,100 @@ export function Hero() {
           </a>
         </div>
         <div className="hero-module-docs reveal" aria-label={t('hero_module_entry')}>
-          <p className="hero-module-docs-label">{t('hero_module_entry')}</p>
-          <div className="hero-module-docs-links">
-            <Link className="hero-doc-pill hero-doc-pill--neutral" to={{ pathname: PATHS.modules, search: langSearch }}>
-              {t('hero_link_modules_overview')}
-            </Link>
-            <Link
-              className="hero-doc-pill hero-doc-pill--neutral"
-              to={{ pathname: PATHS.models, search: langSearch }}
-            >
-              {t('hero_link_models')}
-            </Link>
-            <Link className="hero-doc-pill hero-doc-pill--forge" to={{ pathname: PATHS.docs.superforge, search: langSearch }}>
-              SuperForge
-            </Link>
-            <Link className="hero-doc-pill hero-doc-pill--script" to={{ pathname: PATHS.docs.superscript, search: langSearch }}>
-              SuperScript
-            </Link>
-            <Link className="hero-doc-pill hero-doc-pill--track" to={{ pathname: PATHS.docs.supertrack, search: langSearch }}>
-              SuperTrack
-            </Link>
-            <Link className="hero-doc-pill hero-doc-pill--tune" to={{ pathname: PATHS.docs.supertune, search: langSearch }}>
-              SuperTune
-            </Link>
+          <div className="hero-module-docs-label-wrap">
+            <p className="hero-module-docs-label">{t('hero_module_entry')}</p>
+          </div>
+          <div className="hero-module-docs-panel">
+            <div className="hero-module-docs-primary">
+              <Link
+                className="hero-module-card hero-module-card--modules"
+                to={{ pathname: PATHS.modules, search: langSearch }}
+              >
+                <span className="hero-module-card-shine" aria-hidden="true" />
+                <span className="hero-module-card-icon" aria-hidden="true">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+                  </svg>
+                </span>
+                <span className="hero-module-card-body">
+                  <span className="hero-module-card-title">{t('hero_link_modules_overview')}</span>
+                  <span className="hero-module-card-sub">{t('hero_module_card_modules_hint')}</span>
+                </span>
+                <span className="hero-module-card-arrow" aria-hidden="true">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                  </svg>
+                </span>
+              </Link>
+              <Link
+                className="hero-module-card hero-module-card--models"
+                to={{ pathname: PATHS.models, search: langSearch }}
+              >
+                <span className="hero-module-card-shine" aria-hidden="true" />
+                <span className="hero-module-card-icon" aria-hidden="true">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M12 2L2 7l10 5 10-5-10-5z" />
+                    <path d="M2 17l10 5 10-5" />
+                    <path d="M2 12l10 5 10-5" />
+                  </svg>
+                </span>
+                <span className="hero-module-card-body">
+                  <span className="hero-module-card-title">{t('hero_link_models')}</span>
+                  <span className="hero-module-card-sub">{t('hero_module_card_models_hint')}</span>
+                </span>
+                <span className="hero-module-card-arrow" aria-hidden="true">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                  </svg>
+                </span>
+              </Link>
+            </div>
+            <div className="hero-module-docs-strips">
+              <div className="hero-strip hero-strip--modules">
+                <p className="hero-strip-label">{t('hero_strip_modules_label')}</p>
+                <div className="hero-module-docs-docs" role="group" aria-label={t('hero_docs_strip_aria')}>
+                  <Link className="hero-doc-pill hero-doc-pill--forge" to={{ pathname: PATHS.docs.superforge, search: langSearch }}>
+                    <span className="hero-doc-pill-dot hero-doc-pill-dot--forge" aria-hidden="true" />
+                    SuperForge
+                  </Link>
+                  <Link className="hero-doc-pill hero-doc-pill--script" to={{ pathname: PATHS.docs.superscript, search: langSearch }}>
+                    <span className="hero-doc-pill-dot hero-doc-pill-dot--script" aria-hidden="true" />
+                    SuperScript
+                  </Link>
+                  <Link className="hero-doc-pill hero-doc-pill--track" to={{ pathname: PATHS.docs.supertrack, search: langSearch }}>
+                    <span className="hero-doc-pill-dot hero-doc-pill-dot--track" aria-hidden="true" />
+                    SuperTrack
+                  </Link>
+                  <Link className="hero-doc-pill hero-doc-pill--tune" to={{ pathname: PATHS.docs.supertune, search: langSearch }}>
+                    <span className="hero-doc-pill-dot hero-doc-pill-dot--tune" aria-hidden="true" />
+                    SuperTune
+                  </Link>
+                </div>
+              </div>
+              <div className="hero-strip hero-strip--models">
+                <p className="hero-strip-label">{t('hero_strip_models_label')}</p>
+                <div className="hero-model-spotlight" role="group" aria-label={t('hero_models_strip_aria')}>
+                  <Link
+                    className="hero-model-pill hero-model-pill--seedance"
+                    to={{ pathname: PATHS.models, search: withSearchParam(langSearch, 'brand', 'seedance') }}
+                  >
+                    <span className="hero-model-pill-tag" aria-hidden="true">
+                      {t('models_tab_video')}
+                    </span>
+                    <span className="hero-model-pill-name">{t('models_filter_seedance')}</span>
+                  </Link>
+                  <Link
+                    className="hero-model-pill hero-model-pill--seedream"
+                    to={{ pathname: PATHS.models, search: withSearchParam(langSearch, 'brand', 'seedream') }}
+                  >
+                    <span className="hero-model-pill-tag" aria-hidden="true">
+                      {t('models_tab_image')}
+                    </span>
+                    <span className="hero-model-pill-name">{t('models_filter_seedream')}</span>
+                  </Link>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div className="hero-stats reveal">

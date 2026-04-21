@@ -1,17 +1,24 @@
-import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { useState, useEffect, useCallback } from 'react'
+import { Link, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useLangQuery } from '../hooks/useLangQuery'
 import { useNavBarCompact } from '../hooks/useNavBarCompact'
 import { PATHS } from '../routes/paths'
+import { scheduleScrollToHomeHash } from '../utils/scrollToHash'
 import { LanguageSwitcher } from './LanguageSwitcher'
 
 export function Navbar() {
   const { t } = useTranslation()
+  const location = useLocation()
   const langSearch = useLangQuery()
   const { navInnerRef, compact } = useNavBarCompact('.nav-links')
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+
+  const onHomeHashClick = useCallback(
+    (hash: string) => scheduleScrollToHomeHash(hash, location.pathname === PATHS.home),
+    [location.pathname]
+  )
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 60)
@@ -51,6 +58,7 @@ export function Navbar() {
             to={{ pathname: PATHS.home, hash: '#home', search: langSearch }}
             className="nav-logo"
             aria-label="Pysdn home"
+            onClick={() => onHomeHashClick('#home')}
           >
             <span className="logo-mark" aria-hidden="true">⚡</span>
             <span className="logo-text">Pysdn</span>
@@ -65,13 +73,22 @@ export function Navbar() {
                 ) : link.type === 'faq' ? (
                   <Link to={{ pathname: PATHS.faq, search: langSearch }}>{t(link.key)}</Link>
                 ) : (
-                  <Link to={{ pathname: PATHS.home, hash: link.hash, search: langSearch }}>{t(link.key)}</Link>
+                  <Link
+                    to={{ pathname: PATHS.home, hash: link.hash, search: langSearch }}
+                    onClick={() => onHomeHashClick(link.hash)}
+                  >
+                    {t(link.key)}
+                  </Link>
                 )}
               </li>
             ))}
           </ul>
           <LanguageSwitcher />
-          <Link to={{ pathname: PATHS.home, hash: '#contact', search: langSearch }} className="nav-cta">
+          <Link
+            to={{ pathname: PATHS.home, hash: '#contact', search: langSearch }}
+            className="nav-cta"
+            onClick={() => onHomeHashClick('#contact')}
+          >
             {t('nav_cta')}
           </Link>
           <button
@@ -105,7 +122,10 @@ export function Navbar() {
               ) : (
                 <Link
                   to={{ pathname: PATHS.home, hash: link.hash, search: langSearch }}
-                  onClick={() => setMenuOpen(false)}
+                  onClick={() => {
+                    onHomeHashClick(link.hash)
+                    setMenuOpen(false)
+                  }}
                 >
                   {t(link.key)}
                 </Link>
@@ -119,7 +139,10 @@ export function Navbar() {
         <Link
           to={{ pathname: PATHS.home, hash: '#contact', search: langSearch }}
           className="mobile-cta"
-          onClick={() => setMenuOpen(false)}
+          onClick={() => {
+            onHomeHashClick('#contact')
+            setMenuOpen(false)
+          }}
         >
           {t('nav_cta')}
         </Link>

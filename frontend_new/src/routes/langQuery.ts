@@ -10,3 +10,11 @@ export function isAppLangCode(s: string): s is AppLangCode {
 export function toLangSearch(langCode: string): string {
   return `?lang=${encodeURIComponent(langCode)}`
 }
+
+/** Merge extra query params into an existing `search` string (e.g. from `useLangQuery()`). */
+export function withSearchParam(search: string, key: string, value: string): string {
+  const q = search.startsWith('?') ? search.slice(1) : search
+  const p = new URLSearchParams(q)
+  p.set(key, value)
+  return `?${p.toString()}`
+}

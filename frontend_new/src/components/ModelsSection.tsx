@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useLocation } from 'react-router-dom'
 import { useReveal } from '../hooks/useAnimations'
 import {
   CATALOG_MODELS,
@@ -14,6 +15,12 @@ import {
 type CapFilter = 'all' | ModelCapability
 type BrandFilter = 'all' | ModelProduct
 type DevFilter = 'all' | ModelDeveloper
+
+function brandFromLocationSearch(search: string): BrandFilter {
+  const q = search.startsWith('?') ? search.slice(1) : search
+  const b = new URLSearchParams(q).get('brand')
+  return b === 'seedance' || b === 'seedream' ? b : 'all'
+}
 
 const THUMB_HUES = [198, 280, 168, 32, 210, 145, 260, 22, 320]
 
@@ -37,11 +44,16 @@ function matchesFilters(
 
 export function ModelsSection() {
   const { t, i18n } = useTranslation()
+  const { search } = useLocation()
   const observe = useReveal()
   const lang = resolveUiLang(i18n.language)
   const [capFilter, setCapFilter] = useState<CapFilter>('all')
-  const [brandFilter, setBrandFilter] = useState<BrandFilter>('all')
+  const [brandFilter, setBrandFilter] = useState<BrandFilter>(() => brandFromLocationSearch(search))
   const [devFilter, setDevFilter] = useState<DevFilter>('all')
+
+  useEffect(() => {
+    setBrandFilter(brandFromLocationSearch(search))
+  }, [search])
 
   const counts = useMemo(() => {
     const total = CATALOG_MODELS.length

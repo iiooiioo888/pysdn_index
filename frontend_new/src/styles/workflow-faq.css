@@ -436,7 +436,7 @@
 
 /* ===== FAQ ===== */
 main.faq-page-main {
-  padding-top: clamp(100px, 14vh, 132px);
+  padding-top: var(--page-top-offset);
 }
 
 .faq-section {

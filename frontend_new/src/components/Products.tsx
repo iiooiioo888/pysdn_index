@@ -7,6 +7,8 @@ export function Products() {
   const [activeTab, setActiveTab] = useState('video')
   const observe = useReveal()
   const [needsGesture, setNeedsGesture] = useState(false)
+  /** 短劇分頁：主畫面監看目前播放的集數（EP1→EP3 連續輪播，可點選切換） */
+  const [dramaMonitorEp, setDramaMonitorEp] = useState(1)
   const [stats, setStats] = useState<{
     videosTotal?: number
     dramasTotal?: number
@@ -95,28 +97,72 @@ export function Products() {
     return () => clearTimeout(timer)
   }, [activeTab])
 
+  useEffect(() => {
+    if (activeTab === 'drama') setDramaMonitorEp(1)
+  }, [activeTab])
+
   return (
     <section id="products" className="section products">
       <div className="container">
-        <div className="section-heading">
-          <div className="section-label reveal">{t('products_label')}</div>
-          <h2 className="section-title reveal">{t('products_title')}</h2>
-          <p className="section-desc reveal">{t('products_desc')}</p>
-        </div>
+        <div className="products-intro reveal">
+          <div className="products-intro-inner">
+            <div className="products-intro-copy">
+              <span className="products-intro-eyebrow">{t('products_label')}</span>
+              <h2 className="products-intro-title">
+                <span className="products-intro-kicker">{t('products_title_kicker')}</span>
+                <span className="products-intro-subline">{t('products_title_subline')}</span>
+              </h2>
+              <p className="products-intro-desc">{t('products_desc')}</p>
+              <ul className="products-intro-modules" aria-label={t('products_modules_aria')}>
+                <li>
+                  <span className="products-mod products-mod--forge">SuperForge</span>
+                </li>
+                <li>
+                  <span className="products-mod products-mod--tune">SuperTune</span>
+                </li>
+                <li>
+                  <span className="products-mod products-mod--track">SuperTrack</span>
+                </li>
+                <li>
+                  <span className="products-mod products-mod--script">SuperScript</span>
+                </li>
+              </ul>
+            </div>
+            <aside className="products-intro-rail" aria-hidden="true">
+              <div className="products-rail-visual">
+                <div className="products-rail-core">
+                  <span className="products-rail-core-ring" />
+                  <span className="products-rail-core-label">{t('products_rail_core_label')}</span>
+                  <span className="products-rail-core-hint">{t('products_rail_core_hint')}</span>
+                </div>
+                <div className="products-rail-connector">
+                  <span className="products-rail-line" />
+                  <span className="products-rail-arrow">↓</span>
+                  <span className="products-rail-line" />
+                </div>
+                <div className="products-rail-modules">
+                  <span className="products-rail-chip products-rail-chip--forge">Forge</span>
+                  <span className="products-rail-chip products-rail-chip--tune">Tune</span>
+                  <span className="products-rail-chip products-rail-chip--track">Track</span>
+                  <span className="products-rail-chip products-rail-chip--script">Script</span>
+                </div>
+              </div>
+            </aside>
+          </div>
 
-        {/* Quick Stats (Control Panel style) */}
-        <div className="products-quickstats reveal" role="status" aria-live="polite">
-          <div className="quickstat">
-            <span className="quickstat-label">{t('tab_video')}</span>
-            <span className="quickstat-val">{statsStatus === 'loading' ? '…' : (stats.videosTotal ?? '—')}</span>
-          </div>
-          <div className="quickstat">
-            <span className="quickstat-label">{t('tab_drama')}</span>
-            <span className="quickstat-val">{statsStatus === 'loading' ? '…' : (stats.dramasTotal ?? '—')}</span>
-          </div>
-          <div className="quickstat">
-            <span className="quickstat-label">{t('tab_image')}</span>
-            <span className="quickstat-val">{statsStatus === 'loading' ? '…' : (stats.imagesTotal ?? '—')}</span>
+          <div className="products-intro-stats" role="status" aria-live="polite">
+            <div className="quickstat">
+              <span className="quickstat-label">{t('tab_video')}</span>
+              <span className="quickstat-val">{statsStatus === 'loading' ? '…' : (stats.videosTotal ?? '—')}</span>
+            </div>
+            <div className="quickstat">
+              <span className="quickstat-label">{t('tab_drama')}</span>
+              <span className="quickstat-val">{statsStatus === 'loading' ? '…' : (stats.dramasTotal ?? '—')}</span>
+            </div>
+            <div className="quickstat">
+              <span className="quickstat-label">{t('tab_image')}</span>
+              <span className="quickstat-val">{statsStatus === 'loading' ? '…' : (stats.imagesTotal ?? '—')}</span>
+            </div>
           </div>
         </div>
 
@@ -143,7 +189,7 @@ export function Products() {
                 <LightningStage type="video" />
                 <div className="mockup-header">
                   <div className="mockup-dots"><span /><span /><span /></div>
-                  <span>{t('mockup_video_title')}</span>
+                  <span className="mockup-title">{t('mockup_video_title')}</span>
                 </div>
                 <div className="mockup-body">
                   <div className="video-preview-window">
@@ -206,15 +252,15 @@ export function Products() {
           </div>
         )}
 
-        {/* Drama Panel */}
+        {/* Drama Panel：上下結構（mockup 全寬在上、說明在下） */}
         {activeTab === 'drama' && (
-          <div className="product-panel active reveal" role="tabpanel">
+          <div className="product-panel product-panel--drama active reveal" role="tabpanel">
             <div className="panel-visual">
               <div className="panel-mockup">
                 <LightningStage type="drama" />
                 <div className="mockup-header">
                   <div className="mockup-dots"><span /><span /><span /></div>
-                  <span>{t('mockup_drama_title')}</span>
+                  <span className="mockup-title">{t('mockup_drama_title')}</span>
                 </div>
                 <div className="mockup-body">
                   <div className="drama-studio-ui">
@@ -222,40 +268,63 @@ export function Products() {
                       <span className="drama-chip">{t('drama_mock_pipeline')}</span>
                       <span className="drama-chip drama-chip-live">{t('drama_mock_live')}</span>
                     </div>
-                    <section className="drama-main-visual">
+                    <section className="drama-main-visual" aria-label={t('drama_mock_main_view')}>
                       <div className="drama-main-head">
-                        <span>MAIN VIEW</span>
-                        <span>EP1/EP2/EP3 CONTINUOUS PLAY</span>
+                        <span className="drama-main-head-primary">{t('drama_mock_main_view')}</span>
+                        <span className="drama-main-head-secondary">{t('drama_mock_continuous_hint')}</span>
                       </div>
-                      <div className="drama-main-screen">
-                        <video
-                          className="drama-main-video"
-                          muted
-                          autoPlay
-                          playsInline
-                          preload="metadata"
-                          aria-label="Drama main preview"
-                          onLoadedMetadata={(e) => {
-                            tryPlayWithRetry(e.currentTarget)
-                          }}
-                          onCanPlay={(e) => {
-                            tryPlayWithRetry(e.currentTarget, 2)
-                          }}
-                          poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='640' height='360'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%230a0a1a'/%3E%3Cstop offset='.5' stop-color='%23111827'/%3E%3Cstop offset='1' stop-color='%230a0a1a'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect fill='url(%23g)' width='640' height='360'%3E%3Ctext x='320' y='180' text-anchor='middle' dominant-baseline='central' fill='%23374151' font-family='sans-serif' font-size='18'%3E▶ Loading%3C/text%3E%3C/svg%3E"
-                        >
-                          <source src={assetMp4('319.mp4')} type="video/mp4" />
-                        </video>
+                      <div className="drama-monitor-bezel">
+                        <div className="drama-monitor-led" aria-hidden="true" />
+                        <div className="drama-main-screen">
+                          <video
+                            key={dramaMonitorEp}
+                            className="drama-main-video"
+                            muted
+                            playsInline
+                            preload="metadata"
+                            loop={false}
+                            aria-label={`${t('drama_mock_main_view')} EP${dramaMonitorEp}`}
+                            onEnded={() => setDramaMonitorEp((ep) => (ep >= 3 ? 1 : ep + 1))}
+                            onLoadedMetadata={(e) => {
+                              tryPlayWithRetry(e.currentTarget)
+                            }}
+                            onCanPlay={(e) => {
+                              tryPlayWithRetry(e.currentTarget, 2)
+                            }}
+                            poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='640' height='360'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%230a0a1a'/%3E%3Cstop offset='.5' stop-color='%23111827'/%3E%3Cstop offset='1' stop-color='%230a0a1a'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect fill='url(%23g)' width='640' height='360'%3E%3Ctext x='320' y='180' text-anchor='middle' dominant-baseline='central' fill='%23374151' font-family='sans-serif' font-size='18'%3E▶ Loading%3C/text%3E%3C/svg%3E"
+                          >
+                            <source src={assetMp4(`${318 + dramaMonitorEp}.mp4`)} type="video/mp4" />
+                          </video>
+                        </div>
                       </div>
-                      <div className="drama-main-queue">
-                        <span>EP1 LIVE</span><span>EP2 LIVE</span><span>EP3 LIVE</span>
+                      <div
+                        className="drama-main-queue"
+                        role="group"
+                        aria-label={t('drama_mock_queue_aria')}
+                      >
+                        {[1, 2, 3].map((ep) => (
+                          <button
+                            key={ep}
+                            type="button"
+                            className={`drama-queue-chip ${dramaMonitorEp === ep ? 'drama-queue-chip--on' : ''}`}
+                            onClick={() => setDramaMonitorEp(ep)}
+                          >
+                            <span className="drama-queue-chip-ep">EP{ep}</span>
+                            <span className="drama-queue-chip-status">
+                              {dramaMonitorEp === ep ? t('drama_mock_on_air') : t('drama_mock_standby')}
+                            </span>
+                          </button>
+                        ))}
                       </div>
                     </section>
-                    <div className="drama-studio-main">
+                    <div className="drama-studio-main drama-studio-stack">
                       <div className="drama-episodes-grid">
-                        {[1, 2, 3].map(ep => (
+                        {[1, 2, 3].map((ep) => (
                           <article className="drama-preview-card" key={ep}>
                             <div className="drama-preview-header">
-                              <div className="drama-preview-title">EP{ep} · <span>{t(`drama_scene${ep}`)}</span></div>
+                              <div className="drama-preview-title">
+                                EP{ep} · <span>{t(`drama_scene${ep}`)}</span>
+                              </div>
                               <div className="drama-preview-sub">{t('drama_mock_preview_desc')}</div>
                             </div>
                             <div className="drama-preview-media">
@@ -263,7 +332,6 @@ export function Products() {
                                 className="drama-episode-video"
                                 muted
                                 loop
-                                autoPlay
                                 playsInline
                                 preload="metadata"
                                 aria-label={`Drama EP${ep} preview`}
@@ -287,24 +355,35 @@ export function Products() {
                           <h5>{t('drama_mock_consistency_title')}</h5>
                           <div className="drama-meter-row">
                             <span>{t('drama_mock_consistency_face')}</span>
-                            <div className="drama-meter"><span className="drama-meter-fill drama-meter-fill-92" /></div>
+                            <div className="drama-meter">
+                              <span className="drama-meter-fill drama-meter-fill-92" />
+                            </div>
                           </div>
                           <div className="drama-meter-row">
                             <span>{t('drama_mock_consistency_style')}</span>
-                            <div className="drama-meter"><span className="drama-meter-fill drama-meter-fill-88" /></div>
+                            <div className="drama-meter">
+                              <span className="drama-meter-fill drama-meter-fill-88" />
+                            </div>
                           </div>
                           <div className="drama-meter-row">
                             <span>{t('drama_mock_consistency_voice')}</span>
-                            <div className="drama-meter"><span className="drama-meter-fill drama-meter-fill-84" /></div>
+                            <div className="drama-meter">
+                              <span className="drama-meter-fill drama-meter-fill-84" />
+                            </div>
                           </div>
                         </div>
                         <div className="drama-episode-list">
                           <h5>{t('drama_mock_episode_title')}</h5>
-                          {[1, 2, 3].map(ep => (
-                            <div className={`drama-episode-item ${ep === 1 ? 'active' : ''}`} key={ep}>
+                          {[1, 2, 3].map((ep) => (
+                            <button
+                              type="button"
+                              className={`drama-episode-item ${dramaMonitorEp === ep ? 'active' : ''}`}
+                              key={ep}
+                              onClick={() => setDramaMonitorEp(ep)}
+                            >
                               <span>EP{ep}</span>
                               <span>{t(`drama_scene${ep}`)}</span>
-                            </div>
+                            </button>
                           ))}
                         </div>
                       </aside>
@@ -322,8 +401,13 @@ export function Products() {
               <h3>{t('drama_title')}</h3>
               <p>{t('drama_desc')}</p>
               <ul className="panel-features">
-                {[1,2,3,4,5].map(i => (
-                  <li key={i}><span className="check" aria-hidden="true">✓</span> <span>{t(`drama_f${i}`)}</span></li>
+                {[1, 2, 3, 4, 5].map((i) => (
+                  <li key={i}>
+                    <span className="check" aria-hidden="true">
+                      ✓
+                    </span>{' '}
+                    <span>{t(`drama_f${i}`)}</span>
+                  </li>
                 ))}
               </ul>
             </div>
@@ -338,7 +422,7 @@ export function Products() {
                 <LightningStage type="image" />
                 <div className="mockup-header">
                   <div className="mockup-dots"><span /><span /><span /></div>
-                  <span>{t('mockup_image_title')}</span>
+                  <span className="mockup-title">{t('mockup_image_title')}</span>
                 </div>
                 <div className="mockup-body">
                   <div className="image-showcase">
