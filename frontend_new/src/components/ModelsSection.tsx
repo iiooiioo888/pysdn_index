@@ -44,7 +44,6 @@ function matchesFilters(
 export function ModelsSection() {
   const { t, i18n } = useTranslation()
   const { search } = useLocation()
-  const observe = useReveal()
   const lang = resolveUiLang(i18n.language)
   const [capFilter, setCapFilter] = useState<CapFilter>('all')
   const [brandFilter, setBrandFilter] = useState<BrandFilter>(() => brandFromLocationSearch(search))
