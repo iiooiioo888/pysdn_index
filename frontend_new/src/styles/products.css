@@ -319,6 +319,23 @@
   align-items: start;
 }
 
+/* 影片 / 短劇 / 圖片：上下結構（mockup 在上、文案在下） */
+.product-panel.active.product-panel--stack {
+  grid-template-columns: 1fr;
+  gap: 40px;
+  align-items: stretch;
+}
+.product-panel.active.product-panel--stack .panel-visual {
+  width: 100%;
+  max-width: 960px;
+  margin-inline: auto;
+}
+.product-panel.active.product-panel--stack .panel-info {
+  max-width: 720px;
+  margin-inline: auto;
+  width: 100%;
+}
+
 /* Panel Mockup */
 .panel-mockup {
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.015) 100%);
@@ -586,10 +603,39 @@
 .drama-chip-live { color: #ef4444; border-color: rgba(239,68,68,0.2); }
 
 .drama-main-visual {
-  border: 1px solid var(--border);
-  border-radius: 12px;
+  border: 1px solid rgba(6, 182, 212, 0.22);
+  border-radius: 14px;
   overflow: hidden;
-  background: #0d0d14;
+  background: linear-gradient(180deg, rgba(13, 13, 20, 0.98) 0%, #07070c 100%);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.04) inset,
+    0 20px 48px rgba(0, 0, 0, 0.45);
+}
+
+/* 主畫面監看：外框 + 錄製燈號 */
+.drama-monitor-bezel {
+  position: relative;
+  padding: 10px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(0, 0, 0, 0.35));
+  border-bottom: 1px solid var(--border);
+}
+.drama-monitor-led {
+  position: absolute;
+  top: 14px;
+  left: 18px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ef4444;
+  box-shadow: 0 0 10px rgba(239, 68, 68, 0.85);
+  animation: pulse 1.8s ease-in-out infinite;
+}
+.drama-monitor-bezel .drama-main-screen {
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.06),
+    inset 0 0 48px rgba(0, 0, 0, 0.5);
 }
 .drama-main-head {
   display: flex;
@@ -625,20 +671,67 @@ html[lang='ko'] .drama-main-head-primary {
   text-transform: none;
   letter-spacing: 0.06em;
 }
-.drama-main-screen { aspect-ratio: 16/9; background: #000; }
-.drama-main-video { width: 100%; height: 100%; display: block; }
+.drama-main-screen {
+  aspect-ratio: 16/9;
+  min-height: 140px;
+  background: #000;
+}
+.drama-main-video { width: 100%; height: 100%; display: block; object-fit: cover; }
+
 .drama-main-queue {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 8px 16px;
-  padding: 10px 8px;
-  font-size: 0.62rem;
+  gap: 10px 12px;
+  padding: 12px 10px 14px;
+  background: rgba(0, 0, 0, 0.25);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.drama-queue-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: 9999px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.03);
+  font: inherit;
+  font-size: 0.65rem;
   font-weight: 600;
-  color: #06b6d4;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s, color 0.2s;
+}
+.drama-queue-chip:hover {
+  border-color: rgba(255, 255, 255, 0.12);
+  color: var(--text-dim);
+}
+.drama-queue-chip--on {
+  border-color: rgba(6, 182, 212, 0.45);
+  color: #22d3ee;
+  background: rgba(6, 182, 212, 0.1);
+  box-shadow: 0 0 0 1px rgba(6, 182, 212, 0.12);
+}
+.drama-queue-chip-ep { font-weight: 800; letter-spacing: 0.04em; }
+.drama-queue-chip-status {
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  opacity: 0.95;
 }
 
 .drama-studio-main { display: grid; grid-template-columns: 1fr 200px; gap: 16px; }
+.drama-studio-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.drama-studio-stack .drama-episodes-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
 .drama-episodes-grid { display: flex; flex-direction: column; gap: 12px; }
 .drama-preview-card {
   padding: 16px;
@@ -705,14 +798,21 @@ html[lang='ko'] .drama-main-head-primary {
   border-radius: 10px;
 }
 .drama-episode-list h5 { font-size: 0.75rem; font-weight: 700; color: #fff; margin-bottom: 10px; }
-.drama-episode-item {
+button.drama-episode-item {
   display: flex;
   gap: 10px;
+  width: 100%;
+  margin: 0;
   padding: 8px;
+  border: 0;
   border-radius: 6px;
+  font: inherit;
   font-size: 0.72rem;
+  text-align: left;
   color: var(--text-muted);
-  transition: background 0.15s;
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
 }
 .drama-episode-item.active { background: rgba(6,182,212,0.08); color: #06b6d4; }
 .drama-episode-item span:first-child { font-weight: 700; min-width: 28px; flex-shrink: 0; }
@@ -864,7 +964,12 @@ html[lang='ko'] .drama-main-head-primary {
 
 @media (max-width: 1024px) {
   .product-panel.active { grid-template-columns: 1fr; }
-  .drama-studio-main { grid-template-columns: 1fr; }
+  .drama-studio-main:not(.drama-studio-stack) { grid-template-columns: 1fr; }
+}
+@media (max-width: 720px) {
+  .drama-studio-stack .drama-episodes-grid {
+    grid-template-columns: 1fr;
+  }
 }
 @media (max-width: 768px) {
   .products-quickstats { grid-template-columns: repeat(2, minmax(0, 1fr)); }

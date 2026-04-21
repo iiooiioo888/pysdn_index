@@ -1,9 +1,20 @@
 import { useEffect, useMemo, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
+import { useLangQuery } from '../hooks/useLangQuery'
+import { PATHS } from '../routes/paths'
 import { useReveal } from '../hooks/useAnimations'
+
+const MODULE_CHEATSHEET = [
+  { id: 'forge' as const, name: 'SuperForge', textKey: 'modules_split_cheat_forge' },
+  { id: 'tune' as const, name: 'SuperTune', textKey: 'modules_split_cheat_tune' },
+  { id: 'track' as const, name: 'SuperTrack', textKey: 'modules_split_cheat_track' },
+  { id: 'script' as const, name: 'SuperScript', textKey: 'modules_split_cheat_script' },
+]
 
 export function Products() {
   const { t } = useTranslation()
+  const langSearch = useLangQuery()
   const [activeTab, setActiveTab] = useState('video')
   const observe = useReveal()
   const [needsGesture, setNeedsGesture] = useState(false)
@@ -183,7 +194,7 @@ export function Products() {
 
         {/* Video Panel */}
         {activeTab === 'video' && (
-          <div className="product-panel active reveal" role="tabpanel">
+          <div className="product-panel product-panel--stack active reveal" role="tabpanel">
             <div className="panel-visual">
               <div className="panel-mockup">
                 <LightningStage type="video" />
@@ -254,7 +265,7 @@ export function Products() {
 
         {/* Drama Panel：上下結構（mockup 全寬在上、說明在下） */}
         {activeTab === 'drama' && (
-          <div className="product-panel product-panel--drama active reveal" role="tabpanel">
+          <div className="product-panel product-panel--stack active reveal" role="tabpanel">
             <div className="panel-visual">
               <div className="panel-mockup">
                 <LightningStage type="drama" />
@@ -332,6 +343,7 @@ export function Products() {
                                 className="drama-episode-video"
                                 muted
                                 loop
+                                autoPlay
                                 playsInline
                                 preload="metadata"
                                 aria-label={`Drama EP${ep} preview`}
@@ -416,7 +428,7 @@ export function Products() {
 
         {/* Image Panel */}
         {activeTab === 'image' && (
-          <div className="product-panel active reveal" role="tabpanel">
+          <div className="product-panel product-panel--stack active reveal" role="tabpanel">
             <div className="panel-visual">
               <div className="panel-mockup">
                 <LightningStage type="image" />
@@ -467,7 +479,28 @@ export function Products() {
         <div className="modules-split reveal">
           <div className="modules-split-head">
             <h3>{t('modules_split_title')}</h3>
-            <p>{t('modules_split_desc')}</p>
+            <p className="modules-split-intro">{t('modules_split_intro')}</p>
+            <ul
+              className="modules-split-cheatsheet"
+              aria-label={t('modules_split_cheatsheet_aria')}
+            >
+              {MODULE_CHEATSHEET.map((row) => (
+                <li key={row.id} className={`modules-split-cheat modules-split-cheat--${row.id}`}>
+                  <span className="modules-split-cheat-name">{row.name}</span>
+                  <span className="modules-split-cheat-text">{t(row.textKey)}</span>
+                </li>
+              ))}
+            </ul>
+            <p className="modules-split-hub">
+              {t('modules_split_hub_before')}
+              <Link
+                className="modules-split-hub-link"
+                to={{ pathname: PATHS.modules, search: langSearch }}
+              >
+                {t('nav_module_docs')}
+              </Link>
+              {t('modules_split_hub_after')}
+            </p>
           </div>
 
           <div className="modules-card-grid">
