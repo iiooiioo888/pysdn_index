@@ -1,0 +1,333 @@
+import { DocLayout } from '../../components/docs/DocLayout'
+import { DocNavbar } from '../../components/docs/DocNavbar'
+import { DocFooter } from '../../components/docs/DocFooter'
+import { useDocBundle } from '../../hooks/useDocBundle'
+
+export function SuperForgeDocPage() {
+  const { t, ready, loadError, lang } = useDocBundle('superforge')
+
+  if (!ready) {
+    return (
+      <DocLayout variant="forge">
+        <main className="doc-main">
+          <div className="doc-main-inner" style={{ paddingTop: 100 }}>
+            <p className="doc-hero-lead" style={{ opacity: loadError ? 1 : 0.5 }}>
+              {loadError ? '無法載入翻譯資料，請重新整理頁面。' : '…'}
+            </p>
+          </div>
+        </main>
+      </DocLayout>
+    )
+  }
+
+  return (
+    <DocLayout variant="forge">
+      <DocNavbar t={t} lang={lang} />
+      <main className="doc-main">
+        <div className="doc-main-inner">
+          <section className="doc-hero" aria-labelledby="doc-hero-title">
+            <div className="doc-hero-card">
+              <div className="doc-hero-fx" aria-hidden="true">
+                <span className="doc-hero-grid" />
+                <span className="doc-hero-orb doc-hero-orb--1" />
+                <span className="doc-hero-orb doc-hero-orb--2" />
+              </div>
+              <div className="doc-hero-body">
+                <span className="doc-hero-badge">KNOWLEDGE BASE</span>
+                <h1 id="doc-hero-title">SuperForge</h1>
+                <p className="doc-hero-sub">{t('hero_sub')}</p>
+                <p className="doc-hero-lead">{t('intro_p')}</p>
+              </div>
+            </div>
+          </section>
+
+          <article className="doc">
+            {/* ── 功能 + 範例 ── */}
+            <h2>{t('h_feat')}</h2>
+
+            <h3>一鍵記住：提示詞與結果自動配對</h3>
+            <p>每次你用 Midjourney、Stable Diffusion、DALL·E 或任何外部工具生圖時，SuperForge 會透過 Webhook 自動攔截生成結果，並把它跟你當時使用的提示詞配對儲存。不只存文字——完整的 seed、steps、cfg_scale、model 版本、negative prompt，全部一起記住。</p>
+            <p>你不需要手動截圖、複製貼上、或打開 Excel 記錄。下次想找？直接搜就有了。</p>
+            <div className="doc-example">
+              <div className="doc-example-label">💡 實際場景</div>
+              <p>你昨天用 <code>cinematic drone shot of mountains at golden hour, 8k</code> 生了一張超讚的圖，但忘了存檔。<br/>
+              沒關係——SuperForge 已經透過 Webhook 自動記住了，包含：<br/>
+              ・Prompt: cinematic drone shot of mountains at golden hour, 8k<br/>
+              ・Negative: blurry, low quality, watermark<br/>
+              ・Model: Midjourney v6<br/>
+              ・Seed: 48291037 · Steps: 50 · CFG: 7.5<br/>
+              ・輸出連結: https://cdn.midjourney.com/xxx.png</p>
+            </div>
+
+            <h3>語意搜尋：說人話就能找</h3>
+            <p>不是關鍵字比對，是真正「理解意思」的搜尋引擎。SuperForge 在你每次儲存提示詞時，會自動將文字轉換成高維度的語意向量（embedding），儲存在向量資料庫中。當你搜尋時，系統同樣把你的搜尋文字轉換成向量，然後用餘弦相似度找出最接近的結果。</p>
+            <p>這代表什麼？你不需要記住確切的 prompt 用字，只要用自然語言描述你記得的畫面，系統就能找到對應的生成記錄。</p>
+            <div className="doc-example">
+              <div className="doc-example-label">💡 實際場景</div>
+              <p>搜尋：<em>「找上次那張有霓虹燈感的街頭照」</em><br/>
+              → 系統用語意向量找到你 3 週前存的 cyberpunk 夜景：<br/>
+              ・Prompt: neon-lit Tokyo alley at night, cyberpunk style, rain reflections<br/>
+              ・Model: Stable Diffusion XL · Seed: 7283941<br/>
+              ・生成時間: 2026-03-28 14:32<br/>
+              連你當時可能已經忘了的細節都幫你存好了。</p>
+            </div>
+
+            <h3>版本對比：五個版本一目了然</h3>
+            <p>同一個 prompt 你試了不同參數？每一版都自動存著，還能左右並排對比。系統會高亮標注每個版本之間的差異——改了哪個參數、輸出變了多少、品質提升了多少。</p>
+            <p>這不只是「存了五個檔案」，而是結構化的版本樹，讓你清楚看到每次迭代帶來的變化。</p>
+            <div className="doc-example">
+              <div className="doc-example-label">💡 實際場景</div>
+              <p>v1: <code>steps=30, cfg=7</code> → 偏寫實，但細節模糊<br/>
+              v2: <code>steps=50, cfg=12</code> → 更銳利，但色彩過飽和<br/>
+              v3: <code>steps=50, cfg=12, seed=42</code> → 鎖定風格，完美<br/>
+              v4: <code>steps=50, cfg=12, seed=42, hires_fix=true</code> → 4K 輸出<br/>
+              五版並排，一眼看出哪個參數組合最適合你的需求。</p>
+            </div>
+
+            <h3>AI 自動標籤：零整理的分類系統</h3>
+            <p>每次你存入一條提示詞，SuperForge 的 AI 會自動分析 prompt 內容，為它打上多維度標籤。標籤涵蓋風格（cinematic、photorealistic、anime）、主題（landscape、portrait、architecture）、光線（golden_hour、neon、dramatic）等。</p>
+            <p>你完全不需要手動整理。打開知識庫，所有內容已經按照標籤分類好，可以直接按標籤篩選瀏覽。</p>
+            <div className="doc-example">
+              <div className="doc-example-label">💡 標籤分類範例</div>
+              <p>🏷️ 風格：<span className="doc-tag">cinematic</span> <span className="doc-tag">photorealistic</span> <span className="doc-tag">anime</span><br/>
+              🏷️ 主題：<span className="doc-tag">landscape</span> <span className="doc-tag">portrait</span> <span className="doc-tag">architecture</span><br/>
+              🏷️ 光線：<span className="doc-tag">golden_hour</span> <span className="doc-tag">neon</span> <span className="doc-tag">dramatic</span><br/>
+              🏷️ 色調：<span className="doc-tag">warm</span> <span className="doc-tag">cold_blue</span> <span className="doc-tag">pastel</span></p>
+            </div>
+
+            <h3>Webhook 即時同步：不用回去翻 Discord</h3>
+            <p>你在 Midjourney Discord 出了圖？SuperForge 透過 Webhook 自動攔截通知，狀態立刻更新到你的知識庫。不需要再回去 Discord 的聊天記錄裡翻找——所有生成結果直接彙整在一個地方。</p>
+            <p>支援的平台包括 Midjourney（透過 Discord Bot Webhook）、Stable Diffusion WebUI（透過 API 回呼）、ComfyUI（透過節點輸出 Webhook）等。只要有 Webhook 能力的工具，都能串接。</p>
+
+            <h3>輕量儲存：只存文字與連結</h3>
+            <p>SuperForge 只儲存 prompt 文字、參數資料和輸出連結，不儲存實際圖檔。整個知識庫可能只有幾 MB，卻管理著上萬條創作記錄。圖片本身仍存放在原始平台（Midjourney CDN、你的本機等），SuperForge 只記住「去哪找」。</p>
+            <p>這代表你不需要擔心儲存空間爆掉，也不用擔心備份問題——核心資產是文字資料，體積極小、備份極快。</p>
+
+            {/* ── 快速上手 ── */}
+            <h2>🚀 快速上手</h2>
+            <p>從零開始到擁有自己的提示詞知識庫，只需要五個步驟：</p>
+
+            <h3>第一步：啟用 SuperForge 模組</h3>
+            <p>進入 Pysdn SuperCool 控制台，在模組列表中找到 SuperForge，點擊「啟用」。系統會自動為你建立一個空白的知識庫空間，包含預設的標籤體系和搜尋索引。</p>
+
+            <h3>第二步：設定 Webhook 連接</h3>
+            <p>前往 SuperForge 的「整合設定」頁面，選擇你要串接的生圖工具（Midjourney、Stable Diffusion、ComfyUI 等）。系統會產生一組專屬 Webhook URL，把它貼到對應工具的設定中。完成後，你的每一次生成都會自動同步到知識庫。</p>
+
+            <h3>第三步：匯入歷史記錄（選用）</h3>
+            <p>如果你之前有在其他地方記錄過 prompt（例如 Excel、Notion、Google Sheet），可以用 SuperForge 的「批次匯入」功能上傳。支援 CSV、JSON 格式，系統會自動解析並建立索引。</p>
+
+            <h3>第四步：開始搜尋與使用</h3>
+            <p>用自然語言搜尋你的知識庫。試著輸入「找一張溫暖的日落風景照」或「上次用的賽博龐克風格 prompt」，看看語意搜尋的威力。也可以用標籤篩選、時間範圍、模型類型等條件縮小搜尋範圍。</p>
+
+            <h3>第五步：建立收藏與模板</h3>
+            <p>把常用的 prompt 加入「收藏」，方便快速取用。你也可以把一組參數設定存成「模板」，下次創作時一鍵套用，省去重複設定的時間。</p>
+
+            {/* ── 適用場景 ── */}
+            <h2>🎯 適用場景</h2>
+
+            <h3>場景一：AI 創作者的個人作品庫</h3>
+            <p>你每天用 Midjourney 生產大量圖片，但 Discord 聊天記錄已經滾了幾千條，根本找不到上個月那張完美的風景照。SuperForge 自動把每次生成的 prompt 和結果配對儲存，你可以用自然語言搜尋「上次那張金色日落的航拍」，系統立刻幫你找到，包含完整的生成參數。</p>
+
+            <h3>場景二：設計團隊的風格指南庫</h3>
+            <p>團隊裡五個設計師各自用不同 prompt 風格，導致產出的視覺素材風格不統一。SuperForge 讓大家共用一個知識庫，把「公司風格」的 prompt 模板集中管理。新人加入時，直接瀏覽知識庫就能知道「我們品牌的 AI 視覺風格是什麼」。</p>
+
+            <h3>場景三：電商賣家的商品圖管理</h3>
+            <p>你用 AI 生成商品情境圖，同一個產品可能試了十幾種背景和風格。SuperForge 的版本對比功能讓你一眼看出哪個版本效果最好，下次上新品時直接複製成功的 prompt 模板，效率提升好幾倍。</p>
+
+            <h3>場景四：Prompt 工程師的實驗筆記</h3>
+            <p>你在做系統性的 prompt 實驗——測試不同 negative prompt 組合、不同 steps 數值、不同 CFG scale。SuperForge 自動記錄每次實驗的完整參數和結果，版本樹功能讓你清楚看到「從 v1 到 v10，哪些改變帶來了品質提升」。</p>
+
+            {/* ── 與其他模組的搭配 ── */}
+            <h2>🔗 與其他模組的搭配</h2>
+
+            <h3>SuperTrack → SuperForge：熱門素材自動入庫</h3>
+            <p>SuperTrack 在追蹤各平台的熱門內容時，發現高品質的視覺素材會自動推送進 SuperForge 知識庫。例如，SuperTrack 偵測到某位 KOL 最近的「賽博龐克風」帖子爆了，它會自動把該帖子的風格描述轉換成提示詞格式，存入你的 SuperForge，方便你下次創作參考。</p>
+
+            <h3>SuperScript → SuperForge：劇本場景轉畫面</h3>
+            <p>SuperScript 在生成劇本時，會把每個場景的視覺描述自動推送給 SuperForge。例如，劇本中寫到「場景：雨夜的東京街頭，霓虹燈映在積水上」，SuperForge 會自動生成對應的畫面提示詞（如 <code>rainy Tokyo street at night, neon reflections on wet pavement, cinematic lighting</code>），你只需要一鍵就能送進 Midjourney 生圖。</p>
+
+            <h3>SuperForge → SuperTune：歷史數據優化生成</h3>
+            <p>SuperTune 在進行 A/B 測試時，會參考 SuperForge 中累積的歷史數據。例如，SuperTune 發現你過去使用 <code>golden hour lighting</code> 的 prompt 互動率平均比 <code>overcast lighting</code> 高 35%，它會建議你在新內容中優先使用暖色調光線設定。</p>
+
+            {/* ── 使用流程 ── */}
+            <h2>{t('h_flow')}</h2>
+            <pre>{t('flow_pre')}</pre>
+
+            {/* ── 模擬面板 ── */}
+            <h2>🖥️ 操作面板預覽</h2>
+            <p>打開 SuperForge 模組，你會看到這樣的控制面板。頂部是即時 KPI 指標（提示詞數量、生成次數、命中率等），中間是知識庫健康度與使用統計，底部是最近的提示詞列表：</p>
+
+            <div className="sim-panel">
+              {/* Module Header */}
+              <div className="sim-header">
+                <div className="sim-header-left">
+                  <span className="sim-icon">🗂️</span>
+                  <span className="sim-title">SuperForge</span>
+                  <span className="sim-badge sim-badge--cyan">KNOWLEDGE BASE</span>
+                  <span className="sim-live"><span className="sim-dot"></span> LIVE</span>
+                </div>
+                <div className="sim-header-right">
+                  <button className="sim-btn">🔄 刷新</button>
+                  <button className="sim-btn sim-btn--outline">📤 匯出</button>
+                </div>
+              </div>
+
+              {/* KPI Row */}
+              <p style={{ fontSize: '0.75rem', color: 'rgba(148,163,184,0.6)', margin: '8px 0 4px' }}>以下 KPI 即時反映你的知識庫運作狀態：總提示詞數、累計生成量、搜尋命中率、待處理隊列、平均回應延遲、儲存空間使用量。</p>
+              <div className="sim-kpis">
+                <div className="sim-kpi">
+                  <div className="sim-kpi-label">prompts</div>
+                  <div className="sim-kpi-val">2,847</div>
+                  <div className="sim-kpi-delta sim-kpi-delta--up">+12 today</div>
+                </div>
+                <div className="sim-kpi">
+                  <div className="sim-kpi-label">generations</div>
+                  <div className="sim-kpi-val">12,503</div>
+                  <div className="sim-kpi-delta sim-kpi-delta--up">+84 today</div>
+                </div>
+                <div className="sim-kpi">
+                  <div className="sim-kpi-label">hit rate</div>
+                  <div className="sim-kpi-val sim-kpi-val--highlight">94.2%</div>
+                  <div className="sim-bar"><div className="sim-bar-fill sim-bar-fill--cyan" style={{ width: '94%' }}></div></div>
+                </div>
+                <div className="sim-kpi">
+                  <div className="sim-kpi-label">queue</div>
+                  <div className="sim-kpi-val">17</div>
+                  <div className="sim-bar"><div className="sim-bar-fill sim-bar-fill--cyan" style={{ width: '34%' }}></div></div>
+                </div>
+                <div className="sim-kpi">
+                  <div className="sim-kpi-label">avg_latency</div>
+                  <div className="sim-kpi-val">11ms</div>
+                </div>
+                <div className="sim-kpi">
+                  <div className="sim-kpi-label">storage</div>
+                  <div className="sim-ring">
+                    <svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="16" fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="3"/><circle cx="20" cy="20" r="16" fill="none" stroke="#06b6d4" strokeWidth="3" strokeDasharray="100.53" strokeDashoffset="30" strokeLinecap="round"/></svg>
+                    <span className="sim-ring-label">70%</span>
+                  </div>
+                  <div className="sim-kpi-sub">7.2G / 10.2G</div>
+                </div>
+              </div>
+
+              {/* 2-col: Health + Emotion */}
+              <p style={{ fontSize: '0.75rem', color: 'rgba(148,163,184,0.6)', margin: '12px 0 4px' }}>左側顯示知識庫六個維度的健康度評分（結構完整度、搜尋效率、標籤覆蓋率、同步狀態、版本管理、模型匹配）；右側是使用統計與最近操作日誌。</p>
+              <div className="sim-grid-2">
+                <div className="sim-card">
+                  <div className="sim-card-head">🏥 知識庫健康度</div>
+                  <div className="sim-health-grid">
+                    <div className="sim-health-item">
+                      <div className="sim-ring sim-ring--sm"><svg viewBox="0 0 60 60"><circle cx="30" cy="30" r="24" fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="4"/><circle cx="30" cy="30" r="24" fill="none" stroke="#06b6d4" strokeWidth="4" strokeDasharray="150.8" strokeDashoffset="21" strokeLinecap="round"/></svg><span className="sim-ring-label">86%</span></div>
+                      <div className="sim-health-label">結構</div>
+                    </div>
+                    <div className="sim-health-item">
+                      <div className="sim-ring sim-ring--sm"><svg viewBox="0 0 60 60"><circle cx="30" cy="30" r="24" fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="4"/><circle cx="30" cy="30" r="24" fill="none" stroke="#06b6d4" strokeWidth="4" strokeDasharray="150.8" strokeDashoffset="33" strokeLinecap="round"/></svg><span className="sim-ring-label">78%</span></div>
+                      <div className="sim-health-label">搜尋</div>
+                    </div>
+                    <div className="sim-health-item">
+                      <div className="sim-ring sim-ring--sm"><svg viewBox="0 0 60 60"><circle cx="30" cy="30" r="24" fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="4"/><circle cx="30" cy="30" r="24" fill="none" stroke="#06b6d4" strokeWidth="4" strokeDasharray="150.8" strokeDashoffset="15" strokeLinecap="round"/></svg><span className="sim-ring-label">90%</span></div>
+                      <div className="sim-health-label">標籤</div>
+                    </div>
+                    <div className="sim-health-item">
+                      <div className="sim-ring sim-ring--sm"><svg viewBox="0 0 60 60"><circle cx="30" cy="30" r="24" fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="4"/><circle cx="30" cy="30" r="24" fill="none" stroke="#06b6d4" strokeWidth="4" strokeDasharray="150.8" strokeDashoffset="27" strokeLinecap="round"/></svg><span className="sim-ring-label">82%</span></div>
+                      <div className="sim-health-label">同步</div>
+                    </div>
+                    <div className="sim-health-item">
+                      <div className="sim-ring sim-ring--sm"><svg viewBox="0 0 60 60"><circle cx="30" cy="30" r="24" fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="4"/><circle cx="30" cy="30" r="24" fill="none" stroke="#06b6d4" strokeWidth="4" strokeDasharray="150.8" strokeDashoffset="39" strokeLinecap="round"/></svg><span className="sim-ring-label">74%</span></div>
+                      <div className="sim-health-label">版本</div>
+                    </div>
+                    <div className="sim-health-item">
+                      <div className="sim-ring sim-ring--sm"><svg viewBox="0 0 60 60"><circle cx="30" cy="30" r="24" fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="4"/><circle cx="30" cy="30" r="24" fill="none" stroke="#06b6d4" strokeWidth="4" strokeDasharray="150.8" strokeDashoffset="30" strokeLinecap="round"/></svg><span className="sim-ring-label">80%</span></div>
+                      <div className="sim-health-label">模型</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="sim-card">
+                  <div className="sim-card-head">📊 使用統計</div>
+                  <div className="sim-stats">
+                    <div className="sim-stat-row"><span className="sim-stat-label">最常用模型</span><span className="sim-stat-val">Midjourney v6</span></div>
+                    <div className="sim-stat-row"><span className="sim-stat-label">本週生成</span><span className="sim-stat-val">584 張</span></div>
+                    <div className="sim-stat-row"><span className="sim-stat-label">熱門標籤</span><span className="sim-stat-val"><span className="doc-tag">cinematic</span> <span className="doc-tag">neon</span></span></div>
+                    <div className="sim-stat-row"><span className="sim-stat-label">成功率</span><span className="sim-stat-val">94.2%</span></div>
+                  </div>
+                  <div className="sim-log">
+                    <div className="sim-log-title">recent activity</div>
+                    <div className="sim-log-line">→ @Alice 新增提示詞 "cyberpunk alley"</div>
+                    <div className="sim-log-line">→ MJ v6 生成完成 #ext_4821</div>
+                    <div className="sim-log-line">→ AI 標籤已套用: neon, night</div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Entity list */}
+              <p style={{ fontSize: '0.75rem', color: 'rgba(148,163,184,0.6)', margin: '12px 0 4px' }}>以下是最近儲存的提示詞列表，每個項目顯示提示詞內容和累計生成次數。點擊任一項目可查看完整的版本歷史與參數記錄。</p>
+              <div className="sim-card" style={{ marginTop: 12 }}>
+                <div className="sim-card-head">🗂️ 最近提示詞</div>
+                <div className="sim-entity-list">
+                  <div className="sim-entity"><span className="sim-entity-icon">✏️</span><span className="sim-entity-name">cinematic drone shot of mountains at golden hour</span><span className="sim-entity-metric">42 generations</span></div>
+                  <div className="sim-entity"><span className="sim-entity-icon">✏️</span><span className="sim-entity-name">portrait of a girl in neon-lit Tokyo street</span><span className="sim-entity-metric">28 generations</span></div>
+                  <div className="sim-entity"><span className="sim-entity-icon">✏️</span><span className="sim-entity-name">oil painting of a cottage in autumn forest</span><span className="sim-entity-metric">15 generations</span></div>
+                </div>
+              </div>
+            </div>
+
+            {/* ── 數據看板 ── */}
+            <h2>{t('h_board')}</h2>
+            <ul>
+              <li>{t('bd1')}</li>
+              <li>{t('bd2')}</li>
+              <li>{t('bd3')}</li>
+              <li>{t('bd4')}</li>
+            </ul>
+
+            {/* ── 進階功能 ── */}
+            <h2>{t('h_adv')}</h2>
+
+            <h3>模糊全文搜尋</h3>
+            <p>除了語意搜尋，SuperForge 也支援傳統的全文模糊搜尋。打「mountain sunset」不只找到有這兩個字的提示詞，連意思相近的結果也會列出來。這適合你大致記得 prompt 內容，但不確定精確用字的情況。</p>
+            <div className="doc-example">
+              <div className="doc-example-label">💡 範例</div>
+              <p>打「mountain sunset」不只找到有這兩個字的提示詞，連「alpine twilight panorama」這種意思相近的也找得到。系統會同時搜尋文字匹配和語意相似度，兩種結果合併排序給你。</p>
+            </div>
+
+            <h3>以圖找圖：上傳參考找相似</h3>
+            <p>你看到一張很棒的圖，想知道自己有沒有生成過類似風格的作品？上傳那張參考圖，SuperForge 會提取它的視覺特徵（色彩分佈、構圖方式、風格元素），跟知識庫中所有生成結果的特徵向量做比對，找出最接近的歷史記錄。</p>
+            <div className="doc-example">
+              <div className="doc-example-label">💡 範例</div>
+              <p>你上傳一張參考圖，系統幫你找到所有「風格最接近」的歷史生成結果，連 prompt 帶參數一起列出來。例如你上傳了一張宮崎駿風格的風景照，系統找到你三個月前用 <code>Studio Ghibli style, rolling green hills, fluffy clouds</code> 生成的那張圖。</p>
+            </div>
+
+            <h3>進階標籤管理</h3>
+            <p>除了 AI 自動產生的標籤，你也可以手動建立自訂標籤、建立標籤層級（例如「風格 &gt; 賽博龐克 &gt; 蒸氣龐克」），以及設定標籤規則——當某個條件成立時自動套用標籤。</p>
+            <ul>
+              <li>自訂標籤：建立任何你需要的分類維度，例如「客戶 A 專案」、「2026 春季 campaign」</li>
+              <li>標籤層級：建立父子關係的標籤樹，讓分類更有結構性。選了子標籤，父標籤也會自動套用</li>
+              <li>自動規則：設定「如果 prompt 包含 'anime' 就自動加上 #日系風格 標籤」這類規則，減少手動整理的工作量</li>
+            </ul>
+
+            {/* ── 安全 + 未來 ── */}
+            <h2>{t('h_sec')}</h2>
+            <ul>
+              <li>{t('s1')}</li>
+              <li>{t('s2')}</li>
+              <li>{t('s3')}</li>
+              <li>{t('s4')}</li>
+            </ul>
+
+            <h2>{t('h_future')}</h2>
+            <ul>
+              <li>{t('fu1')}</li>
+              <li>{t('fu2')}</li>
+              <li>{t('fu3')}</li>
+              <li>{t('fu4')}</li>
+            </ul>
+
+            <p style={{ marginTop: '2rem', opacity: 0.6 }}>{t('license_p')}</p>
+          </article>
+
+          <DocFooter t={t} lang={lang} />
+        </div>
+      </main>
+    </DocLayout>
+  )
+}

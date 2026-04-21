@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="zh-TW">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title data-i18n="title">SuperTrack — 全網追蹤模組 | Pysdn SuperCool</title>
+    <meta
+      name="description"
+      data-i18n="description"
+      content="SuperTrack：SuperForge 擴展插件，專注「實體→內容→提示詞」資料閉環，涵蓋實體解析、跨平台採集、時序儲存與預警。"
+    />
+    <meta name="theme-color" content="#0a0a0f" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+TC:wght@400;600;700&family=Noto+Sans+SC:wght@400;600;700&family=Noto+Sans+JP:wght@400;600;700&family=Noto+Sans+KR:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>"
+    />
+    <link rel="stylesheet" href="./css/doc-page.css" />
+  </head>
+  <body class="doc-page doc-page--track">
+    <canvas id="bgCanvas" class="doc-canvas" aria-hidden="true"></canvas>
+    <div class="doc-shell">
+      <nav class="doc-nav" aria-label="主導航">
+        <div class="doc-nav-inner">
+          <a href="./" class="doc-nav-logo" data-doc-link="./"
+            ><span class="doc-logo-mark" aria-hidden="true">⚡</span><span class="doc-logo-text">Pysdn</span></a
+          >
+          <div class="doc-nav-links">
+            <a class="doc-nav-link" data-doc-link="modules" href="modules" data-i18n="nav_modules">← 模組總覽</a>
+            <a class="doc-nav-link" data-doc-link="./" href="./" data-i18n="nav_home">首頁</a>
+          </div>
+          <div id="lang-switch" class="doc-lang lang-switch" role="navigation" aria-label="Language"></div>
+        </div>
+      </nav>
+
+      <main class="doc-main">
+        <div class="doc-main-inner">
+          <section class="doc-hero" aria-labelledby="doc-hero-title">
+            <div class="doc-hero-card">
+              <div class="doc-hero-fx" aria-hidden="true">
+                <span class="doc-hero-grid"></span>
+                <span class="doc-hero-orb doc-hero-orb--1"></span>
+                <span class="doc-hero-orb doc-hero-orb--2"></span>
+              </div>
+              <div class="doc-hero-body">
+                <span class="doc-hero-badge">SIGNAL TRACKING</span>
+                <h1 id="doc-hero-title" data-i18n="hero_title">SuperTrack 全網追蹤模組</h1>
+                <p class="doc-hero-lead" data-i18n="hero_lead">實體、內容與提示詞的一條龍資料閉環</p>
+              </div>
+            </div>
+          </section>
+
+          <article class="doc">
+        <h2 data-i18n="h_overview">概述</h2>
+        <p data-i18n="overview_p">
+          SuperTrack 作為 SuperForge 的擴展外掛，專注於「實體→內容→提示詞」的資料閉環。
+        </p>
+
+        <h3 data-i18n="h_components">🔑 核心組件</h3>
+        <ul>
+          <li data-i18n="comp_1">EntityResolver：統一實體模型與解析</li>
+          <li data-i18n="comp_2">CrossPlatformCrawl：模擬人工採集引擎</li>
+          <li data-i18n="comp_3">BehaviorSim：行為模擬（捲動／停留／隨機間隔）</li>
+          <li data-i18n="comp_4">TimeSeriesDB：時序資料儲存（TimescaleDB）</li>
+          <li data-i18n="comp_5">AlertEngine：預警引擎</li>
+          <li data-i18n="comp_6">PromptLink：與 SuperForge 提示詞庫聯動</li>
+        </ul>
+
+        <h2 data-i18n="h_arch">架構</h2>
+        <pre data-i18n="arch_pre">[SuperTrack 抓取] → [清洗 + 實體解析] → [時序儲存 + 預警]
+                          ↓
+[高品質內容] → [LLM 結構化] → [寫入 SuperForge.prompts]
+                          ↓
+[使用者檢索] → 「找某類風格 Prompt」→ 關聯來源帳號 + 互動資料參考</pre>
+
+        <h2 data-i18n="h_dims">追蹤維度</h2>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th data-i18n="th_dim_type">追蹤對象類型</th>
+                <th data-i18n="th_dim_focus">追蹤重點</th>
+                <th data-i18n="th_dim_out">輸出應用</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong data-i18n="d1a">網紅／KOL</strong></td>
+                <td data-i18n="d1b">發文頻率、互動率、標籤演化、合作品牌</td>
+                <td data-i18n="d1c">風格 Prompt 庫、趨勢預警</td>
+              </tr>
+              <tr>
+                <td><strong data-i18n="d2a">店舖／品牌</strong></td>
+                <td data-i18n="d2b">產品曝光、使用者評論情感、促銷活動</td>
+                <td data-i18n="d2c">商業提示詞模板、競品分析</td>
+              </tr>
+              <tr>
+                <td><strong data-i18n="d3a">法人／企業</strong></td>
+                <td data-i18n="d3b">新聞提及、輿情情感、關聯人物</td>
+                <td data-i18n="d3c">合規監控、風險提示</td>
+              </tr>
+              <tr>
+                <td><strong data-i18n="d4a">名人／公眾人物</strong></td>
+                <td data-i18n="d4b">話題熱度、跨平台聲量、形象關鍵詞</td>
+                <td data-i18n="d4c">創意靈感召回、IP 聯動建議</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 data-i18n="h_stack">技術棧</h2>
+        <ul>
+          <li data-i18n="stack_1">儲存：PostgreSQL + TimescaleDB + pgvector</li>
+          <li data-i18n="stack_2">採集：Playwright + Python</li>
+          <li data-i18n="stack_3">部署：Windows 服務 + NAS 本機儲存 + Supabase</li>
+        </ul>
+
+        <h2 data-i18n="h_install">安裝</h2>
+        <pre>pip install -r requirements.txt</pre>
+
+        <h2 data-i18n="h_example">使用範例</h2>
+        <pre>from supertrack.core import EntityResolver, CrossPlatformCrawl
+from supertrack.engine import AlertEngine, PromptLink
+
+# Init
+resolver = EntityResolver()
+crawler = CrossPlatformCrawl()
+alert_engine = AlertEngine()
+prompt_link = PromptLink()
+
+entity_id = resolver.add_entity(
+    name="KOL name",
+    entity_type="kol",
+    platform_ids={"xiaohongshu": "12345", "instagram": "@user"},
+    tags=["fashion", "cyberpunk"],
+    region="TW"
+)
+
+crawler.start_tracking(entity_id)
+
+alert_engine.set_threshold(entity_id, metric="follower_growth", threshold=0.1)</pre>
+
+        <h2 data-i18n="h_compliance">合規聲明</h2>
+        <ul>
+          <li data-i18n="co_1">僅抓取公開資料</li>
+          <li data-i18n="co_2">支援 Robots 協定</li>
+          <li data-i18n="co_3">資料脫敏欄位</li>
+          <li data-i18n="co_4">授權條款標註</li>
+        </ul>
+      </article>
+
+          <footer class="doc-footer">
+            <p>
+              <span data-i18n="footer_copy">© Pysdn SuperCool ·</span>
+              <a data-doc-link="modules" href="modules"><span data-i18n="footer_modules">模組總覽</span></a>
+              ·
+              <a data-doc-link="./" href="./"><span data-i18n="footer_home">返回主站</span></a>
+            </p>
+          </footer>
+        </div>
+      </main>
+    </div>
+    <script src="./js/doc-bg.js"></script>
+    <script src="./js/doc-i18n.js"></script>
+    <script>
+      fetch('./i18n/supertrack.json')
+        .then(function (r) {
+          return r.json()
+        })
+        .then(function (bundle) {
+          var lang = DocI18n.currentLang()
+          DocI18n.applyFlat(bundle, lang)
+          DocI18n.renderSwitcher(document.getElementById('lang-switch'))
+        })
+        .catch(function () {
+          DocI18n.renderSwitcher(document.getElementById('lang-switch'))
+        })
+    </script>
+  </body>
+</html>

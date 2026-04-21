@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://iiooiioo888.github.io/pysdn_index/</loc>
+    <xhtml:link rel="alternate" hreflang="zh-TW" href="https://iiooiioo888.github.io/pysdn_index/?lang=zh-TW" />
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://iiooiioo888.github.io/pysdn_index/?lang=zh-CN" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://iiooiioo888.github.io/pysdn_index/?lang=en" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://iiooiioo888.github.io/pysdn_index/?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://iiooiioo888.github.io/pysdn_index/?lang=ko" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://iiooiioo888.github.io/pysdn_index/" />
+    <lastmod>2026-04-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://iiooiioo888.github.io/pysdn_index/modules</loc>
+    <lastmod>2026-04-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://iiooiioo888.github.io/pysdn_index/docs/superscript</loc>
+    <lastmod>2026-04-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://iiooiioo888.github.io/pysdn_index/docs/supertrack</loc>
+    <lastmod>2026-04-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://iiooiioo888.github.io/pysdn_index/docs/superforge</loc>
+    <lastmod>2026-04-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+</urlset>

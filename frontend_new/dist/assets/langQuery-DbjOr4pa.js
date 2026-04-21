@@ -1,0 +1,1 @@
+var e=[`zh-TW`,`zh-CN`,`en`,`ja`,`ko`];function t(t){return e.includes(t)}function n(e){return`?lang=${encodeURIComponent(e)}`}export{n,t};
