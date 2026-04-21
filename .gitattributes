@@ -1,0 +1,16 @@
+# 預設：文字檔以 LF 結尾，減少跨平台 diff 噪音
+* text=auto eol=lf
+
+# 明確標記二進位檔，避免換行轉換
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.webp binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.eot binary
+*.pdf binary
+*.zip binary

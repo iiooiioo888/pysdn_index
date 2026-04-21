@@ -1,1 +1,0 @@
-import{n as e}from"./rolldown-runtime-DF2fYuay.js";import{i as t,t as n}from"./i18n-CvcVTePA.js";import{n as r}from"./langQuery-DbjOr4pa.js";var i=e(t(),1);function a(){let{i18n:e}=n();return(0,i.useMemo)(()=>r(e.language),[e.language])}export{a as t};

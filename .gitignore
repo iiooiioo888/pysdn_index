@@ -1,1 +1,45 @@
-/node_modules
+# Dependencies（任何層級的 node_modules）
+node_modules/
+
+# 建置產物（Vite / 一般前端）
+dist/
+build/
+*.local
+
+# 環境變數與密鑰（勿提交）
+.env
+.env.*
+!**/.env.example
+
+# 日誌與快取
+*.log
+npm-debug.log*
+.pnpm-debug.log*
+.cache/
+.parcel-cache/
+.turbo/
+.vite/
+
+# Vite 測試臨時輸出
+.vite-test-*.txt
+
+# 測試與覆蓋率
+coverage/
+.nyc_output/
+
+# TypeScript
+*.tsbuildinfo
+
+# 作業系統
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# 編輯器 / IDE
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+*.swp
+*.swo
+*~
