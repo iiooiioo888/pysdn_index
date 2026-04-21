@@ -11,7 +11,6 @@ const Showcase = lazy(() => import('../components/Showcase').then((m) => ({ defa
 const WorkflowSection = lazy(() =>
   import('../components/WorkflowSection').then((m) => ({ default: m.WorkflowSection }))
 )
-const FaqSection = lazy(() => import('../components/FaqSection').then((m) => ({ default: m.FaqSection })))
 const Contact = lazy(() => import('../components/Contact').then((m) => ({ default: m.Contact })))
 const Footer = lazy(() => import('../components/Footer').then((m) => ({ default: m.Footer })))
 
@@ -42,7 +41,6 @@ export function HomePage() {
             <ModulesPanel />
             <Showcase />
             <WorkflowSection />
-            <FaqSection />
             <Contact />
           </Suspense>
         </main>

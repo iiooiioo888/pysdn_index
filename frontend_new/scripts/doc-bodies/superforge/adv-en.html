@@ -1,0 +1,21 @@
+<h3>Fuzzy full-text search</h3>
+<p>Beyond semantic search, SuperForge supports classic fuzzy full-text search. Typing “mountain sunset” finds not only literal matches but also close paraphrases—handy when you remember the gist but not exact wording.</p>
+<div class="doc-example">
+  <div class="doc-example-label">💡 Example</div>
+  <p>“mountain sunset” can surface “alpine twilight panorama” too. Text hits and semantic similarity are merged and ranked together.</p>
+</div>
+
+<h3>Image-to-image: upload a reference</h3>
+<p>Found a great reference and wonder if you ever generated something similar? Upload it—SuperForge extracts color, composition, and style features and compares them against stored generation embeddings to find the closest history.</p>
+<div class="doc-example">
+  <div class="doc-example-label">💡 Example</div>
+  <p>Upload a reference and get the closest past generations with prompts and parameters—for instance a Ghibli-like landscape might match your older <code>Studio Ghibli style, rolling green hills, fluffy clouds</code> run.</p>
+</div>
+
+<h3>Advanced tag management</h3>
+<p>Besides AI tags, you can define custom tags, hierarchies (e.g. <code>style &gt; cyberpunk &gt; steampunk</code>), and rules that auto-apply tags when conditions match.</p>
+<ul>
+  <li>Custom tags: any dimension you need—e.g. “Client A project,” “Spring 2026 campaign.”</li>
+  <li>Hierarchies: parent/child tag trees; selecting a child can imply the parent.</li>
+  <li>Rules: e.g. “if prompt contains ‘anime’, add #japanese_style”—less manual cleanup.</li>
+</ul>

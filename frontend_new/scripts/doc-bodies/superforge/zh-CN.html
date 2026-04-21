@@ -1,0 +1,100 @@
+<h3>一键记住：提示词与结果自动配对</h3>
+<p>每次你用 Midjourney、Stable Diffusion、DALL·E 或任何外部工具生图时，SuperForge 会通过 Webhook 自动拦截生成结果，并把它与你当时使用的提示词配对存储。不只存文字——完整的 seed、steps、cfg_scale、model 版本、negative prompt，全部一起记住。</p>
+<p>你不需要手动截图、复制粘贴、或打开 Excel 记录。下次想找？直接搜就有了。</p>
+<div class="doc-example">
+  <div class="doc-example-label">💡 实际场景</div>
+  <p>你昨天用 <code>cinematic drone shot of mountains at golden hour, 8k</code> 生了一张超赞的图，但忘了存档。<br/>
+  没关系——SuperForge 已经通过 Webhook 自动记住了，包含：<br/>
+  ・Prompt: cinematic drone shot of mountains at golden hour, 8k<br/>
+  ・Negative: blurry, low quality, watermark<br/>
+  ・Model: Midjourney v6<br/>
+  ・Seed: 48291037 · Steps: 50 · CFG: 7.5<br/>
+  ・输出链接: https://cdn.midjourney.com/xxx.png</p>
+</div>
+
+<h3>语义搜索：说人话就能找</h3>
+<p>不是关键词比对，是真正「理解意思」的搜索引擎。SuperForge 在你每次存储提示词时，会自动将文字转换成高维度的语义向量（embedding），存储在向量数据库中。当你搜索时，系统同样把你的搜索文字转换成向量，然后用余弦相似度找出最接近的结果。</p>
+<p>这代表什么？你不需要记住确切的 prompt 用词，只要用自然语言描述你记得的画面，系统就能找到对应的生成记录。</p>
+<div class="doc-example">
+  <div class="doc-example-label">💡 实际场景</div>
+  <p>搜索：<em>「找上次那张有霓虹灯感的街头照」</em><br/>
+  → 系统用语义向量找到你 3 周前存的 cyberpunk 夜景：<br/>
+  ・Prompt: neon-lit Tokyo alley at night, cyberpunk style, rain reflections<br/>
+  ・Model: Stable Diffusion XL · Seed: 7283941<br/>
+  ・生成时间: 2026-03-28 14:32<br/>
+  连你当时可能已经忘了的细节都帮你存好了。</p>
+</div>
+
+<h3>版本对比：五个版本一目了然</h3>
+<p>同一个 prompt 你试了不同参数？每一版都自动存着，还能左右并排对比。系统会高亮标注每个版本之间的差异——改了哪个参数、输出变了多少、品质提升了多少。</p>
+<p>这不只是「存了五个文件」，而是结构化的版本树，让你清楚看到每次迭代带来的变化。</p>
+<div class="doc-example">
+  <div class="doc-example-label">💡 实际场景</div>
+  <p>v1: <code>steps=30, cfg=7</code> → 偏写实，但细节模糊<br/>
+  v2: <code>steps=50, cfg=12</code> → 更锐利，但色彩过饱和<br/>
+  v3: <code>steps=50, cfg=12, seed=42</code> → 锁定风格，完美<br/>
+  v4: <code>steps=50, cfg=12, seed=42, hires_fix=true</code> → 4K 输出<br/>
+  五版并排，一眼看出哪个参数组合最适合你的需求。</p>
+</div>
+
+<h3>AI 自动标签：零整理的分类系统</h3>
+<p>每次你存入一条提示词，SuperForge 的 AI 会自动分析 prompt 内容，为它打上多维度标签。标签涵盖风格（cinematic、photorealistic、anime）、主题（landscape、portrait、architecture）、光线（golden_hour、neon、dramatic）等。</p>
+<p>你完全不需要手动整理。打开知识库，所有内容已经按照标签分类好，可以直接按标签筛选浏览。</p>
+<div class="doc-example">
+  <div class="doc-example-label">💡 标签分类示例</div>
+  <p>🏷️ 风格：<span class="doc-tag">cinematic</span> <span class="doc-tag">photorealistic</span> <span class="doc-tag">anime</span><br/>
+  🏷️ 主题：<span class="doc-tag">landscape</span> <span class="doc-tag">portrait</span> <span class="doc-tag">architecture</span><br/>
+  🏷️ 光线：<span class="doc-tag">golden_hour</span> <span class="doc-tag">neon</span> <span class="doc-tag">dramatic</span><br/>
+  🏷️ 色调：<span class="doc-tag">warm</span> <span class="doc-tag">cold_blue</span> <span class="doc-tag">pastel</span></p>
+</div>
+
+<h3>Webhook 即时同步：不用回去翻 Discord</h3>
+<p>你在 Midjourney Discord 出了图？SuperForge 通过 Webhook 自动拦截通知，状态立刻更新到你的知识库。不需要再回去 Discord 的聊天记录里翻找——所有生成结果直接汇总在一个地方。</p>
+<p>支持的平台包括 Midjourney（通过 Discord Bot Webhook）、Stable Diffusion WebUI（通过 API 回调）、ComfyUI（通过节点输出 Webhook）等。只要有 Webhook 能力的工具，都能对接。</p>
+
+<h3>轻量存储：只存文字与链接</h3>
+<p>SuperForge 只存储 prompt 文字、参数数据和输出链接，不存储实际图档。整个知识库可能只有几 MB，却管理着上万条创作记录。图片本身仍存放在原始平台（Midjourney CDN、你的本机等），SuperForge 只记住「去哪找」。</p>
+<p>这代表你不需要担心存储空间爆掉，也不用担心备份问题——核心资产是文字数据，体积极小、备份极快。</p>
+
+<h2>🚀 快速上手</h2>
+<p>从零开始到拥有自己的提示词知识库，只需要五个步骤：</p>
+
+<h3>第一步：启用 SuperForge 模块</h3>
+<p>进入 Pysdn SuperCool 控制台，在模块列表中找到 SuperForge，点击「启用」。系统会自动为你建立一个空白的知识库空间，包含默认的标签体系和搜索索引。</p>
+
+<h3>第二步：设置 Webhook 连接</h3>
+<p>前往 SuperForge 的「整合设置」页面，选择你要对接的生图工具（Midjourney、Stable Diffusion、ComfyUI 等）。系统会生成一组专属 Webhook URL，把它贴到对应工具的设置中。完成后，你的每一次生成都会自动同步到知识库。</p>
+
+<h3>第三步：导入历史记录（选用）</h3>
+<p>如果你之前有在其他地方记录过 prompt（例如 Excel、Notion、Google Sheet），可以用 SuperForge 的「批量导入」功能上传。支持 CSV、JSON 格式，系统会自动解析并建立索引。</p>
+
+<h3>第四步：开始搜索与使用</h3>
+<p>用自然语言搜索你的知识库。试着输入「找一张温暖的日落风景照」或「上次用的赛博朋克风格 prompt」，看看语义搜索的威力。也可以用标签筛选、时间范围、模型类型等条件缩小搜索范围。</p>
+
+<h3>第五步：建立收藏与模板</h3>
+<p>把常用的 prompt 加入「收藏」，方便快速取用。你也可以把一组参数设定存成「模板」，下次创作时一键套用，省去重复设定的时间。</p>
+
+<h2>🎯 适用场景</h2>
+
+<h3>场景一：AI 创作者的个人作品库</h3>
+<p>你每天用 Midjourney 生产大量图片，但 Discord 聊天记录已经滚了几千条，根本找不到上个月那张完美的风景照。SuperForge 自动把每次生成的 prompt 和结果配对存储，你可以用自然语言搜索「上次那张金色日落的航拍」，系统立刻帮你找到，包含完整的生成参数。</p>
+
+<h3>场景二：设计团队的风格指南库</h3>
+<p>团队里五个设计师各自用不同 prompt 风格，导致产出的视觉素材风格不统一。SuperForge 让大家共用一个知识库，把「公司风格」的 prompt 模板集中管理。新人加入时，直接浏览知识库就能知道「我们品牌的 AI 视觉风格是什么」。</p>
+
+<h3>场景三：电商卖家的商品图管理</h3>
+<p>你用 AI 生成商品情境图，同一个产品可能试了十几种背景和风格。SuperForge 的版本对比功能让你一眼看出哪个版本效果最好，下次上新品时直接复制成功的 prompt 模板，效率提升好几倍。</p>
+
+<h3>场景四：Prompt 工程师的实验笔记</h3>
+<p>你在做系统性的 prompt 实验——测试不同 negative prompt 组合、不同 steps 数值、不同 CFG scale。SuperForge 自动记录每次实验的完整参数和结果，版本树功能让你清楚看到「从 v1 到 v10，哪些改变带来了品质提升」。</p>
+
+<h2>🔗 与其他模块的搭配</h2>
+
+<h3>SuperTrack → SuperForge：热门素材自动入库</h3>
+<p>SuperTrack 在追踪各平台的热门内容时，发现高质量的视觉素材会自动推送进 SuperForge 知识库。例如，SuperTrack 检测到某位 KOL 最近的「赛博朋克风」帖子爆了，它会自动把该帖子的风格描述转换成提示词格式，存入你的 SuperForge，方便你下次创作参考。</p>
+
+<h3>SuperScript → SuperForge：剧本场景转画面</h3>
+<p>SuperScript 在生成剧本时，会把每个场景的视觉描述自动推送给 SuperForge。例如，剧本中写到「场景：雨夜的东京街头，霓虹灯映在积水上」，SuperForge 会自动生成对应的画面提示词（如 <code>rainy Tokyo street at night, neon reflections on wet pavement, cinematic lighting</code>），你只需要一键就能送进 Midjourney 生图。</p>
+
+<h3>SuperForge → SuperTune：历史数据优化生成</h3>
+<p>SuperTune 在进行 A/B 测试时，会参考 SuperForge 中累积的历史数据。例如，SuperTune 发现你过去使用 <code>golden hour lighting</code> 的 prompt 互动率平均比 <code>overcast lighting</code> 高 35%，它会建议你在新内容中优先使用暖色调光线设定。</p>

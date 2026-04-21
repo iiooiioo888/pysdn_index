@@ -4,6 +4,8 @@ import { PATHS } from './paths'
 import {
   HomePage,
   ModulesPage,
+  ModelsPage,
+  FaqPage,
   SuperForgeDocPage,
   SuperScriptDocPage,
   SuperTrackDocPage,
@@ -18,6 +20,8 @@ export function AppRoutes() {
       <Routes>
         <Route path={PATHS.home} element={<HomePage />} />
         <Route path={PATHS.modules} element={<ModulesPage />} />
+        <Route path={PATHS.models} element={<ModelsPage />} />
+        <Route path={PATHS.faq} element={<FaqPage />} />
         <Route path={PATHS.docs.superforge} element={<SuperForgeDocPage />} />
         <Route path={PATHS.docs.superscript} element={<SuperScriptDocPage />} />
         <Route path={PATHS.docs.supertrack} element={<SuperTrackDocPage />} />

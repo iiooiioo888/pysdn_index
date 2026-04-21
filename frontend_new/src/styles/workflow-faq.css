@@ -10,7 +10,7 @@
 }
 .workflow-hint {
   margin: 0;
-  font-size: 0.85rem;
+  font-size: var(--text-ui, 0.875rem);
   color: var(--text-muted);
   line-height: 1.55;
   max-width: 42rem;
@@ -279,7 +279,7 @@
   align-self: stretch;
 }
 .workflow-step-body h3 {
-  font-size: 1.14rem;
+  font-size: clamp(1.1rem, 2vw, 1.25rem);
   font-weight: 800;
   color: #fff;
   margin: 0 0 10px;
@@ -288,7 +288,7 @@
 }
 .workflow-step-body p {
   margin: 0;
-  font-size: 0.88rem;
+  font-size: var(--text-body, 1rem);
   color: var(--text-dim);
   line-height: 1.65;
 }
@@ -296,7 +296,7 @@
   margin: 14px 0 0;
   padding: 0;
   list-style: none;
-  font-size: 0.82rem;
+  font-size: var(--text-ui, 0.875rem);
   color: var(--text-dim);
   line-height: 1.6;
 }
@@ -324,7 +324,7 @@
 .workflow-step-bullets--minimal li {
   padding-left: 0;
   margin-top: 7px;
-  font-size: 0.84rem;
+  font-size: var(--text-body, 1rem);
   line-height: 1.52;
   letter-spacing: 0.01em;
 }
@@ -367,7 +367,7 @@
   align-self: stretch;
   padding: 11px 14px;
   border-radius: 12px;
-  font-size: 0.8rem;
+  font-size: var(--text-ui, 0.875rem);
   font-weight: 700;
   letter-spacing: 0.02em;
   color: #fff;
@@ -391,7 +391,7 @@
 .workflow-step-details-summary {
   cursor: pointer;
   list-style: none;
-  font-size: 0.78rem;
+  font-size: var(--text-caption, 0.8125rem);
   font-weight: 700;
   color: var(--wf-accent-bright);
   letter-spacing: 0.04em;
@@ -415,7 +415,7 @@
 }
 .workflow-step-details-body {
   margin: 10px 0 0;
-  font-size: 0.8rem;
+  font-size: var(--text-ui, 0.875rem);
   color: var(--text-dim);
   line-height: 1.68;
 }
@@ -435,6 +435,10 @@
 }
 
 /* ===== FAQ ===== */
+main.faq-page-main {
+  padding-top: clamp(100px, 14vh, 132px);
+}
+
 .faq-section {
   scroll-margin-top: 88px;
 }
@@ -455,7 +459,7 @@
   list-style: none;
   cursor: pointer;
   padding: 18px 20px;
-  font-size: 0.95rem;
+  font-size: var(--text-body, 1rem);
   font-weight: 600;
   color: var(--text);
   line-height: 1.45;
@@ -479,7 +483,7 @@
 }
 .faq-answer p {
   margin: 14px 0 0;
-  font-size: 0.88rem;
+  font-size: var(--text-body-lg, 1.0625rem);
   color: var(--text-dim);
   line-height: 1.7;
 }

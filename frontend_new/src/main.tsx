@@ -4,16 +4,18 @@ import { BrowserRouter } from 'react-router-dom'
 import App from './App.tsx'
 import { ErrorBoundary } from './components/ErrorBoundary.tsx'
 import './index.css'
-import './lib/i18n.ts'
+import { initI18n } from './lib/i18n.ts'
 
 const basename = import.meta.env.BASE_URL.replace(/\/$/, '') || '/'
 
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <ErrorBoundary>
-      <BrowserRouter basename={basename}>
-        <App />
-      </BrowserRouter>
-    </ErrorBoundary>
-  </StrictMode>,
-)
+void initI18n().then(() => {
+  createRoot(document.getElementById('root')!).render(
+    <StrictMode>
+      <ErrorBoundary>
+        <BrowserRouter basename={basename}>
+          <App />
+        </BrowserRouter>
+      </ErrorBoundary>
+    </StrictMode>,
+  )
+})

@@ -1,9 +1,12 @@
+import { useTranslation } from 'react-i18next'
 import { DocLayout } from '../../components/docs/DocLayout'
 import { DocNavbar } from '../../components/docs/DocNavbar'
 import { DocFooter } from '../../components/docs/DocFooter'
+import { DocReadingSummary } from '../../components/docs/DocReadingSummary'
 import { useDocBundle } from '../../hooks/useDocBundle'
 
 export function SuperTrackDocPage() {
+  const { t: tUi } = useTranslation()
   const { t, ready, loadError, lang } = useDocBundle('supertrack')
 
   if (!ready) {
@@ -12,7 +15,7 @@ export function SuperTrackDocPage() {
         <main className="doc-main">
           <div className="doc-main-inner" style={{ paddingTop: 100 }}>
             <p className="doc-hero-lead" style={{ opacity: loadError ? 1 : 0.5 }}>
-              {loadError ? '無法載入翻譯資料，請重新整理頁面。' : '…'}
+              {loadError ? tUi('doc_page_load_error') : tUi('doc_page_loading')}
             </p>
           </div>
         </main>
@@ -41,6 +44,7 @@ export function SuperTrackDocPage() {
           </section>
 
           <article className="doc">
+            <DocReadingSummary t={t} variant="supertrack" />
             <h2>{t('h_overview')}</h2>
             <p>SuperTrack 是你的「網路上的眼睛」。它能同時追蹤多個社群平台（小紅書、Instagram、Twitter/X、抖音、YouTube 等）上特定帳號、話題或關鍵字的動態。當某個訊號異常（流量暴增、話題升溫、互動率飆升），系統會第一時間通知你，讓你搶在所有人之前掌握趨勢。</p>
             <p>不同於一般的爬蟲工具，SuperTrack 使用模擬真人瀏覽行為的方式進行抓取——模擬滾動速度、隨機停留時間、自然閱讀節奏——所以不會觸發平台的反爬機制。抓取成功率高達 98.2%。</p>

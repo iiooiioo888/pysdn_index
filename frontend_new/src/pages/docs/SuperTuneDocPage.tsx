@@ -1,9 +1,12 @@
+import { useTranslation } from 'react-i18next'
 import { DocLayout } from '../../components/docs/DocLayout'
 import { DocNavbar } from '../../components/docs/DocNavbar'
 import { DocFooter } from '../../components/docs/DocFooter'
+import { DocReadingSummary } from '../../components/docs/DocReadingSummary'
 import { useDocBundle } from '../../hooks/useDocBundle'
 
 export function SuperTuneDocPage() {
+  const { t: tUi } = useTranslation()
   const { t, ready, loadError, lang } = useDocBundle('supertune')
 
   if (!ready) {
@@ -12,7 +15,7 @@ export function SuperTuneDocPage() {
         <main className="doc-main">
           <div className="doc-main-inner" style={{ paddingTop: 100 }}>
             <p className="doc-hero-lead" style={{ opacity: loadError ? 1 : 0.5 }}>
-              {loadError ? '無法載入翻譯資料，請重新整理頁面。' : '…'}
+              {loadError ? tUi('doc_page_load_error') : tUi('doc_page_loading')}
             </p>
           </div>
         </main>
@@ -42,6 +45,7 @@ export function SuperTuneDocPage() {
           </section>
 
           <article className="doc">
+            <DocReadingSummary t={t} variant="supertune" />
             {/* ── 快速上手 ── */}
             <h2>🚀 快速上手</h2>
             <p>SuperTune 不需要複雜設定。只要把你的內容丟進來，它就會自動分析、優化、給你建議。</p>

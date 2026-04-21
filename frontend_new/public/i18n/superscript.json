@@ -55,7 +55,9 @@
     "license_p": "MIT License",
     "footer_copy": "© Pysdn SuperCool ·",
     "footer_modules": "模組總覽",
-    "footer_home": "返回主站"
+    "footer_home": "返回主站",
+    "doc_summary_title": "閱讀摘要",
+    "doc_summary_p": "本頁說明 SuperScript 的多 Agent 協作、場景／節拍／角色與版本資料模型，以及常用 API 與跨模組串接。建議先讀「簡介」與「助手分工」再進入環境設定。"
   },
   "zh-CN": {
     "title": "SuperScript — AI 剧本助手 | Pysdn SuperCool",
@@ -113,7 +115,9 @@
     "license_p": "MIT License",
     "footer_copy": "© Pysdn SuperCool ·",
     "footer_modules": "模块总览",
-    "footer_home": "返回主站"
+    "footer_home": "返回主站",
+    "doc_summary_title": "阅读摘要",
+    "doc_summary_p": "本页说明 SuperScript 的多 Agent 协作、场景/节拍/角色与版本数据模型，以及常用 API 与跨模块衔接。建议先读「简介」与「助手分工」再进入环境配置。"
   },
   "en": {
     "title": "SuperScript — AI Scriptwriting Assistant | Pysdn SuperCool",
@@ -171,7 +175,9 @@
     "license_p": "MIT License",
     "footer_copy": "© Pysdn SuperCool ·",
     "footer_modules": "All modules",
-    "footer_home": "Back to app"
+    "footer_home": "Back to app",
+    "doc_summary_title": "Reading summary",
+    "doc_summary_p": "Describes SuperScript multi-agent roles, scene/beat/character/version models, APIs, and cross-module links—read Intro & agent split before env setup."
   },
   "ja": {
     "title": "SuperScript — AI 脚本アシスタント | Pysdn SuperCool",
@@ -229,7 +235,9 @@
     "license_p": "MIT License",
     "footer_copy": "© Pysdn SuperCool ·",
     "footer_modules": "モジュール一覧",
-    "footer_home": "サイトへ戻る"
+    "footer_home": "サイトへ戻る",
+    "doc_summary_title": "読む前に",
+    "doc_summary_p": "SuperScript のマルチエージェント、シーン/ビート/キャラ/バージョンのデータモデル、API、モジュール連携。「概要」と役割分担を先に。"
   },
   "ko": {
     "title": "SuperScript — AI 각본 도우미 | Pysdn SuperCool",
@@ -287,6 +295,8 @@
     "license_p": "MIT License",
     "footer_copy": "© Pysdn SuperCool ·",
     "footer_modules": "모듈 목록",
-    "footer_home": "앱으로 돌아가기"
+    "footer_home": "앱으로 돌아가기",
+    "doc_summary_title": "읽기 요약",
+    "doc_summary_p": "SuperScript 멀티 에이전트, 장면/비트/캐릭터/버전 모델, API, 모듈 연동.「소개」·역할 분담을 먼저."
   }
 }

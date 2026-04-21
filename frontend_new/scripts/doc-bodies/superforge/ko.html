@@ -1,0 +1,100 @@
+<h3>원클릭 기억: 프롬프트와 결과 자동 매칭</h3>
+<p>Midjourney, Stable Diffusion, DALL·E 등 외부 도구로 이미지를 만들 때마다 SuperForge가 Webhook으로 결과를 가로채 당시 사용한 프롬프트와 짝지어 저장합니다. 텍스트뿐 아니라 seed, steps, cfg_scale, 모델 버전, negative prompt까지 함께 기록합니다.</p>
+<p>스크린샷·복사·엑셀 메모 없이, 검색으로 바로 찾을 수 있습니다.</p>
+<div class="doc-example">
+  <div class="doc-example-label">💡 실제 시나리오</div>
+  <p>어제 <code>cinematic drone shot of mountains at golden hour, 8k</code> 로 멋진 이미지를 만들었는데 저장을 안 했다면?<br/>
+  괜찮습니다. SuperForge가 Webhook으로 이미 기록했습니다:<br/>
+  ・Prompt: cinematic drone shot of mountains at golden hour, 8k<br/>
+  ・Negative: blurry, low quality, watermark<br/>
+  ・Model: Midjourney v6<br/>
+  ・Seed: 48291037 · Steps: 50 · CFG: 7.5<br/>
+  ・출력 URL: https://cdn.midjourney.com/xxx.png</p>
+</div>
+
+<h3>의미 검색: 말로 설명하면 찾기</h3>
+<p>단순 키워드가 아니라 의미를 이해하는 검색입니다. 프롬프트를 저장할 때마다 고차원 임베딩으로 변환해 벡터 DB에 넣고, 검색어 역시 벡터화해 코사인 유사도로 가장 가까운 기록을 찾습니다.</p>
+<p>정확한 단어를 몰라도 기억나는 장면을 자연어로 쓰면 됩니다.</p>
+<div class="doc-example">
+  <div class="doc-example-label">💡 실제 시나리오</div>
+  <p>검색: <em>「네온 느낌 나는 거리 사진이었던 것 같은데」</em><br/>
+  → 3주 전에 저장한 cyberpunk 야경이 나옵니다:<br/>
+  ・Prompt: neon-lit Tokyo alley at night, cyberpunk style, rain reflections<br/>
+  ・Model: Stable Diffusion XL · Seed: 7283941<br/>
+  ・생성 시각: 2026-03-28 14:32<br/>
+  잊었던 디테일까지 남아 있습니다.</p>
+</div>
+
+<h3>버전 비교: 다섯 버전을 한눈에</h3>
+<p>같은 프롬프트로 파라미터만 바꿨나요? 각 버전이 자동 저장되고 나란히 비교할 수 있습니다. 어떤 값이 바뀌었고 출력이 어떻게 달라졌는지 강조 표시됩니다.</p>
+<p>단순히 파일 다섯 개가 아니라 구조화된 버전 트리로 반복의 효과를 봅니다.</p>
+<div class="doc-example">
+  <div class="doc-example-label">💡 실제 시나리오</div>
+  <p>v1: <code>steps=30, cfg=7</code> → 사실적이지만 디테일 부족<br/>
+  v2: <code>steps=50, cfg=12</code> → 선명하지만 채도 과다<br/>
+  v3: <code>steps=50, cfg=12, seed=42</code> → 스타일 고정, 완벽<br/>
+  v4: <code>steps=50, cfg=12, seed=42, hires_fix=true</code> → 4K 출력<br/>
+  다섯 버전을 한 번에 비교해 최적 조합을 고릅니다.</p>
+</div>
+
+<h3>AI 자동 태그: 정리 없이 분류</h3>
+<p>프롬프트를 넣을 때마다 AI가 스타일(cinematic, photorealistic, anime), 주제(landscape, portrait, architecture), 조명(golden_hour, neon, dramatic) 등 다차원 태그를 붙입니다.</p>
+<p>수동 정리 없이 지식 베이스를 열면 태그별로 필터링해 볼 수 있습니다.</p>
+<div class="doc-example">
+  <div class="doc-example-label">💡 태그 예시</div>
+  <p>🏷️ 스타일: <span class="doc-tag">cinematic</span> <span class="doc-tag">photorealistic</span> <span class="doc-tag">anime</span><br/>
+  🏷️ 주제: <span class="doc-tag">landscape</span> <span class="doc-tag">portrait</span> <span class="doc-tag">architecture</span><br/>
+  🏷️ 조명: <span class="doc-tag">golden_hour</span> <span class="doc-tag">neon</span> <span class="doc-tag">dramatic</span><br/>
+  🏷️ 톤: <span class="doc-tag">warm</span> <span class="doc-tag">cold_blue</span> <span class="doc-tag">pastel</span></p>
+</div>
+
+<h3>Webhook 동기화: Discord를 뒤지지 않음</h3>
+<p>Midjourney Discord에서 이미지를 냈어도 Webhook으로 알림을 받아 지식 베이스가 즉시 갱신됩니다. 채팅 기록을 스크롤할 필요가 없습니다.</p>
+<p>Midjourney(Discord Bot Webhook), Stable Diffusion WebUI(API 콜백), ComfyUI(노드 Webhook) 등 Webhook만 지원하면 연결 가능합니다.</p>
+
+<h3>경량 저장: 텍스트와 링크만</h3>
+<p>SuperForge는 프롬프트·파라미터·출력 URL만 저장하고 실제 이미지 파일은 보관하지 않습니다. 수만 건의 기록도 라이브러리는 수 MB 수준. 이미지는 원본 플랫폼(Midjourney CDN, 로컬 등)에 두고 SuperForge는 “어디에 있는지”만 기억합니다.</p>
+<p>스토리지 폭증과 백업 부담을 줄이고, 핵심 자산은 구조화된 텍스트로 유지합니다.</p>
+
+<h2>🚀 빠른 시작</h2>
+<p>처음부터 프롬프트 지식 베이스를 갖추기까지 다섯 단계입니다.</p>
+
+<h3>1단계: SuperForge 모듈 활성화</h3>
+<p>Pysdn SuperCool 콘솔에서 모듈 목록의 SuperForge를 찾아「활성화」하세요. 빈 지식 공간과 기본 태그·검색 인덱스가 만들어집니다.</p>
+
+<h3>2단계: Webhook 연결</h3>
+<p>「연동 설정」에서 사용할 이미지 도구(Midjourney, Stable Diffusion, ComfyUI 등)를 선택하고 전용 Webhook URL을 해당 도구에 붙여 넣습니다. 이후 생성이 자동 동기화됩니다.</p>
+
+<h3>3단계: 과거 기록 가져오기(선택)</h3>
+<p>Excel, Notion, Google Sheet 등에 적어 둔 프롬프트는 CSV·JSON으로 일괄 가져올 수 있습니다.</p>
+
+<h3>4단계: 검색·활용</h3>
+<p>자연어로 검색해 보세요. 「따뜻한 노을 풍경」이나 「지난번 사이버펑크 프롬프트」처럼 태그·기간·모델로도 좁힐 수 있습니다.</p>
+
+<h3>5단계: 즐겨찾기·템플릿</h3>
+<p>자주 쓰는 프롬프트는 즐겨찾기, 파라미터 묶음은 템플릿으로 저장해 다음에 한 번에 적용합니다.</p>
+
+<h2>🎯 활용 시나리오</h2>
+
+<h3>시나리오 1: AI 크리에이터의 개인 작품 라이브러리</h3>
+<p>매일 Midjourney로 대량 생성해도 Discord 채팅은 금방 밀립니다. SuperForge는 매번 프롬프트와 결과를 짝지어 저장하고, 「그때 그 황금빛 항공 촬영」을 자연어로 검색해 전체 파라미터를 되찾습니다.</p>
+
+<h3>시나리오 2: 디자인 팀 스타일 가이드</h3>
+<p>디자이너마다 프롬프트 스타일이 달라 산출물이 불균일할 때, 하나의 지식 베이스에 「회사 스타일」 템플릿을 모아 관리합니다. 신입은 둘러보기만으로 브랜드의 AI 비주얼 기준을 알 수 있습니다.</p>
+
+<h3>시나리오 3: 이커머스 상품 이미지 관리</h3>
+<p>같은 상품으로 배경·분위기를 여러 번 시도합니다. 버전 비교로 어떤 변형이 가장 좋았는지 한눈에 보고, 다음 출시 때 성공한 프롬프트 템플릿을 재사용합니다.</p>
+
+<h3>시나리오 4: 프롬프트 엔지니어 실험 노트</h3>
+<p>negative, steps, CFG를 체계적으로 실험합니다. SuperForge가 매 실험의 파라미터와 결과를 기록하고, 버전 트리로 v1~v10에서 무엇이 품질을 올렸는지 보여 줍니다.</p>
+
+<h2>🔗 다른 모듈과의 연동</h2>
+
+<h3>SuperTrack → SuperForge: 인기 소재 자동 입고</h3>
+<p>SuperTrack이 플랫폼을 추적하다 고품질 비주얼을 발견하면 SuperForge 지식 베이스로 자동 푸시합니다. 예: KOL의 사이버펑크 게시물이 급상승하면 스타일 설명을 프롬프트 형식으로 저장해 다음 창작에 참고합니다.</p>
+
+<h3>SuperScript → SuperForge: 시나리오 장면을 화면으로</h3>
+<p>SuperScript가 각 장면의 시각적 설명을 SuperForge로 보냅니다. 예: 「비 오는 도쿄 밤거리, 네온이 물웅덩이에 비친다」→ <code>rainy Tokyo street at night, neon reflections on wet pavement, cinematic lighting</code> 같은 이미지 프롬프트를 준비해 Midjourney로 한 번에 보냅니다.</p>
+
+<h3>SuperForge → SuperTune: 과거 데이터로 생성 최적화</h3>
+<p>SuperTune의 A/B 테스트는 SuperForge에 쌓인 과거를 참고합니다. 예: <code>golden hour lighting</code> 프롬프트가 <code>overcast lighting</code>보다 평균 상호작용률이 35% 높았다면 새 콘텐츠에 따뜻한 톤 조명을 우선 제안합니다.</p>

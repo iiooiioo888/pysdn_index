@@ -1,0 +1,100 @@
+<h3>One-click memory: prompts paired with results</h3>
+<p>Whenever you generate images with Midjourney, Stable Diffusion, DALL·E, or any external tool, SuperForge intercepts the output via webhook and stores it together with the prompt you used. Not just text—full seed, steps, cfg_scale, model version, negative prompt, everything.</p>
+<p>No manual screenshots, copy-paste, or Excel logs. Next time you search, it is there.</p>
+<div class="doc-example">
+  <div class="doc-example-label">💡 Real scenario</div>
+  <p>You generated a great image yesterday with <code>cinematic drone shot of mountains at golden hour, 8k</code> but forgot to save the file.<br/>
+  No problem—SuperForge already captured it via webhook, including:<br/>
+  ・Prompt: cinematic drone shot of mountains at golden hour, 8k<br/>
+  ・Negative: blurry, low quality, watermark<br/>
+  ・Model: Midjourney v6<br/>
+  ・Seed: 48291037 · Steps: 50 · CFG: 7.5<br/>
+  ・Output URL: https://cdn.midjourney.com/xxx.png</p>
+</div>
+
+<h3>Semantic search: describe it in plain language</h3>
+<p>This is not plain keyword matching—it understands meaning. Each time you save a prompt, SuperForge turns the text into a high-dimensional embedding and stores it in a vector database. When you search, your query is embedded too, and results are ranked by cosine similarity.</p>
+<p>That means you do not need to remember exact wording—describe the scene you remember and the system finds the matching generation record.</p>
+<div class="doc-example">
+  <div class="doc-example-label">💡 Real scenario</div>
+  <p>Search: <em>“that neon street photo from last time”</em><br/>
+  → The system finds the cyberpunk night scene you saved three weeks ago:<br/>
+  ・Prompt: neon-lit Tokyo alley at night, cyberpunk style, rain reflections<br/>
+  ・Model: Stable Diffusion XL · Seed: 7283941<br/>
+  ・Generated: 2026-03-28 14:32<br/>
+  Even details you forgot are preserved.</p>
+</div>
+
+<h3>Version compare: five variants at a glance</h3>
+<p>Tried different parameters on the same prompt? Every run is stored and you can compare side by side. The UI highlights what changed between versions—parameters, output drift, quality gains.</p>
+<p>It is not “five random files”—a structured version tree so you see what each iteration did.</p>
+<div class="doc-example">
+  <div class="doc-example-label">💡 Real scenario</div>
+  <p>v1: <code>steps=30, cfg=7</code> → realistic but soft detail<br/>
+  v2: <code>steps=50, cfg=12</code> → sharper but oversaturated<br/>
+  v3: <code>steps=50, cfg=12, seed=42</code> → style locked, perfect<br/>
+  v4: <code>steps=50, cfg=12, seed=42, hires_fix=true</code> → 4K output<br/>
+  Compare all five and see which parameter set fits your goal.</p>
+</div>
+
+<h3>AI auto-tags: zero manual filing</h3>
+<p>Every prompt you save is analyzed by AI and tagged across dimensions—style (cinematic, photorealistic, anime), subject (landscape, portrait, architecture), lighting (golden_hour, neon, dramatic), and more.</p>
+<p>You never have to tidy up manually. Open the knowledge base and browse or filter by tag.</p>
+<div class="doc-example">
+  <div class="doc-example-label">💡 Tag example</div>
+  <p>🏷️ Style: <span class="doc-tag">cinematic</span> <span class="doc-tag">photorealistic</span> <span class="doc-tag">anime</span><br/>
+  🏷️ Subject: <span class="doc-tag">landscape</span> <span class="doc-tag">portrait</span> <span class="doc-tag">architecture</span><br/>
+  🏷️ Light: <span class="doc-tag">golden_hour</span> <span class="doc-tag">neon</span> <span class="doc-tag">dramatic</span><br/>
+  🏷️ Palette: <span class="doc-tag">warm</span> <span class="doc-tag">cold_blue</span> <span class="doc-tag">pastel</span></p>
+</div>
+
+<h3>Webhook sync: stop digging through Discord</h3>
+<p>Rendered something in Midjourney Discord? SuperForge receives the webhook, updates your library instantly, and you never have to scroll chat history again—everything lands in one place.</p>
+<p>Supports Midjourney (Discord bot webhook), Stable Diffusion WebUI (API callback), ComfyUI (node webhook), and any tool that can POST to a URL.</p>
+
+<h3>Lightweight storage: text and links only</h3>
+<p>SuperForge stores prompt text, parameters, and output URLs—not full image binaries. The whole library can be a few MB while tracking tens of thousands of records. Images stay on the original platform (Midjourney CDN, your machine, etc.); SuperForge remembers where to find them.</p>
+<p>You avoid storage blowups and backups stay tiny because the core asset is structured text.</p>
+
+<h2>🚀 Quick start</h2>
+<p>From zero to your own prompt library in five steps:</p>
+
+<h3>Step 1: Enable the SuperForge module</h3>
+<p>Open the Pysdn SuperCool console, find SuperForge in the module list, and click Enable. You get an empty knowledge space with default tags and search indexes.</p>
+
+<h3>Step 2: Configure webhooks</h3>
+<p>Go to Integration settings, pick your image tool (Midjourney, Stable Diffusion, ComfyUI, etc.), copy the dedicated webhook URL into that tool. After that, every generation syncs automatically.</p>
+
+<h3>Step 3: Import history (optional)</h3>
+<p>If you kept prompts elsewhere (Excel, Notion, Google Sheets), use batch import. CSV and JSON are supported and will be parsed into indexed records.</p>
+
+<h3>Step 4: Search and reuse</h3>
+<p>Try natural-language queries like “warm sunset landscape” or “last cyberpunk prompt I used.” Combine with tag filters, time range, and model type to narrow results.</p>
+
+<h3>Step 5: Favorites and templates</h3>
+<p>Star prompts for quick access or save parameter bundles as templates to apply in one click next time.</p>
+
+<h2>🎯 Use cases</h2>
+
+<h3>Use case 1: Personal library for AI creators</h3>
+<p>You generate hundreds of images in Midjourney but Discord scrolls forever. SuperForge pairs every prompt with its output so you can search “that golden-hour aerial from last month” and get full parameters back.</p>
+
+<h3>Use case 2: Team style guide</h3>
+<p>Five designers, five prompt styles—outputs look inconsistent. Share one SuperForge space, centralize “house style” templates, and onboard newcomers by browsing the library.</p>
+
+<h3>Use case 3: E-commerce product shots</h3>
+<p>You iterate backgrounds and moods for the same SKU. Version compare shows which variant performed best; next launch you reuse the winning prompt template.</p>
+
+<h3>Use case 4: Prompt engineer lab notes</h3>
+<p>You systematically test negatives, steps, and CFG. SuperForge logs every experiment with parameters and results; the version tree shows which changes actually improved quality from v1 to v10.</p>
+
+<h2>🔗 Works with other modules</h2>
+
+<h3>SuperTrack → SuperForge: trending assets in</h3>
+<p>While tracking platforms, SuperTrack can push high-quality visual references into SuperForge—for example when a KOL’s cyberpunk post spikes, the style description becomes a reusable prompt in your library.</p>
+
+<h3>SuperScript → SuperForge: script to image</h3>
+<p>SuperScript can push each scene’s visual description to SuperForge. If the script says “rainy Tokyo street at night, neon on wet pavement,” SuperForge prepares image prompts (e.g. <code>rainy Tokyo street at night, neon reflections on wet pavement, cinematic lighting</code>) ready for Midjourney in one click.</p>
+
+<h3>SuperForge → SuperTune: history-informed tuning</h3>
+<p>SuperTune’s A/B tests can use SuperForge history—for example if prompts with <code>golden hour lighting</code> averaged 35% higher engagement than <code>overcast lighting</code>, it suggests warmer lighting for new content.</p>

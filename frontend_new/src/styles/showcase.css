@@ -34,7 +34,7 @@
   top: 12px;
   right: 12px;
   padding: 3px 10px;
-  font-size: 0.6rem;
+  font-size: var(--text-meta, 0.6875rem);
   font-weight: 700;
   letter-spacing: 0.08em;
   color: #ef4444;
@@ -43,13 +43,13 @@
 }
 .card-body { padding: 24px; }
 .card-body h4 {
-  font-size: 1.05rem;
+  font-size: clamp(1.05rem, 1.5vw, 1.15rem);
   font-weight: 700;
   color: #fff;
   margin-bottom: 8px;
 }
 .card-body p {
-  font-size: 0.875rem;
+  font-size: var(--text-ui, 0.875rem);
   color: var(--text-dim);
   line-height: 1.6;
   margin-bottom: 16px;
@@ -57,13 +57,13 @@
 .card-meta { display: flex; align-items: center; gap: 12px; }
 .meta-tag {
   padding: 3px 10px;
-  font-size: 0.7rem;
+  font-size: var(--text-caption, 0.8125rem);
   font-weight: 600;
   color: #06b6d4;
   background: rgba(6,182,212,0.08);
   border-radius: 6px;
 }
-.meta-time { font-size: 0.75rem; color: var(--text-muted); }
+.meta-time { font-size: var(--text-caption, 0.8125rem); color: var(--text-muted); }
 
 /* Media card */
 .media-card { position: relative; }

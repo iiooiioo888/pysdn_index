@@ -1,9 +1,12 @@
+import { useTranslation } from 'react-i18next'
 import { DocLayout } from '../../components/docs/DocLayout'
 import { DocNavbar } from '../../components/docs/DocNavbar'
 import { DocFooter } from '../../components/docs/DocFooter'
+import { DocReadingSummary } from '../../components/docs/DocReadingSummary'
 import { useDocBundle } from '../../hooks/useDocBundle'
 
 export function SuperScriptDocPage() {
+  const { t: tUi } = useTranslation()
   const { t, ready, loadError, lang } = useDocBundle('superscript')
 
   if (!ready) {
@@ -12,7 +15,7 @@ export function SuperScriptDocPage() {
         <main className="doc-main">
           <div className="doc-main-inner" style={{ paddingTop: 100 }}>
             <p className="doc-hero-lead" style={{ opacity: loadError ? 1 : 0.5 }}>
-              {loadError ? '無法載入翻譯資料，請重新整理頁面。' : '…'}
+              {loadError ? tUi('doc_page_load_error') : tUi('doc_page_loading')}
             </p>
           </div>
         </main>
@@ -41,6 +44,7 @@ export function SuperScriptDocPage() {
           </section>
 
           <article className="doc">
+            <DocReadingSummary t={t} variant="superscript" />
             <h2>{t('h_intro')}</h2>
             <p>SuperScript 是一套 AI 劇本引擎，專門幫你從零開始產出結構完整的劇本。它不是「一個 AI 寫全部」，而是由四個專業 AI Agent 組成的協作團隊——Architect（架構師）先畫骨架、Continuity（一致性檢查）確保邏輯無破綻、Writer（寫手）填充對白與場景描寫、Format（排版師）最後收尾整理。</p>
             <p>你只需要提供基本方向（類型、角色、核心衝突），SuperScript 就能自動產出一集完整的劇本，從 Hook 到 Resolution 每一幕都有明確的結構定位。以下是它的核心能力：</p>

@@ -58,7 +58,7 @@ html {
 }
 
 .doc-page {
-  font-family: 'Inter', 'Noto Sans TC', -apple-system, sans-serif;
+  font-family: 'Plus Jakarta Sans', 'Noto Sans TC', system-ui, sans-serif;
   background: var(--bg);
   color: var(--text);
   line-height: 1.72;

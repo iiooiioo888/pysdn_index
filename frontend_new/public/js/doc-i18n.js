@@ -51,12 +51,12 @@
 
   function applyFont(lang) {
     var map = {
-      'zh-CN': "'Inter', 'Noto Sans SC', sans-serif",
-      ja: "'Inter', 'Noto Sans JP', sans-serif",
-      ko: "'Inter', 'Noto Sans KR', sans-serif",
+      'zh-CN': "'Plus Jakarta Sans', 'Noto Sans SC', sans-serif",
+      ja: "'Plus Jakarta Sans', 'Noto Sans JP', sans-serif",
+      ko: "'Plus Jakarta Sans', 'Noto Sans KR', sans-serif",
     }
     if (map[lang]) document.body.style.fontFamily = map[lang]
-    else document.body.style.fontFamily = "'Inter', 'Noto Sans TC', sans-serif"
+    else document.body.style.fontFamily = "'Plus Jakarta Sans', 'Noto Sans TC', sans-serif"
   }
 
   function applyFlat(bundle, lang) {

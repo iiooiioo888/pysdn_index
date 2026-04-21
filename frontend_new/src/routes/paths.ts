@@ -4,6 +4,8 @@
 export const PATHS = {
   home: '/',
   modules: '/modules',
+  models: '/models',
+  faq: '/faq',
   docs: {
     superforge: '/docs/superforge',
     superscript: '/docs/superscript',

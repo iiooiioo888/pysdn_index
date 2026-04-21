@@ -49,7 +49,7 @@ export function ModulesNav() {
     { to: home('#products'), labelKey: 'nav_products' },
     { to: home('#showcase'), labelKey: 'nav_showcase' },
     { to: home('#workflow'), labelKey: 'nav_workflow' },
-    { to: home('#faq'), labelKey: 'nav_faq' },
+    { to: { pathname: PATHS.faq, search: langSearch }, labelKey: 'nav_faq' },
     { to: { pathname: PATHS.modules, search: langSearch }, labelKey: 'nav_module_docs', active: true },
     { to: home('#contact'), labelKey: 'nav_contact' },
   ]

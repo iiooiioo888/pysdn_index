@@ -12,7 +12,7 @@ export function FaqSection() {
     }, 60)
     return () => clearTimeout(timer)
   }, [observe])
-  const items = [1, 2, 3, 4, 5, 6, 7, 8].map((n) => ({
+  const items = Array.from({ length: 16 }, (_, i) => i + 1).map((n) => ({
     n,
     qKey: `faq_${n}_q` as const,
     aKey: `faq_${n}_a` as const,

@@ -48,6 +48,19 @@ export function ModulesPage() {
               <p className="hero-desc">{t('mod_hero_desc')}</p>
             </section>
 
+            <section id="mod-doc-guide" className="mod-doc-guide">
+              <div className="mod-doc-guide-inner">
+                <p className="mod-doc-guide-label">{t('mod_doc_guide_title')}</p>
+                <p className="mod-doc-guide-lead">{t('mod_doc_guide_p')}</p>
+                <ul className="mod-doc-guide-list">
+                  <li>{t('mod_doc_guide_li1')}</li>
+                  <li>{t('mod_doc_guide_li2')}</li>
+                  <li>{t('mod_doc_guide_li3')}</li>
+                  <li>{t('mod_doc_guide_li4')}</li>
+                </ul>
+              </div>
+            </section>
+
             <section id="mod-pipeline" className="mod-pipeline">
               <h3>{t('mod_pipe_label')}</h3>
               <div className="mod-pipeline-flow">

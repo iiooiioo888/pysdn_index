@@ -1,0 +1,21 @@
+<h3>あいまい全文検索</h3>
+<p>意味検索に加え、従来のあいまい全文検索にも対応。「mountain sunset」と入力すると、字面一致だけでなく類似表現も候補に出ます。内容は覚えているが単語が正確でないときに便利です。</p>
+<div class="doc-example">
+  <div class="doc-example-label">💡 例</div>
+  <p>「mountain sunset」で「alpine twilight panorama」などもヒット。文字一致と意味類似を両方スコアリングしてマージします。</p>
+</div>
+
+<h3>画像参照で類似検索</h3>
+<p>参考画像をアップロードすると、色・構図・スタイル特徴を抽出し、既存生成結果の特徴ベクトルと照合して最も近い履歴を返します。</p>
+<div class="doc-example">
+  <div class="doc-example-label">💡 例</div>
+  <p>ジブリ風の風景をアップロードすると、過去の <code>Studio Ghibli style, rolling green hills, fluffy clouds</code> 生成とマッチする、など。</p>
+</div>
+
+<h3>高度なタグ管理</h3>
+<p>AI タグに加え、手動タグ、階層（例：<code>style &gt; cyberpunk &gt; steampunk</code>）、条件で自動付与するルールを設定できます。</p>
+<ul>
+  <li>カスタムタグ：「クライアント A」「2026 春キャンペーン」など任意の軸。</li>
+  <li>階層：親子タグ。子を選ぶと親も適用。</li>
+  <li>ルール：「prompt に anime が含まれたら #日系風タグ」など、手作業を削減。</li>
+</ul>

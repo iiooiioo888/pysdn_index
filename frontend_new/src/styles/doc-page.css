@@ -66,7 +66,7 @@ html {
 }
 
 .doc-page {
-  font-family: 'Inter', 'Noto Sans TC', -apple-system, sans-serif;
+  font-family: 'Plus Jakarta Sans', 'Noto Sans TC', system-ui, sans-serif;
   background: var(--bg);
   color: var(--text);
   line-height: 1.72;
@@ -397,6 +397,30 @@ html {
   margin-top: 8px;
 }
 
+.doc-reading-summary {
+  margin: 0 0 1.5rem;
+  padding: 1rem 1.15rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--doc-badge-border);
+  background: var(--doc-accent-soft);
+}
+
+.doc-reading-summary__label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--doc-accent);
+  margin: 0 0 0.5rem;
+}
+
+.doc-reading-summary__text {
+  font-size: 0.9rem;
+  color: var(--text-dim);
+  line-height: 1.65;
+  margin: 0;
+}
+
 .doc a {
   color: var(--doc-link);
   text-decoration: none;
@@ -563,7 +587,7 @@ html {
   border-radius: 12px;
   padding: 16px;
   background: rgba(255,255,255,0.015);
-  font-family: 'Inter', 'Noto Sans TC', system-ui, sans-serif;
+  font-family: 'Plus Jakarta Sans', 'Noto Sans TC', system-ui, sans-serif;
 }
 
 /* Header */

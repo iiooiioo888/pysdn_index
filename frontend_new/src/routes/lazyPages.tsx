@@ -6,6 +6,10 @@ export const HomePage = lazy(() =>
 export const ModulesPage = lazy(() =>
   import('../pages/ModulesPage').then((m) => ({ default: m.ModulesPage })),
 )
+export const ModelsPage = lazy(() =>
+  import('../pages/ModelsPage').then((m) => ({ default: m.ModelsPage })),
+)
+export const FaqPage = lazy(() => import('../pages/FaqPage').then((m) => ({ default: m.FaqPage })))
 export const SuperForgeDocPage = lazy(() =>
   import('../pages/docs/SuperForgeDocPage').then((m) => ({ default: m.SuperForgeDocPage })),
 )

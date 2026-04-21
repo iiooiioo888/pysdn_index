@@ -24,17 +24,20 @@ export function Navbar() {
   }, [compact])
 
   const links: (
-    | { type: 'hash'; href: string; key: string }
+    | { type: 'home'; hash: string; key: string }
     | { type: 'modules'; key: string }
+    | { type: 'models'; key: string }
+    | { type: 'faq'; key: string }
   )[] = [
-    { type: 'hash', href: '#home', key: 'nav_home' },
-    { type: 'hash', href: '#about', key: 'nav_about' },
-    { type: 'hash', href: '#products', key: 'nav_products' },
-    { type: 'hash', href: '#showcase', key: 'nav_showcase' },
-    { type: 'hash', href: '#workflow', key: 'nav_workflow' },
-    { type: 'hash', href: '#faq', key: 'nav_faq' },
+    { type: 'home', hash: '#home', key: 'nav_home' },
+    { type: 'home', hash: '#about', key: 'nav_about' },
+    { type: 'home', hash: '#products', key: 'nav_products' },
+    { type: 'models', key: 'nav_models' },
+    { type: 'home', hash: '#showcase', key: 'nav_showcase' },
+    { type: 'home', hash: '#workflow', key: 'nav_workflow' },
+    { type: 'faq', key: 'nav_faq' },
     { type: 'modules', key: 'nav_module_docs' },
-    { type: 'hash', href: '#contact', key: 'nav_contact' },
+    { type: 'home', hash: '#contact', key: 'nav_contact' },
   ]
 
   return (
@@ -44,23 +47,33 @@ export function Navbar() {
         aria-label="Main navigation"
       >
         <div className="nav-inner" ref={navInnerRef}>
-          <a href="#home" className="nav-logo" aria-label="Pysdn home">
+          <Link
+            to={{ pathname: PATHS.home, hash: '#home', search: langSearch }}
+            className="nav-logo"
+            aria-label="Pysdn home"
+          >
             <span className="logo-mark" aria-hidden="true">⚡</span>
             <span className="logo-text">Pysdn</span>
-          </a>
+          </Link>
           <ul className="nav-links">
             {links.map((link) => (
               <li key={link.key}>
                 {link.type === 'modules' ? (
                   <Link to={{ pathname: PATHS.modules, search: langSearch }}>{t(link.key)}</Link>
+                ) : link.type === 'models' ? (
+                  <Link to={{ pathname: PATHS.models, search: langSearch }}>{t(link.key)}</Link>
+                ) : link.type === 'faq' ? (
+                  <Link to={{ pathname: PATHS.faq, search: langSearch }}>{t(link.key)}</Link>
                 ) : (
-                  <a href={link.href}>{t(link.key)}</a>
+                  <Link to={{ pathname: PATHS.home, hash: link.hash, search: langSearch }}>{t(link.key)}</Link>
                 )}
               </li>
             ))}
           </ul>
           <LanguageSwitcher />
-          <a href="#contact" className="nav-cta">{t('nav_cta')}</a>
+          <Link to={{ pathname: PATHS.home, hash: '#contact', search: langSearch }} className="nav-cta">
+            {t('nav_cta')}
+          </Link>
           <button
             className={`nav-toggle ${menuOpen ? 'open' : ''}`}
             onClick={() => setMenuOpen(!menuOpen)}
@@ -81,10 +94,21 @@ export function Navbar() {
                 <Link to={{ pathname: PATHS.modules, search: langSearch }} onClick={() => setMenuOpen(false)}>
                   {t(link.key)}
                 </Link>
-              ) : (
-                <a href={link.href} onClick={() => setMenuOpen(false)}>
+              ) : link.type === 'models' ? (
+                <Link to={{ pathname: PATHS.models, search: langSearch }} onClick={() => setMenuOpen(false)}>
                   {t(link.key)}
-                </a>
+                </Link>
+              ) : link.type === 'faq' ? (
+                <Link to={{ pathname: PATHS.faq, search: langSearch }} onClick={() => setMenuOpen(false)}>
+                  {t(link.key)}
+                </Link>
+              ) : (
+                <Link
+                  to={{ pathname: PATHS.home, hash: link.hash, search: langSearch }}
+                  onClick={() => setMenuOpen(false)}
+                >
+                  {t(link.key)}
+                </Link>
               )}
             </li>
           ))}
@@ -92,9 +116,13 @@ export function Navbar() {
         <div className="mobile-menu-lang">
           <LanguageSwitcher />
         </div>
-        <a href="#contact" className="mobile-cta" onClick={() => setMenuOpen(false)}>
+        <Link
+          to={{ pathname: PATHS.home, hash: '#contact', search: langSearch }}
+          className="mobile-cta"
+          onClick={() => setMenuOpen(false)}
+        >
           {t('nav_cta')}
-        </a>
+        </Link>
       </div>
     </>
   )

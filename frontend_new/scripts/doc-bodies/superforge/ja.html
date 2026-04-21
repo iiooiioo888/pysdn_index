@@ -1,0 +1,100 @@
+<h3>ワンクリック記憶：プロンプトと結果を自動ペアリング</h3>
+<p>Midjourney、Stable Diffusion、DALL·E など外部ツールで画像を生成するたびに、SuperForge は Webhook で生成結果を受け取り、当時使ったプロンプトとセットで保存します。テキストだけでなく、seed、steps、cfg_scale、モデル版、negative prompt までまとめて記録します。</p>
+<p>手動のスクショやコピペ、Excel メモは不要。次に検索すればすぐ見つかります。</p>
+<div class="doc-example">
+  <div class="doc-example-label">💡 シナリオ</div>
+  <p>昨日 <code>cinematic drone shot of mountains at golden hour, 8k</code> で素晴らしい画像を作ったのに保存し忘れた…<br/>
+  大丈夫です。SuperForge が Webhook で自動記録しています：<br/>
+  ・Prompt: cinematic drone shot of mountains at golden hour, 8k<br/>
+  ・Negative: blurry, low quality, watermark<br/>
+  ・Model: Midjourney v6<br/>
+  ・Seed: 48291037 · Steps: 50 · CFG: 7.5<br/>
+  ・出力 URL: https://cdn.midjourney.com/xxx.png</p>
+</div>
+
+<h3>意味検索：話し言葉で探せる</h3>
+<p>単純なキーワード一致ではなく、意味を理解する検索です。プロンプトを保存するたびに高次元の埋め込みベクトルに変換し、ベクトル DB に格納。検索クエリも同様にベクトル化し、コサイン類似度で近いものを返します。</p>
+<p>正確な文言を覚えていなくても、思い出せる情景を自然言語で書けば、対応する生成記録に辿り着けます。</p>
+<div class="doc-example">
+  <div class="doc-example-label">💡 シナリオ</div>
+  <p>検索：<em>「前にネオン感のある街角の写真」</em><br/>
+  → 3 週間前に保存した cyberpunk の夜景がヒット：<br/>
+  ・Prompt: neon-lit Tokyo alley at night, cyberpunk style, rain reflections<br/>
+  ・Model: Stable Diffusion XL · Seed: 7283941<br/>
+  ・生成日時: 2026-03-28 14:32<br/>
+  細部まで残っています。</p>
+</div>
+
+<h3>バージョン比較：5 パターンを一目で</h3>
+<p>同じプロンプトでパラメータを変えた？各版は自動保存され、左右並べて比較できます。どのパラメータが変わり、出力がどう変わったか、品質がどう上がったかをハイライト表示します。</p>
+<p>単に「5 ファイル」ではなく、構造化されたバージョンツリーで、反復の効果が見えます。</p>
+<div class="doc-example">
+  <div class="doc-example-label">💡 シナリオ</div>
+  <p>v1: <code>steps=30, cfg=7</code> → リアル寄りだがディテールが柔らかい<br/>
+  v2: <code>steps=50, cfg=12</code> → シャープだが彩度過多<br/>
+  v3: <code>steps=50, cfg=12, seed=42</code> → スタイル固定でベスト<br/>
+  v4: <code>steps=50, cfg=12, seed=42, hires_fix=true</code> → 4K 出力<br/>
+  5 版を並べて最適な組み合わせを判断できます。</p>
+</div>
+
+<h3>AI 自動タグ：整理なしの分類</h3>
+<p>プロンプトを保存するたびに AI が内容を分析し、スタイル（cinematic、photorealistic、anime）、被写体（landscape、portrait、architecture）、光（golden_hour、neon、dramatic）など多次元タグを付けます。</p>
+<p>手動整理は不要。ナレッジベースを開けばタグで分類済み、フィルタで閲覧できます。</p>
+<div class="doc-example">
+  <div class="doc-example-label">💡 タグ例</div>
+  <p>🏷️ スタイル：<span class="doc-tag">cinematic</span> <span class="doc-tag">photorealistic</span> <span class="doc-tag">anime</span><br/>
+  🏷️ テーマ：<span class="doc-tag">landscape</span> <span class="doc-tag">portrait</span> <span class="doc-tag">architecture</span><br/>
+  🏷️ 光：<span class="doc-tag">golden_hour</span> <span class="doc-tag">neon</span> <span class="doc-tag">dramatic</span><br/>
+  🏷️ トーン：<span class="doc-tag">warm</span> <span class="doc-tag">cold_blue</span> <span class="doc-tag">pastel</span></p>
+</div>
+
+<h3>Webhook 同期：Discord を遡らない</h3>
+<p>Midjourney Discord で出した画像も、Webhook で通知を受け取り、ナレッジベースが即時更新。チャット履歴をスクロールする必要はありません。</p>
+<p>Midjourney（Discord Bot Webhook）、Stable Diffusion WebUI（API コールバック）、ComfyUI（ノード Webhook）など、Webhook 対応ツールなら接続可能です。</p>
+
+<h3>軽量ストレージ：テキストとリンクのみ</h3>
+<p>SuperForge はプロンプト本文・パラメータ・出力 URL を保存し、実画像は保持しません。数万件の記録でもライブラリは数 MB 程度。画像は元プラットフォーム（Midjourney CDN、ローカル等）に残り、SuperForge は「どこにあるか」を覚えます。</p>
+<p>ストレージ逼迫やバックアップ負荷を抑え、コア資産は構造化テキストのままです。</p>
+
+<h2>🚀 クイックスタート</h2>
+<p>ゼロからプロンプトナレッジベースを持つまで、5 ステップです。</p>
+
+<h3>ステップ 1：SuperForge モジュールを有効化</h3>
+<p>Pysdn SuperCool コンソールでモジュール一覧から SuperForge を選択し「有効化」。空のナレッジ空間とデフォルトタグ・検索インデックスが作成されます。</p>
+
+<h3>ステップ 2：Webhook を設定</h3>
+<p>「連携設定」で使用ツール（Midjourney、Stable Diffusion、ComfyUI 等）を選び、専用 Webhook URL をツール側に貼り付け。以降の生成が自動同期されます。</p>
+
+<h3>ステップ 3：履歴をインポート（任意）</h3>
+<p>Excel、Notion、Google シート等に保存していたプロンプトは CSV / JSON で一括インポート可能です。</p>
+
+<h3>ステップ 4：検索と再利用</h3>
+<p>自然言語で検索。「暖かい夕焼けの風景」や「前のサイバーパンクのプロンプト」など。タグ・期間・モデルで絞り込みも可能です。</p>
+
+<h3>ステップ 5：お気に入りとテンプレート</h3>
+<p>よく使うプロンプトをスター登録、パラメータセットをテンプレート化して次回ワンクリック適用。</p>
+
+<h2>🎯 適用シーン</h2>
+
+<h3>シーン 1：AI クリエイターの個人ライブラリ</h3>
+<p>毎日 Midjourney で大量生成しても Discord は流れが速い。SuperForge はプロンプトと結果をペアで保存し、「あの黄金の空撮」を自然言語で検索して全パラメータを取り出せます。</p>
+
+<h3>シーン 2：デザインチームのスタイルガイド</h3>
+<p>デザイナーごとにプロンプトがバラつく問題を、共有ナレッジで「ブランドの AI ビジュアル」を一元管理。新メンバーは閲覧するだけで基準を把握できます。</p>
+
+<h3>シーン 3：EC 商品画像の管理</h3>
+<p>同一 SKU で背景・雰囲気を試行錯誤。バージョン比較で効果の良い版が分かり、次回は成功テンプレを再利用できます。</p>
+
+<h3>シーン 4：プロンプトエンジニアの実験ノート</h3>
+<p>negative、steps、CFG を体系的に試す。SuperForge が各実験のパラメータと結果を記録し、バージョンツリーで v1〜v10 の改善要因が見えます。</p>
+
+<h2>🔗 他モジュールとの連携</h2>
+
+<h3>SuperTrack → SuperForge：トレンド素材を自動入庫</h3>
+<p>SuperTrack がプラットフォームを監視し、高品質ビジュアルを SuperForge にプッシュ。例：KOL のサイバーパンク投稿がバズったら、スタイル説明をプロンプト形式で保存して次の制作に活用できます。</p>
+
+<h3>SuperScript → SuperForge：脚本から画面へ</h3>
+<p>SuperScript は各シーンの視覚描写を SuperForge に送ります。「雨の東京の夜、ネオンが水たまりに映る」→ <code>rainy Tokyo street at night, neon reflections on wet pavement, cinematic lighting</code> などの画像プロンプトを用意し、Midjourney へワンクリックで送れます。</p>
+
+<h3>SuperForge → SuperTune：履歴データで最適化</h3>
+<p>SuperTune の A/B テストは SuperForge の履歴を参照。「<code>golden hour lighting</code>」が「<code>overcast lighting</code>」より平均 35% エンゲージが高い、などを検出したら新規コンテンツに暖色光を推奨します。</p>

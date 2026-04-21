@@ -5,7 +5,7 @@
     "nav_modules": "← 模組總覽",
     "nav_home": "首頁",
     "hero_sub": "A/B 測試 × 成本優化 × 風格遷移",
-    "intro_p": "SuperTune 是你的內容優化引擎。不管你是寫劇本、生圖還是做行銷文案，它都能幫你測出最好的版本，還能幫你省下一半的 token 成本。",
+    "intro_p": "SuperTune 是內容優化引擎：劇本、生圖或行銷文案都能做 A/B、成本與品質分析，協助你用數據做取捨（實際節省幅度依模型與用量而異）。",
     "h_feat": "🔑 它能幫你做什麼",
     "f1": "A/B 平行測試：同一段內容跑兩個版本，用數據告訴你哪個更強",
     "f2": "成本優化：自動壓縮 prompt、管理上下文視窗、合併請求，省到翻",
@@ -20,7 +20,7 @@
     "ab_ex2_label": "💡 範例：劇本對白測試",
     "ab_ex2": "宇宙 A：@Mei「我不相信你了。」（E: 68%）\n宇宙 B：@Mei「你說的每一個字，我現在都要重新聽一遍。」（E: 84%）\n→ B 版情緒層次更豐富，觀眾共鳴度更高。",
     "h_cost": "💸 成本優化",
-    "cost_p": "SuperTune 自動幫你省 token，不是砍品質，是更聪明地用。",
+    "cost_p": "SuperTune 自動幫你省 token，不是砍品質，是更聰明地用。",
     "cost_s1": "Prompt 壓縮：把冗餘描述精簡，不影響語意",
     "cost_s2": "Context Window 管理：只餵最相關的上下文，不浪費 token",
     "cost_s3": "Batch 合併：多個小請求合併成一個大請求",
@@ -53,7 +53,9 @@
     "style_ex": "選「諾蘭敘事」→ 系統把你的線性故事打亂成非線性結構，加入時間跳切和多線並行。\n選「是枝裕和」→ 放慢節奏、增加生活細節、減少戲劇衝突。\n忠誠度 82%：風格到位但保留你自己的 voice。",
     "footer_copy": "© Pysdn SuperCool ·",
     "footer_modules": "模組總覽",
-    "footer_home": "返回主站"
+    "footer_home": "返回主站",
+    "doc_summary_title": "閱讀摘要",
+    "doc_summary_p": "本頁說明 SuperTune 的 A/B、成本、節奏／張力／新鮮度與風格遷移等能力與範例。實際參數與配額以您部署的環境與 API 版本為準。"
   },
   "zh-CN": {
     "title": "SuperTune — AI 优化引擎 | Pysdn SuperCool",
@@ -61,7 +63,7 @@
     "nav_modules": "← 模块总览",
     "nav_home": "首页",
     "hero_sub": "A/B 测试 × 成本优化 × 风格迁移",
-    "intro_p": "SuperTune 是你的内容优化引擎。不管你是写剧本、生图还是做营销文案，它都能帮你测出最好的版本，还能帮你省下一半的 token 成本。",
+    "intro_p": "SuperTune 是内容优化引擎：剧本、生图或营销文案都能做 A/B、成本与质量分析，协助你用数据做取舍（实际节省幅度因模型与用量而异）。",
     "h_feat": "🔑 它能帮你做什么",
     "f1": "A/B 平行测试：同一段内容跑两个版本，用数据告诉你哪个更强",
     "f2": "成本优化：自动压缩 prompt、管理上下文窗口、合并请求，省到翻",
@@ -109,7 +111,9 @@
     "style_ex": "选「诺兰叙事」→ 系统把你的线性故事打乱成非线性结构，加入时间跳切和多线并行。\n选「是枝裕和」→ 放慢节奏、增加生活细节、减少戏剧冲突。\n忠诚度 82%：风格到位但保留你自己的 voice。",
     "footer_copy": "© Pysdn SuperCool ·",
     "footer_modules": "模块总览",
-    "footer_home": "返回主站"
+    "footer_home": "返回主站",
+    "doc_summary_title": "阅读摘要",
+    "doc_summary_p": "本页说明 SuperTune 的 A/B、成本、节奏/张力/新鲜度与风格迁移等能力与示例。实际参数与配额以您部署的环境与 API 版本为准。"
   },
   "en": {
     "title": "SuperTune — AI Optimization Engine | Pysdn SuperCool",
@@ -165,7 +169,9 @@
     "style_ex": "Pick \"Nolan narrative\" → system restructures your linear story into non-linear, with time jumps and parallel threads.\nPick \"Kore-eda\" → slows down, adds daily life details, reduces drama.\nFidelity 82%: style is there but your voice is preserved.",
     "footer_copy": "© Pysdn SuperCool ·",
     "footer_modules": "All modules",
-    "footer_home": "Back to app"
+    "footer_home": "Back to app",
+    "doc_summary_title": "Reading summary",
+    "doc_summary_p": "Covers SuperTune capabilities—A/B, cost, pacing/tension/freshness, style transfer—with examples. Live limits and parameters depend on your deployment and API version."
   },
   "ja": {
     "title": "SuperTune — AI 最適化エンジン | Pysdn SuperCool",
@@ -221,7 +227,9 @@
     "style_ex": "「ノラン語り」→ 線形ストーリーを非線形構造に、時間跳切とマルチスレッド。\n「是枝裕和」→ テンポを落とし、生活の詳細を追加、ドラマを抑制。\n忠実度82%：スタイルは活かしつつ、自分の声を保持。",
     "footer_copy": "© Pysdn SuperCool ·",
     "footer_modules": "モジュール一覧",
-    "footer_home": "サイトへ戻る"
+    "footer_home": "サイトへ戻る",
+    "doc_summary_title": "読む前に",
+    "doc_summary_p": "SuperTune の機能（A/B、コスト、ペース/テンション/新鮮度、スタイル移植）と例を解説。実際の上限はデプロイと API バージョンに依存します。"
   },
   "ko": {
     "title": "SuperTune — AI 최적화 엔진 | Pysdn SuperCool",
@@ -277,6 +285,8 @@
     "style_ex": "\"놀란 서사\" 선택 → 선형 스토리를 비선형 구조로, 시간 도약과 병렬 전개.\n\"고레에다\" 선택 → 템포를 늦추고 생활 디테일 추가, 드라마 완화.\n충실도 82%: 스타일은 살리면서 나만의 목소리 유지.",
     "footer_copy": "© Pysdn SuperCool ·",
     "footer_modules": "모듈 목록",
-    "footer_home": "앱으로 돌아가기"
+    "footer_home": "앱으로 돌아가기",
+    "doc_summary_title": "읽기 요약",
+    "doc_summary_p": "SuperTune 기능(A/B, 비용, 템포/텐션/신선도, 스타일 전환)과 예시. 실제 한도는 배포·API 버전을 따릅니다."
   }
 }

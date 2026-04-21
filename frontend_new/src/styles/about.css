@@ -22,7 +22,7 @@
 }
 .about-stat-label {
   display: block;
-  font-size: 0.8rem;
+  font-size: var(--text-ui, 0.875rem);
   color: var(--text-muted);
   margin-top: 4px;
 }
@@ -55,7 +55,7 @@
 }
 .about-compare-col ul { display: flex; flex-direction: column; gap: 10px; }
 .about-compare-col li {
-  font-size: 0.9rem;
+  font-size: var(--text-body-lg, 1.0625rem);
   color: var(--text-dim);
   padding-left: 8px;
   border-left: 2px solid rgba(255,255,255,0.06);
@@ -89,7 +89,7 @@
 }
 .feature-num {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 0.7rem;
+  font-size: var(--text-caption, 0.8125rem);
   color: var(--text-muted);
   opacity: 0.5;
   margin-bottom: 16px;
@@ -113,7 +113,7 @@
   margin-bottom: 10px;
 }
 .feature-card p {
-  font-size: 0.875rem;
+  font-size: var(--text-ui, 0.875rem);
   color: var(--text-dim);
   line-height: 1.6;
   margin-bottom: 16px;
@@ -121,7 +121,7 @@
 .feature-tag {
   display: inline-block;
   padding: 4px 12px;
-  font-size: 0.7rem;
+  font-size: var(--text-caption, 0.8125rem);
   font-weight: 600;
   color: #06b6d4;
   background: rgba(6,182,212,0.08);

@@ -1,4 +1,5 @@
-import { useEffect, useRef, useCallback } from 'react';
+import { useEffect, useRef, useCallback } from 'react'
+import { prefersReducedMotion } from '../lib/motionPreference'
 
 export function useCanvasBackground() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -331,9 +332,22 @@ export function useCanvasBackground() {
   }, [isMobile]);
 
   useEffect(() => {
-    const cleanup = init();
-    return cleanup;
-  }, [init]);
+    if (prefersReducedMotion()) return
 
-  return canvasRef;
+    let cleanup: (() => void) | undefined
+    const run = () => {
+      cleanup = init()
+    }
+
+    const useRic = typeof requestIdleCallback !== 'undefined'
+    const idleId = useRic ? requestIdleCallback(run, { timeout: 500 }) : setTimeout(run, 0)
+
+    return () => {
+      if (useRic) cancelIdleCallback(idleId as number)
+      else clearTimeout(idleId as ReturnType<typeof setTimeout>)
+      cleanup?.()
+    }
+  }, [init])
+
+  return canvasRef
 }

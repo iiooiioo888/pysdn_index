@@ -74,7 +74,9 @@ export function useDocBundle(name: DocBundleName) {
 
   const dict = useMemo(() => {
     if (!bundle) return null
-    return bundle[resolvedLang] ?? bundle['zh-TW'] ?? {}
+    const tw = bundle['zh-TW'] ?? {}
+    const cur = bundle[resolvedLang] ?? {}
+    return { ...tw, ...cur }
   }, [bundle, resolvedLang])
 
   const t = useCallback(
@@ -96,13 +98,13 @@ export function useDocBundle(name: DocBundleName) {
 
   useEffect(() => {
     const map: Record<string, string> = {
-      'zh-CN': "'Inter', 'Noto Sans SC', sans-serif",
-      ja: "'Inter', 'Noto Sans JP', sans-serif",
-      ko: "'Inter', 'Noto Sans KR', sans-serif",
+      'zh-CN': "'Plus Jakarta Sans', 'Noto Sans SC', sans-serif",
+      ja: "'Plus Jakarta Sans', 'Noto Sans JP', sans-serif",
+      ko: "'Plus Jakarta Sans', 'Noto Sans KR', sans-serif",
     }
     const f = map[resolvedLang]
     if (f) document.body.style.fontFamily = f
-    else document.body.style.fontFamily = "'Inter', 'Noto Sans TC', sans-serif"
+    else document.body.style.fontFamily = "'Plus Jakarta Sans', 'Noto Sans TC', sans-serif"
     document.documentElement.lang =
       resolvedLang === 'zh-TW'
         ? 'zh-TW'

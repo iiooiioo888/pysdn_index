@@ -45,8 +45,8 @@ module.exports = {
         },
       },
       fontFamily: {
-        sans: ['Inter', 'Noto Sans TC', 'system-ui', 'sans-serif'],
-        mono: ['JetBrains Mono', 'monospace'],
+        sans: ['Plus Jakarta Sans', 'Noto Sans TC', 'system-ui', 'sans-serif'],
+        mono: ['JetBrains Mono', 'ui-monospace', 'monospace'],
       },
       animation: {
         'fade-in': 'fadeIn 0.6s ease-out forwards',

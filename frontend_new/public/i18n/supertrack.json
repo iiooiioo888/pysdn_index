@@ -46,7 +46,9 @@
     "co_4": "使用條款明確標註",
     "footer_copy": "© Pysdn SuperCool ·",
     "footer_modules": "模組總覽",
-    "footer_home": "返回主站"
+    "footer_home": "返回主站",
+    "doc_summary_title": "閱讀摘要",
+    "doc_summary_p": "本頁說明 SuperTrack 的追蹤對象、採集與預警流程、與靈感庫／知識庫的銜接，以及合規與技術背景。僅處理公開可得之資料，請遵守各平台使用條款與 robots 規範。"
   },
   "zh-CN": {
     "title": "SuperTrack — 全网追踪助手 | Pysdn SuperCool",
@@ -95,7 +97,9 @@
     "co_4": "使用条款明确标注",
     "footer_copy": "© Pysdn SuperCool ·",
     "footer_modules": "模块总览",
-    "footer_home": "返回主站"
+    "footer_home": "返回主站",
+    "doc_summary_title": "阅读摘要",
+    "doc_summary_p": "本页说明 SuperTrack 的追踪对象、采集与预警流程、与灵感库/知识库的衔接，以及合规与技术背景。仅针对公开资料，请遵守各平台规则。"
   },
   "en": {
     "title": "SuperTrack — Web Tracking Assistant | Pysdn SuperCool",
@@ -144,7 +148,9 @@
     "co_4": "Terms of use clearly noted",
     "footer_copy": "© Pysdn SuperCool ·",
     "footer_modules": "All modules",
-    "footer_home": "Back to app"
+    "footer_home": "Back to app",
+    "doc_summary_title": "Reading summary",
+    "doc_summary_p": "Explains SuperTrack targets, collection & alerts, handoff to your library, compliance, and stack notes—public data only; respect each platform’s terms."
   },
   "ja": {
     "title": "SuperTrack — Web追跡アシスタント | Pysdn SuperCool",
@@ -193,7 +199,9 @@
     "co_4": "利用規約を明記",
     "footer_copy": "© Pysdn SuperCool ·",
     "footer_modules": "モジュール一覧",
-    "footer_home": "サイトへ戻る"
+    "footer_home": "サイトへ戻る",
+    "doc_summary_title": "読む前に",
+    "doc_summary_p": "SuperTrack の追跡対象、取得・アラート、ライブラリ連携、コンプライアンスと技術背景。公開情報のみ、各プラットフォームの規約に従ってください。"
   },
   "ko": {
     "title": "SuperTrack — 웹 추적 도우미 | Pysdn SuperCool",
@@ -242,6 +250,8 @@
     "co_4": "이용 약관 명시",
     "footer_copy": "© Pysdn SuperCool ·",
     "footer_modules": "모듈 목록",
-    "footer_home": "앱으로 돌아가기"
+    "footer_home": "앱으로 돌아가기",
+    "doc_summary_title": "읽기 요약",
+    "doc_summary_p": "SuperTrack 추적 대상, 수집·알림, 라이브러리 연동, 컴플라이언스·스택. 공개 데이터만, 플랫폼 약관 준수."
   }
 }

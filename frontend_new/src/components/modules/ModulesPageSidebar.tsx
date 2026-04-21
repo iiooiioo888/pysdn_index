@@ -25,6 +25,9 @@ export function ModulesPageSidebar({ tm, langSearch }: { tm: T; langSearch: stri
         <a href="#mod-overview" className="modules-sidebar-link">
           {tm('mod_side_overview')}
         </a>
+        <a href="#mod-doc-guide" className="modules-sidebar-link">
+          {tm('mod_doc_guide_title')}
+        </a>
         <a href="#mod-pipeline" className="modules-sidebar-link">
           {tm('mod_side_pipeline')}
         </a>

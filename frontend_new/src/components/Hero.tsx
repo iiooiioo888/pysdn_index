@@ -12,6 +12,13 @@ import {
 } from '../hooks/useAnimations'
 import { scrollToHash } from '../utils/scrollToHash'
 
+/** 首頁數據條：模型隊列 · 並行任務 · 可接入模型（非行銷型數字） */
+const HERO_STATS = {
+  modelQueue: 32,
+  concurrentJobs: 8,
+  availableModels: 12,
+} as const
+
 export function Hero() {
   const { t, i18n } = useTranslation()
   const langSearch = useLangQuery()
@@ -29,13 +36,13 @@ export function Hero() {
   const [lightningActive, setLightningActive] = useState(false)
   const introRef = useRef<HTMLDivElement>(null)
 
-  // Stats counters
-  const stats99 = useInView();
-  const stats50 = useInView();
-  const stats200 = useInView();
-  const count99 = useCountUp(99, stats99.inView);
-  const count50 = useCountUp(50, stats50.inView);
-  const count200 = useCountUp(200, stats200.inView);
+  // Stats counters（與 HERO_STATS 對齊）
+  const statsQueue = useInView()
+  const statsConcurrent = useInView()
+  const statsModels = useInView()
+  const countQueue = useCountUp(HERO_STATS.modelQueue, statsQueue.inView)
+  const countConcurrent = useCountUp(HERO_STATS.concurrentJobs, statsConcurrent.inView)
+  const countModels = useCountUp(HERO_STATS.availableModels, statsModels.inView)
 
   // Lightning effect on intro banner
   useEffect(() => {
@@ -118,6 +125,12 @@ export function Hero() {
             <Link className="hero-doc-pill hero-doc-pill--neutral" to={{ pathname: PATHS.modules, search: langSearch }}>
               {t('hero_link_modules_overview')}
             </Link>
+            <Link
+              className="hero-doc-pill hero-doc-pill--neutral"
+              to={{ pathname: PATHS.models, search: langSearch }}
+            >
+              {t('hero_link_models')}
+            </Link>
             <Link className="hero-doc-pill hero-doc-pill--forge" to={{ pathname: PATHS.docs.superforge, search: langSearch }}>
               SuperForge
             </Link>
@@ -133,25 +146,24 @@ export function Hero() {
           </div>
         </div>
         <div className="hero-stats reveal">
-          <div className="stat-pill" ref={stats99.ref}>
+          <div className="stat-pill" ref={statsQueue.ref}>
             <div className="stat">
-              <span className="stat-num">{count99}</span>
-              <span className="stat-suffix">%</span>
-              <span className="stat-label">{t('stat_accuracy')}</span>
+              <span className="stat-num">{countQueue}</span>
+              <span className="stat-label">{t('stat_model_queue')}</span>
             </div>
           </div>
-          <div className="stat-pill" ref={stats50.ref}>
+          <div className="stat-pill" ref={statsConcurrent.ref}>
             <div className="stat">
-              <span className="stat-num">{count50}</span>
-              <span className="stat-suffix">K+</span>
-              <span className="stat-label">{t('stat_daily')}</span>
-            </div>
-          </div>
-          <div className="stat-pill" ref={stats200.ref}>
-            <div className="stat">
-              <span className="stat-num">{count200}</span>
+              <span className="stat-num">{countConcurrent}</span>
               <span className="stat-suffix">+</span>
-              <span className="stat-label">{t('stat_partners')}</span>
+              <span className="stat-label">{t('stat_concurrent_jobs')}</span>
+            </div>
+          </div>
+          <div className="stat-pill" ref={statsModels.ref}>
+            <div className="stat">
+              <span className="stat-num">{countModels}</span>
+              <span className="stat-suffix">+</span>
+              <span className="stat-label">{t('stat_models_available')}</span>
             </div>
           </div>
         </div>

@@ -13,21 +13,25 @@ export function Footer() {
       <div className="container">
         <div className="footer-top">
           <div className="footer-brand">
-            <a href="#home" className="nav-logo" aria-label="Pysdn home">
+            <Link
+              to={{ pathname: PATHS.home, hash: '#home', search: langSearch }}
+              className="nav-logo"
+              aria-label="Pysdn home"
+            >
               <span className="logo-mark" aria-hidden="true">⚡</span>
               <span className="logo-text">Pysdn</span>
-            </a>
+            </Link>
             <p>{t('footer_tagline')}</p>
           </div>
           <div className="footer-nav-block">
             <nav className="footer-links" aria-label="Footer navigation">
-              <a href="#home">{t('nav_home')}</a>
-              <a href="#about">{t('nav_about')}</a>
-              <a href="#products">{t('nav_products')}</a>
-              <a href="#showcase">{t('nav_showcase')}</a>
-              <a href="#workflow">{t('nav_workflow')}</a>
-              <a href="#faq">{t('nav_faq')}</a>
-              <a href="#contact">{t('nav_contact')}</a>
+              <Link to={{ pathname: PATHS.home, hash: '#home', search: langSearch }}>{t('nav_home')}</Link>
+              <Link to={{ pathname: PATHS.home, hash: '#about', search: langSearch }}>{t('nav_about')}</Link>
+              <Link to={{ pathname: PATHS.home, hash: '#products', search: langSearch }}>{t('nav_products')}</Link>
+              <Link to={{ pathname: PATHS.home, hash: '#showcase', search: langSearch }}>{t('nav_showcase')}</Link>
+              <Link to={{ pathname: PATHS.home, hash: '#workflow', search: langSearch }}>{t('nav_workflow')}</Link>
+              <Link to={{ pathname: PATHS.faq, search: langSearch }}>{t('nav_faq')}</Link>
+              <Link to={{ pathname: PATHS.home, hash: '#contact', search: langSearch }}>{t('nav_contact')}</Link>
             </nav>
             <nav className="footer-docs" aria-label="Modules and documentation">
               <span className="footer-docs-label">{t('hero_module_entry')}</span>

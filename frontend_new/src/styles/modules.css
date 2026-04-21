@@ -9,7 +9,7 @@
 }
 .modules-split-head p {
   color: var(--text-dim);
-  font-size: 0.9rem;
+  font-size: var(--text-body-lg, 1.0625rem);
 }
 
 .modules-card-grid {
@@ -58,7 +58,7 @@
 }
 .module-card-badge {
   padding: 3px 10px;
-  font-size: 0.6rem;
+  font-size: var(--text-meta, 0.6875rem);
   font-weight: 700;
   letter-spacing: 0.1em;
   border-radius: 6px;
@@ -83,7 +83,7 @@
   margin-bottom: 8px;
 }
 .module-card > p {
-  font-size: 0.85rem;
+  font-size: var(--text-ui, 0.875rem);
   color: var(--text-dim);
   line-height: 1.6;
   margin-bottom: 16px;
@@ -91,7 +91,7 @@
 .module-card-tags { display: flex; gap: 6px; flex-wrap: wrap; }
 .tech-tag {
   padding: 3px 10px;
-  font-size: 0.65rem;
+  font-size: var(--text-meta, 0.6875rem);
   font-weight: 600;
   border-radius: 6px;
   border: 1px solid;
