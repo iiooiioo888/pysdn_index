@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useLocation } from 'react-router-dom'
-import { useReveal } from '../hooks/useAnimations'
 import {
   CATALOG_MODELS,
   pickModelText,
@@ -72,13 +71,6 @@ export function ModelsSection() {
   )
 
   const filtersClear = capFilter === 'all' && brandFilter === 'all' && devFilter === 'all'
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      document.querySelectorAll('#models .reveal:not(.visible)').forEach((el) => observe(el))
-    }, 80)
-    return () => clearTimeout(timer)
-  }, [observe, capFilter, brandFilter, devFilter, visible])
 
   return (
     <section id="models" className="section models-section">

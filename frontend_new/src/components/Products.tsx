@@ -3,8 +3,6 @@ import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useLangQuery } from '../hooks/useLangQuery'
 import { PATHS } from '../routes/paths'
-import { useReveal } from '../hooks/useAnimations'
-
 const MODULE_CHEATSHEET = [
   { id: 'forge' as const, name: 'SuperForge', textKey: 'modules_split_cheat_forge' },
   { id: 'tune' as const, name: 'SuperTune', textKey: 'modules_split_cheat_tune' },
@@ -16,7 +14,6 @@ export function Products() {
   const { t } = useTranslation()
   const langSearch = useLangQuery()
   const [activeTab, setActiveTab] = useState('video')
-  const observe = useReveal()
   const [needsGesture, setNeedsGesture] = useState(false)
   /** 短劇分頁：主畫面監看目前播放的集數（EP1→EP3 連續輪播，可點選切換） */
   const [dramaMonitorEp, setDramaMonitorEp] = useState(1)
@@ -25,8 +22,6 @@ export function Products() {
     dramasTotal?: number
     imagesTotal?: number
   }>({})
-  const [statsStatus] = useState<'idle' | 'loading' | 'ready' | 'error'>('ready')
-
   const tabs = useMemo(
     () => [
       { id: 'video', label: t('tab_video') },
@@ -46,15 +41,6 @@ export function Products() {
       imagesTotal: 15,
     })
   }, [])
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      document
-        .querySelectorAll('#products .reveal:not(.visible)')
-        .forEach((el) => observe(el))
-    }, 50)
-    return () => clearTimeout(timer)
-  }, [activeTab, observe])
 
   const tryPlayWithRetry = (v: HTMLVideoElement, retries = 4) => {
     const attempt = (n: number) => {
@@ -92,7 +78,8 @@ export function Products() {
   }
 
   useEffect(() => {
-    const timer = setTimeout(() => {
+    if (activeTab === 'drama') setDramaMonitorEp(1)
+    const timer = window.setTimeout(() => {
       const videos = Array.from(document.querySelectorAll<HTMLVideoElement>('#products video'))
       videos.forEach((v) => {
         try {
@@ -105,11 +92,7 @@ export function Products() {
         }
       })
     }, 80)
-    return () => clearTimeout(timer)
-  }, [activeTab])
-
-  useEffect(() => {
-    if (activeTab === 'drama') setDramaMonitorEp(1)
+    return () => window.clearTimeout(timer)
   }, [activeTab])
 
   return (
@@ -164,15 +147,15 @@ export function Products() {
           <div className="products-intro-stats" role="status" aria-live="polite">
             <div className="quickstat">
               <span className="quickstat-label">{t('tab_video')}</span>
-              <span className="quickstat-val">{statsStatus === 'loading' ? '…' : (stats.videosTotal ?? '—')}</span>
+              <span className="quickstat-val">{stats.videosTotal ?? '—'}</span>
             </div>
             <div className="quickstat">
               <span className="quickstat-label">{t('tab_drama')}</span>
-              <span className="quickstat-val">{statsStatus === 'loading' ? '…' : (stats.dramasTotal ?? '—')}</span>
+              <span className="quickstat-val">{stats.dramasTotal ?? '—'}</span>
             </div>
             <div className="quickstat">
               <span className="quickstat-label">{t('tab_image')}</span>
-              <span className="quickstat-val">{statsStatus === 'loading' ? '…' : (stats.imagesTotal ?? '—')}</span>
+              <span className="quickstat-val">{stats.imagesTotal ?? '—'}</span>
             </div>
           </div>
         </div>
@@ -213,9 +196,9 @@ export function Products() {
                         type="button"
                         onClick={playAllInProducts}
                         className="video-autoplay-overlay"
-                        aria-label="Click to start playback"
+                        aria-label={t('products_video_autoplay_aria')}
                       >
-                        點一下啟動播放
+                        {t('products_video_autoplay_cta')}
                       </button>
                     )}
                     <video
@@ -566,9 +549,7 @@ export function Products() {
         <div className="product-cta reveal">
           <a href="#contact" className="btn btn-primary btn-lg">
             <span>{t('products_cta')}</span>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-              <path d="M5 12h14M12 5l7 7-7 7" />
-            </svg>
+            <span className="ui-chevron-right" aria-hidden="true" />
           </a>
         </div>
       </div>

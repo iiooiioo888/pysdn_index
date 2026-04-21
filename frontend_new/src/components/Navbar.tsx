@@ -63,26 +63,31 @@ export function Navbar() {
             <span className="logo-mark" aria-hidden="true">⚡</span>
             <span className="logo-text">Pysdn</span>
           </Link>
-          <ul className="nav-links">
-            {links.map((link) => (
-              <li key={link.key}>
-                {link.type === 'modules' ? (
-                  <Link to={{ pathname: PATHS.modules, search: langSearch }}>{t(link.key)}</Link>
-                ) : link.type === 'models' ? (
-                  <Link to={{ pathname: PATHS.models, search: langSearch }}>{t(link.key)}</Link>
-                ) : link.type === 'faq' ? (
-                  <Link to={{ pathname: PATHS.faq, search: langSearch }}>{t(link.key)}</Link>
-                ) : (
-                  <Link
-                    to={{ pathname: PATHS.home, hash: link.hash, search: langSearch }}
-                    onClick={() => onHomeHashClick(link.hash)}
-                  >
-                    {t(link.key)}
-                  </Link>
-                )}
-              </li>
-            ))}
-          </ul>
+          <div className="nav-links">
+            {links.map((link) =>
+              link.type === 'modules' ? (
+                <Link key={link.key} to={{ pathname: PATHS.modules, search: langSearch }}>
+                  {t(link.key)}
+                </Link>
+              ) : link.type === 'models' ? (
+                <Link key={link.key} to={{ pathname: PATHS.models, search: langSearch }}>
+                  {t(link.key)}
+                </Link>
+              ) : link.type === 'faq' ? (
+                <Link key={link.key} to={{ pathname: PATHS.faq, search: langSearch }}>
+                  {t(link.key)}
+                </Link>
+              ) : (
+                <Link
+                  key={link.key}
+                  to={{ pathname: PATHS.home, hash: link.hash, search: langSearch }}
+                  onClick={() => onHomeHashClick(link.hash)}
+                >
+                  {t(link.key)}
+                </Link>
+              )
+            )}
+          </div>
           <LanguageSwitcher />
           <Link
             to={{ pathname: PATHS.home, hash: '#contact', search: langSearch }}
@@ -104,35 +109,46 @@ export function Navbar() {
 
       {/* Mobile Menu */}
       <div className={`mobile-menu ${menuOpen ? 'open' : ''}`} aria-hidden={!menuOpen}>
-        <ul>
-          {links.map((link) => (
-            <li key={link.key}>
-              {link.type === 'modules' ? (
-                <Link to={{ pathname: PATHS.modules, search: langSearch }} onClick={() => setMenuOpen(false)}>
-                  {t(link.key)}
-                </Link>
-              ) : link.type === 'models' ? (
-                <Link to={{ pathname: PATHS.models, search: langSearch }} onClick={() => setMenuOpen(false)}>
-                  {t(link.key)}
-                </Link>
-              ) : link.type === 'faq' ? (
-                <Link to={{ pathname: PATHS.faq, search: langSearch }} onClick={() => setMenuOpen(false)}>
-                  {t(link.key)}
-                </Link>
-              ) : (
-                <Link
-                  to={{ pathname: PATHS.home, hash: link.hash, search: langSearch }}
-                  onClick={() => {
-                    onHomeHashClick(link.hash)
-                    setMenuOpen(false)
-                  }}
-                >
-                  {t(link.key)}
-                </Link>
-              )}
-            </li>
-          ))}
-        </ul>
+        <div className="mobile-menu-links">
+          {links.map((link) =>
+            link.type === 'modules' ? (
+              <Link
+                key={link.key}
+                to={{ pathname: PATHS.modules, search: langSearch }}
+                onClick={() => setMenuOpen(false)}
+              >
+                {t(link.key)}
+              </Link>
+            ) : link.type === 'models' ? (
+              <Link
+                key={link.key}
+                to={{ pathname: PATHS.models, search: langSearch }}
+                onClick={() => setMenuOpen(false)}
+              >
+                {t(link.key)}
+              </Link>
+            ) : link.type === 'faq' ? (
+              <Link
+                key={link.key}
+                to={{ pathname: PATHS.faq, search: langSearch }}
+                onClick={() => setMenuOpen(false)}
+              >
+                {t(link.key)}
+              </Link>
+            ) : (
+              <Link
+                key={link.key}
+                to={{ pathname: PATHS.home, hash: link.hash, search: langSearch }}
+                onClick={() => {
+                  onHomeHashClick(link.hash)
+                  setMenuOpen(false)
+                }}
+              >
+                {t(link.key)}
+              </Link>
+            )
+          )}
+        </div>
         <div className="mobile-menu-lang">
           <LanguageSwitcher />
         </div>

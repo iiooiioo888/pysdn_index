@@ -80,20 +80,19 @@ export function ModulesNav() {
             <span className="logo-mark" aria-hidden="true">⚡</span>
             <span className="logo-text">Pysdn</span>
           </Link>
-          <ul className="nav-links">
+          <div className="nav-links">
             {items.map((item) => (
-              <li key={item.labelKey}>
-                <Link
-                  to={item.to}
-                  className={item.active ? 'active' : undefined}
-                  aria-current={item.active ? 'page' : undefined}
-                  onClick={() => onHomeHashClick(item.to.hash)}
-                >
-                  {t(item.labelKey)}
-                </Link>
-              </li>
+              <Link
+                key={item.labelKey}
+                to={item.to}
+                className={item.active ? 'active' : undefined}
+                aria-current={item.active ? 'page' : undefined}
+                onClick={() => onHomeHashClick(item.to.hash)}
+              >
+                {t(item.labelKey)}
+              </Link>
             ))}
-          </ul>
+          </div>
           <LanguageSwitcher />
           <Link to={home('#contact')} className="nav-cta" onClick={() => onHomeHashClick('#contact')}>
             {t('nav_cta')}
@@ -113,23 +112,22 @@ export function ModulesNav() {
       </nav>
 
       <div className={`mobile-menu ${menuOpen ? 'open' : ''}`} aria-hidden={!menuOpen}>
-        <ul>
+        <div className="mobile-menu-links">
           {items.map((item) => (
-            <li key={item.labelKey}>
-              <Link
-                to={item.to}
-                className={item.active ? 'active' : undefined}
-                aria-current={item.active ? 'page' : undefined}
-                onClick={() => {
-                  onHomeHashClick(item.to.hash)
-                  setMenuOpen(false)
-                }}
-              >
-                {t(item.labelKey)}
-              </Link>
-            </li>
+            <Link
+              key={item.labelKey}
+              to={item.to}
+              className={item.active ? 'active' : undefined}
+              aria-current={item.active ? 'page' : undefined}
+              onClick={() => {
+                onHomeHashClick(item.to.hash)
+                setMenuOpen(false)
+              }}
+            >
+              {t(item.labelKey)}
+            </Link>
           ))}
-        </ul>
+        </div>
         <div className="mobile-menu-lang">
           <LanguageSwitcher />
         </div>

@@ -252,10 +252,10 @@ export function useCanvasBackground() {
           for (let dcy = -1; dcy <= 1; dcy++) {
             const others = grid.get((gcx + dcx) + ',' + (gcy + dcy));
             if (!others) continue;
-            for (const i of indices) {
-              const pi = particles[i];
+            for (const idxA of indices) {
+              const pi = particles[idxA];
               for (const j of others) {
-                if (j <= i) continue;
+                if (j <= idxA) continue;
                 const pj = particles[j];
                 const dx = pi.x - pj.x;
                 const dy = pi.y - pj.y;

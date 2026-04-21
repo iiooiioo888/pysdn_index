@@ -89,9 +89,9 @@ export function Hero() {
           className="btn btn-ghost btn-sm"
           onClick={(e) => scrollToHash('#products', e)}
         >
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-            <polygon points="5 3 19 12 5 21 5 3" />
-          </svg>
+          <span className="hero-intro-play-glyph" aria-hidden="true">
+            ▶
+          </span>
           <span>{t('hero_intro_cta')}</span>
         </a>
       </div>
@@ -112,9 +112,7 @@ export function Hero() {
         <div className="hero-actions reveal">
           <a href="#products" className="btn btn-primary" onClick={(e) => scrollToHash('#products', e)}>
             <span>{t('hero_cta1')}</span>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-              <path d="M5 12h14M12 5l7 7-7 7" />
-            </svg>
+            <span className="ui-chevron-right" aria-hidden="true" />
           </a>
           <a href="#showcase" className="btn btn-ghost" onClick={(e) => scrollToHash('#showcase', e)}>
             <span>{t('hero_cta2')}</span>
@@ -140,11 +138,7 @@ export function Hero() {
                   <span className="hero-module-card-title">{t('hero_link_modules_overview')}</span>
                   <span className="hero-module-card-sub">{t('hero_module_card_modules_hint')}</span>
                 </span>
-                <span className="hero-module-card-arrow" aria-hidden="true">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M5 12h14M12 5l7 7-7 7" />
-                  </svg>
-                </span>
+                <span className="hero-module-card-arrow ui-chevron-right" aria-hidden="true" />
               </Link>
               <Link
                 className="hero-module-card hero-module-card--models"
@@ -162,11 +156,7 @@ export function Hero() {
                   <span className="hero-module-card-title">{t('hero_link_models')}</span>
                   <span className="hero-module-card-sub">{t('hero_module_card_models_hint')}</span>
                 </span>
-                <span className="hero-module-card-arrow" aria-hidden="true">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M5 12h14M12 5l7 7-7 7" />
-                  </svg>
-                </span>
+                <span className="hero-module-card-arrow ui-chevron-right" aria-hidden="true" />
               </Link>
             </div>
             <div className="hero-module-docs-strips">

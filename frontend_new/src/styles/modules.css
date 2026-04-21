@@ -11,6 +11,66 @@
   color: var(--text-dim);
   font-size: var(--text-body-lg, 1.0625rem);
 }
+.modules-split-intro {
+  max-width: 42rem;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 20px;
+  line-height: 1.65;
+}
+.modules-split-cheatsheet {
+  list-style: none;
+  margin: 0 auto 20px;
+  padding: 0;
+  max-width: 36rem;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.modules-split-cheat {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 10px 14px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.03);
+  font-size: 0.9rem;
+  color: var(--text-dim);
+  line-height: 1.45;
+}
+.modules-split-cheat-name {
+  font-weight: 700;
+  font-size: 0.82rem;
+  letter-spacing: 0.02em;
+  color: #fff;
+  flex-shrink: 0;
+}
+.modules-split-cheat-text {
+  flex: 1 1 12rem;
+  min-width: 0;
+}
+.modules-split-cheat--forge { border-left: 3px solid #06b6d4; }
+.modules-split-cheat--tune { border-left: 3px solid #a78bfa; }
+.modules-split-cheat--track { border-left: 3px solid #34d399; }
+.modules-split-cheat--script { border-left: 3px solid #fbbf24; }
+.modules-split-hub {
+  margin: 0;
+  font-size: var(--text-body, 0.95rem);
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+.modules-split-hub-link {
+  color: #22d3ee;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.modules-split-hub-link:hover {
+  color: #67e8f9;
+}
 
 .modules-card-grid {
   display: grid;

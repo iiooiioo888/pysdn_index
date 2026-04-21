@@ -69,11 +69,7 @@ export function About() {
               <li>{t('about_pain_4', '角色、風格跨項目就跑掉')}</li>
             </ul>
           </div>
-          <div className="about-compare-arrow" aria-hidden="true">
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M5 12h14M12 5l7 7-7 7"/>
-            </svg>
-          </div>
+          <div className="about-compare-arrow" aria-hidden="true" />
           <div className="about-compare-col about-compare-gain">
             <h4>✅ {t('about_gain_title', 'SuperCool 方案')}</h4>
             <ul>

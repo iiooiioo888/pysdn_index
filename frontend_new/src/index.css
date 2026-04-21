@@ -193,6 +193,40 @@ main > .section:last-child::after {
 .section.contact {
   background: linear-gradient(180deg, transparent 0%, rgba(6, 182, 212, 0.025) 100%);
 }
+
+/* 離屏區塊略過渲染／排版（Chromium）；降低版面配置與樣式成本。Hero 排除以免首屏延遲。 */
+main > section:not(.hero) {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 720px;
+}
+
+/* 輕量箭頭：取代多處 SVG path，縮小 DOM 深度與節點數 */
+.ui-chevron-right {
+  display: inline-block;
+  width: 0.55em;
+  height: 0.55em;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(-45deg);
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+.ui-chevron-down {
+  display: inline-block;
+  width: 0.42em;
+  height: 0.42em;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg);
+  vertical-align: middle;
+  margin-inline-start: 4px;
+  transition: transform 0.2s ease;
+  flex-shrink: 0;
+}
+.ui-chevron-down--open {
+  transform: rotate(225deg);
+}
+
 .container {
   max-width: 1160px;
   margin: 0 auto;

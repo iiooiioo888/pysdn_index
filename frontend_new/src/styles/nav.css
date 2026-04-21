@@ -197,7 +197,7 @@
   visibility: visible;
   pointer-events: auto;
 }
-.mobile-menu ul {
+.mobile-menu-links {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -206,8 +206,8 @@
   max-width: 360px;
   padding: 0 20px;
 }
-.mobile-menu a { font-size: 1.3rem; font-weight: 500; color: var(--text-dim); transition: color 0.2s; }
-.mobile-menu a:hover { color: #fff; }
+.mobile-menu-links a { font-size: 1.3rem; font-weight: 500; color: var(--text-dim); transition: color 0.2s; }
+.mobile-menu-links a:hover { color: #fff; }
 .mobile-cta {
   margin-top: 16px;
   padding: 12px 32px;

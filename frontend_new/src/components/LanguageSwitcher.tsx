@@ -86,9 +86,7 @@ export function LanguageSwitcher() {
       >
         <span className="lang-flag" aria-hidden="true">{current.flag}</span>
         <span className="lang-code">{current.label}</span>
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-          <path d="M6 9l6 6 6-6" />
-        </svg>
+        <span className={`ui-chevron-down ${isOpen ? 'ui-chevron-down--open' : ''}`} aria-hidden="true" />
       </button>
       <div
         className="lang-dropdown"

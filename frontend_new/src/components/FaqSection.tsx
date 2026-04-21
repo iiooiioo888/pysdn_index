@@ -1,17 +1,7 @@
-import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useReveal } from '../hooks/useAnimations'
 
 export function FaqSection() {
   const { t } = useTranslation()
-  const observe = useReveal()
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      document.querySelectorAll('#faq .reveal:not(.visible)').forEach((el) => observe(el))
-    }, 60)
-    return () => clearTimeout(timer)
-  }, [observe])
   const items = Array.from({ length: 16 }, (_, i) => i + 1).map((n) => ({
     n,
     qKey: `faq_${n}_q` as const,

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import type { DocLang } from '../../hooks/useDocBundle'
 import { useNavBarCompact } from '../../hooks/useNavBarCompact'
 import { PATHS } from '../../routes/paths'
@@ -13,6 +14,7 @@ export function DocNavbar({
   t: (key: string) => string
   lang: DocLang
 }) {
+  const { t: tUi } = useTranslation()
   const langSearch = toLangSearch(lang)
   const modulesTo = { pathname: PATHS.modules, search: langSearch }
   const homeTo = { pathname: PATHS.home, search: langSearch }
@@ -27,7 +29,7 @@ export function DocNavbar({
     <>
       <nav
         className={`doc-nav ${compact ? 'doc-nav--compact' : ''}`}
-        aria-label="主導航"
+        aria-label={tUi('nav_aria_main')}
       >
         <div className="doc-nav-inner" ref={navInnerRef}>
           <Link to={homeTo} className="doc-nav-logo">

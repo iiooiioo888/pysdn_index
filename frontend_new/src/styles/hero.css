@@ -318,15 +318,24 @@
 
 .hero-module-card-arrow {
   flex-shrink: 0;
-  display: grid;
-  place-items: center;
+  display: inline-block;
   align-self: center;
+  width: 0.65rem;
+  height: 0.65rem;
   color: rgba(148, 163, 184, 0.55);
   transition: transform 0.2s ease, color 0.2s ease;
 }
 .hero-module-card:hover .hero-module-card-arrow {
   transform: translateX(4px);
   color: rgba(226, 232, 240, 0.9);
+}
+
+.hero-intro-play-glyph {
+  display: inline-block;
+  font-size: 0.72em;
+  line-height: 1;
+  margin-right: 8px;
+  opacity: 0.92;
 }
 
 .hero-module-docs-strips {

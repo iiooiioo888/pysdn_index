@@ -1,13 +1,17 @@
+import compression from 'compression'
 import { defineConfig, type Plugin } from 'vite'
 import react from '@vitejs/plugin-react'
 
 const PUBLIC_BASE = '/pysdn_index/'
 const PUBLIC_BASE_NO_SLASH = PUBLIC_BASE.replace(/\/$/, '')
 
-/** Dev-only: redirect `/` and bare `/pysdn_index` to the app root under `base`. */
-function devRedirectRootToBase(): Plugin {
+/**
+ * Dev-only：將 `/` 與 `/pysdn_index` **改寫**為 `base` 路徑（不發 302），避免 Lighthouse
+ * 「第一個要求有重新導向」與額外延遲；實際部署若走 GitHub Pages，仍建議直接打帶 base 的網址。
+ */
+function devRewriteRootToBase(): Plugin {
   return {
-    name: 'dev-redirect-root-to-base',
+    name: 'dev-rewrite-root-to-base',
     apply: 'serve',
     configureServer(server) {
       server.middlewares.use((req, res, next) => {
@@ -18,14 +22,13 @@ function devRedirectRootToBase(): Plugin {
         const search = q !== -1 ? raw.slice(q) : ''
 
         if (pathname === '/' || pathname === '') {
-          const path = PUBLIC_BASE.endsWith('/') ? PUBLIC_BASE : `${PUBLIC_BASE}/`
-          res.writeHead(302, { Location: `${path}${search}` })
-          res.end()
+          req.url = `${PUBLIC_BASE}${search}`
+          next()
           return
         }
         if (pathname === PUBLIC_BASE_NO_SLASH) {
-          res.writeHead(302, { Location: `${PUBLIC_BASE}${search}` })
-          res.end()
+          req.url = `${PUBLIC_BASE}${search}`
+          next()
           return
         }
         next()
@@ -35,7 +38,19 @@ function devRedirectRootToBase(): Plugin {
 }
 
 export default defineConfig({
-  plugins: [devRedirectRootToBase(), react()],
+  plugins: [
+    {
+      name: 'dev-preview-compression',
+      configureServer(server) {
+        server.middlewares.use(compression({ threshold: 1024 }))
+      },
+      configurePreviewServer(server) {
+        server.middlewares.use(compression({ threshold: 1024 }))
+      },
+    },
+    devRewriteRootToBase(),
+    react(),
+  ],
   base: PUBLIC_BASE,
   server: {
     port: 3000,

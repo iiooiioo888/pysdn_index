@@ -31,42 +31,75 @@ function normalizeTypingTiers(tiers: TypingTierPhrase[][] | undefined): TypingTi
   return ok ? tiers : DEFAULT_TYPING_TIERS
 }
 
-export function useReveal() {
-  const observerRef = useRef<IntersectionObserver | null>(null);
+/** 全站共用一個 IntersectionObserver，避免多處 useReveal 各自 disconnect / 重複 observe */
+let revealObserverSingleton: IntersectionObserver | null = null
 
-  useEffect(() => {
-    observerRef.current = new IntersectionObserver(
+function getRevealObserver(): IntersectionObserver {
+  if (typeof window === 'undefined') {
+    throw new Error('reveal observer is client-only')
+  }
+  if (!revealObserverSingleton) {
+    revealObserverSingleton = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            observerRef.current?.unobserve(entry.target);
+            entry.target.classList.add('visible')
+            revealObserverSingleton?.unobserve(entry.target)
           }
-        });
+        })
       },
-      { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
-    );
+      { threshold: 0.1, rootMargin: '0px 0px -40px 0px' },
+    )
+  }
+  return revealObserverSingleton
+}
 
-    // Observe all reveal elements
-    const timer = setTimeout(() => {
-      document.querySelectorAll('.reveal').forEach((el) => {
-        observerRef.current?.observe(el);
-      });
-    }, 100);
+export function observeRevealElement(el: Element | null) {
+  if (!el) return
+  try {
+    getRevealObserver().observe(el)
+  } catch {
+    // ignore
+  }
+}
 
-    return () => {
-      clearTimeout(timer);
-      observerRef.current?.disconnect();
-    };
-  }, []);
+/** 掃描容器內尚未顯示的 .reveal 並註冊觀察（懶載入／切換分頁後呼叫） */
+export function scanRevealElements(root: ParentNode = document) {
+  root.querySelectorAll('.reveal:not(.visible)').forEach((el) => observeRevealElement(el))
+}
 
-  const observe = useCallback((el: Element | null) => {
-    if (el && observerRef.current) {
-      observerRef.current.observe(el);
+/**
+ * 仍回傳 observe 函式供少數手動註冊使用；不再在 hook 內做全域 querySelectorAll，
+ * 避免與頁面級掃描重複 observe。
+ */
+export function useReveal() {
+  return useCallback((el: Element | null) => observeRevealElement(el), [])
+}
+
+/**
+ * 在 App 根層掛載一次：初次掃描 + 延遲補掃（配合 lazy）+ 監聽 #root 子樹變化。
+ */
+export function useRevealPageScan() {
+  useEffect(() => {
+    const scan = () => scanRevealElements(document)
+    scan()
+    const t1 = window.setTimeout(scan, 120)
+    const t2 = window.setTimeout(scan, 520)
+    const root = document.getElementById('root')
+    const mo =
+      root &&
+      new MutationObserver(() => {
+        queueMicrotask(scan)
+      })
+    if (root && mo) {
+      mo.observe(root, { childList: true, subtree: true })
     }
-  }, []);
-
-  return observe;
+    return () => {
+      window.clearTimeout(t1)
+      window.clearTimeout(t2)
+      mo?.disconnect()
+    }
+  }, [])
 }
 
 export function useTypingAnimation(tiersInput: TypingTierPhrase[][]) {

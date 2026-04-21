@@ -1,24 +1,13 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useLangQuery } from '../hooks/useLangQuery'
 import { PATHS } from '../routes/paths'
-import { useReveal } from '../hooks/useAnimations'
 
 export function ModulesPanel() {
   const { t } = useTranslation()
   const langSearch = useLangQuery()
   const [activeTab, setActiveTab] = useState<'forge' | 'script' | 'track' | 'tune'>('forge')
-  const observe = useReveal()
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      document
-        .querySelectorAll('#modules-panel .reveal:not(.visible)')
-        .forEach((el) => observe(el))
-    }, 50)
-    return () => clearTimeout(timer)
-  }, [activeTab, observe])
 
   const tabs = [
     { id: 'forge' as const, label: t('mp_tab_forge', 'SuperForge'), color: 'cyan' },

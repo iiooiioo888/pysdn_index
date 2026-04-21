@@ -63,7 +63,20 @@
 .about-compare-arrow {
   display: flex;
   align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
   color: var(--text-muted);
+}
+.about-compare-arrow::after {
+  content: '';
+  display: block;
+  width: 14px;
+  height: 14px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(-45deg);
 }
 
 /* Feature Cards */

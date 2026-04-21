@@ -1,17 +1,8 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useReveal } from '../hooks/useAnimations'
 
 export function Contact() {
   const { t } = useTranslation()
-  const observe = useReveal()
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      document.querySelectorAll('#contact .reveal:not(.visible)').forEach((el) => observe(el))
-    }, 60)
-    return () => clearTimeout(timer)
-  }, [observe])
   const [formData, setFormData] = useState({ name: '', email: '', company: '', message: '' })
   const [submitted, setSubmitted] = useState(false)
 

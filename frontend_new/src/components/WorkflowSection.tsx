@@ -1,11 +1,9 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useReveal } from '../hooks/useAnimations'
 import { prefersReducedMotion } from '../lib/motionPreference'
 
 export function WorkflowSection() {
   const { t } = useTranslation()
-  const observe = useReveal()
   const [activeStep, setActiveStep] = useState(1)
 
   const goStep = useCallback((n: number) => {
@@ -18,13 +16,6 @@ export function WorkflowSection() {
       })
     })
   }, [])
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      document.querySelectorAll('#workflow .reveal:not(.visible)').forEach((el) => observe(el))
-    }, 60)
-    return () => clearTimeout(timer)
-  }, [observe])
 
   const steps = [1, 2, 3, 4].map((n) => ({
     n,
