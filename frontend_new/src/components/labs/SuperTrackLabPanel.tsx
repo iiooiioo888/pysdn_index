@@ -9,6 +9,10 @@ const ENTITIES = [
   { icon: '🏢', name: 'FluxWorks', kind: 'up' as const, m: '+3.0%' },
   { icon: '👤', name: '@shortfilm_lab', kind: 'hot' as const, m: '警報' },
   { icon: '👤', name: '@visual_poem', kind: 'flat' as const, m: '觀望' },
+  { icon: '👤', name: '@synth_cinema', kind: 'up' as const, m: '+6.8%' },
+  { icon: '🏢', name: 'Nebula Ads', kind: 'up' as const, m: '+2.2%' },
+  { icon: '👤', name: '@vfx_breakdown', kind: 'flat' as const, m: '盤整' },
+  { icon: '👤', name: '@lofi_radar', kind: 'hot' as const, m: '情緒尖峰' },
 ] as const
 
 const TRENDS = [
@@ -20,14 +24,25 @@ const TRENDS = [
   { rank: '#6', name: 'AI 配音一致性', w: 58, heat: '↑110%' },
   { rank: '#7', name: '品牌短影音', w: 54, heat: '↑98%' },
   { rank: '#8', name: '互動劇分支', w: 49, heat: '↑86%' },
+  { rank: '#9', name: '微短劇三幕化', w: 46, heat: '↑79%' },
+  { rank: '#10', name: '生成浮水印倫理', w: 42, heat: '↑71%' },
+  { rank: '#11', name: '音樂版權探路', w: 38, heat: '↑64%' },
+  { rank: '#12', name: 'UGC 二創合規', w: 35, heat: '↑58%' },
 ]
 
 const ALERTS = [
-  { t: '09:12', who: '@design_daily', what: '互動率 3× baseline' },
-  { t: '08:44', who: 'BrandX Studio', what: '新話題 #cybercafe 升溫' },
-  { t: '01:15', who: '@ai_creative', what: '夜間增粉 +2.1% / 15m' },
-  { t: '昨 23:40', who: '系統', what: '全域情緒指數 0.78' },
-  { t: '昨 20:11', who: '@shortfilm_lab', what: '貼文延遲 12m 仍觸發預警' },
+  { t: '09:12', sev: 'P1', who: '@design_daily', what: '互動率 3× baseline' },
+  { t: '08:44', sev: 'P2', who: 'BrandX Studio', what: '新話題 #cybercafe 升溫' },
+  { t: '01:15', sev: 'P2', who: '@ai_creative', what: '夜間增粉 +2.1% / 15m' },
+  { t: '昨 23:40', sev: '—', who: '系統', what: '全域情緒指數 0.78' },
+  { t: '昨 20:11', sev: 'P1', who: '@shortfilm_lab', what: '貼文延遲 12m 仍觸發預警' },
+  { t: '07:50', sev: 'P0', who: '@lofi_radar', what: '負面情緒突增 0.22 → 0.41 / 1h' },
+  { t: '07:12', sev: 'P2', who: 'FluxWorks', what: '關鍵字「配音一致性」闖入榜單' },
+  { t: '06:33', sev: 'P2', who: '@synth_cinema', what: '轉推鏈 19 跳，疑似機器人簇群' },
+  { t: '05:10', sev: 'P3', who: 'Nebula Ads', what: '投放素材 A/B 點擊分岔 18%' },
+  { t: '04:01', sev: 'P2', who: '系統', what: '爬蟲節流：IG story 欄位 429×12' },
+  { t: '02:40', sev: 'P1', who: '@vfx_breakdown', what: '留言「造假疑雲」熱度爬升' },
+  { t: '昨 22:15', sev: 'P2', who: '@cyberpunk_art', what: '互動中樞但分享率低於同儕' },
 ]
 
 const AUDIENCE = [
@@ -36,6 +51,24 @@ const AUDIENCE = [
   { a: '🎬', n: '影評 / 影迷', m: '25-50 · 核心', s: 81 },
   { a: '🧵', n: '劇作研究員', m: '22-40 · 深度', s: 79 },
   { a: '🛒', n: '品牌內容採購', m: '28-55 · B2B', s: 72 },
+  { a: '🎧', n: '播客/解說 up', m: '20-38 · 二次創作', s: 77 },
+]
+
+const PLATFORMS = [
+  { p: 'X (Twitter)', sig: 4120, lat: '1.2s', q: 'ok', miss: '0.4%' },
+  { p: 'Instagram', sig: 2890, lat: '2.8s', q: '429 節流', miss: '1.1%' },
+  { p: 'TikTok 熱榜', sig: 5102, lat: '0.9s', q: 'ok', miss: '0.2%' },
+  { p: 'YouTube 留言', sig: 980, lat: '3.1s', q: 'ok', miss: '0.7%' },
+  { p: 'Reddit / 子版', sig: 640, lat: '1.4s', q: '審查延遲', miss: '2.0%' },
+  { p: '新聞 RSS', sig: 210, lat: '0.3s', q: 'ok', miss: '0%' },
+]
+
+const GEO = [
+  { r: '東亞', h: 88 },
+  { r: '北美西岸', h: 72 },
+  { r: '歐陸 DACH', h: 54 },
+  { r: '拉美', h: 61 },
+  { r: '其他', h: 43 },
 ]
 
 export function SuperTrackLabPanel() {
@@ -63,17 +96,17 @@ export function SuperTrackLabPanel() {
         </div>
       </div>
 
-      <p className="doc-lab-note">即時 KPI：實體、警報、熱詞、情緒、爬蟲成功率、訊號量。</p>
-      <div className="sim-kpis" style={{ gridTemplateColumns: 'repeat(3, minmax(0,1fr))' }}>
+      <p className="doc-lab-note">即時 KPI：實體、警報、熱詞、情緒、爬蟲成功率、訊號量；下方加上平台與地理熱力示範。</p>
+      <div className="sim-kpis" style={{ gridTemplateColumns: 'repeat(4, minmax(0,1fr))' }}>
         <div className="sim-kpi">
           <div className="sim-kpi-label">entities</div>
-          <div className="sim-kpi-val">36</div>
+          <div className="sim-kpi-val">42</div>
         </div>
         <div className="sim-kpi">
-          <div className="sim-kpi-label">alerts</div>
-          <div className="sim-kpi-val sim-kpi-val--highlight">9</div>
+          <div className="sim-kpi-label">alerts (24h)</div>
+          <div className="sim-kpi-val sim-kpi-val--highlight">12</div>
           <div className="sim-bar">
-            <div className="sim-bar-fill sim-bar-fill--green" style={{ width: '52%' }} />
+            <div className="sim-bar-fill sim-bar-fill--green" style={{ width: '62%' }} />
           </div>
         </div>
         <div className="sim-kpi">
@@ -95,15 +128,70 @@ export function SuperTrackLabPanel() {
           <div className="sim-kpi-label">signals/min</div>
           <div className="sim-kpi-val">168</div>
         </div>
+        <div className="sim-kpi">
+          <div className="sim-kpi-label">noise filter</div>
+          <div className="sim-kpi-val">91%</div>
+          <div className="sim-kpi-sub">已剃除機器/重複</div>
+        </div>
+        <div className="sim-kpi">
+          <div className="sim-kpi-label">跨平台延遲 p95</div>
+          <div className="sim-kpi-val">2.1s</div>
+        </div>
+      </div>
+
+      <div className="sim-grid-2" style={{ marginTop: 12 }}>
+        <div className="sim-card">
+          <div className="sim-card-head">訊號來源佔比（6 平台 · 示範）</div>
+          <div className="sim-table-wrap">
+            <table className="sim-table">
+              <thead>
+                <tr>
+                  <th>平台</th>
+                  <th>sig/h</th>
+                  <th>延遲</th>
+                  <th>品質</th>
+                  <th>漏抓</th>
+                </tr>
+              </thead>
+              <tbody>
+                {PLATFORMS.map((r) => (
+                  <tr key={r.p}>
+                    <td>{r.p}</td>
+                    <td className="sim-mono">{r.sig.toLocaleString()}</td>
+                    <td>{r.lat}</td>
+                    <td>{r.q}</td>
+                    <td>{r.miss}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div className="sim-card">
+          <div className="sim-card-head">地理情緒熱力（相對 0–100）</div>
+          <p className="sim-mini-hint">與內容投放與配樂風險參考；非真實人口統計。</p>
+          {GEO.map((g) => (
+            <div key={g.r} style={{ marginBottom: 8 }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.72rem' }}>
+                <span>{g.r}</span>
+                <span className="sim-mono">{g.h}</span>
+              </div>
+              <div className="sim-bar" style={{ marginTop: 4 }}>
+                <div className="sim-bar-fill sim-bar-fill--red" style={{ width: `${g.h}%`, opacity: 0.75 }} />
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
 
       <div className="sim-card" style={{ marginTop: 16 }}>
-        <div className="sim-card-head">最近警報（示範）</div>
+        <div className="sim-card-head">最近警報（{ALERTS.length} 筆 · 示範）</div>
         <div className="sim-table-wrap">
           <table className="sim-table">
             <thead>
               <tr>
                 <th>時間</th>
+                <th>嚴重度</th>
                 <th>對象</th>
                 <th>內容</th>
               </tr>
@@ -112,6 +200,18 @@ export function SuperTrackLabPanel() {
               {ALERTS.map((a) => (
                 <tr key={a.t + a.who}>
                   <td className="sim-mono">{a.t}</td>
+                  <td>
+                    <span
+                      className="sim-badge-soft"
+                      style={
+                        a.sev === 'P0'
+                          ? { color: '#fecaca', border: '1px solid rgba(239,68,68,0.35)' }
+                          : undefined
+                      }
+                    >
+                      {a.sev}
+                    </span>
+                  </td>
                   <td>{a.who}</td>
                   <td>{a.what}</td>
                 </tr>
@@ -149,7 +249,7 @@ export function SuperTrackLabPanel() {
 
       <div className="sim-grid-2" style={{ marginTop: 12 }}>
         <div className="sim-card">
-          <div className="sim-card-head">👥 觀眾畫像（5 群組）</div>
+          <div className="sim-card-head">👥 觀眾畫像（6 群組）</div>
           <div className="sim-audience">
             {AUDIENCE.map((r) => (
               <div className="sim-audience-row" key={r.n}>
@@ -167,7 +267,7 @@ export function SuperTrackLabPanel() {
         </div>
 
         <div className="sim-card">
-          <div className="sim-card-head">📡 熱詞趨勢（TOP 8）</div>
+          <div className="sim-card-head">📡 熱詞趨勢（TOP {TRENDS.length}）</div>
           <div className="sim-trend">
             {TRENDS.map((r) => (
               <div className="sim-trend-row" key={r.rank}>

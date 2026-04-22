@@ -6,6 +6,27 @@ const APPLY_LOG = [
   { when: '昨 19:02', from: 'Batch #14', what: 'Tier 下調 gpt-4o-mini', est: '−$0.22' },
   { when: '昨 16:11', from: '長劇 EP3', what: '節奏拆場', est: 'pacing 0.81→0.88' },
   { when: '昨 10:40', from: '廣告文案 A/B', what: '勝出 B 已回寫', est: 'conf 99.2%' },
+  { when: '昨 08:20', from: 'SuperTrack 信號', what: '熱詞權重 +cybercafe', est: 'hook +4%' },
+  { when: '昨 01:10', from: 'Batch #11', what: '圖示解析度 −25%', est: '−$0.09' },
+  { when: '週一', from: '導演風格實驗', what: '切換 王家衛 15% 混和', est: 'fid 80.2%' },
+  { when: '週一', from: '成本護欄', what: '單場 token 超標阻擋 3 次', est: '省 $0.31' },
+  { when: '上週', from: '多臂賭局', what: '模型臂 #2 凍結', est: '收益 +2.1%' },
+]
+
+const MODEL_COST = [
+  { model: 'gpt-4o', share: 28, usd: 4.2, tok: '1.1M' },
+  { model: 'gpt-4o-mini', share: 44, usd: 0.9, tok: '3.8M' },
+  { model: 'claude-3.5-sonnet', share: 12, usd: 1.1, tok: '0.24M' },
+  { model: 'embed-3-small', share: 9, usd: 0.12, tok: '8.2M' },
+  { model: '其他 / 微調', share: 7, usd: 0.6, tok: '—' },
+]
+
+const GUARDRAIL = [
+  { k: '幻覺率', v: '0.7%', s: 92 },
+  { k: '越欄引用', v: '0.2%', s: 88 },
+  { k: '品牌安全', v: 'A-', s: 85 },
+  { k: '版權遮罩', v: 'on', s: 100 },
+  { k: '人審佇列', v: '6 筆', s: 79 },
 ]
 
 export function SuperTuneLabPanel() {
@@ -134,6 +155,154 @@ export function SuperTuneLabPanel() {
               </div>
               <span className="sim-ab-score">88%</span>
             </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="sim-card" style={{ marginTop: 12 }}>
+        <div className="sim-card-head">🔬 A/B · 分鏡敘事節奏（n=2,180 · 7 秒內要抓住）</div>
+        <p style={{ fontSize: '0.65rem', opacity: 0.5, marginBottom: 8 }}>C=觀眾留在前 7s、H=情緒抬升；B 在剪輯點上勝出。</p>
+        <div className="sim-grid-2" style={{ marginTop: 0 }}>
+          <div className="sim-ab-universe">
+            <div className="sim-ab-label">剪輯方案 A（均速）</div>
+            <div className="sim-ab-row">
+              <span className="sim-ab-dim">C</span>
+              <div className="sim-bar">
+                <div className="sim-bar-fill sim-bar-fill--cyan" style={{ width: '64%' }} />
+              </div>
+              <span className="sim-ab-score">64%</span>
+            </div>
+            <div className="sim-ab-row">
+              <span className="sim-ab-dim">H</span>
+              <div className="sim-bar">
+                <div className="sim-bar-fill sim-bar-fill--cyan" style={{ width: '58%' }} />
+              </div>
+              <span className="sim-ab-score">0.58</span>
+            </div>
+          </div>
+          <div className="sim-ab-universe">
+            <div className="sim-ab-label" style={{ color: '#a78bfa' }}>
+              剪輯方案 B（兩次 micro-hook）✓
+            </div>
+            <div className="sim-ab-row">
+              <span className="sim-ab-dim">C</span>
+              <div className="sim-bar">
+                <div className="sim-bar-fill sim-bar-fill--purple" style={{ width: '79%' }} />
+              </div>
+              <span className="sim-ab-score">79%</span>
+            </div>
+            <div className="sim-ab-row">
+              <span className="sim-ab-dim">H</span>
+              <div className="sim-bar">
+                <div className="sim-bar-fill sim-bar-fill--purple" style={{ width: '74%' }} />
+              </div>
+              <span className="sim-ab-score">0.72</span>
+            </div>
+          </div>
+        </div>
+        <div className="sim-kpis" style={{ gridTemplateColumns: 'repeat(4,1fr)', gap: 6, marginTop: 8 }}>
+          <div className="sim-kpi">
+            <div className="sim-kpi-label">uplift</div>
+            <div className="sim-kpi-val sim-kpi-val--highlight" style={{ fontSize: '0.8rem' }}>
+              +15%
+            </div>
+          </div>
+          <div className="sim-kpi">
+            <div className="sim-kpi-label">p-value</div>
+            <div className="sim-kpi-val" style={{ fontSize: '0.8rem' }}>
+              0.002
+            </div>
+          </div>
+          <div className="sim-kpi">
+            <div className="sim-kpi-label">cohort</div>
+            <div className="sim-kpi-val" style={{ fontSize: '0.7rem' }}>
+              Z / 行動
+            </div>
+          </div>
+          <div className="sim-kpi">
+            <div className="sim-kpi-label">建議</div>
+            <div className="sim-kpi-val" style={{ fontSize: '0.7rem', color: '#a78bfa' }}>
+              導出至剪輯
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="sim-grid-2" style={{ marginTop: 12 }}>
+        <div className="sim-card">
+          <div className="sim-card-head">🧮 近 7 天模型與權重成本（示範）</div>
+          <div className="sim-table-wrap">
+            <table className="sim-table">
+              <thead>
+                <tr>
+                  <th>模型</th>
+                  <th>佔比</th>
+                  <th>USD(估)</th>
+                  <th>Token</th>
+                </tr>
+              </thead>
+              <tbody>
+                {MODEL_COST.map((r) => (
+                  <tr key={r.model}>
+                    <td>{r.model}</td>
+                    <td className="sim-mono">{r.share}%</td>
+                    <td>${r.usd.toFixed(2)}</td>
+                    <td className="sim-mono">{r.tok}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div className="sim-card">
+          <div className="sim-card-head">🛡️ 安全 / 合規儀表（抽樣＋人審佇列）</div>
+          {GUARDRAIL.map((r) => (
+            <div key={r.k} className="sim-net-row" style={{ marginBottom: 6 }}>
+              <span style={{ fontSize: '0.72rem' }}>{r.k}</span>
+              <div className="sim-bar" style={{ flex: 1, margin: '0 8px' }}>
+                <div className="sim-bar-fill sim-bar-fill--green" style={{ width: `${r.s}%` }} />
+              </div>
+              <span className="sim-mono" style={{ fontSize: '0.72rem' }}>
+                {r.v}
+              </span>
+            </div>
+          ))}
+          <p className="sim-mini-hint" style={{ marginTop: 8 }}>
+            分數僅用於實驗室展示；實務須接貴司合規與內審流。
+          </p>
+        </div>
+      </div>
+
+      <div className="sim-card" style={{ marginTop: 12 }}>
+        <div className="sim-card-head">⏱️ 端到端延遲分解（p95，示範 ms）</div>
+        <div className="sim-net-metrics" style={{ marginTop: 6 }}>
+          <div className="sim-net-row">
+            <span>queue_wait</span>
+            <div className="sim-bar">
+              <div className="sim-bar-fill sim-bar-fill--purple" style={{ width: '22%' }} />
+            </div>
+            <span>8</span>
+          </div>
+          <div className="sim-net-row">
+            <span>llm_decode</span>
+            <div className="sim-bar">
+              <div className="sim-bar-fill sim-bar-fill--purple" style={{ width: '62%' }} />
+            </div>
+            <span>420</span>
+          </div>
+          <div className="sim-net-row">
+            <span>post_edit</span>
+            <div className="sim-bar">
+              <div className="sim-bar-fill sim-bar-fill--purple" style={{ width: '12%' }} />
+            </div>
+            <span>24</span>
+          </div>
+          <div className="sim-net-row">
+            <span>export_hook</span>
+            <div className="sim-bar">
+              <div className="sim-bar-fill sim-bar-fill--purple" style={{ width: '4%' }} />
+            </div>
+            <span>4</span>
           </div>
         </div>
       </div>
@@ -354,7 +523,7 @@ export function SuperTuneLabPanel() {
       </div>
 
       <div className="sim-card" style={{ marginTop: 12 }}>
-        <div className="sim-card-head">🧾 最近套用紀錄（示範）</div>
+        <div className="sim-card-head">🧾 最近套用紀錄（{APPLY_LOG.length} 筆 · 示範）</div>
         <div className="sim-table-wrap">
           <table className="sim-table">
             <thead>

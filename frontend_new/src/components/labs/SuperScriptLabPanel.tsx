@@ -14,16 +14,58 @@ const SCENE_Q = [
   { id: 'EP1·S04', fn: 'Turn', st: 'queued', line: 0 },
   { id: 'EP1·S05', fn: 'Climax', st: 'queued', line: 0 },
   { id: 'EP1·S06', fn: 'Resolution', st: 'queued', line: 0 },
+  { id: 'EP2·S01', fn: '冷開場', st: 'outlined', line: 0 },
+  { id: 'EP2·S02', fn: '副線導入', st: 'outlined', line: 0 },
+  { id: 'EP2·S03', fn: '資訊揭露', st: 'draft', line: 12 },
+  { id: 'EP2·S04', fn: '逆轉', st: 'queued', line: 0 },
+  { id: 'EP2·S05', fn: '余韻', st: 'queued', line: 0 },
+  { id: 'BONUS·B01', fn: '片尾伏笔', st: 'idea', line: 0 },
+]
+
+const CAST = [
+  { name: '@MEI', voice: '冷靜內斷句', want: '救贖／控制感', risk: '臺詞过短被誤讀' },
+  { name: '@KAI', voice: '防衛型幽默', want: '被理解', risk: '動機 S04 仍薄' },
+  { name: '@LIN', voice: '外交口吻', want: '秩序', risk: '與 EP1 人設微漂移' },
+  { name: '倉庫/雨', voice: '—', want: '壓迫空間', risk: '重複景別 3 次' },
+  { name: '監聽方·影子', voice: '未現身', want: '懸念', risk: '解釋不足會成坑' },
+]
+
+const BEAT_EP1 = [
+  { t: 'B1', desc: '信號亂跳 → 觀眾知「有人在看」' },
+  { t: 'B2', desc: 'MEI 下決斷要切斷聯繫' },
+  { t: 'B3', desc: 'KAI 的「我以為」暴露脆弱' },
+  { t: 'B4', desc: '雷聲＋金屬牆壓上：情緒低點' },
+  { t: 'B5', desc: '留鉤子：斷線後仍然收到一則 0 字節封包' },
+]
+
+const STRATEGY = [
+  { k: '主題', v: '信任／監控／二次機會' },
+  { k: '結構', v: '6 幕式＋ 90s 短節點' },
+  { k: '語言', v: '繁中＋ 10% 英語專有名詞' },
+  { k: '剪輯友好', v: '每場 3–4 可切鏡' },
+  { k: 'SuperTrack 注血', v: '「賽博龐克 AI」走勢 72h' },
 ]
 
 const WRITER_BUFFER = `@MEI (INT. 倉庫 - 夜)
-她盯著螢幕上亂跳的信號。遠方雷聲被金屬牆悶住。
+她盯著螢幕上亂跳的信號。遠方雷聲被金屬牆悶住。風扇忽快忽慢，像有人在調她的呼吸節拍。
 
 @MEI
 看見了。不用解釋。
 
 @KAI (小聲)
-我以為我們已經——`
+我以為我們已經——
+（停頓，瞥向監聽器方向）
+——走到不能回頭的那一步了。
+
+@MEI
+能回头的才叫選擇。其餘叫妥協。
+
+（外面警報遠遠迴盪。螢幕角落閃出一行：PACKET: 0B — ORIGIN: ???）
+
+@KAI
+如果是陷阱呢？
+@MEI
+那就讓我們先變成比陷阱更難解的變數。`
 
 export function SuperScriptLabPanel() {
   return (
@@ -104,7 +146,7 @@ export function SuperScriptLabPanel() {
         </div>
         <div className="sim-kpi">
           <div className="sim-kpi-label">lines</div>
-          <div className="sim-kpi-val">51</div>
+          <div className="sim-kpi-val">64</div>
         </div>
         <div className="sim-kpi">
           <div className="sim-kpi-label">voice_match</div>
@@ -120,6 +162,15 @@ export function SuperScriptLabPanel() {
         <div className="sim-kpi">
           <div className="sim-kpi-label">beats</div>
           <div className="sim-kpi-val">16</div>
+        </div>
+        <div className="sim-kpi">
+          <div className="sim-kpi-label">tokens (場)</div>
+          <div className="sim-kpi-val">1,842</div>
+          <div className="sim-kpi-sub">預算 2.4k</div>
+        </div>
+        <div className="sim-kpi">
+          <div className="sim-kpi-label">重寫次數</div>
+          <div className="sim-kpi-val">2</div>
         </div>
         <div className="sim-kpi">
           <div className="sim-kpi-label">EP1 完成</div>
@@ -144,8 +195,63 @@ export function SuperScriptLabPanel() {
         </div>
       </div>
 
+      <div className="sim-grid-2" style={{ marginTop: 12 }}>
+        <div className="sim-card">
+          <div className="sim-card-head">故事策略摘要（Architect 鎖定）</div>
+          <div className="sim-stats">
+            {STRATEGY.map((r) => (
+              <div className="sim-stat-row" key={r.k}>
+                <span className="sim-stat-label">{r.k}</span>
+                <span className="sim-stat-val" style={{ maxWidth: '62%', textAlign: 'right' }}>
+                  {r.v}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="sim-card">
+          <div className="sim-card-head">EP1 節點鈎子（5 beat）</div>
+          <ol style={{ margin: 0, paddingLeft: 18, fontSize: '0.75rem', lineHeight: 1.55, color: 'var(--text-dim)' }}>
+            {BEAT_EP1.map((b) => (
+              <li key={b.t} style={{ marginBottom: 6 }}>
+                <span className="sim-mono" style={{ marginRight: 6 }}>
+                  {b.t}
+                </span>
+                {b.desc}
+              </li>
+            ))}
+          </ol>
+        </div>
+      </div>
+
+      <div className="sim-card" style={{ marginTop: 12 }}>
+        <div className="sim-card-head">角色聲紋 / 衝突風險（5）</div>
+        <div className="sim-table-wrap">
+          <table className="sim-table">
+            <thead>
+              <tr>
+                <th>角色/要素</th>
+                <th>聲紋</th>
+                <th>想望</th>
+                <th>風險</th>
+              </tr>
+            </thead>
+            <tbody>
+              {CAST.map((c) => (
+                <tr key={c.name}>
+                  <td className="sim-mono">{c.name}</td>
+                  <td>{c.voice}</td>
+                  <td>{c.want}</td>
+                  <td style={{ color: c.risk.includes('薄') ? '#f59e0b' : undefined }}>{c.risk}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
       <div className="sim-card" style={{ marginTop: 16 }}>
-        <div className="sim-card-head">分幕佇列（示範）</div>
+        <div className="sim-card-head">分幕佇列（{SCENE_Q.length} 筆，含 EP2 與番外點子）</div>
         <div className="sim-table-wrap">
           <table className="sim-table">
             <thead>
