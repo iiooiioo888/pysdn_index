@@ -54,6 +54,9 @@ export function SuperForgeDocPage() {
             <h2>{t('h_feat')}</h2>
             <div dangerouslySetInnerHTML={{ __html: t('doc_sf_body_html') }} />
 
+            <h2>{t('h_char')}</h2>
+            <div dangerouslySetInnerHTML={{ __html: t('doc_sf_characters_html') }} />
+
             <div className="doc-diagram-block">
               <h3>架構與能力（思維導圖）</h3>
               <p className="doc-diagram-lead">

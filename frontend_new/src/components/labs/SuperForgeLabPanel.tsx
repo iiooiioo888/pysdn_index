@@ -148,6 +148,69 @@ const MOCK_VERSIONS = [
 
 const SPARK_24H = [12, 18, 14, 22, 30, 28, 24, 20, 26, 32, 40, 38, 35, 44, 50, 48, 46, 42, 40, 36, 34, 30, 25, 20]
 
+const MOCK_CHAR_ROWS: {
+  name: string
+  profile: string
+  license: string
+  style: string
+  status: 'verified' | 'active' | 'review' | 'hold'
+  opt: string
+}[] = [
+  {
+    name: '星川 澪（OC）',
+    profile: '二次元·自社原創',
+    license: '自有版權',
+    style: '2D',
+    status: 'active',
+    opt: '0.94',
+  },
+  {
+    name: '合作 KOL 肖像',
+    profile: '真人·書面合約',
+    license: '商用＋期間',
+    style: '寫實',
+    status: 'verified',
+    opt: '0.88',
+  },
+  {
+    name: '同人二創（標註出處）',
+    profile: '二次元·二創',
+    license: '需載明出處',
+    style: '2D',
+    status: 'review',
+    opt: '0.71',
+  },
+  {
+    name: '企業聯名 IP 角色',
+    profile: '版權方授權',
+    license: '區域＋品類',
+    style: '2D/3D',
+    status: 'verified',
+    opt: '0.91',
+  },
+  {
+    name: '內測素人素材',
+    profile: '真人',
+    license: '待審',
+    style: '寫實',
+    status: 'hold',
+    opt: '0.62',
+  },
+]
+
+const MOCK_LICENSE_MIX: { k: 'inhouse' | 'contract' | 'fan' | 'ip'; w: number }[] = [
+  { k: 'inhouse', w: 38 },
+  { k: 'contract', w: 22 },
+  { k: 'fan', w: 18 },
+  { k: 'ip', w: 22 },
+]
+
+const MOCK_CHAR_OPT_QUEUE: { q: 'q1' | 'q2' | 'q3'; st: string }[] = [
+  { q: 'q1', st: 'running' },
+  { q: 'q2', st: 'queued' },
+  { q: 'q3', st: 'queued' },
+]
+
 function RingSm({ pct, stroke = '#06b6d4' }: { pct: number; stroke?: string }) {
   const dash = 150.8 * (1 - pct / 100)
   return (
@@ -259,6 +322,105 @@ export function SuperForgeLabPanel({ t }: { t: T }) {
             <span className="sim-ring-label">72%</span>
           </div>
           <div className="sim-kpi-sub">7.4G / 10.2G</div>
+        </div>
+      </div>
+
+      <p className="doc-lab-note" style={{ marginTop: 14 }}>
+        {t('doc_sf_lab_char_p')}
+      </p>
+      <div className="sim-kpis" style={{ gridTemplateColumns: 'repeat(4, minmax(0,1fr))' }}>
+        <div className="sim-kpi">
+          <div className="sim-kpi-label">{t('doc_sf_lab_char_kpi_n')}</div>
+          <div className="sim-kpi-val">42</div>
+          <div className="sim-kpi-delta sim-kpi-delta--up">{t('doc_sf_lab_char_kpi_delta_wow')}</div>
+        </div>
+        <div className="sim-kpi">
+          <div className="sim-kpi-label">{t('doc_sf_lab_char_kpi_g')}</div>
+          <div className="sim-kpi-val">1,204</div>
+          <div className="sim-kpi-delta sim-kpi-delta--up">+86</div>
+        </div>
+        <div className="sim-kpi">
+          <div className="sim-kpi-label">{t('doc_sf_lab_char_kpi_l')}</div>
+          <div className="sim-kpi-val sim-kpi-val--highlight">91%</div>
+          <div className="sim-bar">
+            <div className="sim-bar-fill sim-bar-fill--cyan" style={{ width: '91%' }} />
+          </div>
+        </div>
+        <div className="sim-kpi">
+          <div className="sim-kpi-label">{t('doc_sf_lab_char_kpi_o')}</div>
+          <div className="sim-kpi-val">156</div>
+          <div className="sim-kpi-sub">{t('doc_sf_lab_char_kpi_sub_7d')}</div>
+        </div>
+      </div>
+
+      <div className="sim-grid-2" style={{ marginTop: 12 }}>
+        <div className="sim-card">
+          <div className="sim-card-head">{t('doc_sf_lab_char_h')}</div>
+          <div className="sim-table-wrap">
+            <table className="sim-table">
+              <thead>
+                <tr>
+                  <th>{t('doc_sf_lab_char_th_name')}</th>
+                  <th>{t('doc_sf_lab_char_th_profile')}</th>
+                  <th>{t('doc_sf_lab_char_th_license')}</th>
+                  <th>{t('doc_sf_lab_char_th_style')}</th>
+                  <th>{t('doc_sf_lab_char_th_status')}</th>
+                  <th className="sim-mono">{t('doc_sf_lab_char_th_opt')}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {MOCK_CHAR_ROWS.map((r) => (
+                  <tr key={r.name}>
+                    <td>{r.name}</td>
+                    <td>{r.profile}</td>
+                    <td>{r.license}</td>
+                    <td>{r.style}</td>
+                    <td>
+                      {r.status === 'verified' && t('doc_sf_lab_char_st_verified')}
+                      {r.status === 'active' && t('doc_sf_lab_char_st_active')}
+                      {r.status === 'review' && t('doc_sf_lab_char_st_review')}
+                      {r.status === 'hold' && t('doc_sf_lab_char_st_hold')}
+                    </td>
+                    <td className="sim-mono">{r.opt}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div className="sim-card">
+          <div className="sim-card-head">{t('doc_sf_lab_char_sub_license')}</div>
+          {MOCK_LICENSE_MIX.map((row) => (
+            <div key={row.k} style={{ marginBottom: 8 }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.72rem' }}>
+                <span>
+                  {row.k === 'inhouse' && t('doc_sf_lab_char_lic_inhouse')}
+                  {row.k === 'contract' && t('doc_sf_lab_char_lic_contract')}
+                  {row.k === 'fan' && t('doc_sf_lab_char_lic_fan')}
+                  {row.k === 'ip' && t('doc_sf_lab_char_lic_ip')}
+                </span>
+                <span className="sim-mono">{row.w}%</span>
+              </div>
+              <div className="sim-bar">
+                <div className="sim-bar-fill sim-bar-fill--cyan" style={{ width: `${row.w}%` }} />
+              </div>
+            </div>
+          ))}
+          <div className="sim-card-head" style={{ marginTop: 14 }}>
+            {t('doc_sf_lab_char_sub_queue')}
+          </div>
+          <ul className="sim-mini-list" style={{ margin: 0, paddingLeft: 18, fontSize: '0.75rem', lineHeight: 1.6 }}>
+            {MOCK_CHAR_OPT_QUEUE.map((row) => (
+              <li key={row.q}>
+                <span className="sim-mono" style={{ marginRight: 6 }}>
+                  {row.q === 'q1' ? t('doc_sf_lab_char_q1') : row.q === 'q2' ? t('doc_sf_lab_char_q2') : t('doc_sf_lab_char_q3')}
+                </span>
+                <span style={{ opacity: 0.75 }}>
+                  {row.st === 'running' ? t('doc_sf_lab_char_queue_st_running') : t('doc_sf_lab_char_queue_st_queued')}
+                </span>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
 
