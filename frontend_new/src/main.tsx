@@ -1,20 +1,19 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import { BrowserRouter } from 'react-router-dom'
-import App from './App.tsx'
+import { RouterProvider } from 'react-router-dom'
 import { ErrorBoundary } from './components/ErrorBoundary.tsx'
 import './index.css'
 import { initI18n } from './lib/i18n.ts'
+import { createAppRouter } from './routes/appRouter'
 
 const basename = import.meta.env.BASE_URL.replace(/\/$/, '') || '/'
+const router = createAppRouter(basename)
 
 void initI18n().then(() => {
   createRoot(document.getElementById('root')!).render(
     <StrictMode>
       <ErrorBoundary>
-        <BrowserRouter basename={basename}>
-          <App />
-        </BrowserRouter>
+        <RouterProvider router={router} />
       </ErrorBoundary>
     </StrictMode>,
   )

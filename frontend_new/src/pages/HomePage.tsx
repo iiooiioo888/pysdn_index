@@ -1,4 +1,5 @@
-import { lazy, Suspense } from 'react'
+import { lazy } from 'react'
+import { HomeLazySection } from '../components/HomeLazySection'
 import { Navbar } from '../components/Navbar'
 import { Hero } from '../components/Hero'
 import { useCanvasBackground } from '../hooks/useCanvasBackground'
@@ -9,7 +10,7 @@ const Products = lazy(() => import('../components/Products').then((m) => ({ defa
 const ModulesPanel = lazy(() => import('../components/ModulesPanel').then((m) => ({ default: m.ModulesPanel })))
 const Showcase = lazy(() => import('../components/Showcase').then((m) => ({ default: m.Showcase })))
 const WorkflowSection = lazy(() =>
-  import('../components/WorkflowSection').then((m) => ({ default: m.WorkflowSection }))
+  import('../components/WorkflowSection').then((m) => ({ default: m.WorkflowSection })),
 )
 const Contact = lazy(() => import('../components/Contact').then((m) => ({ default: m.Contact })))
 const Footer = lazy(() => import('../components/Footer').then((m) => ({ default: m.Footer })))
@@ -26,18 +27,28 @@ export function HomePage() {
         <Navbar />
         <main>
           <Hero />
-          <Suspense fallback={null}>
+          <HomeLazySection minHeight={220}>
             <About />
+          </HomeLazySection>
+          <HomeLazySection minHeight={320}>
             <Products />
+          </HomeLazySection>
+          <HomeLazySection minHeight={360}>
             <ModulesPanel />
+          </HomeLazySection>
+          <HomeLazySection minHeight={280}>
             <Showcase />
+          </HomeLazySection>
+          <HomeLazySection minHeight={300}>
             <WorkflowSection />
+          </HomeLazySection>
+          <HomeLazySection minHeight={240}>
             <Contact />
-          </Suspense>
+          </HomeLazySection>
         </main>
-        <Suspense fallback={null}>
+        <HomeLazySection minHeight={120}>
           <Footer />
-        </Suspense>
+        </HomeLazySection>
       </div>
     </>
   )

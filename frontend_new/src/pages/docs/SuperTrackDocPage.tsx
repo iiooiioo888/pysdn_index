@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { useTranslation } from 'react-i18next'
+import { DocBundleLoadingShell } from '../../components/docs/DocBundleLoadingShell'
 import { DocLayout } from '../../components/docs/DocLayout'
 import { DocNavbar } from '../../components/docs/DocNavbar'
 import { DocFooter } from '../../components/docs/DocFooter'
@@ -10,6 +10,7 @@ import { DocMermaid } from '../../components/docs/DocMermaid'
 import { SUPERTRACK_MINDMAP } from '../../components/docs/mermaidCharts'
 import { useDocBundle } from '../../hooks/useDocBundle'
 import { PATHS } from '../../routes/paths'
+import { prefetchSuperTrackPanel } from '../../routes/routePrefetch'
 import { toLangSearch } from '../../routes/langQuery'
 
 function splitPlatformChips(raw: string): string[] {
@@ -21,21 +22,10 @@ function splitPlatformChips(raw: string): string[] {
 }
 
 export function SuperTrackDocPage() {
-  const { t: tUi } = useTranslation()
   const { t, ready, loadError, lang } = useDocBundle('supertrack')
 
   if (!ready) {
-    return (
-      <DocLayout variant="track">
-        <main className="doc-main">
-          <div className="doc-main-inner" style={{ paddingTop: 100 }}>
-            <p className="doc-hero-lead" style={{ opacity: loadError ? 1 : 0.5 }}>
-              {loadError ? tUi('doc_page_load_error') : tUi('doc_page_loading')}
-            </p>
-          </div>
-        </main>
-      </DocLayout>
-    )
+    return <DocBundleLoadingShell variant="track" loadError={loadError} />
   }
 
   return (
@@ -202,13 +192,12 @@ export function SuperTrackDocPage() {
             <h2>🖥️ 試用示範</h2>
             <p>以下為前端示範儀表板（數字為示意，非真實平台資料）：</p>
             <p>
-              <Link className="doc-lab-cta" to={{ pathname: PATHS.panel.supertrack, search: toLangSearch(lang) }}>
+              <Link
+                className="doc-lab-cta"
+                to={{ pathname: PATHS.panel.supertrack, search: toLangSearch(lang) }}
+                onMouseEnter={prefetchSuperTrackPanel}
+              >
                 開啟 SuperTrack 示範面板 →
-              </Link>
-            </p>
-            <p>
-              <Link className="doc-lab-cta" to={{ pathname: PATHS.labs.supertrack, search: toLangSearch(lang) }}>
-                開啟 SuperTrack 實驗室儀表板（大螢幕）→
               </Link>
             </p>
 

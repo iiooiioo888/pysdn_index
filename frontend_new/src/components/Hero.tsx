@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useLangQuery } from '../hooks/useLangQuery'
 import { PATHS } from '../routes/paths'
+import { prefetchSuperTrackPanel } from '../routes/routePrefetch'
 import { withSearchParam } from '../routes/langQuery'
 import {
   useTypingAnimation,
@@ -184,6 +185,7 @@ export function Hero() {
                   <Link
                     className="hero-doc-pill hero-doc-pill--track hero-doc-pill--panel"
                     to={{ pathname: PATHS.panel.supertrack, search: langSearch }}
+                    onMouseEnter={prefetchSuperTrackPanel}
                   >
                     <span className="hero-doc-pill-dot hero-doc-pill-dot--track" aria-hidden="true" />
                     {t('hero_link_supertrack_panel')}
@@ -210,6 +212,15 @@ export function Hero() {
                       {t('models_tab_image')}
                     </span>
                     <span className="hero-model-pill-name">{t('models_filter_seedream')}</span>
+                  </Link>
+                  <Link
+                    className="hero-model-pill hero-model-pill--qwencloud"
+                    to={{ pathname: PATHS.models, search: withSearchParam(langSearch, 'brand', 'qwencloud') }}
+                  >
+                    <span className="hero-model-pill-tag" aria-hidden="true">
+                      {t('models_filter_qwencloud')}
+                    </span>
+                    <span className="hero-model-pill-name">{t('hero_qwencloud_models_short')}</span>
                   </Link>
                 </div>
               </div>

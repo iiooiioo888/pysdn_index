@@ -81,6 +81,12 @@ export default defineConfig({
           if (id.includes('node_modules/react-i18next/') || id.includes('node_modules/i18next/')) {
             return 'i18n'
           }
+          if (id.includes('node_modules/mermaid')) {
+            return 'mermaid'
+          }
+          if (id.includes('node_modules/axios')) {
+            return 'http'
+          }
         },
       },
     },

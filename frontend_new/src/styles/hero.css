@@ -8,7 +8,10 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: var(--page-top-offset) clamp(20px, 4vw, 32px) 56px;
+  padding-top: var(--page-top-offset);
+  padding-bottom: max(56px, env(safe-area-inset-bottom, 0px));
+  padding-left: max(var(--layout-pad-x), env(safe-area-inset-left, 0px));
+  padding-right: max(var(--layout-pad-x), env(safe-area-inset-right, 0px));
   overflow: hidden;
 }
 
@@ -22,7 +25,7 @@
   background: linear-gradient(165deg, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0.02) 55%, rgba(6, 182, 212, 0.04) 100%);
   box-shadow: 0 0 0 1px rgba(6, 182, 212, 0.08), 0 24px 48px rgba(0, 0, 0, 0.35);
   margin-bottom: clamp(36px, 6vh, 52px);
-  max-width: min(700px, 100%);
+  max-width: min(52rem, 100%);
   overflow: hidden;
 }
 .hero-intro-fx {
@@ -95,7 +98,7 @@
   animation: pulse 2s infinite;
 }
 .intro-headline {
-  font-size: clamp(1.45rem, 4vw, 1.85rem);
+  font-size: clamp(1.5rem, 4.2vw, 2.05rem);
   font-weight: 700;
   color: #fff;
   margin-bottom: 12px;
@@ -113,10 +116,11 @@
 /* Hero Content */
 .hero-content {
   text-align: center;
-  max-width: 800px;
+  width: 100%;
+  max-width: min(58rem, 100%);
 }
 .hero-title {
-  font-size: clamp(2.2rem, 5vw, 3.8rem);
+  font-size: clamp(2.35rem, 5.8vw, 4.2rem);
   font-weight: 800;
   line-height: 1.18;
   margin-bottom: 24px;
@@ -139,11 +143,11 @@
   letter-spacing: 0.15em;
 }
 .hero-desc {
-  font-size: clamp(1.05rem, 2vw, 1.125rem);
+  font-size: clamp(1.06rem, 2.15vw, 1.2rem);
   color: var(--text-dim);
   line-height: 1.75;
   margin-bottom: 36px;
-  max-width: 600px;
+  max-width: min(42rem, 100%);
   margin-left: auto;
   margin-right: auto;
 }
@@ -157,7 +161,8 @@
 
 .hero-module-docs {
   text-align: center;
-  max-width: 760px;
+  width: 100%;
+  max-width: min(56rem, 100%);
   margin: 0 auto 40px;
 }
 
@@ -172,7 +177,7 @@
 .hero-module-docs-label-wrap::after {
   content: '';
   flex: 1;
-  max-width: 72px;
+  max-width: min(6.5rem, 12vw);
   height: 1px;
   background: linear-gradient(90deg, transparent, rgba(6, 182, 212, 0.35), transparent);
   opacity: 0.9;
@@ -191,7 +196,7 @@
 .hero-module-docs-panel {
   position: relative;
   border-radius: 22px;
-  padding: 18px 16px 16px;
+  padding: clamp(16px, 2.5vw, 22px) clamp(14px, 3vw, 24px) clamp(14px, 2.5vw, 18px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   background:
     linear-gradient(165deg, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0.02) 42%, rgba(6, 182, 212, 0.04) 100%);
@@ -221,7 +226,7 @@
   z-index: 1;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 12px;
+  gap: clamp(12px, 2vw, 16px);
   margin-bottom: 16px;
 }
 
@@ -420,6 +425,17 @@
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(139, 92, 246, 0.2);
 }
 
+.hero-model-pill--qwencloud {
+  border-color: rgba(245, 158, 11, 0.45);
+  color: #fde68a;
+  box-shadow: inset 0 1px 0 rgba(245, 158, 11, 0.14);
+}
+.hero-model-pill--qwencloud:hover {
+  border-color: rgba(251, 191, 36, 0.62);
+  background: rgba(245, 158, 11, 0.1);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(245, 158, 11, 0.22);
+}
+
 .hero-model-pill-tag {
   font-size: 0.625rem;
   font-weight: 700;
@@ -438,6 +454,11 @@
   color: #c4b5fd;
   border: 1px solid rgba(139, 92, 246, 0.35);
   background: rgba(139, 92, 246, 0.12);
+}
+.hero-model-pill--qwencloud .hero-model-pill-tag {
+  color: #fcd34d;
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  background: rgba(245, 158, 11, 0.12);
 }
 
 .hero-model-pill-name {
@@ -555,7 +576,7 @@
   flex-wrap: wrap;
 }
 .stat-pill {
-  padding: 16px 28px;
+  padding: clamp(14px, 2vw, 18px) clamp(22px, 4vw, 36px);
   background: rgba(255,255,255,0.03);
   border: 1px solid var(--border);
   border-radius: var(--radius);

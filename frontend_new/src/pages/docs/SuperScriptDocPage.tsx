@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { useTranslation } from 'react-i18next'
+import { DocBundleLoadingShell } from '../../components/docs/DocBundleLoadingShell'
 import { DocLayout } from '../../components/docs/DocLayout'
 import { DocNavbar } from '../../components/docs/DocNavbar'
 import { DocFooter } from '../../components/docs/DocFooter'
@@ -11,21 +11,10 @@ import { PATHS } from '../../routes/paths'
 import { toLangSearch } from '../../routes/langQuery'
 
 export function SuperScriptDocPage() {
-  const { t: tUi } = useTranslation()
   const { t, ready, loadError, lang } = useDocBundle('superscript')
 
   if (!ready) {
-    return (
-      <DocLayout variant="script">
-        <main className="doc-main">
-          <div className="doc-main-inner" style={{ paddingTop: 100 }}>
-            <p className="doc-hero-lead" style={{ opacity: loadError ? 1 : 0.5 }}>
-              {loadError ? tUi('doc_page_load_error') : tUi('doc_page_loading')}
-            </p>
-          </div>
-        </main>
-      </DocLayout>
-    )
+    return <DocBundleLoadingShell variant="script" loadError={loadError} />
   }
 
   return (

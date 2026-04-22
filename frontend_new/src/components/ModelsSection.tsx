@@ -18,7 +18,27 @@ type DevFilter = 'all' | ModelDeveloper
 function brandFromLocationSearch(search: string): BrandFilter {
   const q = search.startsWith('?') ? search.slice(1) : search
   const b = new URLSearchParams(q).get('brand')
-  return b === 'seedance' || b === 'seedream' ? b : 'all'
+  return b === 'seedance' || b === 'seedream' || b === 'qwencloud' ? b : 'all'
+}
+
+function catalogCapabilityLabel(cap: ModelCapability, t: (k: string) => string): string {
+  const key =
+    cap === 'video'
+      ? 'models_tab_video'
+      : cap === 'image'
+        ? 'models_tab_image'
+        : cap === 'text'
+          ? 'models_tab_text'
+          : cap === 'audio'
+            ? 'models_tab_audio'
+            : 'models_tab_multimodal'
+  return t(key)
+}
+
+function catalogDeveloperLabel(dev: ModelDeveloper, t: (k: string) => string): string {
+  if (dev === 'bytedance') return t('models_dev_bytedance')
+  if (dev === 'alibaba') return t('models_dev_alibaba')
+  return t('models_dev_qwencloud')
 }
 
 const THUMB_HUES = [198, 280, 168, 32, 210, 145, 260, 22, 320]
@@ -57,11 +77,29 @@ export function ModelsSection() {
     const total = CATALOG_MODELS.length
     const video = CATALOG_MODELS.filter((m) => m.capability === 'video').length
     const image = CATALOG_MODELS.filter((m) => m.capability === 'image').length
+    const text = CATALOG_MODELS.filter((m) => m.capability === 'text').length
+    const audio = CATALOG_MODELS.filter((m) => m.capability === 'audio').length
+    const multimodal = CATALOG_MODELS.filter((m) => m.capability === 'multimodal').length
     const seedance = CATALOG_MODELS.filter((m) => m.product === 'seedance').length
     const seedream = CATALOG_MODELS.filter((m) => m.product === 'seedream').length
+    const qwencloud = CATALOG_MODELS.filter((m) => m.product === 'qwencloud').length
     const bytedance = CATALOG_MODELS.filter((m) => m.developer === 'bytedance').length
     const alibaba = CATALOG_MODELS.filter((m) => m.developer === 'alibaba').length
-    return { total, video, image, seedance, seedream, bytedance, alibaba }
+    const qwencloudDev = CATALOG_MODELS.filter((m) => m.developer === 'qwencloud').length
+    return {
+      total,
+      video,
+      image,
+      text,
+      audio,
+      multimodal,
+      seedance,
+      seedream,
+      qwencloud,
+      bytedance,
+      alibaba,
+      qwencloudDev,
+    }
   }, [])
 
   const visible = useMemo(
@@ -144,6 +182,36 @@ export function ModelsSection() {
                           <span className="models-filter-count">{counts.image}</span>
                         </button>
                       </li>
+                      <li>
+                        <button
+                          type="button"
+                          className={`models-filter-item ${capFilter === 'text' ? 'is-active' : ''}`}
+                          onClick={() => setCapFilter('text')}
+                        >
+                          <span>{t('models_tab_text')}</span>
+                          <span className="models-filter-count">{counts.text}</span>
+                        </button>
+                      </li>
+                      <li>
+                        <button
+                          type="button"
+                          className={`models-filter-item ${capFilter === 'audio' ? 'is-active' : ''}`}
+                          onClick={() => setCapFilter('audio')}
+                        >
+                          <span>{t('models_tab_audio')}</span>
+                          <span className="models-filter-count">{counts.audio}</span>
+                        </button>
+                      </li>
+                      <li>
+                        <button
+                          type="button"
+                          className={`models-filter-item ${capFilter === 'multimodal' ? 'is-active' : ''}`}
+                          onClick={() => setCapFilter('multimodal')}
+                        >
+                          <span>{t('models_tab_multimodal')}</span>
+                          <span className="models-filter-count">{counts.multimodal}</span>
+                        </button>
+                      </li>
                     </ul>
                   </details>
                 </li>
@@ -190,6 +258,16 @@ export function ModelsSection() {
                           <span className="models-filter-count">{counts.seedream}</span>
                         </button>
                       </li>
+                      <li>
+                        <button
+                          type="button"
+                          className={`models-filter-item ${brandFilter === 'qwencloud' ? 'is-active' : ''}`}
+                          onClick={() => setBrandFilter('qwencloud')}
+                        >
+                          <span>{t('models_filter_qwencloud')}</span>
+                          <span className="models-filter-count">{counts.qwencloud}</span>
+                        </button>
+                      </li>
                     </ul>
                   </details>
                 </li>
@@ -226,14 +304,26 @@ export function ModelsSection() {
                           <span className="models-filter-count">{counts.bytedance}</span>
                         </button>
                       </li>
+                      {counts.alibaba > 0 ? (
+                        <li>
+                          <button
+                            type="button"
+                            className={`models-filter-item ${devFilter === 'alibaba' ? 'is-active' : ''}`}
+                            onClick={() => setDevFilter('alibaba')}
+                          >
+                            <span>{t('models_dev_alibaba')}</span>
+                            <span className="models-filter-count">{counts.alibaba}</span>
+                          </button>
+                        </li>
+                      ) : null}
                       <li>
                         <button
                           type="button"
-                          className={`models-filter-item ${devFilter === 'alibaba' ? 'is-active' : ''}`}
-                          onClick={() => setDevFilter('alibaba')}
+                          className={`models-filter-item ${devFilter === 'qwencloud' ? 'is-active' : ''}`}
+                          onClick={() => setDevFilter('qwencloud')}
                         >
-                          <span>{t('models_dev_alibaba')}</span>
-                          <span className="models-filter-count">{counts.alibaba}</span>
+                          <span>{t('models_dev_qwencloud')}</span>
+                          <span className="models-filter-count">{counts.qwencloudDev}</span>
                         </button>
                       </li>
                     </ul>
@@ -256,10 +346,8 @@ export function ModelsSection() {
             ) : (
               <div className="models-card-grid">
                 {visible.map((m) => {
-                  const cap =
-                    m.capability === 'video' ? t('models_tab_video') : t('models_tab_image')
-                  const devLabel =
-                    m.developer === 'bytedance' ? t('models_dev_bytedance') : t('models_dev_alibaba')
+                  const cap = catalogCapabilityLabel(m.capability, t)
+                  const devLabel = catalogDeveloperLabel(m.developer, t)
                   return (
                     <article key={m.id} className="models-atlas-card models-atlas-card--static">
                       <div className="models-atlas-card-inner">

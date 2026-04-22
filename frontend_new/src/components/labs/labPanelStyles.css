@@ -1,6 +1,6 @@
-/* 實驗室寬版容器與導航 */
+/* 實驗室：與全站主內區同寬（由 doc-main-inner 全寬規則統一） */
 .doc-main-inner.doc-sim-lab {
-  max-width: 1180px;
+  max-width: none;
 }
 
 .doc-lab-back {

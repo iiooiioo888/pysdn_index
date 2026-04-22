@@ -4,6 +4,7 @@ import { ModulesNav } from '../components/modules/ModulesNav'
 import { ModulesPageSidebar } from '../components/modules/ModulesPageSidebar'
 import { ModulesVideoFlowSection } from '../components/modules/ModulesVideoFlowSection'
 import { PATHS } from '../routes/paths'
+import { prefetchSuperTrackPanel } from '../routes/routePrefetch'
 import { toLangSearch } from '../routes/langQuery'
 import '../styles/modules-page.css'
 
@@ -147,7 +148,11 @@ export function ModulesPage() {
                     <Link className="mod-card-link" to={{ pathname: PATHS.docs.supertrack, search: langSearch }}>
                       {t('mod_link_doc')}
                     </Link>
-                    <Link className="mod-card-link mod-card-link--sub" to={{ pathname: PATHS.panel.supertrack, search: langSearch }}>
+                    <Link
+                      className="mod-card-link mod-card-link--sub"
+                      to={{ pathname: PATHS.panel.supertrack, search: langSearch }}
+                      onMouseEnter={prefetchSuperTrackPanel}
+                    >
                       {t('mod_link_supertrack_panel')}
                     </Link>
                   </div>

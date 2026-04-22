@@ -1,18 +1,84 @@
 /* Modules hub (ex–modules.html) — scoped under .modules-page */
 .modules-page {
+  min-height: 100dvh;
   min-height: 100vh;
-  background: #0a0a0f;
+  position: relative;
+  isolation: isolate;
   color: #e2e8f0;
+  /* 捲動時由固定氛圍層鋪底，此處僅保底底色 */
+  background-color: #06060a;
 }
 
-/* Layout: optional left sidebar + main (aligned with site nav) */
+/* 固定視窗的氛圍層：多層圓形色塊 + 大暈染 + 垂直底色（上層先畫） */
+.modules-page::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-color: #06060a;
+  background-image:
+    /* 中小型色塊（青／紫／綠／琥珀／玫／靛／青綠／淺紫） */
+    radial-gradient(circle clamp(200px, 32vw, 340px) at 12% 22%, rgba(6, 182, 212, 0.16), transparent 68%),
+    radial-gradient(circle clamp(180px, 28vw, 300px) at 82% 28%, rgba(139, 92, 246, 0.13), transparent 65%),
+    radial-gradient(circle clamp(190px, 30vw, 320px) at 44% 86%, rgba(16, 185, 129, 0.12), transparent 64%),
+    radial-gradient(circle clamp(160px, 26vw, 280px) at 92% 62%, rgba(245, 158, 11, 0.1), transparent 62%),
+    radial-gradient(circle clamp(140px, 22vw, 240px) at 54% 14%, rgba(244, 63, 94, 0.08), transparent 58%),
+    radial-gradient(circle clamp(170px, 27vw, 290px) at 4% 68%, rgba(99, 102, 241, 0.11), transparent 63%),
+    radial-gradient(circle clamp(150px, 24vw, 260px) at 72% 92%, rgba(45, 212, 191, 0.09), transparent 60%),
+    radial-gradient(circle clamp(130px, 20vw, 220px) at 28% 52%, rgba(167, 139, 250, 0.08), transparent 56%),
+    radial-gradient(circle clamp(120px, 18vw, 200px) at 96% 8%, rgba(34, 211, 238, 0.07), transparent 55%),
+    radial-gradient(circle clamp(110px, 16vw, 190px) at 38% 6%, rgba(52, 211, 153, 0.07), transparent 52%),
+    radial-gradient(circle clamp(100px, 15vw, 170px) at 62% 48%, rgba(251, 191, 36, 0.06), transparent 50%),
+    /* 原有大型光暈 */
+    radial-gradient(ellipse 130% 70% at 50% -35%, rgba(6, 182, 212, 0.17), transparent 58%),
+    radial-gradient(ellipse 75% 55% at 105% 15%, rgba(139, 92, 246, 0.11), transparent 52%),
+    radial-gradient(ellipse 65% 50% at -8% 45%, rgba(16, 185, 129, 0.1), transparent 52%),
+    radial-gradient(ellipse 55% 40% at 85% 92%, rgba(245, 158, 11, 0.07), transparent 48%),
+    linear-gradient(180deg, #0b0c12 0%, #06060a 36%, #080810 74%, #06060a 100%);
+}
+
+/* 低對比網格 + 中央暈染，與 hero 內 grid 呼應 */
+.modules-page::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.45;
+  background-image:
+    linear-gradient(rgba(6, 182, 212, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(6, 182, 212, 0.04) 1px, transparent 1px);
+  background-size: var(--bolt-grid-size, 48px) var(--bolt-grid-size, 48px);
+  mask-image: radial-gradient(ellipse 88% 70% at 50% 42%, #000 0%, transparent 72%);
+  -webkit-mask-image: radial-gradient(ellipse 88% 70% at 50% 42%, #000 0%, transparent 72%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .modules-page::before,
+  .modules-page::after {
+    position: absolute;
+  }
+}
+
+/* 主內容高於背景層；導覽列仍依 nav.css 固定於最上層 */
+.modules-shell,
+.modules-page > main.mod-hero {
+  position: relative;
+  z-index: 1;
+}
+
+/* Layout: optional left sidebar + main（全寬 + 與全站一致的留白／安全區） */
 .modules-shell {
-  max-width: 1220px;
+  max-width: none;
+  width: 100%;
   margin: 0 auto;
-  padding: 0 clamp(16px, 3vw, 28px);
+  padding-left: max(var(--layout-pad-x, clamp(18px, 4.5vw, 48px)), env(safe-area-inset-left, 0px));
+  padding-right: max(var(--layout-pad-x, clamp(18px, 4.5vw, 48px)), env(safe-area-inset-right, 0px));
   display: flex;
   align-items: flex-start;
-  gap: clamp(20px, 3vw, 36px);
+  gap: clamp(16px, 3vw, 36px);
+  box-sizing: border-box;
 }
 .modules-sidebar {
   position: sticky;

@@ -1,10 +1,13 @@
 /**
- * Single source of truth for in-app paths (relative to React Router basename).
+ * Single source of truth for in-app paths（basename 下之相對路徑）。
+ * 實際路由樹見 `routes/registry.ts`（`APP_ROUTE_ENTRIES`）與 `routes/appRouter.tsx`（`createBrowserRouter`）。
  */
 export const PATHS = {
   home: '/',
   modules: '/modules',
   models: '/models',
+  /** 動態段與 `CATALOG_MODELS[].id` 對齊，例如 `/models/seedance-2` */
+  modelsDetailPattern: '/models/:modelId',
   faq: '/faq',
   docs: {
     superforge: '/docs/superforge',
@@ -26,3 +29,8 @@ export const PATHS = {
 } as const
 
 export type DocSlug = keyof typeof PATHS.docs
+
+/** 模型詳情頁路徑（會編碼 id，與路由 `models/:modelId` 一致） */
+export function pathToModelDetail(modelId: string): string {
+  return `${PATHS.models}/${encodeURIComponent(modelId)}`
+}

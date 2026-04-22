@@ -158,6 +158,22 @@ ISC
 - ✅ 路由導航與頁面切換動畫
 - ✅ 模組區塊提供「控制面板式」快速數據匯總（從後端 `/api/*/list` 取得 total；未啟動後端則顯示 `—`）
 
+### 版面與設計系統（全視窗 × 多裝置）
+
+- **主內容貼齊視窗寬度**：於 `frontend_new/src/index.css` 使用 `--layout-pad-x`、`--layout-pad-y`、`--layout-prose-max`；`.container`、首頁導覽 `.nav-inner`、文件導覽 `.doc-nav-inner` 採相同水平留白，並以 `max(..., env(safe-area-inset-*))` 適配瀏海／手勢條。
+- **可讀寬度與全寬外殼**：文件／實驗室 `.doc-main-inner` 改為全寬；`article.doc`、頁尾（一般文件頁）與 FAQ 清單以約 **56rem** 置中，避免長行難讀；圖表與寬表仍可在欄內橫向捲動。
+- **視窗高度**：`.doc-main` 使用 `min-height: calc(100dvh - 72px)`；首頁 `.site-shell` 使用 `min-height: 100dvh`。
+- **卡片表面統一**：文件區塊（摘要、Mermaid、範例、GitHub、模擬儀表 `.sim-panel`）、模組首頁卡片／cheat 列、FAQ 摺疊列、產品 mockup 等，對齊 **邊框、`var(--radius)`、`--bg-card`、輕陰影**；模組卡片 hover 上浮僅在精細指標裝置啟用，減少觸控誤觸。
+- **模組總覽**：`modules-shell` 改為全寬；實驗室 `doc-sim-lab` 不再限制 1180px，與全站規則一致。
+- **路由**：SPA 路由見 `frontend_new/src/routes/appRouter.tsx`（`createBrowserRouter`）。
+
+### SuperTrack 示範面板（`/panel/supertrack`）
+
+- **版面**：`SuperTrackPanel` 使用 `st-panel--fullscreen`，搭配 `doc-main--st-panel`／`doc-main-inner--st-panel`，工作區吃滿剩餘視窗高度；「追蹤目標」表單固定、卡片矩陣區獨立捲動。
+- **追蹤目標**：建立後欄位唯讀；在編輯模式下可**暫停／恢復**、**刪除**並釋出探針。卡片含探針節點狀態、平台、**爬蟲入庫**（連線時自 `GET /api/items` 依 API `platform` 彙總；並解析 `payload` 之內容型態、互動加總、含媒體比例等）、以及**任務／排程示範欄位**（待真實任務 API）。
+- **編輯模式**：`frontend_new/src/hooks/useSuperTrackPanelEditMode.ts` — 開發環境或設定 **`VITE_SUPERTRACK_PANEL_EDIT=true`** 時可編輯；型別見 `frontend_new/src/vite-env.d.ts`。
+- **文件導流**：`/docs/supertrack`「試用示範」僅保留**示範面板**連結（已移除實驗室大螢幕儀表板入口）。SocialCrawler 本地開發可參考倉內 `social-crawler` 與 `useSocialCrawlerApi`。
+
 ---
 
 ## 🔧 開發指南

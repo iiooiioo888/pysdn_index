@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { useTranslation } from 'react-i18next'
+import { DocBundleLoadingShell } from '../../components/docs/DocBundleLoadingShell'
 import { DocLayout } from '../../components/docs/DocLayout'
 import { DocNavbar } from '../../components/docs/DocNavbar'
 import { DocFooter } from '../../components/docs/DocFooter'
@@ -10,21 +10,10 @@ import { toLangSearch } from '../../routes/langQuery'
 import '../../components/labs/labPanelStyles.css'
 
 export function SuperTrackPanelPage() {
-  const { t: tUi } = useTranslation()
   const { t, ready, loadError, lang } = useDocBundle('supertrack')
 
   if (!ready) {
-    return (
-      <DocLayout variant="track">
-        <main className="doc-main">
-          <div className="doc-main-inner doc-sim-lab" style={{ paddingTop: 100 }}>
-            <p className="doc-hero-lead" style={{ opacity: loadError ? 1 : 0.5 }}>
-              {loadError ? tUi('doc_page_load_error') : tUi('doc_page_loading')}
-            </p>
-          </div>
-        </main>
-      </DocLayout>
-    )
+    return <DocBundleLoadingShell variant="track" loadError={loadError} tone="lab" />
   }
 
   const langSearch = toLangSearch(lang)
@@ -32,8 +21,8 @@ export function SuperTrackPanelPage() {
   return (
     <DocLayout variant="track">
       <DocNavbar t={t} lang={lang} moduleNav={{ mode: 'docs', current: 'supertrack' }} />
-      <main className="doc-main">
-        <div className="doc-main-inner doc-sim-lab">
+      <main className="doc-main doc-main--st-panel">
+        <div className="doc-main-inner doc-main-inner--st-panel doc-sim-lab">
           <nav className="doc-panel-topnav" aria-label="頁面導覽">
             <Link className="doc-lab-back" to={{ pathname: PATHS.docs.supertrack, search: langSearch }}>
               ← SuperTrack 文件

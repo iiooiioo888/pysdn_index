@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { PATHS, type DocSlug } from '../../routes/paths'
+import { prefetchDocRoute } from '../../routes/routePrefetch'
 
 type T = (key: string) => string
 
@@ -52,6 +53,7 @@ export function ModulesPageSidebar({ tm, langSearch }: { tm: T; langSearch: stri
             key={d.slug}
             to={{ pathname: PATHS.docs[d.slug], search: langSearch }}
             className="modules-sidebar-link modules-sidebar-link--doc"
+            onMouseEnter={() => prefetchDocRoute(d.slug)}
           >
             {d.label}
           </Link>

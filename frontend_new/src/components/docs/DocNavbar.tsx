@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import type { DocLang } from '../../hooks/useDocBundle'
 import { useNavBarCompact } from '../../hooks/useNavBarCompact'
 import { PATHS } from '../../routes/paths'
+import { prefetchDocRoute, prefetchLabRoute } from '../../routes/routePrefetch'
 import { toLangSearch } from '../../routes/langQuery'
 import { DocLangPills } from './DocLangPills'
 
@@ -72,6 +73,9 @@ export function DocNavbar({
                     to={to}
                     aria-current={active ? 'page' : undefined}
                     title={tUi(MOD_I18N[mod])}
+                    onMouseEnter={() =>
+                      moduleNav.mode === 'docs' ? prefetchDocRoute(mod) : prefetchLabRoute(mod)
+                    }
                   >
                     {tUi(MOD_I18N[mod])}
                   </Link>
@@ -117,6 +121,9 @@ export function DocNavbar({
                 <Link
                   className={active ? 'doc-nav-link doc-nav-link--active' : 'doc-nav-link'}
                   to={to}
+                  onMouseEnter={() =>
+                    moduleNav.mode === 'docs' ? prefetchDocRoute(mod) : prefetchLabRoute(mod)
+                  }
                   onClick={() => setMenuOpen(false)}
                   aria-current={active ? 'page' : undefined}
                 >

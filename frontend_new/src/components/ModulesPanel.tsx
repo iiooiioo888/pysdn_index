@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useLangQuery } from '../hooks/useLangQuery'
 import { PATHS } from '../routes/paths'
+import { prefetchDocRoute, prefetchSuperTrackPanel } from '../routes/routePrefetch'
 
 export function ModulesPanel() {
   const { t } = useTranslation()
@@ -320,10 +321,18 @@ export function ModulesPanel() {
                 <li>✅ {t('mp_track_f5', '合規追蹤：只抓公開資料，遵守網站規範')}</li>
               </ul>
               <div className="mp-doc-link-stack">
-                <Link to={{ pathname: PATHS.docs.supertrack, search: langSearch }} className="mp-doc-link">
+                <Link
+                  to={{ pathname: PATHS.docs.supertrack, search: langSearch }}
+                  className="mp-doc-link"
+                  onMouseEnter={() => prefetchDocRoute('supertrack')}
+                >
                   {t('mp_view_docs', '查看完整文件')} →
                 </Link>
-                <Link to={{ pathname: PATHS.panel.supertrack, search: langSearch }} className="mp-doc-link mp-doc-link--panel">
+                <Link
+                  to={{ pathname: PATHS.panel.supertrack, search: langSearch }}
+                  className="mp-doc-link mp-doc-link--panel"
+                  onMouseEnter={prefetchSuperTrackPanel}
+                >
                   {t('mp_open_supertrack_panel', '開啟 SuperTrack 示範面板')} →
                 </Link>
               </div>

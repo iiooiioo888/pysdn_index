@@ -3,14 +3,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 32px;
+  gap: clamp(20px, 4vw, 32px);
   flex-wrap: wrap;
-  margin-bottom: 64px;
-  padding: 32px;
+  margin-bottom: clamp(40px, 8vw, 64px);
+  padding: clamp(20px, 4vw, 32px);
   background: linear-gradient(135deg, rgba(6, 182, 212, 0.06) 0%, rgba(139, 92, 246, 0.04) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: var(--radius-lg);
-  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-glow, 0 16px 48px rgba(0, 0, 0, 0.25));
 }
 .about-stat { text-align: center; }
 .about-stat-num {
@@ -41,9 +41,10 @@
   align-items: stretch;
 }
 .about-compare-col {
-  padding: 32px;
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--border);
+  padding: clamp(20px, 4vw, 32px);
+  border-radius: var(--radius);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.14);
 }
 .about-compare-pain { background: rgba(239,68,68,0.03); border-color: rgba(239,68,68,0.1); }
 .about-compare-gain { background: rgba(16,185,129,0.03); border-color: rgba(16,185,129,0.1); }
@@ -86,19 +87,22 @@
   gap: 20px;
 }
 .feature-card {
-  padding: 32px 24px;
+  padding: clamp(22px, 4vw, 32px) clamp(18px, 3vw, 24px);
   background: linear-gradient(165deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.015) 100%);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: var(--radius);
   transition: border-color 0.3s, background 0.3s, transform 0.3s, box-shadow 0.3s;
   position: relative;
   overflow: hidden;
+  box-shadow: var(--shadow-glow, 0 12px 36px rgba(0, 0, 0, 0.22));
 }
-.feature-card:hover {
-  border-color: rgba(6, 182, 212, 0.28);
-  background: rgba(255, 255, 255, 0.06);
-  transform: translateY(-4px);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.28);
+@media (hover: hover) and (pointer: fine) {
+  .feature-card:hover {
+    border-color: rgba(6, 182, 212, 0.28);
+    background: rgba(255, 255, 255, 0.06);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-card-hover, 0 16px 40px rgba(0, 0, 0, 0.28));
+  }
 }
 .feature-num {
   font-family: 'JetBrains Mono', monospace;
@@ -115,7 +119,7 @@
   align-items: center;
   justify-content: center;
   background: rgba(6,182,212,0.08);
-  border-radius: 12px;
+  border-radius: var(--radius);
   margin-bottom: 16px;
   color: #06b6d4;
 }

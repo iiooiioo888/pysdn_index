@@ -24,9 +24,11 @@
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.28);
 }
 .nav-inner {
-  max-width: 1160px;
+  max-width: none;
+  width: 100%;
   margin: 0 auto;
-  padding: 0 clamp(20px, 4vw, 28px);
+  padding-left: max(var(--layout-pad-x, clamp(18px, 4.5vw, 48px)), env(safe-area-inset-left, 0px));
+  padding-right: max(var(--layout-pad-x, clamp(18px, 4.5vw, 48px)), env(safe-area-inset-right, 0px));
   display: flex;
   align-items: center;
   min-height: var(--nav-row-min-h);
@@ -34,6 +36,7 @@
   flex-wrap: nowrap;
   /* must stay visible so .lang-dropdown (position:absolute) is not clipped */
   overflow: visible;
+  box-sizing: border-box;
 }
 .nav-logo {
   display: flex;

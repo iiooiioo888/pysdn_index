@@ -58,10 +58,10 @@
 /* Mockup */
 .mp-panel-mockup {
   background: linear-gradient(180deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.015) 100%);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: var(--radius);
   overflow: hidden;
-  box-shadow: 0 16px 48px rgba(0,0,0,0.28);
+  box-shadow: var(--shadow-glow, 0 16px 48px rgba(0, 0, 0, 0.28));
 }
 
 .mp-mockup-header {
