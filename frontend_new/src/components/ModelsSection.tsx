@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useLocation } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
+import { useLangQuery } from '../hooks/useLangQuery'
 import {
   CATALOG_MODELS,
   pickModelText,
@@ -10,6 +11,7 @@ import {
   type ModelDeveloper,
   type ModelProduct,
 } from '../data/modelsCatalog'
+import { pathToModelDetail } from '../routes/paths'
 
 type CapFilter = 'all' | ModelCapability
 type BrandFilter = 'all' | ModelProduct
@@ -64,6 +66,7 @@ function matchesFilters(
 export function ModelsSection() {
   const { t, i18n } = useTranslation()
   const { search } = useLocation()
+  const langSearch = useLangQuery()
   const lang = resolveUiLang(i18n.language)
   const [capFilter, setCapFilter] = useState<CapFilter>('all')
   const [brandFilter, setBrandFilter] = useState<BrandFilter>(() => brandFromLocationSearch(search))
@@ -349,7 +352,11 @@ export function ModelsSection() {
                   const cap = catalogCapabilityLabel(m.capability, t)
                   const devLabel = catalogDeveloperLabel(m.developer, t)
                   return (
-                    <article key={m.id} className="models-atlas-card models-atlas-card--static">
+                    <Link
+                      key={m.id}
+                      className="models-atlas-card models-atlas-card--link"
+                      to={{ pathname: pathToModelDetail(m.id), search: langSearch }}
+                    >
                       <div className="models-atlas-card-inner">
                         <div className={`models-atlas-thumb ${thumbHueClassForModelId(m.id)}`}>
                           <span className="models-atlas-thumb-shine" aria-hidden="true" />
@@ -378,9 +385,13 @@ export function ModelsSection() {
                               <span className="models-atlas-price">{m.price}</span>
                             </div>
                           ) : null}
+                          <div className="models-atlas-cta">
+                            <span>{t('model_detail_cta')}</span>
+                            <span className="ui-chevron-right models-atlas-cta-chevron" aria-hidden="true" />
+                          </div>
                         </div>
                       </div>
-                    </article>
+                    </Link>
                   )
                 })}
               </div>

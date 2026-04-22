@@ -9,6 +9,7 @@
 @import './styles/workflow-faq.css';
 @import './styles/contact.css';
 @import './styles/models-section.css';
+@import './styles/model-detail.css';
 @import './styles/footer.css';
 
 @tailwind base;

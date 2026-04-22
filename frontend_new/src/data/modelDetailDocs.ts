@@ -299,7 +299,7 @@ export const MODEL_DETAIL_DOCS: Record<string, ModelDetailDoc> = {
         },
         {
           heading: '合规与部署',
-          body: '数据落地与企业隔离等选项请以 Qwen Cloud 安全／部署说明为准，并与安清单对照。',
+          body: '数据落地与企业隔离等选项请以 Qwen Cloud 安全／部署说明为准，并与安全清单对照。',
         },
       ],
     ),
