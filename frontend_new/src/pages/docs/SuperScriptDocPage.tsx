@@ -1,9 +1,14 @@
+import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { DocLayout } from '../../components/docs/DocLayout'
 import { DocNavbar } from '../../components/docs/DocNavbar'
 import { DocFooter } from '../../components/docs/DocFooter'
 import { DocReadingSummary } from '../../components/docs/DocReadingSummary'
+import { DocMermaid } from '../../components/docs/DocMermaid'
+import { SUPERSCRIPT_FLOW, SUPERSCRIPT_MINDMAP } from '../../components/docs/mermaidCharts'
 import { useDocBundle } from '../../hooks/useDocBundle'
+import { PATHS } from '../../routes/paths'
+import { toLangSearch } from '../../routes/langQuery'
 
 export function SuperScriptDocPage() {
   const { t: tUi } = useTranslation()
@@ -25,7 +30,7 @@ export function SuperScriptDocPage() {
 
   return (
     <DocLayout variant="script">
-      <DocNavbar t={t} lang={lang} />
+      <DocNavbar t={t} lang={lang} moduleNav={{ mode: 'docs', current: 'superscript' }} />
       <main className="doc-main">
         <div className="doc-main-inner">
           <section className="doc-hero" aria-labelledby="doc-hero-title">
@@ -98,6 +103,15 @@ export function SuperScriptDocPage() {
             <h3>模組串接：一個生態系打通</h3>
             <p>SuperScript 不是孤島。SuperTrack 幫你抓熱門話題注入大綱——例如「短劇」最近在社群爆了，SuperTrack 會建議你在下一集加入短劇元素。SuperForge 把場景描述自動轉換成畫面提示詞——你寫了「雨夜的東京街頭」，它直接幫你生出 <code>rainy Tokyo street at night, neon reflections</code>，一鍵送進 Midjourney。SuperTune 進行 A/B 測試優化對白——同一場戲用兩種寫法，看哪個觀眾反應更好。</p>
 
+            <div className="doc-diagram-block">
+              <h3>四 Agent 職責（思維導圖）</h3>
+              <p className="doc-diagram-lead">
+                Architect → Continuity → Writer → Format
+                的分工與產出重點，對照下方分工表與流水線圖。
+              </p>
+              <DocMermaid chart={SUPERSCRIPT_MINDMAP} />
+            </div>
+
             {/* ── AI 分工表 ── */}
             <h2>{t('h_agents')}</h2>
             <p>以下是四個 AI Agent 的詳細職責分工：</p>
@@ -128,6 +142,15 @@ export function SuperScriptDocPage() {
                   </tr>
                 </tbody>
               </table>
+            </div>
+
+            <div className="doc-diagram-block">
+              <h3>協作流水線與模組資料流</h3>
+              <p className="doc-diagram-lead">
+                主線為骨架→一致性→寫作→排版；虛線為與 SuperForge、SuperTrack、SuperTune
+                的銜接。
+              </p>
+              <DocMermaid chart={SUPERSCRIPT_FLOW} />
             </div>
 
             {/* ── 快速上手 ── */}
@@ -173,82 +196,13 @@ export function SuperScriptDocPage() {
             <h3>SuperScript → SuperTune：對白優化與 A/B 測試</h3>
             <p>SuperScript 產出的對白，可以送進 SuperTune 做進一步優化。SuperTune 會分析每句對白的張力指數、新鮮度評分，並建議修改方向。你也可以用 SuperTune 的 A/B 測試功能，讓兩種不同的對白寫法同時接受觀眾測試，用數據決定哪個版本更好。</p>
 
-            {/* ── 模擬面板 ── */}
             <h2>🖥️ 操作面板預覽</h2>
-            <p>打開 SuperScript，你會看到 AI 正在幫你寫劇本的即時畫面。頂部是 AI 流水線的進度（Architect → Continuity → Writer → Format），中間是 Writer 的即時進度和關鍵指標，底部是一致性監控和優化建議：</p>
-
-            <div className="sim-panel">
-              {/* Module Header */}
-              <div className="sim-header">
-                <div className="sim-header-left">
-                  <span className="sim-icon">🎬</span>
-                  <span className="sim-title">SuperScript</span>
-                  <span className="sim-badge sim-badge--amber">SCRIPT ENGINE</span>
-                  <span className="sim-live"><span className="sim-dot sim-dot--amber"></span> LIVE</span>
-                </div>
-                <div className="sim-header-right">
-                  <button className="sim-btn sim-btn--primary">▶️ 繼續生成</button>
-                  <button className="sim-btn sim-btn--outline">⏸️ 暫停</button>
-                </div>
-              </div>
-
-              {/* Pipeline */}
-              <p style={{ fontSize: '0.75rem', color: 'rgba(148,163,184,0.6)', margin: '8px 0 4px' }}>四 Agent 流水線：每個 Agent 依序執行。✓ 表示已完成，⟳ 表示正在執行，○ 表示等待中。當前 Writer 正在填充 EP1 · S03 的對白與場景描寫。</p>
-              <div className="sim-pipeline">
-                <div className="sim-pipe-step sim-pipe-step--done"><span>✓</span> Architect</div>
-                <span className="sim-pipe-arrow">→</span>
-                <div className="sim-pipe-step sim-pipe-step--done"><span>✓</span> Continuity</div>
-                <span className="sim-pipe-arrow">→</span>
-                <div className="sim-pipe-step sim-pipe-step--active"><span className="sim-pipe-spin">⟳</span> Writer</div>
-                <span className="sim-pipe-arrow">→</span>
-                <div className="sim-pipe-step"><span>○</span> Format</div>
-              </div>
-
-              {/* Writer progress */}
-              <p style={{ fontSize: '0.75rem', color: 'rgba(148,163,184,0.6)', margin: '8px 0 4px' }}>Writer 當前場景的完成進度。Writer 正在逐行填充對白和動作描述，進度到 100% 後自動交棒給 Format。</p>
-              <div style={{ display: 'flex', gap: 8, alignItems: 'center', padding: '8px 0' }}>
-                <span className="sim-kpi-label" style={{ margin: 0, flexShrink: 0 }}>writer progress</span>
-                <div style={{ flex: 1, height: 8, borderRadius: 4, background: 'rgba(148,163,184,0.08)', overflow: 'hidden' }}>
-                  <div style={{ height: '100%', width: '62%', borderRadius: 4, background: 'linear-gradient(90deg, rgba(245,158,11,0.3), #f59e0b)' }}></div>
-                </div>
-                <span className="sim-kpi-val" style={{ fontSize: '0.8rem' }}>62%</span>
-              </div>
-
-              {/* KPIs */}
-              <p style={{ fontSize: '0.75rem', color: 'rgba(148,163,184,0.6)', margin: '8px 0 4px' }}>關鍵指標：當前場景編號、已產出行數、角色語音匹配度、節奏評分、敘事節拍數量、整集完成百分比。</p>
-              <div className="sim-kpis">
-                <div className="sim-kpi"><div className="sim-kpi-label">scene</div><div className="sim-kpi-val sim-kpi-val--highlight">EP1 · S03</div></div>
-                <div className="sim-kpi"><div className="sim-kpi-label">lines</div><div className="sim-kpi-val">47</div></div>
-                <div className="sim-kpi"><div className="sim-kpi-label">voice_match</div><div className="sim-kpi-val sim-kpi-val--highlight">96.3%</div></div>
-                <div className="sim-kpi"><div className="sim-kpi-label">pacing</div><div className="sim-kpi-val">0.87</div><div className="sim-bar"><div className="sim-bar-fill sim-bar-fill--amber" style={{ width: '87%' }}></div></div></div>
-                <div className="sim-kpi"><div className="sim-kpi-label">beats</div><div className="sim-kpi-val">14</div></div>
-                <div className="sim-kpi"><div className="sim-kpi-label">EP1 完成</div><div className="sim-ring"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="16" fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="3"/><circle cx="20" cy="20" r="16" fill="none" stroke="#f59e0b" strokeWidth="3" strokeDasharray="100.53" strokeDashoffset="60" strokeLinecap="round"/></svg><span className="sim-ring-label">40%</span></div><div className="sim-kpi-sub">5/12 scenes</div></div>
-              </div>
-
-              {/* 2-col: Consistency + Suggestions */}
-              <p style={{ fontSize: '0.75rem', color: 'rgba(148,163,184,0.6)', margin: '12px 0 4px' }}>左側是四個維度的一致性監控（角色、世界觀、時間線、風格），右側是 AI 建議的優化項目，按優先級排序。⚠️ 標記表示需要關注的項目。</p>
-              <div className="sim-grid-2">
-                <div className="sim-card">
-                  <div className="sim-card-head">🛡️ 一致性監控</div>
-                  <div className="sim-consist">
-                    <div className="sim-consist-row"><span className="sim-consist-num">L1</span><span className="sim-consist-name">角色一致性</span><div className="sim-bar"><div className="sim-bar-fill sim-bar-fill--green" style={{ width: '96%' }}></div></div><span className="sim-consist-val">96%</span></div>
-                    <div className="sim-consist-row"><span className="sim-consist-num">L2</span><span className="sim-consist-name">世界觀一致性</span><div className="sim-bar"><div className="sim-bar-fill sim-bar-fill--green" style={{ width: '91%' }}></div></div><span className="sim-consist-val">91%</span></div>
-                    <div className="sim-consist-row sim-consist-row--warn"><span className="sim-consist-num">L3</span><span className="sim-consist-name">時間線一致性</span><div className="sim-bar"><div className="sim-bar-fill sim-bar-fill--amber" style={{ width: '74%' }}></div></div><span className="sim-consist-val" style={{ color: '#f59e0b' }}>74% ⚠</span></div>
-                    <div className="sim-consist-row"><span className="sim-consist-num">L4</span><span className="sim-consist-name">風格一致性</span><div className="sim-bar"><div className="sim-bar-fill sim-bar-fill--green" style={{ width: '88%' }}></div></div><span className="sim-consist-val">88%</span></div>
-                  </div>
-                </div>
-
-                <div className="sim-card">
-                  <div className="sim-card-head">💡 優化建議</div>
-                  <div className="sim-suggest">
-                    <div className="sim-suggest-item"><span className="sim-suggest-prio sim-suggest-prio--p0">P0</span><div><div className="sim-suggest-title">縮短 S07 場景</div><div className="sim-suggest-desc">4m38s → 建議拆分為 S07a + S07b</div></div><span className="sim-suggest-impact">+12%</span></div>
-                    <div className="sim-suggest-item"><span className="sim-suggest-prio sim-suggest-prio--p0">P0</span><div><div className="sim-suggest-title">強化 @Kai 角色動機</div><div className="sim-suggest-desc">S04 缺乏驅動行為的內在衝突</div></div><span className="sim-suggest-impact">+8%</span></div>
-                    <div className="sim-suggest-item"><span className="sim-suggest-prio sim-suggest-prio--p1">P1</span><div><div className="sim-suggest-title">S05 Love Triangle → rival</div><div className="sim-suggest-desc">降低 trope 風險，提升新鮮度</div></div><span className="sim-suggest-impact">+6%</span></div>
-                    <div className="sim-suggest-item"><span className="sim-suggest-prio sim-suggest-prio--p2">P2</span><div><div className="sim-suggest-title">S10 meme-worthy 對白</div><div className="sim-suggest-desc">提升社群傳播潛力</div></div><span className="sim-suggest-impact">+4%</span></div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <p>打開 SuperScript 時可檢視流水線、Writer 進度、一致性分數與建議；完整大螢幕示範（含佇列表與 Writer 摘錄）已獨立成頁。</p>
+            <p>
+              <Link className="doc-lab-cta" to={{ pathname: PATHS.labs.superscript, search: toLangSearch(lang) }}>
+                開啟 SuperScript 儀表板（示範資料）→
+              </Link>
+            </p>
 
             {/* ── 資料結構 ── */}
             <h2>{t('h_dm')}</h2>

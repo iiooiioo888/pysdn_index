@@ -12,6 +12,7 @@
     "@vitejs/plugin-react": "^6.0.1",
     "axios": "^1.15.0",
     "i18next": "^26.0.5",
+    "mermaid": "^11.14.0",
     "react": "^19.2.5",
     "react-dom": "^19.2.5",
     "react-i18next": "^17.0.3",

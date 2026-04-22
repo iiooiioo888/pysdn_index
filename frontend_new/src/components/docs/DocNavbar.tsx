@@ -7,18 +7,40 @@ import { PATHS } from '../../routes/paths'
 import { toLangSearch } from '../../routes/langQuery'
 import { DocLangPills } from './DocLangPills'
 
+export type DocNavbarModule = 'superforge' | 'superscript' | 'supertrack' | 'supertune'
+
+const MOD_ORDER: readonly DocNavbarModule[] = [
+  'superforge',
+  'superscript',
+  'supertrack',
+  'supertune',
+] as const
+
+const MOD_I18N: Record<DocNavbarModule, string> = {
+  superforge: 'doc_nav_mod_superforge',
+  superscript: 'doc_nav_mod_superscript',
+  supertrack: 'doc_nav_mod_supertrack',
+  supertune: 'doc_nav_mod_supertune',
+}
+
+const pathForMod = (mod: DocNavbarModule, mode: 'docs' | 'labs') =>
+  (mode === 'docs' ? PATHS.docs[mod] : PATHS.labs[mod]) as string
+
 export function DocNavbar({
   t,
   lang,
+  moduleNav,
 }: {
   t: (key: string) => string
   lang: DocLang
+  /** 本頁所屬模組與連結目標：文件互跳或實驗室儀表板互跳 */
+  moduleNav: { mode: 'docs' | 'labs'; current: DocNavbarModule }
 }) {
   const { t: tUi } = useTranslation()
   const langSearch = toLangSearch(lang)
   const modulesTo = { pathname: PATHS.modules, search: langSearch }
   const homeTo = { pathname: PATHS.home, search: langSearch }
-  const { navInnerRef, compact } = useNavBarCompact('.doc-nav-links')
+  const { navInnerRef, compact } = useNavBarCompact('.doc-nav-cluster')
   const [menuOpen, setMenuOpen] = useState(false)
 
   useEffect(() => {
@@ -38,13 +60,32 @@ export function DocNavbar({
             </span>
             <span className="doc-logo-text">Pysdn</span>
           </Link>
-          <div className="doc-nav-links">
-            <Link className="doc-nav-link" to={modulesTo}>
-              {t('nav_modules')}
-            </Link>
-            <Link className="doc-nav-link" to={homeTo}>
-              {t('nav_home')}
-            </Link>
+          <div className="doc-nav-cluster" role="group" aria-label={tUi('doc_nav_mods_aria')}>
+            <div className="doc-nav-mods">
+              {MOD_ORDER.map((mod) => {
+                const to = { pathname: pathForMod(mod, moduleNav.mode), search: langSearch }
+                const active = mod === moduleNav.current
+                return (
+                  <Link
+                    key={mod}
+                    className={active ? 'doc-nav-link doc-nav-link--active' : 'doc-nav-link'}
+                    to={to}
+                    aria-current={active ? 'page' : undefined}
+                    title={tUi(MOD_I18N[mod])}
+                  >
+                    {tUi(MOD_I18N[mod])}
+                  </Link>
+                )
+              })}
+            </div>
+            <div className="doc-nav-links">
+              <Link className="doc-nav-link" to={modulesTo}>
+                {t('nav_modules')}
+              </Link>
+              <Link className="doc-nav-link" to={homeTo}>
+                {t('nav_home')}
+              </Link>
+            </div>
           </div>
           <div className="doc-nav-lang-inline">
             <DocLangPills lang={lang} />
@@ -68,6 +109,22 @@ export function DocNavbar({
         aria-hidden={!menuOpen}
       >
         <ul>
+          {MOD_ORDER.map((mod) => {
+            const to = { pathname: pathForMod(mod, moduleNav.mode), search: langSearch }
+            const active = mod === moduleNav.current
+            return (
+              <li key={mod}>
+                <Link
+                  className={active ? 'doc-nav-link doc-nav-link--active' : 'doc-nav-link'}
+                  to={to}
+                  onClick={() => setMenuOpen(false)}
+                  aria-current={active ? 'page' : undefined}
+                >
+                  {tUi(MOD_I18N[mod])}
+                </Link>
+              </li>
+            )
+          })}
           <li>
             <Link className="doc-nav-link" to={modulesTo} onClick={() => setMenuOpen(false)}>
               {t('nav_modules')}

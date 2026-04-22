@@ -1,9 +1,14 @@
+import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { DocLayout } from '../../components/docs/DocLayout'
 import { DocNavbar } from '../../components/docs/DocNavbar'
 import { DocFooter } from '../../components/docs/DocFooter'
 import { DocReadingSummary } from '../../components/docs/DocReadingSummary'
+import { DocMermaid } from '../../components/docs/DocMermaid'
+import { SUPERTRACK_FLOW, SUPERTRACK_MINDMAP } from '../../components/docs/mermaidCharts'
 import { useDocBundle } from '../../hooks/useDocBundle'
+import { PATHS } from '../../routes/paths'
+import { toLangSearch } from '../../routes/langQuery'
 
 export function SuperTrackDocPage() {
   const { t: tUi } = useTranslation()
@@ -25,7 +30,7 @@ export function SuperTrackDocPage() {
 
   return (
     <DocLayout variant="track">
-      <DocNavbar t={t} lang={lang} />
+      <DocNavbar t={t} lang={lang} moduleNav={{ mode: 'docs', current: 'supertrack' }} />
       <main className="doc-main">
         <div className="doc-main-inner">
           <section className="doc-hero" aria-labelledby="doc-hero-title">
@@ -48,6 +53,14 @@ export function SuperTrackDocPage() {
             <h2>{t('h_overview')}</h2>
             <p>SuperTrack 是你的「網路上的眼睛」。它能同時追蹤多個社群平台（小紅書、Instagram、Twitter/X、抖音、YouTube 等）上特定帳號、話題或關鍵字的動態。當某個訊號異常（流量暴增、話題升溫、互動率飆升），系統會第一時間通知你，讓你搶在所有人之前掌握趨勢。</p>
             <p>不同於一般的爬蟲工具，SuperTrack 使用模擬真人瀏覽行為的方式進行抓取——模擬滾動速度、隨機停留時間、自然閱讀節奏——所以不會觸發平台的反爬機制。抓取成功率高達 98.2%。</p>
+
+            <div className="doc-diagram-block">
+              <h3>系統分層（思維導圖）</h3>
+              <p className="doc-diagram-lead">
+                從追蹤目標、擷取、分析到對其他模組輸出，對照下文各小節與資料流圖。
+              </p>
+              <DocMermaid chart={SUPERTRACK_MINDMAP} />
+            </div>
 
             {/* ── 核心功能 + 範例 ── */}
             <h2>{t('h_components')}</h2>
@@ -96,6 +109,15 @@ export function SuperTrackDocPage() {
             <h3>精華萃取：好內容自動入庫</h3>
             <p>SuperTrack 不只是「抓」內容，還會「篩」內容。系統會用 AI 分析每篇帖子的品質分數（原創度、互動潛力、內容深度），篩出高品質的帖子，結構化整理後自動推送進 SuperForge 提示詞庫。下次你創作時，可以直接搜尋「上次那個爆款帖子的風格是什麼」。</p>
             <p>你也可以手動標記「這篇很好，存進 SuperForge」，系統會學習你的偏好，未來的自動篩選會更精準。</p>
+
+            <div className="doc-diagram-block">
+              <h3>端到端資料流</h3>
+              <p className="doc-diagram-lead">
+                爬蟲→正規化→合併與時間軸→異常與品質分支→對 SuperForge／SuperScript／SuperTune
+                的輸出。
+              </p>
+              <DocMermaid chart={SUPERTRACK_FLOW} />
+            </div>
 
             {/* ── 追蹤維度 ── */}
             <h2>{t('h_dims')}</h2>
@@ -177,87 +199,13 @@ export function SuperTrackDocPage() {
             <h3>SuperTrack → SuperTune：數據驅動的優化決策</h3>
             <p>SuperTrack 收集到的互動數據（哪種類型的內容互動率高、什麼時間發文效果最好、觀眾偏好什麼風格），會作為 SuperTune A/B 測試的基準數據。SuperTune 可以根據 SuperTrack 的實際數據來設計更精準的測試方案，而不是盲目猜測。</p>
 
-            {/* ── 模擬面板 ── */}
             <h2>🖥️ 操作面板預覽</h2>
-            <p>打開 SuperTrack，即時追蹤訊號一目了然。頂部是關鍵 KPI（追蹤帳號數、異常警報數、熱門話題數、情緒指數、抓取成功率、每分鐘訊號量），中間是追蹤中的帳號列表，底部是觀眾畫像、熱詞趨勢和商業潛力預測：</p>
-
-            <div className="sim-panel">
-              {/* Module Header */}
-              <div className="sim-header">
-                <div className="sim-header-left">
-                  <span className="sim-icon">🛰️</span>
-                  <span className="sim-title">SuperTrack</span>
-                  <span className="sim-badge sim-badge--green">SIGNAL TRACKING</span>
-                  <span className="sim-live"><span className="sim-dot sim-dot--green"></span> LIVE</span>
-                </div>
-                <div className="sim-header-right">
-                  <button className="sim-btn">🔄 重試全部</button>
-                  <button className="sim-btn sim-btn--outline">📤 匯出報告</button>
-                </div>
-              </div>
-
-              {/* KPIs */}
-              <p style={{ fontSize: '0.75rem', color: 'rgba(148,163,184,0.6)', margin: '8px 0 4px' }}>即時 KPI 面板：追蹤中的帳號總數、當前活躍警報數、偵測到的熱門話題數、整體情緒指數（0-1，越高越正面）、爬蟲成功率、每分鐘收到的訊號量。</p>
-              <div className="sim-kpis">
-                <div className="sim-kpi"><div className="sim-kpi-label">entities</div><div className="sim-kpi-val">24</div></div>
-                <div className="sim-kpi"><div className="sim-kpi-label">alerts</div><div className="sim-kpi-val sim-kpi-val--highlight">7</div><div className="sim-bar"><div className="sim-bar-fill sim-bar-fill--green" style={{ width: '47%' }}></div></div></div>
-                <div className="sim-kpi"><div className="sim-kpi-label">hot_topics</div><div className="sim-kpi-val sim-kpi-val--highlight">12</div></div>
-                <div className="sim-kpi"><div className="sim-kpi-label">sentiment</div><div className="sim-kpi-val">0.78</div><div className="sim-bar"><div className="sim-bar-fill sim-bar-fill--green" style={{ width: '78%' }}></div></div></div>
-                <div className="sim-kpi"><div className="sim-kpi-label">crawl_rate</div><div className="sim-kpi-val">98.2%</div></div>
-                <div className="sim-kpi"><div className="sim-kpi-label">signals/min</div><div className="sim-kpi-val">142</div></div>
-              </div>
-
-              {/* Entities */}
-              <p style={{ fontSize: '0.75rem', color: 'rgba(148,163,184,0.6)', margin: '12px 0 4px' }}>正在追蹤的帳號列表，每個項目顯示帳號名稱、類型（👤 個人 / 🏰 品牌），以及近期表現變化（上升百分比或 🔥 熱詞標記表示該帳號正處於話題高峰期）。</p>
-              <div className="sim-card" style={{ marginTop: 12 }}>
-                <div className="sim-card-head">📡 追蹤中的帳號</div>
-                <div className="sim-entity-list">
-                  <div className="sim-entity"><span className="sim-entity-icon">👤</span><span className="sim-entity-name">@design_daily</span><span className="sim-entity-metric sim-entity-metric--up">+12.4%</span></div>
-                  <div className="sim-entity"><span className="sim-entity-icon">🏢</span><span className="sim-entity-name">BrandX Studio</span><span className="sim-entity-metric sim-entity-metric--alert">🔥 熱詞</span></div>
-                  <div className="sim-entity"><span className="sim-entity-icon">👤</span><span className="sim-entity-name">@ai_creative</span><span className="sim-entity-metric sim-entity-metric--up">+8.7%</span></div>
-                  <div className="sim-entity"><span className="sim-entity-icon">👤</span><span className="sim-entity-name">@cyberpunk_art</span><span className="sim-entity-metric">穩定</span></div>
-                </div>
-              </div>
-
-              {/* 2-col: Audience + Trends */}
-              <p style={{ fontSize: '0.75rem', color: 'rgba(148,163,184,0.6)', margin: '12px 0 4px' }}>左側是追蹤對象的觀眾畫像分析——系統根據互動數據自動歸類出主要觀眾群體的年齡層、興趣和匹配度。右側是即時熱詞趨勢排行，搭配「一鍵注入腳本」按鈕可以直接把熱點送進 SuperScript。</p>
-              <div className="sim-grid-2">
-                <div className="sim-card">
-                  <div className="sim-card-head">👥 觀眾畫像</div>
-                  <div className="sim-audience">
-                    <div className="sim-audience-row"><span className="sim-audience-avatar">🧑‍💻</span><div className="sim-audience-info"><div className="sim-audience-name">Z 世代數位原住民</div><div className="sim-audience-meta">18-25 · 影迷</div></div><span className="sim-audience-score" style={{ color: '#22c55e' }}>87%</span></div>
-                    <div className="sim-audience-row"><span className="sim-audience-avatar">👨‍👩‍👧</span><div className="sim-audience-info"><div className="sim-audience-name">家庭觀影族群</div><div className="sim-audience-meta">30-45 · 闔家</div></div><span className="sim-audience-score" style={{ color: '#f59e0b' }}>74%</span></div>
-                    <div className="sim-audience-row"><span className="sim-audience-avatar">🎬</span><div className="sim-audience-info"><div className="sim-audience-name">影評 / 影迷</div><div className="sim-audience-meta">25-50 · 核心</div></div><span className="sim-audience-score" style={{ color: '#22c55e' }}>81%</span></div>
-                  </div>
-                </div>
-
-                <div className="sim-card">
-                  <div className="sim-card-head">📡 熱詞趨勢</div>
-                  <div className="sim-trend">
-                    <div className="sim-trend-row"><span className="sim-trend-rank">#1</span><span className="sim-trend-name">賽博龐克 AI</span><div className="sim-bar"><div className="sim-bar-fill sim-bar-fill--red" style={{ width: '94%' }}></div></div><span className="sim-trend-heat">🔥340%</span></div>
-                    <div className="sim-trend-row"><span className="sim-trend-rank">#2</span><span className="sim-trend-name">數位孿生倫理</span><div className="sim-bar"><div className="sim-bar-fill sim-bar-fill--amber" style={{ width: '78%' }}></div></div><span className="sim-trend-heat">🔥210%</span></div>
-                    <div className="sim-trend-row"><span className="sim-trend-rank">#3</span><span className="sim-trend-name">短劇爆發期</span><div className="sim-bar"><div className="sim-bar-fill sim-bar-fill--amber" style={{ width: '72%' }}></div></div><span className="sim-trend-heat">↑185%</span></div>
-                    <div className="sim-trend-row"><span className="sim-trend-rank">#4</span><span className="sim-trend-name">虛擬偶像 IP</span><div className="sim-bar"><div className="sim-bar-fill sim-bar-fill--amber" style={{ width: '65%' }}></div></div><span className="sim-trend-heat">↑142%</span></div>
-                  </div>
-                  <button className="sim-btn sim-btn--primary" style={{ marginTop: 8, width: '100%', textAlign: 'center' }}>💉 一鍵注入腳本</button>
-                </div>
-              </div>
-
-              {/* ROI */}
-              <p style={{ fontSize: '0.75rem', color: 'rgba(148,163,184,0.6)', margin: '12px 0 4px' }}>商業潛力預測：系統根據觀眾契合度、類型匹配度和趨勢對齊度三個維度，預估投入產出比。這個數值幫助你判斷「追這個熱點值不值得」。</p>
-              <div className="sim-card" style={{ marginTop: 12 }}>
-                <div className="sim-card-head">💰 商業潛力預測</div>
-                <div style={{ textAlign: 'center', padding: '8px 0' }}>
-                  <div style={{ fontSize: '0.6rem', color: 'rgba(148,163,184,0.4)' }}>ROI PREDICT</div>
-                  <div style={{ fontSize: '2rem', fontWeight: 800, color: '#34d399', fontFamily: "'JetBrains Mono', monospace" }}>3.2×</div>
-                </div>
-                <div className="sim-net-metrics">
-                  <div className="sim-net-row"><span>audience_fit</span><div className="sim-bar"><div className="sim-bar-fill sim-bar-fill--green" style={{ width: '84%' }}></div></div><span>0.84</span></div>
-                  <div className="sim-net-row"><span>genre_match</span><div className="sim-bar"><div className="sim-bar-fill sim-bar-fill--green" style={{ width: '91%' }}></div></div><span>0.91</span></div>
-                  <div className="sim-net-row"><span>trend_align</span><div className="sim-bar"><div className="sim-bar-fill sim-bar-fill--green" style={{ width: '73%' }}></div></div><span>0.73</span></div>
-                </div>
-              </div>
-            </div>
+            <p>KPI、帳號、觀眾、熱詞、ROI 等模組的完整佈局已放於獨立實驗室頁，含警報表與加長趨勢清單（示範用）。</p>
+            <p>
+              <Link className="doc-lab-cta" to={{ pathname: PATHS.labs.supertrack, search: toLangSearch(lang) }}>
+                開啟 SuperTrack 儀表板（示範資料）→
+              </Link>
+            </p>
 
             {/* ── 合規聲明 ── */}
             <h2>{t('h_compliance')}</h2>

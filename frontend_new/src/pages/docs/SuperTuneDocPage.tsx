@@ -1,9 +1,14 @@
+import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { DocLayout } from '../../components/docs/DocLayout'
 import { DocNavbar } from '../../components/docs/DocNavbar'
 import { DocFooter } from '../../components/docs/DocFooter'
 import { DocReadingSummary } from '../../components/docs/DocReadingSummary'
+import { DocMermaid } from '../../components/docs/DocMermaid'
+import { SUPERTUNE_FLOW, SUPERTUNE_MINDMAP } from '../../components/docs/mermaidCharts'
 import { useDocBundle } from '../../hooks/useDocBundle'
+import { PATHS } from '../../routes/paths'
+import { toLangSearch } from '../../routes/langQuery'
 
 export function SuperTuneDocPage() {
   const { t: tUi } = useTranslation()
@@ -25,7 +30,7 @@ export function SuperTuneDocPage() {
 
   return (
     <DocLayout variant="tune">
-      <DocNavbar t={t} lang={lang} />
+      <DocNavbar t={t} lang={lang} moduleNav={{ mode: 'docs', current: 'supertune' }} />
       <main className="doc-main">
         <div className="doc-main-inner">
           <section className="doc-hero" aria-labelledby="doc-hero-title">
@@ -55,6 +60,14 @@ export function SuperTuneDocPage() {
               <li><strong>查看結果</strong>：系統自動跑分析，幾秒內出結果。左邊是原始版本，右邊是優化建議。</li>
               <li><strong>一鍵套用</strong>：覺得 B 版本比較好？按一下就套用，自動回寫到 SuperForge 或 SuperScript。</li>
             </ol>
+
+            <div className="doc-diagram-block">
+              <h3>優化能力全景（思維導圖）</h3>
+              <p className="doc-diagram-lead">
+                實驗（A/B）、成本、品質與風格遷移四大支線，對照後文各章節與面板預覽。
+              </p>
+              <DocMermaid chart={SUPERTUNE_MINDMAP} />
+            </div>
 
             {/* ── A/B 測試 ── */}
             <h2>🔬 A/B 平行宇宙測試</h2>
@@ -199,124 +212,21 @@ export function SuperTuneDocPage() {
               <li><strong>SuperTune → 全部</strong>：成本優化的省錢效果回饋到整個平台，讓你在不增加預算的情況下產出更多內容。</li>
             </ul>
 
-            {/* ── 模擬面板 ── */}
-            <h2>🖥️ 操作面板預覽</h2>
-            <p>打開 SuperTune，你會看到 A/B 測試、成本優化、節奏分析一目了然。以下是模擬畫面：</p>
-
-            <div className="sim-panel">
-              {/* Module Header */}
-              <div className="sim-header">
-                <div className="sim-header-left">
-                  <span className="sim-icon">🧠</span>
-                  <span className="sim-title">SuperTune</span>
-                  <span className="sim-badge sim-badge--purple">OPTIMIZATION</span>
-                  <span className="sim-live"><span className="sim-dot sim-dot--purple"></span> LIVE</span>
-                </div>
-                <div className="sim-header-right">
-                  <button className="sim-btn sim-btn--primary">✅ 套用變體 B</button>
-                  <button className="sim-btn sim-btn--outline">↩️ 復原</button>
-                </div>
-              </div>
-
-              {/* 2-col: A/B Test + Cost */}
-              <div className="sim-grid-2">
-                <div className="sim-card">
-                  <div className="sim-card-head">🔬 A/B 平行宇宙測試 <span style={{ fontSize: '0.6rem', opacity: 0.4, marginLeft: 8 }}>p=0.003 · n=1,247</span></div>
-                  <p style={{ fontSize: '0.6rem', opacity: 0.5, marginBottom: 8 }}>左右兩個版本同時跑，E = 效果分數，R = 回應品質。紫色代表勝出的變體。</p>
-                  <div className="sim-ab-universe">
-                    <div className="sim-ab-label">宇宙 A (原始)</div>
-                    <div className="sim-ab-row"><span className="sim-ab-dim">E</span><div className="sim-bar"><div className="sim-bar-fill sim-bar-fill--cyan" style={{ width: '72%' }}></div></div><span className="sim-ab-score">72.0%</span></div>
-                    <div className="sim-ab-row"><span className="sim-ab-dim">R</span><div className="sim-bar"><div className="sim-bar-fill sim-bar-fill--cyan" style={{ width: '68%' }}></div></div><span className="sim-ab-score">68.1%</span></div>
-                  </div>
-                  <div className="sim-ab-universe" style={{ marginTop: 8 }}>
-                    <div className="sim-ab-label" style={{ color: '#a78bfa' }}>宇宙 B (變體) ✓</div>
-                    <div className="sim-ab-row"><span className="sim-ab-dim">E</span><div className="sim-bar"><div className="sim-bar-fill sim-bar-fill--purple" style={{ width: '88%' }}></div></div><span className="sim-ab-score">88.0%</span></div>
-                    <div className="sim-ab-row"><span className="sim-ab-dim">R</span><div className="sim-bar"><div className="sim-bar-fill sim-bar-fill--purple" style={{ width: '79%' }}></div></div><span className="sim-ab-score">79.3%</span></div>
-                  </div>
-                  <div className="sim-kpis" style={{ gridTemplateColumns: 'repeat(3,1fr)', gap: 6, marginTop: 8 }}>
-                    <div className="sim-kpi"><div className="sim-kpi-label">effect size</div><div className="sim-kpi-val sim-kpi-val--highlight" style={{ fontSize: '0.8rem' }}>0.38</div></div>
-                    <div className="sim-kpi"><div className="sim-kpi-label">confidence</div><div className="sim-kpi-val" style={{ fontSize: '0.8rem' }}>99.7%</div></div>
-                    <div className="sim-kpi"><div className="sim-kpi-label">winner</div><div className="sim-kpi-val" style={{ fontSize: '0.8rem', color: '#a78bfa' }}>B ↑16%</div></div>
-                  </div>
-                </div>
-
-                <div className="sim-card">
-                  <div className="sim-card-head">💸 成本與快取 <span style={{ fontSize: '0.6rem', opacity: 0.4, marginLeft: 8 }}>saved $1.24 today</span></div>
-                  <p style={{ fontSize: '0.6rem', opacity: 0.5, marginBottom: 8 }}>即時追蹤四種省錢策略的實際效果，綠色數字是已省下的金額。</p>
-                  <div style={{ textAlign: 'center', padding: '8px 0' }}>
-                    <div style={{ fontSize: '0.55rem', color: 'rgba(148,163,184,0.4)' }}>Total Saved</div>
-                    <div style={{ fontSize: '1.6rem', fontWeight: 800, color: '#34d399', fontFamily: "'JetBrains Mono', monospace" }}>$1.24</div>
-                    <div style={{ fontSize: '0.55rem', color: '#22c55e' }}>↓ 18% vs baseline</div>
-                  </div>
-                  <div className="sim-strategy-list">
-                    <div className="sim-strategy sim-strategy--active"><span>✅</span><span>Prompt 壓縮</span><span className="sim-strategy-saving">-$0.38</span></div>
-                    <div className="sim-strategy sim-strategy--active"><span>✅</span><span>Context Window 管理</span><span className="sim-strategy-saving">-$0.22</span></div>
-                    <div className="sim-strategy sim-strategy--active"><span>✅</span><span>Batch 合併請求</span><span className="sim-strategy-saving">-$0.15</span></div>
-                    <div className="sim-strategy"><span>○</span><span>Model Tier 降級</span><span style={{ color: 'rgba(148,163,184,0.4)' }}>-$0.09 est.</span></div>
-                  </div>
-                </div>
-              </div>
-
-              {/* 3-col: Pacing + Tension + Freshness */}
-              <p style={{ fontSize: '0.65rem', opacity: 0.5, marginTop: 12, marginBottom: 4 }}>以下三個面板分別分析你的內容品質：節奏是否舒服、張力是否到位、有沒有太老套的套路。</p>
-              <div className="sim-grid-3">
-                <div className="sim-card">
-                  <div className="sim-card-head">⏱️ 節奏指數 <span className="sim-badge-inline">0.87</span></div>
-                  <div className="sim-metric-list">
-                    <div className="sim-metric-row"><span>Scene Length</span><div className="sim-bar"><div className="sim-bar-fill sim-bar-fill--purple" style={{ width: '82%' }}></div></div><span>0.82</span></div>
-                    <div className="sim-metric-row"><span>Dialogue Dense</span><div className="sim-bar"><div className="sim-bar-fill sim-bar-fill--purple" style={{ width: '75%' }}></div></div><span>0.75</span></div>
-                    <div className="sim-metric-row"><span>Action Rhythm</span><div className="sim-bar"><div className="sim-bar-fill sim-bar-fill--purple" style={{ width: '91%' }}></div></div><span>0.91</span></div>
-                    <div className="sim-metric-row"><span>Cuttability</span><div className="sim-bar"><div className="sim-bar-fill sim-bar-fill--purple" style={{ width: '68%' }}></div></div><span>0.68</span></div>
-                  </div>
-                </div>
-
-                <div className="sim-card">
-                  <div className="sim-card-head">🔥 張力曲線 <span className="sim-badge-inline" style={{ color: '#ef4444' }}>0.83</span></div>
-                  <div className="sim-metric-list">
-                    <div className="sim-metric-row"><span>Act1 Setup</span><div className="sim-bar"><div className="sim-bar-fill sim-bar-fill--red" style={{ width: '35%' }}></div></div><span>0.35</span></div>
-                    <div className="sim-metric-row"><span>Act2 Rising</span><div className="sim-bar"><div className="sim-bar-fill sim-bar-fill--amber" style={{ width: '72%' }}></div></div><span>0.72</span></div>
-                    <div className="sim-metric-row"><span>Act3 Climax</span><div className="sim-bar"><div className="sim-bar-fill sim-bar-fill--red" style={{ width: '95%' }}></div></div><span>0.95</span></div>
-                    <div className="sim-metric-row"><span>Resolution</span><div className="sim-bar"><div className="sim-bar-fill sim-bar-fill--cyan" style={{ width: '28%' }}></div></div><span>0.28</span></div>
-                  </div>
-                  <div style={{ marginTop: 6, fontSize: '0.5rem', color: 'rgba(148,163,184,0.4)', textAlign: 'center' }}>Hollywood curve match: <strong style={{ color: '#e2e8f0' }}>87%</strong></div>
-                </div>
-
-                <div className="sim-card">
-                  <div className="sim-card-head">✨ 新鮮度 <span className="sim-badge-inline" style={{ color: '#a78bfa' }}>0.76</span></div>
-                  <div className="sim-trope-list">
-                    <div className="sim-trope sim-trope--warn"><span>⚠ HIGH</span><span>Chosen One (S02)</span></div>
-                    <div className="sim-trope sim-trope--warn"><span>⚠ HIGH</span><span>Love Triangle (S05)</span></div>
-                    <div className="sim-trope sim-trope--ok"><span>LOW</span><span>Training Montage (S03)</span></div>
-                    <div className="sim-trope sim-trope--ok"><span>LOW</span><span>Betrayal Twist (S09)</span></div>
-                  </div>
-                  <div className="sim-kpis" style={{ gridTemplateColumns: 'repeat(3,1fr)', gap: 4, marginTop: 8 }}>
-                    <div className="sim-kpi"><div className="sim-kpi-label">tropes</div><div className="sim-kpi-val" style={{ fontSize: '0.8rem' }}>4</div></div>
-                    <div className="sim-kpi"><div className="sim-kpi-label">originality</div><div className="sim-kpi-val sim-kpi-val--highlight" style={{ fontSize: '0.8rem' }}>0.82</div></div>
-                    <div className="sim-kpi"><div className="sim-kpi-label">surprise</div><div className="sim-kpi-val" style={{ fontSize: '0.8rem' }}>0.71</div></div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Style Transfer */}
-              <div className="sim-card" style={{ marginTop: 12 }}>
-                <div className="sim-card-head">🎨 神經風格遷移 <span className="sim-badge-inline" style={{ color: '#a78bfa' }}>BETA</span></div>
-                <p style={{ fontSize: '0.6rem', opacity: 0.5, marginBottom: 8 }}>選擇一個導演風格，系統會逐步把你的內容調成該風格。忠誠度越高越像，但也要保留你自己的 voice。</p>
-                <div className="sim-kpis" style={{ gridTemplateColumns: 'repeat(4,1fr)', gap: 6 }}>
-                  <div className="sim-kpi"><div className="sim-kpi-label">active style</div><div className="sim-kpi-val" style={{ fontSize: '0.75rem' }}>諾蘭敘事</div></div>
-                  <div className="sim-kpi"><div className="sim-kpi-label">fidelity</div><div className="sim-kpi-val sim-kpi-val--highlight" style={{ fontSize: '0.8rem' }}>82.4%</div></div>
-                  <div className="sim-kpi"><div className="sim-kpi-label">scene</div><div className="sim-kpi-val" style={{ fontSize: '0.75rem' }}>S05 ⟳</div></div>
-                  <div className="sim-kpi"><div className="sim-kpi-label">忠诚度</div><div className="sim-kpi-val" style={{ fontSize: '0.8rem' }}>82%</div><div className="sim-bar"><div className="sim-bar-fill sim-bar-fill--purple" style={{ width: '82%' }}></div></div></div>
-                </div>
-                <div className="sim-style-tags" style={{ marginTop: 8 }}>
-                  <span className="sim-style-tag sim-style-tag--active">諾蘭敘事</span>
-                  <span className="sim-style-tag">是枝裕和</span>
-                  <span className="sim-style-tag">王家衛</span>
-                  <span className="sim-style-tag">昆汀</span>
-                  <span className="sim-style-tag">新海誠</span>
-                  <span className="sim-style-tag">+ 自定義</span>
-                </div>
-              </div>
+            <div className="doc-diagram-block">
+              <h3>匯入—分析—回寫流程</h3>
+              <p className="doc-diagram-lead">
+                多來源匯入後依模式分流至 A/B、成本或品質分析，結果再回寫至各模組。
+              </p>
+              <DocMermaid chart={SUPERTUNE_FLOW} />
             </div>
+
+            <h2>🖥️ 操作面板預覽</h2>
+            <p>雙 A/B 區塊、成本、節奏／張力／新鮮度、導演風格與「套用紀錄」表已放於實驗室大螢幕版。</p>
+            <p>
+              <Link className="doc-lab-cta" to={{ pathname: PATHS.labs.supertune, search: toLangSearch(lang) }}>
+                開啟 SuperTune 儀表板（示範資料）→
+              </Link>
+            </p>
 
             <p style={{ marginTop: '2rem', opacity: 0.6 }}>© Pysdn SuperCool · MIT License</p>
           </article>

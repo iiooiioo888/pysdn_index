@@ -12,6 +12,13 @@ export const PATHS = {
     supertrack: '/docs/supertrack',
     supertune: '/docs/supertune',
   },
+  /** 各模組大螢幕模擬儀表板（示範資料） */
+  labs: {
+    superforge: '/labs/superforge',
+    superscript: '/labs/superscript',
+    supertrack: '/labs/supertrack',
+    supertune: '/labs/supertune',
+  },
 } as const
 
 export type DocSlug = keyof typeof PATHS.docs

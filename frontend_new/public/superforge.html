@@ -69,6 +69,19 @@
           <li data-i18n="f6">Media Proxy：僅儲存 CDN／S3 連結，不儲存實際媒體檔案</li>
         </ul>
 
+        <div class="doc-diagram-block">
+          <h3>架構與能力（思維導圖）</h3>
+          <p class="doc-diagram-lead">
+            知識儲存、擷取管線與檢索應用；與 React 文件頁 <code>/docs/superforge</code> 圖表一致。
+          </p>
+          <div
+            class="doc-mermaid-wrap doc-mermaid-host"
+            data-doc-diagram="superforge-mindmap"
+            aria-busy="true"
+            aria-label="SuperForge 架構思維導圖"
+          ></div>
+        </div>
+
         <h2 data-i18n="h_install">📦 安裝</h2>
         <pre>pip install -r requirements.txt</pre>
 
@@ -123,6 +136,17 @@ export SQL_ECHO=false</pre>
 │ changes     │
 │ generation_ │
 └─────────────┘</pre>
+
+        <div class="doc-diagram-block">
+          <h3>資料流與檢索路徑</h3>
+          <p class="doc-diagram-lead">匯入、向量化、全文索引至混合檢索與生成工作流。</p>
+          <div
+            class="doc-mermaid-wrap doc-mermaid-host"
+            data-doc-diagram="superforge-flow"
+            aria-busy="true"
+            aria-label="SuperForge 資料流"
+          ></div>
+        </div>
 
         <h2 data-i18n="h_api">📡 API 端點</h2>
 
@@ -434,5 +458,6 @@ LIMIT 10;</pre>
           DocI18n.renderSwitcher(document.getElementById('lang-switch'))
         })
     </script>
+    <script type="module" src="./js/doc-mermaid-init.js"></script>
   </body>
 </html>

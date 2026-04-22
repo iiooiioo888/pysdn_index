@@ -10,6 +10,10 @@ import {
   SuperScriptDocPage,
   SuperTrackDocPage,
   SuperTuneDocPage,
+  SuperForgeLabPage,
+  SuperScriptLabPage,
+  SuperTrackLabPage,
+  SuperTuneLabPage,
 } from './lazyPages'
 import { NotFoundRedirect } from './NotFoundRedirect'
 import { RouteFallback } from './RouteFallback'
@@ -26,6 +30,10 @@ export function AppRoutes() {
         <Route path={PATHS.docs.superscript} element={<SuperScriptDocPage />} />
         <Route path={PATHS.docs.supertrack} element={<SuperTrackDocPage />} />
         <Route path={PATHS.docs.supertune} element={<SuperTuneDocPage />} />
+        <Route path={PATHS.labs.superforge} element={<SuperForgeLabPage />} />
+        <Route path={PATHS.labs.superscript} element={<SuperScriptLabPage />} />
+        <Route path={PATHS.labs.supertrack} element={<SuperTrackLabPage />} />
+        <Route path={PATHS.labs.supertune} element={<SuperTuneLabPage />} />
         <Route path="*" element={<NotFoundRedirect />} />
       </Routes>
     </Suspense>

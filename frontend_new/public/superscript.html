@@ -68,6 +68,17 @@
           <li data-i18n="intro_li5">跨模組整合：SuperTrack 趨勢、SuperForge 視覺提示、SuperGuard 合規</li>
         </ul>
 
+        <div class="doc-diagram-block">
+          <h3>四 Agent 職責（思維導圖）</h3>
+          <p class="doc-diagram-lead">Architect → Continuity → Writer → Format；與 <code>/docs/superscript</code> 一致。</p>
+          <div
+            class="doc-mermaid-wrap doc-mermaid-host"
+            data-doc-diagram="superscript-mindmap"
+            aria-busy="true"
+            aria-label="SuperScript Agent 思維導圖"
+          ></div>
+        </div>
+
         <h2 data-i18n="h_arch">🏗️ 技術架構</h2>
         <pre>┌─────────────────────────────────────────────────────────────┐
 │                      Frontend (Next.js)                     │
@@ -86,6 +97,17 @@
     │  PostgreSQL  │  │    Redis     │  │  LLM Router  │
     │  + pgvector  │  │  (Cache)     │  │  (OpenRouter)│
     └──────────────┘  └──────────────┘  └──────────────┘</pre>
+
+        <div class="doc-diagram-block">
+          <h3>協作流水線與模組資料流</h3>
+          <p class="doc-diagram-lead">主線與 SuperForge、SuperTrack、SuperTune 虛線銜接。</p>
+          <div
+            class="doc-mermaid-wrap doc-mermaid-host"
+            data-doc-diagram="superscript-flow"
+            aria-busy="true"
+            aria-label="SuperScript 流水線"
+          ></div>
+        </div>
 
         <h2 data-i18n="h_quick">🚀 快速開始</h2>
 
@@ -310,5 +332,6 @@ SuperGuard → 合規掃描、版權標註</pre>
           DocI18n.renderSwitcher(document.getElementById('lang-switch'))
         })
     </script>
+    <script type="module" src="./js/doc-mermaid-init.js"></script>
   </body>
 </html>

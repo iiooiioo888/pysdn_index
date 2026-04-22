@@ -22,3 +22,15 @@ export const SuperTrackDocPage = lazy(() =>
 export const SuperTuneDocPage = lazy(() =>
   import('../pages/docs/SuperTuneDocPage').then((m) => ({ default: m.SuperTuneDocPage })),
 )
+export const SuperForgeLabPage = lazy(() =>
+  import('../pages/labs/SuperForgeLabPage').then((m) => ({ default: m.SuperForgeLabPage })),
+)
+export const SuperScriptLabPage = lazy(() =>
+  import('../pages/labs/SuperScriptLabPage').then((m) => ({ default: m.SuperScriptLabPage })),
+)
+export const SuperTrackLabPage = lazy(() =>
+  import('../pages/labs/SuperTrackLabPage').then((m) => ({ default: m.SuperTrackLabPage })),
+)
+export const SuperTuneLabPage = lazy(() =>
+  import('../pages/labs/SuperTuneLabPage').then((m) => ({ default: m.SuperTuneLabPage })),
+)

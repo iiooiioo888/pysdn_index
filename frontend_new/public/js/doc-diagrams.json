@@ -1,0 +1,8 @@
+{
+  "superforge-mindmap": "mindmap\n  root((SuperForge))\n    知識儲存\n      pgvector 語意\n      全文檢索\n      版本與標籤\n    擷取管線\n      匯入清洗\n      結構化欄位\n      同步備援\n    檢索與應用\n      混合搜尋\n      命中率優化\n      對接生成工作流",
+  "superforge-flow": "flowchart LR\n  A[創作者 / API] --> B[匯入與驗證]\n  B --> C[Embedding]\n  C --> D[(pgvector)]\n  B --> E[(全文索引)]\n  D --> F[混合檢索]\n  E --> F\n  F --> G[提示詞建議]\n  G --> H[影像生成工作流]",
+  "superscript-mindmap": "mindmap\n  root((SuperScript))\n    Architect\n      集幕骨架\n      角色弧線\n    Continuity\n      人設一致\n      時間線檢查\n    Writer\n      對白場景\n      Voice Profile\n    Format\n      場頭 INT/EXT\n      匯出格式",
+  "superscript-flow": "flowchart LR\n  U[使用者設定] --> A[Architect 骨架]\n  A --> C[Continuity]\n  C -->|通過| W[Writer]\n  C -->|退回| A\n  W --> F[Format]\n  F --> OUT[標準劇本]\n  W -.->|場景提示詞| SF[SuperForge]\n  ST[SuperTrack] -.->|熱點注入| A\n  W -.->|對白 A/B| TU[SuperTune]",
+  "supertrack-mindmap": "mindmap\n  root((SuperTrack))\n    目標層\n      帳號\n      話題\n      品牌\n    擷取層\n      真人行為模擬\n      頻率與深度\n      反爬適應\n    分析層\n      跨平台合併\n      時間軸\n      異常偵測\n    輸出層\n      精華入 SuperForge\n      熱點送 SuperScript\n      指標給 SuperTune",
+  "supertrack-flow": "flowchart TB\n  P[多平台來源] --> B[行為化爬蟲]\n  B --> R[原始內容]\n  R --> I[身份合併]\n  R --> T[時間軸索引]\n  I --> X[分析與 KPI]\n  T --> X\n  X --> L{異常閾值}\n  L -->|觸發| N[通知 Webhook/Email]\n  X --> Q[品質篩選]\n  Q --> SF[(SuperForge)]\n  X --> SC[SuperScript 建議]\n  X --> STU[SuperTune 基準]"
+}

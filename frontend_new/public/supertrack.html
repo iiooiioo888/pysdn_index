@@ -61,6 +61,17 @@
           SuperTrack 作為 SuperForge 的擴展外掛，專注於「實體→內容→提示詞」的資料閉環。
         </p>
 
+        <div class="doc-diagram-block">
+          <h3>系統分層（思維導圖）</h3>
+          <p class="doc-diagram-lead">目標、擷取、分析到輸出；與 <code>/docs/supertrack</code> 一致。</p>
+          <div
+            class="doc-mermaid-wrap doc-mermaid-host"
+            data-doc-diagram="supertrack-mindmap"
+            aria-busy="true"
+            aria-label="SuperTrack 分層思維導圖"
+          ></div>
+        </div>
+
         <h3 data-i18n="h_components">🔑 核心組件</h3>
         <ul>
           <li data-i18n="comp_1">EntityResolver：統一實體模型與解析</li>
@@ -77,6 +88,17 @@
 [高品質內容] → [LLM 結構化] → [寫入 SuperForge.prompts]
                           ↓
 [使用者檢索] → 「找某類風格 Prompt」→ 關聯來源帳號 + 互動資料參考</pre>
+
+        <div class="doc-diagram-block">
+          <h3>端到端資料流</h3>
+          <p class="doc-diagram-lead">爬蟲、合併、分析、異常與對三模組輸出。</p>
+          <div
+            class="doc-mermaid-wrap doc-mermaid-host"
+            data-doc-diagram="supertrack-flow"
+            aria-busy="true"
+            aria-label="SuperTrack 資料流"
+          ></div>
+        </div>
 
         <h2 data-i18n="h_dims">追蹤維度</h2>
         <div class="table-wrap">
@@ -181,5 +203,6 @@ alert_engine.set_threshold(entity_id, metric="follower_growth", threshold=0.1)</
           DocI18n.renderSwitcher(document.getElementById('lang-switch'))
         })
     </script>
+    <script type="module" src="./js/doc-mermaid-init.js"></script>
   </body>
 </html>

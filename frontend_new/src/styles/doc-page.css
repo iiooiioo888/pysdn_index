@@ -147,6 +147,37 @@ html {
   filter: brightness(1.12);
 }
 
+/* 文件／實驗室頁：logo 右側為「四模組 + 模組總覽/首頁」 */
+.doc-nav-cluster {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 10px;
+  margin-left: auto;
+  min-width: 0;
+  flex: 1;
+  justify-content: flex-end;
+}
+
+.doc-nav-mods {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  align-items: center;
+  justify-content: flex-end;
+  min-width: 0;
+}
+
+.doc-nav-cluster .doc-nav-links {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 8px;
+  margin-left: 0;
+  align-items: center;
+  flex-shrink: 0;
+}
+
 .doc-nav-links {
   display: flex;
   flex-wrap: nowrap;
@@ -188,7 +219,7 @@ html {
   transform: rotate(-45deg) translate(5px, -5px);
 }
 
-.doc-nav.doc-nav--compact .doc-nav-links,
+.doc-nav.doc-nav--compact .doc-nav-cluster,
 .doc-nav.doc-nav--compact .doc-nav-lang-inline {
   display: none;
 }
@@ -232,6 +263,18 @@ html {
   background: rgba(255, 255, 255, 0.05);
   border-color: rgba(255, 255, 255, 0.08);
   text-decoration: none;
+}
+
+.doc-nav-mods .doc-nav-link {
+  font-size: 0.75rem;
+  padding: 5px 10px;
+}
+
+.doc-nav-link--active,
+.doc-nav-link[aria-current='page'] {
+  color: #e0f2fe;
+  background: rgba(6, 182, 212, 0.12);
+  border-color: rgba(6, 182, 212, 0.35);
 }
 
 .doc-lang {
@@ -570,6 +613,58 @@ html {
   margin-bottom: 0.3rem;
   opacity: 0.6;
 }
+
+/* Mermaid 思維導圖／流程圖 */
+.doc-diagram-block {
+  margin: 1.35rem 0 1.75rem;
+}
+.doc-diagram-block > h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 0.35rem;
+  color: var(--text);
+}
+.doc-diagram-lead {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  margin-bottom: 0.75rem;
+  line-height: 1.65;
+}
+.doc-mermaid-wrap {
+  margin: 0;
+  padding: 1rem 0.75rem;
+  border-radius: var(--radius);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  overflow-x: auto;
+  min-height: 120px;
+}
+.doc-mermaid-wrap svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+}
+.doc-mermaid-wrap--error {
+  padding: 1rem;
+}
+.doc-mermaid-error {
+  font-size: 0.85rem;
+  color: #fca5a5;
+  margin: 0;
+}
+
+.doc-lab-cta {
+  color: var(--doc-link);
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(34, 211, 238, 0.35);
+}
+
+.doc-lab-cta:hover {
+  opacity: 0.9;
+}
+
 .doc-tag {
   display: inline-block;
   font-size: 0.72rem;
