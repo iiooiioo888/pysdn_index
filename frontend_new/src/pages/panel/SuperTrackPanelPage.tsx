@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { DocLayout } from '../../components/docs/DocLayout'
 import { DocNavbar } from '../../components/docs/DocNavbar'
 import { DocFooter } from '../../components/docs/DocFooter'
-import { SuperTrackLabPanel } from '../../components/labs/SuperTrackLabPanel'
+import { SuperTrackPanel } from '../../components/panel/SuperTrackPanel'
 import { useDocBundle } from '../../hooks/useDocBundle'
 import { PATHS } from '../../routes/paths'
 import { toLangSearch } from '../../routes/langQuery'
@@ -42,10 +42,11 @@ export function SuperTrackPanelPage() {
               |
             </span>
             <Link className="doc-lab-back" to={{ pathname: PATHS.labs.supertrack, search: langSearch }}>
-              實驗室完整儀表板 →
+              SuperTrack 實驗室大螢幕（同模組）→
             </Link>
           </nav>
-          <SuperTrackLabPanel context="assistant" />
+
+          <SuperTrackPanel lang={lang} />
           <DocFooter t={t} lang={lang} />
         </div>
       </main>

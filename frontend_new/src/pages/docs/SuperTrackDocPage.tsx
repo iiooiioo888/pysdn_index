@@ -4,13 +4,10 @@ import { DocLayout } from '../../components/docs/DocLayout'
 import { DocNavbar } from '../../components/docs/DocNavbar'
 import { DocFooter } from '../../components/docs/DocFooter'
 import { DocReadingSummary } from '../../components/docs/DocReadingSummary'
+import { DocGithubSection } from '../../components/docs/DocGithubSection'
+import { SuperTrackEngineeringSection } from '../../components/docs/SuperTrackEngineeringSection'
 import { DocMermaid } from '../../components/docs/DocMermaid'
-import {
-  SUPERTRACK_CRAWL,
-  SUPERTRACK_FLOW,
-  SUPERTRACK_IDENTITY,
-  SUPERTRACK_MINDMAP,
-} from '../../components/docs/mermaidCharts'
+import { SUPERTRACK_MINDMAP } from '../../components/docs/mermaidCharts'
 import { useDocBundle } from '../../hooks/useDocBundle'
 import { PATHS } from '../../routes/paths'
 import { toLangSearch } from '../../routes/langQuery'
@@ -65,16 +62,18 @@ export function SuperTrackDocPage() {
             <DocReadingSummary t={t} variant="supertrack" />
 
             <div className="doc-diagram-block">
-              <h3>系統分層（思維導圖）</h3>
-              <p className="doc-diagram-lead">
-                從追蹤目標、擷取、分析到對其他模組輸出，對照下文各小節與資料流圖。
-              </p>
+              <h3>能力一覽（示意）</h3>
+              <p className="doc-diagram-lead">從設定追蹤目標、取得公開內容，到整理與通知，再到餵給其他模組的大致分工。</p>
               <DocMermaid chart={SUPERTRACK_MINDMAP} />
             </div>
 
             <h2>{t('h_overview')}</h2>
-            <p>SuperTrack 是 Pysdn SuperCool 生態系中的獨立擴展模組，專門為 SuperForge 提示詞引擎提供外部資訊採集能力。它的核心定位很明確：<strong>在公開網路中持續監測特定目標（人、品牌、話題），把散落在各平台的碎片化資訊匯聚、清洗、結構化，最終轉化為可直接使用的創作素材。</strong></p>
-            <p>它解決的問題是：創作者和行銷人員每天花大量時間刷各個社群平台找靈感、盯競品、追熱點，但這些資訊既分散又稍縱即逝。SuperTrack 把這個「手動刷→人腦記→下次找不到」的低效循環，變成「系統刷→結構化存→隨時搜到」。</p>
+            <p>
+              SuperTrack 是 Pysdn SuperCool 的擴充模組，幫你在<strong>公開網路</strong>上持續留意特定人物、品牌或話題，把分散在各平台的內容整理成<strong>結構化、可搜尋、可再利用</strong>的素材，方便餵給 SuperForge、SuperScript、SuperTune 使用。
+            </p>
+            <p>
+              它想減少「手動刷動態、靠記憶存靈感」的負擔，改成由系統代勞彙整，讓你專心在創作與決策。
+            </p>
 
             <section className="doc-platform-scope" id="supported-platforms" aria-labelledby="platforms-heading">
               <h3 id="platforms-heading">{t('h_platforms')}</h3>
@@ -98,99 +97,32 @@ export function SuperTrackDocPage() {
               <p className="doc-platform-scope__note">{t('platforms_note')}</p>
             </section>
 
+            <p className="doc-diagram-lead" style={{ marginTop: '1rem' }}>
+              上文為精簡產品說明；<strong>統一調度層</strong>、<strong>開源工具選型</strong>與 <strong>SocialCrawler 後端</strong>等工程內容於本頁下方〈工程架構與調研參考〉維護（錨點 <code>#engineering</code>）；靜態頁 <code>supertrack.html</code> 亦載有對應段落。
+            </p>
+
             <h2>{t('h_components')}</h2>
 
-            <h3>跨平台身份合併：散落的碎片拼成完整畫像</h3>
-            <p>同一個人可能在小紅書叫「@設計日常」、在 Instagram 叫「@design.daily」、在 Twitter 叫「@designer_daily」。SuperTrack 會自動比對帳號資訊（頭像相似度、Bio 交叉引用、內容風格匹配），把不同平台的帳號合併成同一個追蹤對象。你看到的不是三個散落的碎片，而是一個人物/品牌的完整跨平台畫像。</p>
-            <p>合併判定基於四維比對演算法：<strong>頭像相似度</strong>（圖像特徵向量比對）、<strong>Bio 交叉引用</strong>（檢查簡介中是否有其他平台連結）、<strong>內容風格匹配</strong>（AI 分析語氣、用詞、視覺風格）、<strong>發文時間關聯</strong>（同步運營模式識別）。系統為每次合併計算置信度分數：90%+ 自動合併，70-89% 建議合併，50-69% 待確認。</p>
-            <div className="doc-example">
-              <div className="doc-example-label">💡 實際場景</div>
-              <p>你追蹤了一位 KOL「@ai_creative」，系統自動發現他在 Twitter、小紅書、抖音都有帳號，全部串在一起。你看到的數據面板顯示：<br/>
-              ・小紅書：42.3K 粉絲，日均互動率 3.2%<br/>
-              ・Twitter/X：18.7K followers，日均互動率 1.8%<br/>
-              ・抖音：156K 粉絲，日均互動率 5.1%<br/>
-              三個平台的數據合在一起分析，你能看到完整的影響力版圖。</p>
-            </div>
+            <h3>跨平台辨識與整合</h3>
+            <p>
+              同一人物或品牌在不同平台可能有不同帳號名稱。SuperTrack 會依公開資訊協助<strong>對齊與彙整</strong>，讓你在同一個追蹤對象下看到多平台的動態，而不是散落的多個清單。
+            </p>
 
-            <div className="doc-diagram-block">
-              <h3>跨平台身份合併（示意）</h3>
-              <p className="doc-diagram-lead">
-                多個平台帳號經合併引擎與置信度分數，收斂成單一追蹤實體，後續時間軸與 KPI
-                都掛在同一 ID 上。
-              </p>
-              <DocMermaid chart={SUPERTRACK_IDENTITY} />
-            </div>
+            <h3>持續追蹤與節奏</h3>
+            <p>
+              可依你的設定定期檢查公開更新，並以<strong>合適頻率、貼近真人使用習慣</strong>的方式取得資料，降低對平台造成負擔或觸發不當使用疑慮。實際可行範圍仍須遵守各平台規則。
+            </p>
 
-            <h3>智能爬蟲：像真人一樣刷社群</h3>
-            <p>SuperTrack 的爬蟲引擎不是暴力抓取，而是模擬真人的瀏覽行為。它會按照你設定的間隔（例如每 30 分鐘）自動檢查目標帳號，有新內容就抓回來分析，沒有就安靜等待。每次抓取都帶有隨機延遲和行為模式變異，跟真人用戶的行為統計特徵一致。</p>
-            <p>你可以設定抓取頻率（最快每 5 分鐘，最慢每 24 小時）、抓取深度（只抓標題和摘要，還是抓全文和圖片描述）、以及觸發條件（有新帖才抓、有高互動才抓、或定時全量抓取）。平均抓取成功率 98.2%。</p>
-            <div className="doc-example">
-              <div className="doc-example-label">💡 實際場景</div>
-              <p>設定追蹤「@design_daily」的小紅書帳號。每 30 分鐘自動檢查一次，有新帖就抓回來，沒新帖就安靜等著。抓取的內容包括：帖子標題、全文、圖片描述（AI 自動生成）、互動數據（讚、收藏、評論數）、發文時間。平均抓取成功率 98.2%。</p>
-            </div>
+            <h3>時間軸與警報</h3>
+            <p>內容依時間整理，方便回溯；當出現明顯異常（例如互動或話題熱度異常變化）時，可透過你設定的管道收到提醒。</p>
 
-            <h3>模擬真人行為：不觸發反爬機制</h3>
-            <p>這是 SuperTrack 跟傳統爬蟲最大的差別。傳統爬蟲用固定間隔發 HTTP 請求，很容易被平台識別為機器人而封鎖。SuperTrack 的行為引擎會模擬真人的滑手機節奏：</p>
-            <ul>
-              <li><strong>滾動節奏模擬</strong>：不是均速滾動，而是快滑幾下→停下來看一會兒→再慢滑。每段持續時間帶有隨機變異（泊松分布），符合真人滑手機的統計特徵</li>
-              <li><strong>隨機停留策略</strong>：在影片內容上停留更久、在不感興趣的內容上快速划過，偶爾在不感興趣的內容上也停一下（模擬「看了一下才發現不感興趣」）</li>
-              <li><strong>間隔變異</strong>：每次抓取之間的時間間隔在設定範圍內隨機波動（基礎間隔 ± 30%），偶爾有長間隔（模擬睡覺）和短間隔連發（模擬空閒刷手機），符合 Weibull 分布</li>
-              <li><strong>行為指紋</strong>：每次訪問攜帶不同的瀏覽器指紋特徵（User-Agent 變體、螢幕解析度、時區、字體列表、WebGL/Canvas 指紋），避免被平台通過指紋關聯識別</li>
-            </ul>
-            <p>如果某個平台更新了反爬策略，SuperTrack 有三層自適應機制：第一層監控成功率，跌破閾值時進入調整模式；第二層自動切換行為模式（調整滾動速度、更換指紋、增加隨機互動）；第三層降頻告警，通知用戶「這個平台最近抓取不太順」。你不需要手動維護任何爬蟲規則。</p>
+            <h3>精華與後續利用</h3>
+            <p>
+              高價值內容可標記或自動篩入靈感／提示詞庫，與 <strong>SuperForge</strong> 等模組銜接，減少重複手動複製整理。
+            </p>
 
-            <h3>時間軸回溯：任何時間點的內容都能查</h3>
-            <p>所有抓到的內容按時間排好，形成一條完整的時間軸。每條記錄包含：原始內容（文字、圖片 URL）、AI 生成的圖片描述和內容摘要、互動數據快照（按時間點記錄）、平台來源和帳號標識、自動提取的標籤和分類。</p>
-            <p>你可以回溯「上個月這位 KOL 發了什麼」、「品牌 X 最近三個月的行銷節奏」、「某個話題是從哪天開始升溫的」。時間軸支援按平台、按帳號、按話題、按內容類型（圖文/短影片/直播回放）交叉篩選，以及多帳號/多話題的趨勢對比分析。</p>
-
-            <h3>異常警報：第一時間知道發生什麼事</h3>
-            <p>SuperTrack 會持續分析追蹤對象的數據模式，建立動態基線（取最近 7-30 天的滑動窗口計算平均值和標準差）。當偵測到異常，系統會立刻發送通知：</p>
-            <ul>
-              <li><strong>流量異常</strong>：曝光量突然暴增（可能是被推薦算法選中）。按偏離程度分為 🟡 注意（1.5-3x）、🟠 關注（3-5x）、🔴 緊急（5x+）</li>
-              <li><strong>互動率異常</strong>：單篇內容的互動率超過歷史均值 N 個標準差（可能是內容觸發了情緒共鳴）</li>
-              <li><strong>話題升溫</strong>：某個關鍵詞的提及量在短時間內快速上升（過去 1 小時 vs 24 小時均值）</li>
-              <li><strong>情感轉折</strong>：對某品牌/人物的整體情感分數急劇偏移（危機信號或公關成功）</li>
-            </ul>
-            <p>通知方式支援 <strong>Webhook 推送</strong>（接到你自己的系統）、<strong>Email</strong>（每日摘要 + 緊急即時）、以及<strong>平台內通知面板</strong>。你可以自訂警報閾值——絕對值（「讚數超過 10,000」）、相對值（「超過平時 3 倍」）、變化率（「24 小時增長超過 5%」）或組合條件。</p>
-            <div className="doc-example">
-              <div className="doc-example-label">💡 實際場景</div>
-              <p>凌晨 3 點，@design_daily 的一篇「AI 室內設計」帖子突然爆了——互動率從平時的 2% 飆到 18%。SuperTrack 偵測到異常，自動發通知：<br/>
-              「🔥 異常警報：@design_daily 互動率暴增 800%<br/>
-              ・帖子: AI 室內設計——用 Midjourney 重新定義你的家<br/>
-              ・當前互動: 12.4K 讚 · 3.2K 收藏 · 847 評論<br/>
-              ・互動率: 18.2%（平時: 2.1%）<br/>
-              建議立即查看，把握時效性話題窗口。」</p>
-            </div>
-
-            <h3>精華萃取：好內容自動入庫</h3>
-            <p>SuperTrack 不只是「抓」內容，還會「篩」內容。系統會用 AI 分析每篇帖子的品質分數，基於三個維度：</p>
-            <ul>
-              <li><strong>原創度</strong>：比對該內容與之前採集到的其他內容的相似度，判斷是原創還是搬運</li>
-              <li><strong>互動潛力</strong>：根據標題吸引力、視覺品質、話題性，預估可能獲得的互動量</li>
-              <li><strong>內容深度</strong>：表面資訊還是有深度觀點？深度內容對創作靈感的參考價值更大</li>
-            </ul>
-            <p>三個維度加權後得到綜合品質分數。高分內容被 AI 結構化整理後，自動推送進 SuperForge 提示詞庫。每條提示詞附帶元數據：來源帳號、原始互動數據、採集時間、品質分數。你也可以手動標記「這篇很好，存進 SuperForge」，系統會學習你的偏好，未來的自動篩選會更精準。</p>
-
-            <div className="doc-diagram-block">
-              <h3>端到端資料流</h3>
-              <p className="doc-diagram-lead">
-                爬蟲→正規化→合併與時間軸→異常與品質分支→對 SuperForge／SuperScript／SuperTune
-                的輸出。
-              </p>
-              <DocMermaid chart={SUPERTRACK_FLOW} />
-            </div>
-
-            <div className="doc-diagram-block">
-              <h3>擷取迴圈狀態（簡化）</h3>
-              <p className="doc-diagram-lead">
-                週期等待 → 模擬真人抓取；成功則解析入庫，失敗或觸發反爬則回退降頻，避免硬撞頻率。
-              </p>
-              <DocMermaid chart={SUPERTRACK_CRAWL} />
-            </div>
-
-            {/* ── 追蹤維度 ── */}
             <h2>{t('h_dims')}</h2>
-            <p>SuperTrack 支援四種追蹤維度，你可以根據需求自由組合：</p>
+            <p>可依需求組合不同追蹤焦點：</p>
             <div className="table-wrap">
               <table>
                 <thead>
@@ -202,22 +134,30 @@ export function SuperTrackDocPage() {
                 </thead>
                 <tbody>
                   <tr>
-                    <td><strong>{t('d1a')}</strong></td>
+                    <td>
+                      <strong>{t('d1a')}</strong>
+                    </td>
                     <td>{t('d1b')}</td>
                     <td>{t('d1c')}</td>
                   </tr>
                   <tr>
-                    <td><strong>{t('d2a')}</strong></td>
+                    <td>
+                      <strong>{t('d2a')}</strong>
+                    </td>
                     <td>{t('d2b')}</td>
                     <td>{t('d2c')}</td>
                   </tr>
                   <tr>
-                    <td><strong>{t('d3a')}</strong></td>
+                    <td>
+                      <strong>{t('d3a')}</strong>
+                    </td>
                     <td>{t('d3b')}</td>
                     <td>{t('d3c')}</td>
                   </tr>
                   <tr>
-                    <td><strong>{t('d4a')}</strong></td>
+                    <td>
+                      <strong>{t('d4a')}</strong>
+                    </td>
                     <td>{t('d4b')}</td>
                     <td>{t('d4c')}</td>
                   </tr>
@@ -225,322 +165,72 @@ export function SuperTrackDocPage() {
               </table>
             </div>
 
-            {/* ── 快速上手 ── */}
             <h2>🚀 快速上手</h2>
-            <p>從零到開始接收第一個訊號，只需要四個步驟：</p>
+            <ol>
+              <li>
+                <strong>選擇追蹤對象</strong>：帳號、話題或品牌等，依介面新增（可批量）。
+              </li>
+              <li>
+                <strong>調整頻率與深度</strong>：多久檢查一次、要摘要或較完整內容；不確定時可用預設。
+              </li>
+              <li>
+                <strong>查看時間軸與警報</strong>：在面板掌握動態；值得追的內容可再送入其他模組。
+              </li>
+            </ol>
 
-            <h3>第一步：選擇追蹤目標</h3>
-            <p>打開 SuperTrack，在「新增追蹤」頁面中選擇你要追蹤的類型：<strong>帳號</strong>（輸入目標帳號的 URL 或用戶名，系統自動識別平台並搜尋同名帳號）、<strong>話題</strong>（輸入關鍵字或 hashtag，支援多個同義詞）、或<strong>品牌</strong>（輸入品牌名稱，系統自動搜尋多平台帳號 + UGC 提及）。可以一次新增多個目標，也支援從 CSV 匯入追蹤列表。</p>
+            <h2>🎯 適用情境（舉例）</h2>
+            <ul>
+              <li>品牌／競品聲量與公開輿情觀察</li>
+              <li>KOL 或創作者長期表現與靈感蒐集</li>
+              <li>話題熱度與內容企劃時機</li>
+              <li>市場／類型趨勢的定性參考</li>
+            </ul>
 
-            <h3>第二步：設定抓取參數</h3>
-            <p>為每個追蹤目標設定抓取頻率（每 5 分鐘到每 24 小時）、抓取深度（摘要模式：只抓標題和互動數；完整模式：抓全文、圖片描述、評論）、以及警報閾值（什麼程度的異常要通知你）。如果你不確定怎麼設定，用預設值就好——SuperTrack 的預設參數已經經過大量實測驗證，適合大多數場景。</p>
+            <h2>🔗 與其他模組</h2>
+            <ul>
+              <li>
+                <strong>SuperScript</strong>：熱點或話題可輔助劇本／企劃方向。
+              </li>
+              <li>
+                <strong>SuperForge</strong>：視覺與風格素材可進入提示詞與知識庫。
+              </li>
+              <li>
+                <strong>SuperTune</strong>：追蹤結果可搭配後續 A/B 與優化決策（依你的工作流）。
+              </li>
+            </ul>
 
-            <h3>第三步：等待第一個訊號</h3>
-            <p>設定完成後，SuperTrack 開始在背景運作。第一輪抓取通常在 5-15 分鐘內完成（取決於目標數量和平台）。你可以在面板上即時看到抓取進度和初步數據。</p>
-
-            <h3>第四步：接收警報與分析</h3>
-            <p>當系統偵測到值得關注的訊號（異常流量、話題升溫、高品質內容），它會主動推送通知。你也可以在面板上主動查看「熱詞趨勢」、「觀眾畫像」、「商業潛力預測」等分析報告，或使用時間軸回溯查詢任意時間範圍的內容。</p>
-
-            {/* ── 適用場景 ── */}
-            <h2>🎯 適用場景</h2>
-
-            <h3>場景一：品牌聲量監測</h3>
-            <p>你是品牌行銷人員，需要每天追蹤自家品牌和競爭對手在各社群平台的表現。以前你要花兩小時手動刷五個平台，現在每天早上打開面板就什麼都知道了——互動率對比、用戶評價情感、競品做了什麼活動，全部一目了然。系統還會自動生成週報/月報，省去手動整理數據的時間。</p>
-
-            <h3>場景二：KOL 合作篩選</h3>
-            <p>你在找適合合作的 KOL，但不知道誰的互動數據是真實的。SuperTrack 長期追蹤 KOL 的數據模式，能幫你判斷哪些帳號的互動率穩定（真實影響力）、哪些有刷量嫌疑（數據突然暴增暴跌、評論內容高度重複等異常模式）。你還可以看到 KOL 的跨平台表現和受眾畫像匹配度，選出真正有影響力且受眾契合的合作對象。</p>
-
-            <h3>場景三：熱點即時追蹤</h3>
-            <p>你是內容創作者，需要快速回應社群熱點。SuperTrack 的異常警報讓你在熱點爆發的黃金 1-2 小時內就收到通知，而不是等到第二天從新聞裡才知道。商業潛力預測（3.2× 的 ROI？追！0.5×？算了）幫你判斷哪個熱點值得投入精力，一鍵注入 SuperScript 可以直接在劇本中加入熱點元素。</p>
-
-            <h3>場景四：市場趨勢分析</h3>
-            <p>你在做市場研究，需要了解某個領域的內容趨勢。SuperTrack 的時間軸和熱詞分析功能，讓你清楚看到「過去三個月 AI 繪圖相關內容的成長曲線」、「哪些子話題正在升溫」、「觀眾群體的畫像變化」。這些數據直接支援你的策略決策，做報告時有真實數據支撐。</p>
-
-            {/* ── 與其他模組的搭配 ── */}
-            <h2>🔗 與其他模組的搭配</h2>
-
-            <h3>SuperTrack → SuperScript：熱點自動注入劇本</h3>
-            <p>SuperTrack 偵測到跟你劇本類型相關的社群熱點時，會主動推送給 SuperScript。系統根據語意匹配度（{'>'}70%）和熱度評級（🔥🔥🔥 以上）判斷是否相關，並提供 AI 建議的融入方式（「可以在第 3 集加入 XX 元素」）和預估的時效性窗口。你可以一鍵接受建議，SuperScript 會自動調整大綱。</p>
-
-            <h3>SuperTrack → SuperForge：高品質素材自動入庫</h3>
-            <p>SuperTrack 在追蹤中發現的高品質視覺內容（爆款圖片、熱門設計風格），會自動推送進 SuperForge 知識庫。流程：原始圖片 → AI 生成風格描述（構圖、色調、元素、情緒）→ 轉換成提示詞格式 → 附帶來源帳號和互動數據 → 存入 SuperForge「SuperTrack 採集」分類。系統會自動去重和品質過濾，避免知識庫被低品質內容污染。</p>
-
-            <h3>SuperTrack → SuperTune：數據驅動的優化決策</h3>
-            <p>SuperTrack 收集到的互動數據（哪種類型的內容互動率高、什麼時間發文效果最好、觀眾偏好什麼風格），會作為 SuperTune A/B 測試的基準數據。SuperTune 可以根據 SuperTrack 的實際數據來設計更精準的測試方案（「帶有人臉的縮圖互動率比純產品圖高 47%」→ 設計對應的 A/B 測試），而不是盲目猜測。測試結果也會反饋給 SuperTrack，用於校準預測模型。</p>
-
-            <h2>🖥️ 操作面板預覽</h2>
-            <p>
-              打開 SuperTrack，即時追蹤訊號一目了然。頂部是關鍵 KPI（追蹤帳號數、異常警報數、熱門話題數、情緒指數、抓取成功率、每分鐘訊號量），中間是追蹤中的帳號列表，底部是觀眾畫像、熱詞趨勢和商業潛力預測：
-            </p>
-
-            <div className="sim-panel">
-              <div className="sim-header">
-                <div className="sim-header-left">
-                  <span className="sim-icon">🛰️</span>
-                  <span className="sim-title">SuperTrack</span>
-                  <span className="sim-badge sim-badge--green">SIGNAL TRACKING</span>
-                  <span className="sim-live">
-                    <span className="sim-dot sim-dot--green" /> LIVE
-                  </span>
-                </div>
-                <div className="sim-header-right">
-                  <button type="button" className="sim-btn">
-                    🔄 重試全部
-                  </button>
-                  <button type="button" className="sim-btn sim-btn--outline">
-                    📤 匯出報告
-                  </button>
-                </div>
-              </div>
-
-              <p
-                style={{ fontSize: '0.75rem', color: 'rgba(148,163,184,0.6)', margin: '8px 0 4px' }}
-              >
-                即時 KPI 面板：追蹤中的帳號總數、當前活躍警報數、偵測到的熱門話題數、整體情緒指數（0-1，越高越正面）、爬蟲成功率、每分鐘收到的訊號量。
-              </p>
-              <div className="sim-kpis">
-                <div className="sim-kpi">
-                  <div className="sim-kpi-label">entities</div>
-                  <div className="sim-kpi-val">24</div>
-                </div>
-                <div className="sim-kpi">
-                  <div className="sim-kpi-label">alerts</div>
-                  <div className="sim-kpi-val sim-kpi-val--highlight">7</div>
-                  <div className="sim-bar">
-                    <div className="sim-bar-fill sim-bar-fill--green" style={{ width: '47%' }} />
-                  </div>
-                </div>
-                <div className="sim-kpi">
-                  <div className="sim-kpi-label">hot_topics</div>
-                  <div className="sim-kpi-val sim-kpi-val--highlight">12</div>
-                </div>
-                <div className="sim-kpi">
-                  <div className="sim-kpi-label">sentiment</div>
-                  <div className="sim-kpi-val">0.78</div>
-                  <div className="sim-bar">
-                    <div className="sim-bar-fill sim-bar-fill--green" style={{ width: '78%' }} />
-                  </div>
-                </div>
-                <div className="sim-kpi">
-                  <div className="sim-kpi-label">crawl_rate</div>
-                  <div className="sim-kpi-val">98.2%</div>
-                </div>
-                <div className="sim-kpi">
-                  <div className="sim-kpi-label">signals/min</div>
-                  <div className="sim-kpi-val">142</div>
-                </div>
-              </div>
-
-              <p
-                style={{ fontSize: '0.75rem', color: 'rgba(148,163,184,0.6)', margin: '12px 0 4px' }}
-              >
-                正在追蹤的帳號列表，每個項目顯示帳號名稱、類型（👤 個人 / 🏢 品牌），以及近期表現變化（上升百分比或 🔥
-                熱詞標記表示該帳號正處於話題高峰期）。
-              </p>
-              <div className="sim-card" style={{ marginTop: 12 }}>
-                <div className="sim-card-head">📡 追蹤中的帳號</div>
-                <div className="sim-entity-list">
-                  <div className="sim-entity">
-                    <span className="sim-entity-icon">👤</span>
-                    <span className="sim-entity-name">@design_daily</span>
-                    <span className="sim-entity-metric sim-entity-metric--up">+12.4%</span>
-                  </div>
-                  <div className="sim-entity">
-                    <span className="sim-entity-icon">🏢</span>
-                    <span className="sim-entity-name">BrandX Studio</span>
-                    <span className="sim-entity-metric sim-entity-metric--alert">🔥 熱詞</span>
-                  </div>
-                  <div className="sim-entity">
-                    <span className="sim-entity-icon">👤</span>
-                    <span className="sim-entity-name">@ai_creative</span>
-                    <span className="sim-entity-metric sim-entity-metric--up">+8.7%</span>
-                  </div>
-                  <div className="sim-entity">
-                    <span className="sim-entity-icon">👤</span>
-                    <span className="sim-entity-name">@cyberpunk_art</span>
-                    <span className="sim-entity-metric">穩定</span>
-                  </div>
-                </div>
-              </div>
-
-              <p
-                style={{ fontSize: '0.75rem', color: 'rgba(148,163,184,0.6)', margin: '12px 0 4px' }}
-              >
-                左側是追蹤對象的觀眾畫像分析——系統根據互動數據自動歸類出主要觀眾群體的年齡層、興趣和匹配度。右側是即時熱詞趨勢排行，搭配「一鍵注入腳本」按鈕可以直接把熱點送進
-                SuperScript。
-              </p>
-              <div className="sim-grid-2">
-                <div className="sim-card">
-                  <div className="sim-card-head">👥 觀眾畫像</div>
-                  <div className="sim-audience">
-                    <div className="sim-audience-row">
-                      <span className="sim-audience-avatar">🧑‍💻</span>
-                      <div className="sim-audience-info">
-                        <div className="sim-audience-name">Z 世代數位原住民</div>
-                        <div className="sim-audience-meta">18-25 · 影迷</div>
-                      </div>
-                      <span className="sim-audience-score" style={{ color: '#22c55e' }}>
-                        87%
-                      </span>
-                    </div>
-                    <div className="sim-audience-row">
-                      <span className="sim-audience-avatar">👨‍👩‍👧</span>
-                      <div className="sim-audience-info">
-                        <div className="sim-audience-name">家庭觀影族群</div>
-                        <div className="sim-audience-meta">30-45 · 闔家</div>
-                      </div>
-                      <span className="sim-audience-score" style={{ color: '#f59e0b' }}>
-                        74%
-                      </span>
-                    </div>
-                    <div className="sim-audience-row">
-                      <span className="sim-audience-avatar">🎬</span>
-                      <div className="sim-audience-info">
-                        <div className="sim-audience-name">影評 / 影迷</div>
-                        <div className="sim-audience-meta">25-50 · 核心</div>
-                      </div>
-                      <span className="sim-audience-score" style={{ color: '#22c55e' }}>
-                        81%
-                      </span>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="sim-card">
-                  <div className="sim-card-head">📡 熱詞趨勢</div>
-                  <div className="sim-trend">
-                    <div className="sim-trend-row">
-                      <span className="sim-trend-rank">#1</span>
-                      <span className="sim-trend-name">賽博龐克 AI</span>
-                      <div className="sim-bar">
-                        <div className="sim-bar-fill sim-bar-fill--red" style={{ width: '94%' }} />
-                      </div>
-                      <span className="sim-trend-heat">🔥340%</span>
-                    </div>
-                    <div className="sim-trend-row">
-                      <span className="sim-trend-rank">#2</span>
-                      <span className="sim-trend-name">數位孿生倫理</span>
-                      <div className="sim-bar">
-                        <div className="sim-bar-fill sim-bar-fill--amber" style={{ width: '78%' }} />
-                      </div>
-                      <span className="sim-trend-heat">🔥210%</span>
-                    </div>
-                    <div className="sim-trend-row">
-                      <span className="sim-trend-rank">#3</span>
-                      <span className="sim-trend-name">短劇爆發期</span>
-                      <div className="sim-bar">
-                        <div className="sim-bar-fill sim-bar-fill--amber" style={{ width: '72%' }} />
-                      </div>
-                      <span className="sim-trend-heat">↑185%</span>
-                    </div>
-                    <div className="sim-trend-row">
-                      <span className="sim-trend-rank">#4</span>
-                      <span className="sim-trend-name">虛擬偶像 IP</span>
-                      <div className="sim-bar">
-                        <div className="sim-bar-fill sim-bar-fill--amber" style={{ width: '65%' }} />
-                      </div>
-                      <span className="sim-trend-heat">↑142%</span>
-                    </div>
-                  </div>
-                  <button
-                    type="button"
-                    className="sim-btn sim-btn--primary"
-                    style={{ marginTop: 8, width: '100%', textAlign: 'center' }}
-                  >
-                    💉 一鍵注入腳本
-                  </button>
-                </div>
-              </div>
-
-              <p
-                style={{ fontSize: '0.75rem', color: 'rgba(148,163,184,0.6)', margin: '12px 0 4px' }}
-              >
-                商業潛力預測：系統根據觀眾契合度、類型匹配度和趨勢對齊度三個維度，預估投入產出比。這個數值幫助你判斷「追這個熱點值不值得」。
-              </p>
-              <div className="sim-card" style={{ marginTop: 12 }}>
-                <div className="sim-card-head">💰 商業潛力預測</div>
-                <div style={{ textAlign: 'center', padding: '8px 0' }}>
-                  <div style={{ fontSize: '0.6rem', color: 'rgba(148,163,184,0.4)' }}>ROI PREDICT</div>
-                  <div
-                    style={{
-                      fontSize: '2rem',
-                      fontWeight: 800,
-                      color: '#34d399',
-                      fontFamily: "'JetBrains Mono', monospace",
-                    }}
-                  >
-                    3.2×
-                  </div>
-                </div>
-                <div className="sim-net-metrics">
-                  <div className="sim-net-row">
-                    <span>audience_fit</span>
-                    <div className="sim-bar">
-                      <div className="sim-bar-fill sim-bar-fill--green" style={{ width: '84%' }} />
-                    </div>
-                    <span>0.84</span>
-                  </div>
-                  <div className="sim-net-row">
-                    <span>genre_match</span>
-                    <div className="sim-bar">
-                      <div className="sim-bar-fill sim-bar-fill--green" style={{ width: '91%' }} />
-                    </div>
-                    <span>0.91</span>
-                  </div>
-                  <div className="sim-net-row">
-                    <span>trend_align</span>
-                    <div className="sim-bar">
-                      <div className="sim-bar-fill sim-bar-fill--green" style={{ width: '73%' }} />
-                    </div>
-                    <span>0.73</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <p style={{ fontSize: '0.88rem', color: 'var(--text-muted)', marginTop: 16 }}>
-              全網追蹤助手獨立面板（精簡導覽、同款 KPI 與列表）：
-            </p>
+            <h2>🖥️ 試用示範</h2>
+            <p>以下為前端示範儀表板（數字為示意，非真實平台資料）：</p>
             <p>
               <Link className="doc-lab-cta" to={{ pathname: PATHS.panel.supertrack, search: toLangSearch(lang) }}>
-                開啟 SuperTrack 全網追蹤助手 →
+                開啟 SuperTrack 示範面板 →
               </Link>
-            </p>
-            <p style={{ fontSize: '0.88rem', color: 'var(--text-muted)', marginTop: 12 }}>
-              大螢幕完整版儀表板（更多警報、平台與熱詞列表示範）：
             </p>
             <p>
               <Link className="doc-lab-cta" to={{ pathname: PATHS.labs.supertrack, search: toLangSearch(lang) }}>
-                開啟 SuperTrack 儀表板（實驗室 · 示範資料）→
+                開啟 SuperTrack 實驗室儀表板（大螢幕）→
               </Link>
             </p>
 
-            {/* ── 合規聲明 ── */}
             <h2>{t('h_compliance')}</h2>
-            <p>SuperTrack 的設計從一開始就以合規為前提。以下是四條不可逾越的紅線：</p>
             <ul>
-              <li><strong>只追蹤公開資訊</strong> — 不碰私密帳號、不繞過權限。如果目標帳號設為私密，系統會跳過並標註「私密帳號，無法追蹤」。不涉及私訊、封閉群組、付費牆後的內容</li>
-              <li><strong>遵守網站爬蟲規範</strong> — 嚴格遵守 robots.txt（Disallow 的路徑不觸碰、尊重 Crawl-delay）。抓取頻率控制在合理範圍（最低 5 分鐘間隔且帶隨機波動），不對目標伺服器造成負擔。平台明確禁止自動化採集時，SuperTrack 會禁用該平台並告知用戶</li>
-              <li><strong>敏感資料自動脫敏</strong> — 個人聯絡方式（電話、Email、地址）、身份識別資訊（身分證號、護照號）、未成年人相關資訊等敏感欄位自動遮蔽為 [REDACTED]。涉及未成年人的內容標記為高敏感，不推送進公開分類</li>
-              <li><strong>使用條款明確標註</strong> — 用戶需自行遵守各平台使用條款。本服務產出僅供個人創作參考和合法商業用途，不得用於不得用於騷擾、誹謗、侵犯隱私或任何違法用途。用戶對自身使用方式負全部責任</li>
+              <li>
+                <strong>僅使用公開可得資訊</strong>，不規避隱私或權限設定。
+              </li>
+              <li>
+                <strong>遵守各平台使用條款與爬蟲相關規範</strong>，合理頻率、不濫用自動化。
+              </li>
+              <li>
+                <strong>敏感資訊依設計脫敏或排除</strong>，避免不當儲存或外流。
+              </li>
+              <li>
+                <strong>使用者對自身用途負責</strong>；產出僅供合法之創作、研究或營運參考。
+              </li>
             </ul>
 
-            {/* ── 技術背景 ── */}
-            <h2>{t('h_stack')}</h2>
-            <ul>
-              <li><strong>儲存</strong>：PostgreSQL（帳號元數據、追蹤配置、警報記錄）+ 時間序列資料庫（互動數據的時間序列，支援高效時間範圍查詢和聚合）+ 向量搜尋引擎（內容語意向量化，支援「找類似風格」的語意搜尋和重複內容檢測）</li>
-              <li><strong>採集</strong>：模擬真人瀏覽器引擎（Python + Playwright/Selenium）+ 行為模式庫（預定義的多種真人瀏覽模式）+ 自適應調度器（三層自適應：成功率監控→行為調整→降頻告警）+ Redis/RabbitMQ 任務佇列（支援優先級排程）</li>
-              <li><strong>分析</strong>：NLP 引擎（情感分析、關鍵詞提取、主題分類）+ 圖像理解（AI 自動生成圖片描述、風格分類）+ 異常偵測（Z-score / IQR 動態基線）+ 品質評分模型（原創度 + 互動潛力 + 內容深度）</li>
-              <li><strong>部署</strong>：Windows 服務（開機自動啟動、後台持續運作）+ 本地儲存（AES-256 加密，確保隱私和資料主權）+ 雲端同步（可選，端到端加密）</li>
-            </ul>
-            <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)', marginTop: '1rem' }}>
-              <strong>調研參考（小紅書）</strong>：社群開源{' '}
-              <a href="https://github.com/cv-cat/Spider_XHS" target="_blank" rel="noopener noreferrer">
-                Spider_XHS
-              </a>{' '}
-              以 Python／Node 封裝小紅書相關介面（專案自述僅供學習交流）。與 SuperTrack 無整合或背書關係；實務上須遵守平台條款與 robots，並自行評估帳號與法遵風險。
-            </p>
+            <DocGithubSection />
 
+            <SuperTrackEngineeringSection />
           </article>
 
           <DocFooter t={t} lang={lang} />

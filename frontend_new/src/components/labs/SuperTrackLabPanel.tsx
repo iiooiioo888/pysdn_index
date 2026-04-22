@@ -243,14 +243,14 @@ function jitterXhs(prev: XhsDemoState): XhsDemoState {
 }
 
 type SuperTrackLabPanelProps = {
-  /** lab：實驗室頁；assistant：全網追蹤助手獨立面板 */
+  /** lab：實驗室大螢幕；assistant：同模組之精簡示範面板（/panel/supertrack） */
   context?: 'lab' | 'assistant'
 }
 
 type AlertSevFilter = 'all' | 'P0' | 'P1' | 'P2' | 'P3' | 'other'
 
 export function SuperTrackLabPanel({ context = 'lab' }: SuperTrackLabPanelProps = {}) {
-  const contextBadge = context === 'assistant' ? '全網追蹤助手 · 示範資料' : 'LAB · 示範資料'
+  const contextBadge = context === 'assistant' ? 'SuperTrack · 精簡示範' : 'SuperTrack · 實驗室示範'
   const [kpi, setKpi] = useState<DashboardKpi>(() => ({ ...DEFAULT_KPI }))
   const [roi, setRoi] = useState<RoiState>(() => ({ ...DEFAULT_ROI }))
   const [xhs, setXhs] = useState<XhsDemoState>(() => ({ ...DEFAULT_XHS }))

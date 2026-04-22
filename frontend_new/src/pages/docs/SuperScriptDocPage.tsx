@@ -5,12 +5,7 @@ import { DocNavbar } from '../../components/docs/DocNavbar'
 import { DocFooter } from '../../components/docs/DocFooter'
 import { DocReadingSummary } from '../../components/docs/DocReadingSummary'
 import { DocMermaid } from '../../components/docs/DocMermaid'
-import {
-  SUPERSCRIPT_ENTITY,
-  SUPERSCRIPT_FLOW,
-  SUPERSCRIPT_MINDMAP,
-  SUPERSCRIPT_NARRATIVE_ARC,
-} from '../../components/docs/mermaidCharts'
+import { SUPERSCRIPT_MINDMAP, SUPERSCRIPT_NARRATIVE_ARC } from '../../components/docs/mermaidCharts'
 import { useDocBundle } from '../../hooks/useDocBundle'
 import { PATHS } from '../../routes/paths'
 import { toLangSearch } from '../../routes/langQuery'
@@ -74,9 +69,7 @@ export function SuperScriptDocPage() {
 
             <div className="doc-diagram-block">
               <h3>敘事弧示意（一集內節點）</h3>
-              <p className="doc-diagram-lead">
-                典型四段：鉤子 → 升溫 → 高潮 → 收尾；實務上可在一集內多輪遞迴，但職能分工上仍對應 Architect 標注之結構欄位。
-              </p>
+              <p className="doc-diagram-lead">典型四段：鉤子 → 升溫 → 高潮 → 收尾，對應一集內的節奏安排。</p>
               <DocMermaid chart={SUPERSCRIPT_NARRATIVE_ARC} />
             </div>
 
@@ -102,7 +95,7 @@ export function SuperScriptDocPage() {
 
             <h3>語音匹配：每個角色都有自己的嘴</h3>
             <p>SuperScript 為每個角色建立「語音模型」（Voice Profile），記錄該角色的說話習慣：用詞偏好、句式長度、語氣節奏、常用口頭禪。不管劇本寫到第幾集，@Mei 還是那個簡潔冷靜的 @Mei，@Kai 還是那個愛用反問句的 @Kai。</p>
-            <p>系統會計算每句對白跟角色 Voice Profile 的匹配度（voice_match），如果低於閾值（預設 85%），會標注為「可能跑掉」，建議你修改。</p>
+            <p>系統會檢查對白是否符合各角色的說話習慣；若落差較大會提醒你再調整。</p>
             <div className="doc-example">
               <div className="doc-example-label">💡 語音匹配範例</div>
               <p>
@@ -115,15 +108,6 @@ export function SuperScriptDocPage() {
 
             <h2>{t('h_char')}</h2>
             <div dangerouslySetInnerHTML={{ __html: t('doc_ss_characters_html') }} />
-
-            <div className="doc-diagram-block">
-              <h3>資料實體關聯與外溢圖像</h3>
-              <p className="doc-diagram-lead">
-                劇本 → 場景 → 節拍 承接台詞；角色與 <code>character_id</code> 可與
-                SuperForge 對齊，場面描寫則可轉成畫面提示詞。
-              </p>
-              <DocMermaid chart={SUPERSCRIPT_ENTITY} />
-            </div>
 
             <h3>模組串接：一個生態系打通</h3>
             <p>SuperScript 不是孤島。SuperTrack 幫你抓熱門話題注入大綱——例如「短劇」最近在社群爆了，SuperTrack 會建議你在下一集加入短劇元素。SuperForge 把場景描述自動轉換成畫面提示詞——你寫了「雨夜的東京街頭」，它直接幫你生出 <code>rainy Tokyo street at night, neon reflections</code>，一鍵送進 Midjourney。SuperTune 進行 A/B 測試優化對白——同一場戲用兩種寫法，看哪個觀眾反應更好。</p>
@@ -167,15 +151,6 @@ export function SuperScriptDocPage() {
                   </tr>
                 </tbody>
               </table>
-            </div>
-
-            <div className="doc-diagram-block">
-              <h3>協作流水線與模組資料流</h3>
-              <p className="doc-diagram-lead">
-                主線為骨架→一致性→寫作→排版；虛線為與 SuperForge、SuperTrack、SuperTune
-                的銜接。
-              </p>
-              <DocMermaid chart={SUPERSCRIPT_FLOW} />
             </div>
 
             {/* ── 快速上手 ── */}
@@ -228,22 +203,6 @@ export function SuperScriptDocPage() {
                 開啟 SuperScript 儀表板（示範資料）→
               </Link>
             </p>
-
-            {/* ── 資料結構 ── */}
-            <h2>{t('h_dm')}</h2>
-            <p>{t('dm_p')}</p>
-            <ul>
-              <li>{t('dm_l1')}</li>
-              <li>{t('dm_l2')}</li>
-              <li>{t('dm_l3')}</li>
-              <li>{t('dm_l4')}</li>
-              <li>{t('dm_l5')}</li>
-              <li>{t('dm_l6')}</li>
-            </ul>
-
-            {/* ── 模組串接 ── */}
-            <h2>{t('h_cross')}</h2>
-            <pre>{t('cross_pre')}</pre>
 
             <p style={{ marginTop: '2rem', opacity: 0.6 }}>{t('license_p')}</p>
           </article>

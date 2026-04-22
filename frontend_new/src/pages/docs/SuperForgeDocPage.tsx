@@ -5,12 +5,7 @@ import { DocNavbar } from '../../components/docs/DocNavbar'
 import { DocFooter } from '../../components/docs/DocFooter'
 import { DocReadingSummary } from '../../components/docs/DocReadingSummary'
 import { DocMermaid } from '../../components/docs/DocMermaid'
-import {
-  SUPERFORGE_FLOW,
-  SUPERFORGE_HYBRID,
-  SUPERFORGE_MINDMAP,
-  SUPERFORGE_WEBHOOK,
-} from '../../components/docs/mermaidCharts'
+import { SUPERFORGE_MINDMAP } from '../../components/docs/mermaidCharts'
 import { useDocBundle } from '../../hooks/useDocBundle'
 import { PATHS } from '../../routes/paths'
 import { toLangSearch } from '../../routes/langQuery'
@@ -63,39 +58,9 @@ export function SuperForgeDocPage() {
             <div dangerouslySetInnerHTML={{ __html: t('doc_sf_characters_html') }} />
 
             <div className="doc-diagram-block">
-              <h3>架構與能力（思維導圖）</h3>
-              <p className="doc-diagram-lead">
-                將知識儲存、擷取管線與檢索應用整理成可掃描的 Mind
-                Map，對照上文功能說明與下方資料流。
-              </p>
+              <h3>架構與能力（示意）</h3>
+              <p className="doc-diagram-lead">知識儲存、檢索與應用的大致分工，對照上文功能說明即可。</p>
               <DocMermaid chart={SUPERFORGE_MINDMAP} />
-            </div>
-
-            <h2>{t('h_flow')}</h2>
-            <pre>{t('flow_pre')}</pre>
-
-            <div className="doc-diagram-block">
-              <h3>資料流與檢索路徑</h3>
-              <p className="doc-diagram-lead">
-                從匯入、向量化、全文索引到混合檢索與生成工作流銜接的技術資料流。
-              </p>
-              <DocMermaid chart={SUPERFORGE_FLOW} />
-            </div>
-
-            <div className="doc-diagram-block">
-              <h3>Webhook 入庫與角色歸戶</h3>
-              <p className="doc-diagram-lead">
-                外部工具生圖完成後回拋；可選 <code>character_id</code> 將產圖掛在角色與版本樹上，否則仍入庫為一般筆。
-              </p>
-              <DocMermaid chart={SUPERFORGE_WEBHOOK} />
-            </div>
-
-            <div className="doc-diagram-block">
-              <h3>混合檢索：語意＋全文合流</h3>
-              <p className="doc-diagram-lead">
-                查詢同時走向量相似與關鍵字／模糊兩路，合併排序後回傳最相關的歷史提示詞與生成紀錄。
-              </p>
-              <DocMermaid chart={SUPERFORGE_HYBRID} />
             </div>
 
             <h2>{t('doc_sf_sim_h2')}</h2>

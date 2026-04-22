@@ -230,7 +230,7 @@ export function ModulesPanel() {
             <div className="mp-panel-mockup">
               <div className="mp-mockup-header">
                 <div className="mockup-dots"><span /><span /><span /></div>
-                <span>{t('mp_track_mockup_title', 'SuperTrack — 全網追蹤助手')}</span>
+                <span>{t('mp_track_mockup_title', 'SuperTrack（全網追蹤助手）')}</span>
               </div>
               <div className="mp-mockup-body">
                 {/* Stats row */}
@@ -310,7 +310,7 @@ export function ModulesPanel() {
               </div>
             </div>
             <div className="mp-panel-info">
-              <h3>{t('mp_track_title', '全網追蹤助手')}</h3>
+              <h3>{t('mp_track_title', 'SuperTrack（全網追蹤助手）')}</h3>
               <p>{t('mp_track_desc', '幫你追蹤網紅、品牌、熱門內容，自動整理成可用的創作素材。流量突然暴增？自動通知你。')}</p>
               <ul className="mp-features">
                 <li>✅ {t('mp_track_f1', '人物識別：同一個人在不同平台自動對上')}</li>
@@ -324,7 +324,7 @@ export function ModulesPanel() {
                   {t('mp_view_docs', '查看完整文件')} →
                 </Link>
                 <Link to={{ pathname: PATHS.panel.supertrack, search: langSearch }} className="mp-doc-link mp-doc-link--panel">
-                  {t('mp_open_supertrack_panel', '開啟全網追蹤助手（示範面板）')} →
+                  {t('mp_open_supertrack_panel', '開啟 SuperTrack 示範面板')} →
                 </Link>
               </div>
             </div>

@@ -19,7 +19,7 @@ export const PATHS = {
     supertrack: '/labs/supertrack',
     supertune: '/labs/supertune',
   },
-  /** SuperTrack：全網追蹤助手（獨立儀表板，精簡導覽） */
+  /** SuperTrack 示範面板（/panel；與 /labs/supertrack 為同模組不同版面） */
   panel: {
     supertrack: '/panel/supertrack',
   },

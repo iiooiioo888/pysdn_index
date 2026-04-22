@@ -429,6 +429,53 @@ html {
   -webkit-overflow-scrolling: touch;
 }
 
+/* SuperTrack_Documentation.md 全文渲染（marked） */
+.doc-markdown-body {
+  overflow-x: auto;
+  margin-top: 0.35rem;
+}
+
+.doc-markdown-body h1 {
+  font-size: clamp(1.28rem, 2.4vw, 1.55rem);
+  font-weight: 800;
+  color: #fff;
+  margin: 1.5rem 0 0.75rem;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+}
+
+.doc-markdown-body blockquote {
+  margin: 0.75rem 0;
+  padding: 0.35rem 0 0.35rem 1rem;
+  border-left: 3px solid var(--doc-accent);
+  color: var(--text-dim);
+}
+
+.doc-markdown-body hr {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 1.5rem 0;
+}
+
+.doc-full-md-details {
+  margin: 0 0 1.5rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.65rem 1rem 1rem;
+  background: var(--bg-card);
+}
+
+.doc-full-md-details summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--doc-link);
+  list-style-position: outside;
+}
+
+.doc-full-md-details[open] summary {
+  margin-bottom: 0.85rem;
+}
+
 /* Mermaid 思維導圖／流程圖（與 src/styles/doc-page.css 對齊） */
 .doc-diagram-block {
   margin: 1.35rem 0 1.75rem;

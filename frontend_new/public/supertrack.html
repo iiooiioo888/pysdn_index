@@ -174,6 +174,176 @@ alert_engine.set_threshold(entity_id, metric="follower_growth", threshold=0.1)</
           <li data-i18n="co_3">資料脫敏欄位</li>
           <li data-i18n="co_4">授權條款標註</li>
         </ul>
+
+        <section class="doc-github-section" id="github-projects" aria-labelledby="github-projects-title">
+          <h2 id="github-projects-title">相關 GitHub 專案（調研參考）</h2>
+          <p class="doc-diagram-lead">
+            與公開訊號、社群資料相關之<strong>第三方開源</strong>（僅供技術調研；使用須遵守各平台條款與法規）。
+          </p>
+          <ul class="doc-github-list">
+            <li><a href="https://github.com/cv-cat/Spider_XHS" target="_blank" rel="noopener noreferrer">Spider_XHS</a></li>
+            <li><a href="https://github.com/NanmiCoder/MediaCrawler" target="_blank" rel="noopener noreferrer">MediaCrawler</a></li>
+            <li><a href="https://github.com/yt-dlp/yt-dlp" target="_blank" rel="noopener noreferrer">yt-dlp</a></li>
+            <li><a href="https://github.com/JustAnotherArchivist/snscrape" target="_blank" rel="noopener noreferrer">snscrape</a></li>
+            <li><a href="https://github.com/unclecode/crawl4ai" target="_blank" rel="noopener noreferrer">Crawl4AI</a></li>
+            <li><a href="https://github.com/instaloader/instaloader" target="_blank" rel="noopener noreferrer">instaloader</a></li>
+          </ul>
+          <p class="doc-diagram-lead">工具分類表與架構樹見下方〈工程架構與調研參考〉。</p>
+        </section>
+
+        <section class="doc doc-engineering" id="engineering" aria-labelledby="engineering-title">
+          <h2 id="engineering-title">工程架構與調研參考</h2>
+          <p class="doc-diagram-lead">
+            本段與 SPA 文件頁 <code>/docs/supertrack#engineering</code> 同向維護，<strong>不再</strong>自 <code>SuperTrack_Documentation.md</code> 載入。
+          </p>
+
+          <h3>統一調度層與資料架構（概念）</h3>
+          <ul>
+            <li><strong>任務產生</strong>：依追蹤目標與頻率產生抓取任務。</li>
+            <li><strong>佇列與分發</strong>：優先級佇列；工作節點拉取。</li>
+            <li><strong>執行與節流</strong>：行為模式、瀏覽器或 HTTP adapter；令牌桶。</li>
+            <li><strong>Adapter 層</strong>：各平台可替換；調度層處理統一 DTO。</li>
+            <li><strong>資料流</strong>：原始資料 → 結構化 → 分析與下游模組。</li>
+          </ul>
+          <p class="doc-diagram-lead">調研用整合架構樹狀示意：</p>
+          <pre>統一排程層（自研）
+│
+├── 國內平台採集層
+│   ├── Spider_XHS ──── 小紅書（採集＋發布）
+│   ├── MediaCrawler ── 抖音／快手／B 站／微博
+│   ├── wx_channels ─── 微信影片號（半自動）
+│   └── wechat-mp ──── 微信公眾號（半自動）
+│
+├── 國際平台採集層
+│   ├── Douyin_TikTok_API ─ TikTok
+│   ├── instaloader ──── Instagram
+│   ├── yt-dlp ───────── YouTube
+│   ├── snscrape ─────── X／Facebook／Reddit／Telegram
+│   └── Crawl4AI ─────── Threads／LinkedIn／通用兜底
+│
+├── 資料標準化層
+│   └── 統一 JSON Schema（平台／類型／作者／時間／內容／互動資料）
+│
+└── 儲存與分析層
+    └── SQLite／PostgreSQL＋可選 Elasticsearch</pre>
+
+          <h3>社群採集工具清單（調研彙整）</h3>
+          <h4>小紅書專用</h4>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>專案</th>
+                  <th>說明</th>
+                  <th>特色</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><a href="https://github.com/cv-cat/Spider_XHS" target="_blank" rel="noopener noreferrer">Spider_XHS</a></td>
+                  <td>小紅書全棧方案</td>
+                  <td>採集＋發布＋蒲公英／千帆</td>
+                </tr>
+                <tr>
+                  <td><a href="https://github.com/JoeanAmier/XHS-Downloader" target="_blank" rel="noopener noreferrer">XHS-Downloader</a></td>
+                  <td>下載／採集</td>
+                  <td>無浮水印、MCP／API、Docker</td>
+                </tr>
+                <tr>
+                  <td><a href="https://github.com/ReaJason/xhs" target="_blank" rel="noopener noreferrer">xhs</a></td>
+                  <td>輕量庫</td>
+                  <td>pip install xhs</td>
+                </tr>
+                <tr>
+                  <td><a href="https://github.com/Cloxl/xhshow" target="_blank" rel="noopener noreferrer">xhshow</a></td>
+                  <td>簽名純算</td>
+                  <td>pip install xhshow</td>
+                </tr>
+                <tr>
+                  <td><a href="https://github.com/xpzouying/xiaohongshu-mcp" target="_blank" rel="noopener noreferrer">xiaohongshu-mcp</a></td>
+                  <td>MCP Server</td>
+                  <td>AI 操作搜尋／發布等</td>
+                </tr>
+                <tr>
+                  <td><a href="https://github.com/xpzouying/x-mcp" target="_blank" rel="noopener noreferrer">x-mcp</a></td>
+                  <td>瀏覽器外掛 MCP</td>
+                  <td>零環境</td>
+                </tr>
+                <tr>
+                  <td><a href="https://github.com/leeguooooo/xhs-skill" target="_blank" rel="noopener noreferrer">XhsSkills／xhs-skill</a></td>
+                  <td>Agent Skills</td>
+                  <td>Clawbot 等</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h4>抖音／TikTok</h4>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>專案</th>
+                  <th>說明</th>
+                  <th>特色</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><a href="https://github.com/Evil0ctal/Douyin_TikTok_Download_API" target="_blank" rel="noopener noreferrer">Douyin_TikTok_Download_API</a></td>
+                  <td>抖音＋TikTok＋快手＋B 站</td>
+                  <td>API、X-Bogus 等</td>
+                </tr>
+                <tr>
+                  <td><a href="https://github.com/NanmiCoder/MediaCrawler" target="_blank" rel="noopener noreferrer">MediaCrawler</a></td>
+                  <td>多平台</td>
+                  <td>Playwright</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h4>海外／綜合</h4>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>專案</th>
+                  <th>說明</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><a href="https://github.com/JustAnotherArchivist/snscrape" target="_blank" rel="noopener noreferrer">snscrape</a></td>
+                  <td>X、IG、Reddit、TG、FB、微博等 CLI</td>
+                </tr>
+                <tr>
+                  <td><a href="https://github.com/mikf/gallery-dl" target="_blank" rel="noopener noreferrer">gallery-dl</a></td>
+                  <td>300+ 圖站批次下載</td>
+                </tr>
+                <tr>
+                  <td><a href="https://github.com/instaloader/instaloader" target="_blank" rel="noopener noreferrer">instaloader</a></td>
+                  <td>Instagram</td>
+                </tr>
+                <tr>
+                  <td><a href="https://github.com/666ghj/MindSpider" target="_blank" rel="noopener noreferrer">MindSpider</a></td>
+                  <td>AI 輿情／熱點向（維護以倉庫為準）</td>
+                </tr>
+                <tr>
+                  <td><a href="https://github.com/iszhouhua/social-media-copilot" target="_blank" rel="noopener noreferrer">social-media-copilot</a></td>
+                  <td>Chrome 外掛</td>
+                </tr>
+                <tr>
+                  <td><a href="https://tikhub.io/" target="_blank" rel="noopener noreferrer">TikHub.io</a></td>
+                  <td>商業 API（付費）</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3 id="social-crawler-backend">SocialCrawler 參考後端</h3>
+          <p>倉庫目錄 <code>social-crawler/</code>：CLI、FastAPI（<code>:8000</code>）、SQLite／JSONL、調度器；<strong>demo</strong> 可驗證管線，其餘平台多為骨架。詳見該目錄 <code>README.md</code>。</p>
+        </section>
       </article>
 
           <footer class="doc-footer">

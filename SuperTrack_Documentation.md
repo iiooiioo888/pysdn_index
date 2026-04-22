@@ -15,6 +15,8 @@ SuperTrack 是 Pysdn SuperCool 生態系中的獨立擴展模組，專門為 Sup
 
 實際可用性依各平台公開資料政策、robots／服務條款與反自動化策略而定；若平台禁止自動化採集，系統會標示為不可用或降權。
 
+各來源與常見開源／第三方工具之**覆蓋與缺口對照**（調研用）見後文 **§10.2.3**；**完整社媒採集工具分類清單（調研彙整）**見 **§10.2.4**。**統一調度層與資料架構**之設計說明與本倉庫邊界見 **§10.0**。
+
 ---
 
 ## 目錄
@@ -29,6 +31,7 @@ SuperTrack 是 Pysdn SuperCool 生態系中的獨立擴展模組，專門為 Sup
 - [八、與其他模組的聯動](#八與其他模組的聯動)
 - [九、合規聲明 — 四條紅線](#九合規聲明--四條紅線)
 - [十、技術架構（給工程師看）](#十技術架構給工程師看)
+  - [10.5 SocialCrawler 實作進度（參考管線）](#105-socialcrawler-實作進度參考管線)
 - [十一、快速上手 — 四步開始](#十一快速上手--四步開始)
 - [十二、適用場景](#十二適用場景)
 
@@ -890,6 +893,58 @@ SuperTrack 的使用條款中明確告知用戶以下事項：
 
 ## 十、技術架構（給工程師看）
 
+### 10.0 統一調度層與資料架構（設計框架與本倉庫邊界）
+
+**與本倉庫原始碼的關係：** 目前 **`pysdn_i` 倉庫以產品文件與前端示範為主**（React／Vite 等），**未包含**可獨立部署的 Python 採集後端或調度服務原始碼。下文所述「統一調度層」「資料架構」是 **SuperTrack 模組的目標工程設計**，供實作或評估第三方 adapter 時對齊；實際執行時應另建後端專案並遵守各平台 ToS 與法遵要求。
+
+**可執行程式參考：** 若需對照**真實程式碼**中的調度器、統一 schema、適配器註冊與儲存層，請見 **§10.5 SocialCrawler**（獨立 `social-crawler/` 管線快照）；§10.2.4 則為第三方開源**選型地圖**，兩者互補。
+
+**統一調度層（概念框架）：**
+
+| 層次 | 職責 | 與本文件其他小節的對應 |
+|---|---|---|
+| **任務產生** | 依使用者設定的追蹤目標、頻率與優先級產生「抓取任務」 | §10.2 採集流程圖（用戶新增目標 → 調度器生成任務） |
+| **佇列與分發** | 任務進入優先級佇列，由工作節點拉取；支援 Redis／RabbitMQ 等 | §10.2 採集層表格「佇列系統」 |
+| **執行與節流** | 工作節點選取行為模式、啟動瀏覽器或 HTTP adapter；依成功率自適應調整頻率 | §10.2「自適應調度器」「模擬真人瀏覽器引擎」 |
+| **Adapter 層** | 各平台具體採集由**可替換 adapter** 完成（自研或參考開源，見 §10.2.3–10.2.4）；調度層只處理**統一任務描述與回傳 DTO** | §10.2.3 平台矩陣、§10.2.4 工具清單 |
+
+**資料架構（概念框架）：**
+
+| 階段 | 內容 | 對應小節 |
+|---|---|---|
+| **落地前** | 原始 HTML／JSON／媒體 URL 進入處理管道 | §10.2 採集流程末端「原始資料送入處理管道」 |
+| **結構化** | 抽取內容與互動數據 → 關聯 `merged_entity_id`、時序快照、向量 | §10.1 資料模型要點、§10.3 分析管道 |
+| **下游** | 異常偵測、警報、精華寫入 SuperForge／聯動 SuperTune 等 | §八、§10.3 |
+
+**與「整合架構示意」一句話對齊：** 調研上常畫成「統一排程層 → 國內／國際多個採集 adapter → **統一 JSON Schema（或 DTO）** → PostgreSQL／時序庫／（可選）Elasticsearch」。其中 **Schema 與合規策略應由產品側定義**，開源專案僅作能力參考，不應直接等同為本產品的內建實作。
+
+**調研用整合架構樹狀示意**（與前端 `SignalSourcesToolsMatrixSection` 元件所用圖示同一思路，便於文件／介面互相對照；專案名稱為調研慣用簡稱，實際 repo 見 §10.2.3–10.2.4）：
+
+```
+統一排程層（自研）
+│
+├── 國內平台採集層
+│   ├── Spider_XHS ──── 小紅書（採集＋發布）
+│   ├── MediaCrawler ── 抖音／快手／B 站／微博
+│   ├── wx_channels ─── 微信影片號（半自動）
+│   └── wechat-mp ──── 微信公眾號（半自動）
+│
+├── 國際平台採集層
+│   ├── Douyin_TikTok_API ─ TikTok
+│   ├── instaloader ──── Instagram
+│   ├── yt-dlp ───────── YouTube
+│   ├── snscrape ─────── X／Facebook／Reddit／Telegram
+│   └── Crawl4AI ─────── Threads／LinkedIn／通用兜底
+│
+├── 資料標準化層
+│   └── 統一 JSON Schema（平台／類型／作者／時間／內容／互動資料）
+│
+└── 儲存與分析層
+    └── SQLite／PostgreSQL＋可選 Elasticsearch
+```
+
+---
+
 ### 10.1 儲存層
 
 | 元件 | 技術選型 | 用途 | 說明 |
@@ -930,9 +985,134 @@ SuperTrack 的使用條款中明確告知用戶以下事項：
 
 社群上有以 **Python + Node** 封裝小紅書 PC 端、創作者平台、蒲公英等 HTTP 能力的開源專案，例如 **[Spider_XHS](https://github.com/cv-cat/Spider_XHS)**（cv-cat／GitHub）。該倉庫 README 宣稱涵蓋登入 Cookie、搜尋與筆記詳情、評論、創作者發布、KOL 資料等場景，並標示「僅供學習交流、禁止商業化」。
 
+另有多平台自媒體採集開源專案 **[MediaCrawler](https://github.com/NanmiCoder/MediaCrawler)**（NanmiCoder／GitHub）。README 自述以小紅書、抖音、快手、B 站、微博、百度貼吧、知乎等為主，採 **Playwright** 保留登入態，並聲稱可在無需自行逆向 JS 加密的前提下、於瀏覽器上下文中取得簽名相關參數；同樣載有學習用途與合規相關之免責說明。專案另提及可選 **CDP** 連線本機 Chrome、**WebUI** 操作與多種儲存後端（CSV／JSON／Excel／SQLite／MySQL 等），細節以該倉庫文件為準。
+
+#### 10.2.2 Spider_XHS 與 MediaCrawler：對照與整合（調研摘要）
+
+| 維度 | Spider_XHS | MediaCrawler |
+|---|---|---|
+| **定位** | 小紅書專精（採集 + 發布 + 蒲公英／千帆等商業場景，以 README 為準） | 多平台通用框架（7 個主流平台） |
+| **小紅書技術路線** | HTTP 直連 + 簽名參數（宣稱逆向還原 x-s／x-t 等） | Playwright／CDP，瀏覽器上下文取得簽名相關資料 |
+| **依賴** | 相對輕、不需常駐瀏覽器 | 依賴瀏覽器自動化，資源與維運成本較高 |
+
+**Spider_XHS 較獨有或偏重**：創作者平台發布（寫入）、蒲公英／千帆、訊息中心、XhsSkills 等 Agent 整合敘事。
+
+**MediaCrawler 較獨有或偏重**：多平台同一框架、WebUI、內建代理池敘事、留言文字雲、多種儲存後端、登入態快取等。
+
+**兩者在小紅書的重疊（常見）**：關鍵字／指定貼文、筆記詳情、留言（含二級）、二維碼登入、Python + Node 棧。
+
+**能否整合**：可於**應用層**並存（例如小紅書採集／發布走 Spider_XHS，其餘平台走 MediaCrawler，上層自寫 adapter 統一 DTO）；**不宜**假設兩者小紅書底層可無縫拼接。長期單倉庫合併需保留雙採集實作並統一儲存與排程，成本高。若以 **AI Agent** 為中心，可將兩者註冊為不同工具，未必合併原始碼（Spider_XHS 有 Skills；MediaCrawler **Pro** 另述 Agent Skill，與開源版區分）。
+
 **與 SuperTrack 的關係**：本文件僅列為**技術調研與同領域實作參考**，不代表 SuperTrack 依賴、背書或整合該專案。SuperTrack 產品設計仍以**公開資料、robots／ToS 合規、合理頻率與模擬真人行為**為原則。
 
 **風險提示**：此類專案多涉及平台非公開介面、簽名與登入態（Cookie）；實際使用須自行承擔**帳號封禁、法律與平台追訴、個資與著作權**等風險。導入任何第三方採集程式前，應完成法務與資安評估，並優先尋求**官方 API 或明確授權**的資料來源。
+
+#### 10.2.3 訊號來源與開源工具對照（全平台矩陣）
+
+> 以下與文件開頭「主流分享與社群平台」範圍對齊；**僅供技術調研**，不代表 SuperTrack 整合或背書；狀態為概括，以各倉庫與平台現況為準。
+
+**大中華**
+
+| 平台 | 推薦工具 | 備選工具 | 狀態 |
+|---|---|---|---|
+| 小紅書 | [Spider_XHS](https://github.com/cv-cat/Spider_XHS) | [MediaCrawler](https://github.com/NanmiCoder/MediaCrawler)、[XHS-Downloader](https://github.com/JoeanAmier/XHS-Downloader)、[xiaohongshu-mcp](https://github.com/xpzouying/xiaohongshu-mcp) | ✅ 成熟 |
+| 抖音 | [MediaCrawler](https://github.com/NanmiCoder/MediaCrawler) | [Douyin_TikTok_Download_API](https://github.com/Evil0ctal/Douyin_TikTok_Download_API) | ✅ 成熟 |
+| 快手 | [MediaCrawler](https://github.com/NanmiCoder/MediaCrawler) | [Douyin_TikTok_Download_API](https://github.com/Evil0ctal/Douyin_TikTok_Download_API) | ✅ 成熟 |
+| Bilibili | [MediaCrawler](https://github.com/NanmiCoder/MediaCrawler) | [Douyin_TikTok_Download_API](https://github.com/Evil0ctal/Douyin_TikTok_Download_API) | ✅ 成熟 |
+| 微博 | [MediaCrawler](https://github.com/NanmiCoder/MediaCrawler) | [snscrape](https://github.com/JustAnotherArchivist/snscrape)（僅使用者主頁） | ✅ 成熟 |
+| 微信影片號 | [wx_channels_download](https://github.com/ltaoo/wx_channels_download) | — | ⚠️ 僅下載；需 PC 微信 + Fiddler 擷包，無 API |
+| 微信公眾號 | [wechat-mp-crawler](https://github.com/hzhu212/wechat-mp-crawler) | [Crawl4AI](https://github.com/unclecode/crawl4ai) | ⚠️ 擷包、Cookie 易過期，難全自動化 |
+
+**國際**
+
+| 平台 | 推薦工具 | 備選工具 | 狀態 |
+|---|---|---|---|
+| Instagram | [instaloader](https://github.com/instaloader/instaloader) | [gallery-dl](https://github.com/mikf/gallery-dl)、[snscrape](https://github.com/JustAnotherArchivist/snscrape) | ✅ 成熟 |
+| TikTok | [Douyin_TikTok_Download_API](https://github.com/Evil0ctal/Douyin_TikTok_Download_API) | [gallery-dl](https://github.com/mikf/gallery-dl) | ✅ 成熟 |
+| YouTube | [yt-dlp](https://github.com/yt-dlp/yt-dlp) | [Crawl4AI](https://github.com/unclecode/crawl4ai) | ✅ 成熟 |
+| X（Twitter） | [snscrape](https://github.com/JustAnotherArchivist/snscrape) | [gallery-dl](https://github.com/mikf/gallery-dl) | ✅ 成熟 |
+| Facebook | [snscrape](https://github.com/JustAnotherArchivist/snscrape) | [Crawl4AI](https://github.com/unclecode/crawl4ai) | ⚠️ 僅公開內容 |
+| Threads | 無成熟開源專用工具 | [Crawl4AI](https://github.com/unclecode/crawl4ai) | 🔴 缺口 |
+| LinkedIn | 無成熟開源專用工具 | [Crawl4AI](https://github.com/unclecode/crawl4ai) | 🔴 缺口 |
+| Reddit | [snscrape](https://github.com/JustAnotherArchivist/snscrape) | [gallery-dl](https://github.com/mikf/gallery-dl) | ✅ 成熟 |
+| Telegram 公開頻道 | [snscrape](https://github.com/JustAnotherArchivist/snscrape) | Telethon／Pyrogram（API） | ✅ 成熟 |
+
+**新聞 RSS**：[Crawl4AI](https://github.com/unclecode/crawl4ai)（通用網頁）＋原生 RSS 聚合 — ✅ 成熟。
+
+**缺口摘要**：微信影片號／公眾號（封閉與 Cookie）、Threads／LinkedIn（無專用成熟開源、法遵與反爬）— 詳見前端文件表格之「缺口分析」欄。
+
+**整合架構示意（調研）**：統一排程層下分國內採集（Spider_XHS、MediaCrawler、wx_channels、wechat-mp）、國際採集（Douyin_TikTok_API、instaloader、yt-dlp、snscrape、Crawl4AI 兜底），再經統一 JSON Schema 與儲存分析層（SQLite／PostgreSQL，可選 Elasticsearch）。核心思路：MediaCrawler 顧國內多平台、snscrape 顧部分海外來源、Spider_XHS 深耕小紅書、Crawl4AI 補 Threads／LinkedIn 等缺口。
+
+#### 10.2.4 完整社群媒體採集工具清單（調研彙整）
+
+> **🔥 調研用工具地圖**：以下依平台族類整理常見開源／工具專案，**不代表** SuperTrack 已整合、背書或依賴；連結與功能敘述以各倉庫 README 為準，使用前請自行做法務與合規評估。共列 **14 個具代表專案**，涵蓋國內外主流社媒與輔助層。
+
+**一、小紅書專用**
+
+| 專案 | 說明 | 特色 |
+|---|---|---|
+| [Spider_XHS](https://github.com/cv-cat/Spider_XHS) | 小紅書全棧方案 | 採集＋發布＋蒲公英＋千帆＋ Agent Skills 敘事（以該倉庫為準） |
+| [XHS-Downloader](https://github.com/JoeanAmier/XHS-Downloader) | 小紅書下載／採集工具 | 無浮水印下載、連結擷取、MCP／API 呼叫、Docker 部署、剪貼簿監聽等 |
+| [xhs](https://github.com/ReaJason/xhs) | 輕量 Python 庫 | `pip install xhs`，適合二次開發（詳見官方文件） |
+| [xhshow](https://github.com/Cloxl/xhshow) | 簽名純算庫 | `pip install xhshow`，產生 x-s 等簽名，可搭配任意 HTTP 客戶端 |
+| [xiaohongshu-mcp](https://github.com/xpzouying/xiaohongshu-mcp) | MCP Server | AI 助手操作小紅書：搜尋、發布圖文／影片、評論、按讚、使用者主頁等 |
+| [x-mcp](https://github.com/xpzouying/x-mcp) | 瀏覽器外掛版 MCP | 標榜零環境、裝外掛即用，無需自行起 Docker（以該專案說明為準） |
+| [XhsSkills／xhs-skill](https://github.com/leeguooooo/xhs-skill) | Agent Skills | 社群多稱 **XhsSkills**；實作倉庫為 **xhs-skill**，基於 Spider_XHS 敘事之封裝，適配 Clawbot／Claude Code／Codex 等（與 Spider_XHS 路線並列參考） |
+
+**二、抖音／TikTok**
+
+| 專案 | 說明 | 特色 |
+|---|---|---|
+| [Douyin_TikTok_Download_API](https://github.com/Evil0ctal/Douyin_TikTok_Download_API) | 抖音＋TikTok＋快手＋B 站等 | 非同步擷取、API 呼叫、線上批次解析下載、iOS 捷徑、X-Bogus 簽名等敘事 |
+| [MediaCrawler](https://github.com/NanmiCoder/MediaCrawler) | 多平台（含抖音） | Playwright 自動化；詳見上文 §10.2.1–10.2.2 |
+
+**三、海外平台**
+
+| 專案 | 涵蓋平台 | 說明 |
+|---|---|---|
+| [snscrape](https://github.com/JustAnotherArchivist/snscrape) | X／Instagram／Reddit／Telegram／Facebook／Mastodon／VK、微博等 | Python CLI，`pip install snscrape` |
+| [gallery-dl](https://github.com/mikf/gallery-dl) | 300+ 圖站（含 Instagram、X、Pixiv、Reddit 等） | 圖片／畫廊批次下載，`pip install gallery-dl` |
+| [instaloader](https://github.com/instaloader/instaloader) | Instagram | 下載 profile／hashtag／story／feed，`pip install instaloader` |
+
+**四、多平台綜合**
+
+| 專案 | 涵蓋平台 | 特色 |
+|---|---|---|
+| [MediaCrawler](https://github.com/NanmiCoder/MediaCrawler) | 小紅書／抖音／快手／B 站／微博／貼吧／知乎 | WebUI、代理池、多種儲存後端等 |
+| [MindSpider](https://github.com/666ghj/MindSpider) | 與 MediaCrawler 類似路線＋多新聞源 | AI 自動發現熱點→深度擷取，偏輿情分析（維護狀態請以倉庫為準；作者亦提及併入 [BettaFish](https://github.com/666ghj/BettaFish)） |
+| [social-media-copilot](https://github.com/iszhouhua/social-media-copilot) | 小紅書／抖音／快手（商店版另含 B 站、TikTok 等敘事） | Chrome 外掛，標榜零程式、API 呼叫／Server 版 |
+| [Douyin_TikTok_Download_API](https://github.com/Evil0ctal/Douyin_TikTok_Download_API) | 抖音／TikTok／快手／B 站 | FastAPI＋非同步，下載 API 向 |
+
+**五、輔助／底層**
+
+| 專案 | 用途 |
+|---|---|
+| [xhshow](https://github.com/Cloxl/xhshow) | 小紅書簽名純算 |
+| [TikHub.io](https://tikhub.io/) | 商業 API（14+ 平台）；若不想自建爬蟲可評估付費介接（非開源，以官網為準） |
+
+**📊 依需求速查（調研用）**
+
+| 你的需求 | 建議參考專案 |
+|---|---|
+| 小紅書全棧（採集＋發布＋商業向場景） | Spider_XHS |
+| 小紅書批次下載無浮水印 | XHS-Downloader |
+| 小紅書接 AI Agent | xiaohongshu-mcp、**x-mcp**（瀏覽器外掛）或 **XhsSkills**（xhs-skill） |
+| 抖音／TikTok 資料採集＋下載 | Douyin_TikTok_Download_API |
+| 國內 7 大平台批次採集 | MediaCrawler |
+| AI 輿情監控 | MindSpider（或 BettaFish 內模組） |
+| 不寫程式快速拿資料 | social-media-copilot（外掛）或 XHS-Downloader（TUI 等） |
+| Instagram 圖片下載 | instaloader 或 gallery-dl |
+| X／Reddit／Telegram 採集 | snscrape |
+| 300+ 圖站批次下載 | gallery-dl |
+| 海外多平台、不想自建爬蟲 | TikHub（付費 API） |
+
+**總結：** 上表與速查合計 **14** 個具代表專案，涵蓋國內外主流社媒與輔助選型（**TikHub.io** 為商業 API，另列於「輔助／底層」）；實務上仍須以 **§10.0** 之統一調度與 DTO／Schema 串接各 adapter，並自行完成法遵評估。
+
+**統一調度層與資料架構 — 建議研讀順序：**
+
+1. **§10.0**：調度層（任務、佇列、adapter、節流）與資料架構（落地前 → 結構化 → 下游分析）之**概念框架**，並釐清 `pysdn_i` 前端倉庫**邊界**。
+2. **§10.5 SocialCrawler**：具 **Python 原始碼** 之參考管線（非同步調度器、`models/schema`、SQLite／JSONL、registry），可對照 §10.0 理解「程式裡長什麼樣子」。
+3. **§10.2.4（本節）**：第三方工具**選型清單**，供各 adapter 內部實作或研究替換方案時查閱（與 §10.2.3 平台矩陣呼應）。
 
 ### 10.3 分析層
 
@@ -978,6 +1158,101 @@ SuperTrack 的使用條款中明確告知用戶以下事項：
 - 雲端同步使用端到端加密
 - 用戶資料與其他用戶嚴格隔離
 - 刪除追蹤目標時，相關資料完全清除（不留殘留）
+
+### 10.5 SocialCrawler 實作進度（參考管線）
+
+> **定位**：倉庫內 **`social-crawler/`** 為 **Python 套件 `social_crawler`**（可執行 CLI 與 FastAPI）。**`demo` 適配器**可端到端驗證調度器、SQLite、JSONL 與 `/api`；其餘平台均已**註冊對應適配器類別**，目前多為 **`NotImplementedError` 骨架**，待填入簽名、HTTP、snscrape、instaloader 等實作。下列規模為撰寫時快照，以 `social-crawler/README.md` 與原始碼為準。
+
+#### 📊 總覽
+
+| 項目 | 狀態 |
+|---|---|
+| 規模（快照） | 套件內約 **700+** 行程式碼、**20+** 個 `.py` 檔（不含 `.venv`） |
+| 管線狀態 | 調度器（令牌桶、優先級佇列、**指數退避重試**、並行上限）、儲存、設定、HTTP **已通**；**僅 `demo` 可無外網演示** |
+| 剩餘工作 | 各 `adapters/*.py` 內 `search`／`fetch_*` 之**體力實作**與欄位對應 |
+
+#### 目錄結構（與倉庫一致）
+
+```
+social-crawler/
+├── requirements.txt
+├── README.md
+├── config.example.yaml
+└── social_crawler/
+    ├── __init__.py
+    ├── __main__.py          ✅ CLI：init / crawl / list / serve
+    ├── models/schema.py     ✅ 統一資料模型（Platform 17 業務 + demo／unknown 等）
+    │   ├── Platform / ContentType / CrawlStrategy
+    │   ├── ContentItem / Author / Engagement / MediaItem
+    │   └── CrawlTask / CrawlResult（cursor 預留續爬）
+    ├── adapters/
+    │   ├── base.py           ✅ BaseAdapter
+    │   ├── demo.py           ✅ 示範可跑通
+    │   ├── xhs.py            🔧 小紅書骨架
+    │   ├── youtube.py        🔧 YouTube 骨架
+    │   ├── douyin.py         🔧 抖音 + TikTok 骨架
+    │   ├── international.py  🔧 X／Reddit／Telegram／Facebook／微博（snscrape 向）骨架
+    │   ├── kuaishou.py       🔧 快手骨架
+    │   ├── bilibili.py       🔧 B 站骨架
+    │   ├── instagram.py      🔧 Instagram 骨架
+    │   ├── platform_gaps.py  🔧 影片號／公眾號／Threads／LinkedIn／RSS 骨架
+    │   └── registry.py       ✅ 全平台註冊表
+    ├── storage/
+    │   ├── base.py           ✅ ContentStore 協定
+    │   ├── sqlite_store.py   ✅ 建表／寫入／查詢／去重
+    │   └── jsonl_store.py    ✅ 追加匯出
+    ├── scheduler/scheduler.py ✅ 非同步調度 + 重試（`NotImplementedError` 不重試）
+    ├── config/settings.py    ✅ YAML + 環境變數 `SC_*`
+    └── api/app.py            ✅ FastAPI：`/api/health`、`/api/platforms`、`/api/items`、`/api/crawl`
+```
+
+#### 平台涵蓋狀態（與原始碼一致）
+
+| 平台 | 適配器（已註冊） | 擷取邏輯 | 資料模型 | 說明 |
+|---|---|---|---|---|
+| **demo** | ✅ | ✅ 可跑 | ✅ | 管線測試用 |
+| 小紅書 | ✅ | 🔧 骨架 | ✅ | 待簽名／HTTP |
+| YouTube | ✅ | 🔧 骨架 | ✅ | 待 API + yt-dlp |
+| 抖音 | ✅ | 🔧 骨架 | ✅ | 待 X-Bogus／第三方 API |
+| TikTok | ✅ | 🔧 骨架 | ✅ | 同抖音，端點不同 |
+| X（Twitter） | ✅ | 🔧 骨架 | ✅ | 待 snscrape 對應 |
+| Reddit | ✅ | 🔧 骨架 | ✅ | 待 snscrape 對應 |
+| Telegram | ✅ | 🔧 骨架 | ✅ | 待 snscrape／MTProto |
+| Facebook | ✅ | 🔧 骨架 | ✅ | 僅公開內容；待實作 |
+| 微博 | ✅ | 🔧 骨架 | ✅ | 待 snscrape |
+| 快手 | ✅ | 🔧 骨架 | ✅ | 待 MediaCrawler／自研 |
+| B 站 | ✅ | 🔧 骨架 | ✅ | 待 MediaCrawler／自研 |
+| Instagram | ✅ | 🔧 骨架 | ✅ | 待 instaloader |
+| 微信影片號 | ✅ | 🔧 骨架 | ✅ | 半自動／擷包向 |
+| 微信公眾號 | ✅ | 🔧 骨架 | ✅ | 半自動／Cookie 向 |
+| Threads | ✅ | 🔧 骨架 | ✅ | 兜底／Crawl4AI 向 |
+| LinkedIn | ✅ | 🔧 骨架 | ✅ | 法遵與反爬風險高 |
+| RSS | ✅ | 🔧 骨架 | ✅ | 待 feed 拉取 |
+
+#### 下一步待辦
+
+**P0 — 補齊核心平台**
+
+1. **抖音適配器** — 填補 `search`／`crawl_*`（X-Bogus／[Douyin_TikTok_Download_API](https://github.com/Evil0ctal/Douyin_TikTok_Download_API) 等）
+2. **快手適配器** — 對接 [MediaCrawler](https://github.com/NanmiCoder/MediaCrawler) 之 kuaishou 模組
+3. **B 站適配器** — 對接 MediaCrawler 之 bilibili 模組
+4. **Instagram** — 封裝 [instaloader](https://github.com/instaloader/instaloader)
+5. **小紅書／YouTube／snscrape 系** — 在既有骨架內實作 `search` 與 `ContentItem` 對應
+
+**P1 — 強化調度器**
+
+6. 批次任務 YAML 匯入  
+7. 斷點續爬（`CrawlResult.cursor`、offset 持久化）  
+8. 代理池輪替  
+
+**P2 — 介面層**
+
+9. ~~FastAPI 服務（`python -m social_crawler serve`）~~ **✅ 已提供**（預設 `:8000`，與前端 Vite `/api` 代理對齊）  
+10. WebUI 可視化 — **❌ 待做**
+
+#### 小結
+
+**管線與註冊表已就緒**；**唯一無需外網即可跑通的是 `demo`**。其餘平台為**已註冊之適配器骨架**，適合依同一 `BaseAdapter` 介面逐檔填寫；調度器已具**指數退避**（語意性 `NotImplementedError` 不重試以省時間）。
 
 ---
 
