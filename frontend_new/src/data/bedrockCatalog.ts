@@ -30,6 +30,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     },
     contextLength: 1000000,
     modalitiesLine: "文本生成",
+    providerName: "Anthropic",
   },
   {
     id: "br--anthropic--claude-mythos-preview",
@@ -54,6 +55,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     },
     contextLength: 1000000,
     modalitiesLine: "文本生成",
+    providerName: "Anthropic",
   },
   {
     id: "br--anthropic--claude-sonnet-4-6",
@@ -78,6 +80,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     },
     contextLength: 1000000,
     modalitiesLine: "多模態",
+    providerName: "Anthropic",
   },
   {
     id: "br--anthropic--claude-opus-4-6",
@@ -102,6 +105,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     },
     contextLength: 1000000,
     modalitiesLine: "文本生成",
+    providerName: "Anthropic",
   },
   {
     id: "br--anthropic--claude-opus-4-5",
@@ -126,6 +130,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     },
     contextLength: 1000000,
     modalitiesLine: "文本生成",
+    providerName: "Anthropic",
   },
   {
     id: "br--anthropic--claude-haiku-4-5",
@@ -150,6 +155,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     },
     contextLength: 200000,
     modalitiesLine: "文本生成",
+    providerName: "Anthropic",
   },
   {
     id: "br--anthropic--claude-sonnet-4-5",
@@ -174,6 +180,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     },
     contextLength: 1000000,
     modalitiesLine: "文本生成",
+    providerName: "Anthropic",
   },
   {
     id: "br--anthropic--claude-opus-4-1",
@@ -198,6 +205,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     },
     contextLength: 1000000,
     modalitiesLine: "文本生成",
+    providerName: "Anthropic",
   },
   {
     id: "br--anthropic--claude-sonnet-4",
@@ -222,6 +230,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     },
     contextLength: 200000,
     modalitiesLine: "文本生成",
+    providerName: "Anthropic",
   },
   {
     id: "br--anthropic--claude-3-5-haiku",
@@ -246,6 +255,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     },
     contextLength: 200000,
     modalitiesLine: "文本生成",
+    providerName: "Anthropic",
   },
   {
     id: "br--anthropic--claude-3-haiku",
@@ -270,6 +280,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     },
     contextLength: 200000,
     modalitiesLine: "文本生成",
+    providerName: "Anthropic",
   },
   {
     id: "br--amazon--nova-2-sonic",
@@ -293,6 +304,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
       ko: "AWS Bedrock(Amazon) — Speech. 語音對語音基礎模型",
     },
     modalitiesLine: "語音",
+    providerName: "Amazon",
   },
   {
     id: "br--amazon--nova-premier",
@@ -317,6 +329,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     },
     contextLength: 1000000,
     modalitiesLine: "多模態",
+    providerName: "Amazon",
   },
   {
     id: "br--amazon--nova-sonic",
@@ -340,6 +353,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
       ko: "AWS Bedrock(Amazon) — Speech. 低延遲語音對語音，多語言",
     },
     modalitiesLine: "語音",
+    providerName: "Amazon",
   },
   {
     id: "br--amazon--nova-pro",
@@ -364,6 +378,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     },
     contextLength: 300000,
     modalitiesLine: "多模態",
+    providerName: "Amazon",
   },
   {
     id: "br--amazon--nova-lite",
@@ -388,6 +403,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     },
     contextLength: 300000,
     modalitiesLine: "多模態",
+    providerName: "Amazon",
   },
   {
     id: "br--amazon--nova-micro",
@@ -412,6 +428,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     },
     contextLength: 128000,
     modalitiesLine: "文本生成",
+    providerName: "Amazon",
   },
   {
     id: "br--amazon--nova-2-lite",
@@ -436,6 +453,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     },
     contextLength: 1000000,
     modalitiesLine: "多模態",
+    providerName: "Amazon",
   },
   {
     id: "br--amazon--nova-canvas",
@@ -459,6 +477,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
       ko: "AWS Bedrock(Amazon) — Image generation. 圖像生成，內建水印+內容審核",
     },
     modalitiesLine: "圖像生成",
+    providerName: "Amazon",
   },
   {
     id: "br--amazon--nova-reel",
@@ -482,6 +501,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
       ko: "AWS Bedrock(Amazon) — Video generation. 視頻生成，攝影機運動控制",
     },
     modalitiesLine: "視頻生成",
+    providerName: "Amazon",
   },
   {
     id: "br--amazon--titan-text-large",
@@ -506,6 +526,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     },
     contextLength: 32000,
     modalitiesLine: "文本生成",
+    providerName: "Amazon",
   },
   {
     id: "br--amazon--titan-text-embeddings-v2",
@@ -530,6 +551,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     },
     contextLength: 8000,
     modalitiesLine: "嵌入",
+    providerName: "Amazon",
   },
   {
     id: "br--amazon--titan-image-generator-g1-v2",
@@ -553,6 +575,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
       ko: "AWS Bedrock(Amazon) — Image generation. 圖像生成/編輯，內建水印",
     },
     modalitiesLine: "圖像生成",
+    providerName: "Amazon",
   },
   {
     id: "br--amazon--titan-multimodal-embeddings-g1",
@@ -576,6 +599,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
       ko: "AWS Bedrock(Amazon) — Embeddings. 文本+圖像嵌入",
     },
     modalitiesLine: "嵌入",
+    providerName: "Amazon",
   },
   {
     id: "br--amazon--titan-embeddings-g1-text",
@@ -600,6 +624,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     },
     contextLength: 8000,
     modalitiesLine: "嵌入",
+    providerName: "Amazon",
   },
   {
     id: "br--amazon--titan-text-embeddings-v2-2",
@@ -624,6 +649,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     },
     contextLength: 8000,
     modalitiesLine: "嵌入",
+    providerName: "Amazon",
   },
   {
     id: "br--meta--llama-4-maverick-17b-instruct",
@@ -648,6 +674,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     },
     contextLength: 1000000,
     modalitiesLine: "多模態",
+    providerName: "Meta",
   },
   {
     id: "br--meta--llama-4-scout-17b-instruct",
@@ -672,6 +699,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     },
     contextLength: 10000000,
     modalitiesLine: "多模態",
+    providerName: "Meta",
   },
   {
     id: "br--meta--llama-3-3-70b-instruct",
@@ -696,6 +724,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     },
     contextLength: 128000,
     modalitiesLine: "文本生成",
+    providerName: "Meta",
   },
   {
     id: "br--meta--llama-3-2-90b-instruct",
@@ -720,6 +749,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     },
     contextLength: 128000,
     modalitiesLine: "多模態",
+    providerName: "Meta",
   },
   {
     id: "br--meta--llama-3-2-11b-instruct",
@@ -744,6 +774,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     },
     contextLength: 128000,
     modalitiesLine: "多模態",
+    providerName: "Meta",
   },
   {
     id: "br--meta--llama-3-2-3b-instruct",
@@ -768,6 +799,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     },
     contextLength: 128000,
     modalitiesLine: "文本生成",
+    providerName: "Meta",
   },
   {
     id: "br--meta--llama-3-2-1b-instruct",
@@ -792,6 +824,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     },
     contextLength: 128000,
     modalitiesLine: "文本生成",
+    providerName: "Meta",
   },
   {
     id: "br--meta--llama-3-1-405b-instruct",
@@ -816,6 +849,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     },
     contextLength: 128000,
     modalitiesLine: "文本生成",
+    providerName: "Meta",
   },
   {
     id: "br--meta--llama-3-1-70b-instruct",
@@ -840,6 +874,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     },
     contextLength: 128000,
     modalitiesLine: "文本生成",
+    providerName: "Meta",
   },
   {
     id: "br--meta--llama-3-1-8b-instruct",
@@ -864,6 +899,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     },
     contextLength: 128000,
     modalitiesLine: "文本生成",
+    providerName: "Meta",
   },
   {
     id: "br--meta--llama-3-70b-instruct",
@@ -888,6 +924,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     },
     contextLength: 8000,
     modalitiesLine: "文本生成",
+    providerName: "Meta",
   },
   {
     id: "br--meta--llama-3-8b-instruct",
@@ -912,6 +949,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     },
     contextLength: 8000,
     modalitiesLine: "文本生成",
+    providerName: "Meta",
   },
   {
     id: "br--mistral-ai--mistral-large-3",
@@ -936,6 +974,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     },
     contextLength: 128000,
     modalitiesLine: "文本生成",
+    providerName: "Mistral AI",
   },
   {
     id: "br--mistral-ai--mistral-large",
@@ -960,6 +999,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     },
     contextLength: 32000,
     modalitiesLine: "文本生成",
+    providerName: "Mistral AI",
   },
   {
     id: "br--mistral-ai--mistral-small",
@@ -984,6 +1024,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     },
     contextLength: 32000,
     modalitiesLine: "文本生成",
+    providerName: "Mistral AI",
   },
   {
     id: "br--mistral-ai--ministral-14b-3-0",
@@ -1008,6 +1049,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     },
     contextLength: 128000,
     modalitiesLine: "文本生成",
+    providerName: "Mistral AI",
   },
   {
     id: "br--mistral-ai--ministral-3-8b",
@@ -1032,6 +1074,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     },
     contextLength: 128000,
     modalitiesLine: "文本生成",
+    providerName: "Mistral AI",
   },
   {
     id: "br--mistral-ai--ministral-3b",
@@ -1056,6 +1099,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     },
     contextLength: 128000,
     modalitiesLine: "文本生成",
+    providerName: "Mistral AI",
   },
   {
     id: "br--mistral-ai--voxtral-small-24b-2507",
@@ -1079,6 +1123,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
       ko: "AWS Bedrock(Mistral AI) — Speech-to-text. 語音轉文本，24B",
     },
     modalitiesLine: "語音轉文本",
+    providerName: "Mistral AI",
   },
   {
     id: "br--mistral-ai--voxtral-mini-3b-2507",
@@ -1102,6 +1147,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
       ko: "AWS Bedrock(Mistral AI) — Speech-to-text. 緊湊語音轉文本，端側",
     },
     modalitiesLine: "語音轉文本",
+    providerName: "Mistral AI",
   },
   {
     id: "br--mistral-ai--magistral-small-2509",
@@ -1126,6 +1172,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     },
     contextLength: 128000,
     modalitiesLine: "推理",
+    providerName: "Mistral AI",
   },
   {
     id: "br--mistral-ai--devstral-2-123b",
@@ -1150,6 +1197,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     },
     contextLength: 128000,
     modalitiesLine: "編碼",
+    providerName: "Mistral AI",
   },
   {
     id: "br--mistral-ai--pixtral-large",
@@ -1174,6 +1222,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     },
     contextLength: 128000,
     modalitiesLine: "多模態",
+    providerName: "Mistral AI",
   },
   {
     id: "br--mistral-ai--mixtral-8x7b-instruct",
@@ -1198,6 +1247,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     },
     contextLength: 32000,
     modalitiesLine: "文本生成",
+    providerName: "Mistral AI",
   },
   {
     id: "br--mistral-ai--mistral-7b-instruct",
@@ -1222,6 +1272,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     },
     contextLength: 32000,
     modalitiesLine: "文本生成",
+    providerName: "Mistral AI",
   },
   {
     id: "br--ai21-labs--jamba-1-5-large",
@@ -1246,6 +1297,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     },
     contextLength: 256000,
     modalitiesLine: "文本生成",
+    providerName: "AI21 Labs",
   },
   {
     id: "br--ai21-labs--jamba-1-5-mini",
@@ -1270,6 +1322,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     },
     contextLength: 256000,
     modalitiesLine: "文本生成",
+    providerName: "AI21 Labs",
   },
   {
     id: "br--cohere--embed-v4",
@@ -1293,6 +1346,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
       ko: "AWS Bedrock(Cohere) — Embeddings. 統一多模態嵌入（文本/圖像/混合）",
     },
     modalitiesLine: "嵌入",
+    providerName: "Cohere",
   },
   {
     id: "br--cohere--rerank-3-5",
@@ -1316,6 +1370,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
       ko: "AWS Bedrock(Cohere) — Rerank. 相關性評分，搜索結果重排",
     },
     modalitiesLine: "重排",
+    providerName: "Cohere",
   },
   {
     id: "br--cohere--command-r",
@@ -1340,6 +1395,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     },
     contextLength: 128000,
     modalitiesLine: "文本生成",
+    providerName: "Cohere",
   },
   {
     id: "br--cohere--command-r-2",
@@ -1364,6 +1420,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     },
     contextLength: 128000,
     modalitiesLine: "文本生成",
+    providerName: "Cohere",
   },
   {
     id: "br--cohere--embed-english",
@@ -1387,6 +1444,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
       ko: "AWS Bedrock(Cohere) — Embeddings. 英文文本嵌入",
     },
     modalitiesLine: "嵌入",
+    providerName: "Cohere",
   },
   {
     id: "br--cohere--embed-multilingual",
@@ -1410,6 +1468,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
       ko: "AWS Bedrock(Cohere) — Embeddings. 100+ 語言文本嵌入",
     },
     modalitiesLine: "嵌入",
+    providerName: "Cohere",
   },
   {
     id: "br--deepseek--deepseek-v3-2",
@@ -1434,6 +1493,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     },
     contextLength: 128000,
     modalitiesLine: "文本生成",
+    providerName: "DeepSeek",
   },
   {
     id: "br--deepseek--deepseek-v3-1",
@@ -1458,6 +1518,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     },
     contextLength: 128000,
     modalitiesLine: "文本生成",
+    providerName: "DeepSeek",
   },
   {
     id: "br--deepseek--deepseek-r1",
@@ -1482,6 +1543,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     },
     contextLength: 128000,
     modalitiesLine: "推理",
+    providerName: "DeepSeek",
   },
   {
     id: "br--google--gemma-3-27b-pt",
@@ -1506,6 +1568,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     },
     contextLength: 128000,
     modalitiesLine: "多模態",
+    providerName: "Google",
   },
   {
     id: "br--google--gemma-3-12b-it",
@@ -1530,6 +1593,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     },
     contextLength: 128000,
     modalitiesLine: "多模態",
+    providerName: "Google",
   },
   {
     id: "br--google--gemma-3-4b-it",
@@ -1554,6 +1618,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     },
     contextLength: 128000,
     modalitiesLine: "文本生成",
+    providerName: "Google",
   },
   {
     id: "br--openai--gpt-oss-120b",
@@ -1578,6 +1643,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     },
     contextLength: 128000,
     modalitiesLine: "文本生成",
+    providerName: "OpenAI",
   },
   {
     id: "br--openai--gpt-oss-20b",
@@ -1602,6 +1668,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     },
     contextLength: 128000,
     modalitiesLine: "文本生成",
+    providerName: "OpenAI",
   },
   {
     id: "br--openai--gpt-oss-safeguard-120b",
@@ -1626,6 +1693,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     },
     contextLength: 128000,
     modalitiesLine: "安全護欄",
+    providerName: "OpenAI",
   },
   {
     id: "br--openai--gpt-oss-safeguard-20b",
@@ -1650,6 +1718,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     },
     contextLength: 128000,
     modalitiesLine: "安全護欄",
+    providerName: "OpenAI",
   },
   {
     id: "br--qwen--qwen3-coder-next",
@@ -1674,6 +1743,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     },
     contextLength: 128000,
     modalitiesLine: "編碼",
+    providerName: "Qwen",
   },
   {
     id: "br--qwen--qwen3-vl-235b-a22b",
@@ -1698,6 +1768,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     },
     contextLength: 128000,
     modalitiesLine: "多模態",
+    providerName: "Qwen",
   },
   {
     id: "br--qwen--qwen3-next-80b-a3b",
@@ -1722,6 +1793,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     },
     contextLength: 128000,
     modalitiesLine: "文本生成",
+    providerName: "Qwen",
   },
   {
     id: "br--qwen--qwen3-coder-30b-a3b",
@@ -1746,6 +1818,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     },
     contextLength: 128000,
     modalitiesLine: "編碼",
+    providerName: "Qwen",
   },
   {
     id: "br--qwen--qwen3-coder-480b-a35b",
@@ -1770,6 +1843,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     },
     contextLength: 128000,
     modalitiesLine: "編碼",
+    providerName: "Qwen",
   },
   {
     id: "br--qwen--qwen3-32b",
@@ -1794,6 +1868,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     },
     contextLength: 128000,
     modalitiesLine: "文本生成",
+    providerName: "Qwen",
   },
   {
     id: "br--qwen--qwen3-235b-a22b-2507",
@@ -1818,6 +1893,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     },
     contextLength: 128000,
     modalitiesLine: "文本生成",
+    providerName: "Qwen",
   },
   {
     id: "br--stability-ai--stable-image-remove-background",
@@ -1841,6 +1917,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
       ko: "AWS Bedrock(Stability AI) — Image editing. 移除背景",
     },
     modalitiesLine: "圖像編輯",
+    providerName: "Stability AI",
   },
   {
     id: "br--stability-ai--stable-image-search-and-replace",
@@ -1864,6 +1941,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
       ko: "AWS Bedrock(Stability AI) — Image editing. 物件搜尋替換",
     },
     modalitiesLine: "圖像編輯",
+    providerName: "Stability AI",
   },
   {
     id: "br--stability-ai--stable-image-style-guide",
@@ -1887,6 +1965,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
       ko: "AWS Bedrock(Stability AI) — Image generation. 參考風格生成",
     },
     modalitiesLine: "圖像生成",
+    providerName: "Stability AI",
   },
   {
     id: "br--stability-ai--stable-image-style-transfer",
@@ -1910,6 +1989,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
       ko: "AWS Bedrock(Stability AI) — Image editing. 風格遷移",
     },
     modalitiesLine: "圖像編輯",
+    providerName: "Stability AI",
   },
   {
     id: "br--stability-ai--stable-image-fast-upscale",
@@ -1933,6 +2013,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
       ko: "AWS Bedrock(Stability AI) — Image editing. 快速超解析度",
     },
     modalitiesLine: "圖像編輯",
+    providerName: "Stability AI",
   },
   {
     id: "br--stability-ai--stable-image-search-and-recolor",
@@ -1956,6 +2037,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
       ko: "AWS Bedrock(Stability AI) — Image editing. 物件重新上色",
     },
     modalitiesLine: "圖像編輯",
+    providerName: "Stability AI",
   },
   {
     id: "br--stability-ai--stable-image-conservative-upscale",
@@ -1979,6 +2061,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
       ko: "AWS Bedrock(Stability AI) — Image editing. 保守超解析度",
     },
     modalitiesLine: "圖像編輯",
+    providerName: "Stability AI",
   },
   {
     id: "br--stability-ai--stable-image-erase-object",
@@ -2002,6 +2085,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
       ko: "AWS Bedrock(Stability AI) — Image editing. 擦除物件",
     },
     modalitiesLine: "圖像編輯",
+    providerName: "Stability AI",
   },
   {
     id: "br--stability-ai--stable-image-control-structure",
@@ -2025,6 +2109,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
       ko: "AWS Bedrock(Stability AI) — Image generation. 結構引導生成",
     },
     modalitiesLine: "圖像生成",
+    providerName: "Stability AI",
   },
   {
     id: "br--stability-ai--stable-image-creative-upscale",
@@ -2048,6 +2133,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
       ko: "AWS Bedrock(Stability AI) — Image editing. 創意超解析度",
     },
     modalitiesLine: "圖像編輯",
+    providerName: "Stability AI",
   },
   {
     id: "br--stability-ai--stable-image-control-sketch",
@@ -2071,6 +2157,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
       ko: "AWS Bedrock(Stability AI) — Image generation. 草圖引導生成",
     },
     modalitiesLine: "圖像生成",
+    providerName: "Stability AI",
   },
   {
     id: "br--stability-ai--stable-image-outpaint",
@@ -2094,6 +2181,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
       ko: "AWS Bedrock(Stability AI) — Image editing. 圖像外擴",
     },
     modalitiesLine: "圖像編輯",
+    providerName: "Stability AI",
   },
   {
     id: "br--stability-ai--stable-image-inpaint",
@@ -2117,6 +2205,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
       ko: "AWS Bedrock(Stability AI) — Image editing. 圖像修補",
     },
     modalitiesLine: "圖像編輯",
+    providerName: "Stability AI",
   },
   {
     id: "br--nvidia--nemotron-nano-9b-v2",
@@ -2141,6 +2230,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     },
     contextLength: 128000,
     modalitiesLine: "文本生成",
+    providerName: "NVIDIA",
   },
   {
     id: "br--nvidia--nemotron-nano-12b-v2-vl",
@@ -2165,6 +2255,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     },
     contextLength: 128000,
     modalitiesLine: "多模態",
+    providerName: "NVIDIA",
   },
   {
     id: "br--nvidia--nemotron-nano-3-30b",
@@ -2189,6 +2280,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     },
     contextLength: 128000,
     modalitiesLine: "文本生成",
+    providerName: "NVIDIA",
   },
   {
     id: "br--nvidia--nemotron-3-super-120b",
@@ -2213,6 +2305,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     },
     contextLength: 1000000,
     modalitiesLine: "文本生成",
+    providerName: "NVIDIA",
   },
   {
     id: "br--minimax--minimax-m2",
@@ -2237,6 +2330,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     },
     contextLength: 128000,
     modalitiesLine: "文本生成",
+    providerName: "MiniMax",
   },
   {
     id: "br--minimax--minimax-m2-1",
@@ -2261,6 +2355,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     },
     contextLength: 128000,
     modalitiesLine: "文本生成",
+    providerName: "MiniMax",
   },
   {
     id: "br--minimax--minimax-m2-5",
@@ -2285,6 +2380,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     },
     contextLength: 128000,
     modalitiesLine: "文本生成",
+    providerName: "MiniMax",
   },
   {
     id: "br--writer--palmyra-vision-7b",
@@ -2309,6 +2405,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     },
     contextLength: 128000,
     modalitiesLine: "多模態",
+    providerName: "Writer",
   },
   {
     id: "br--writer--palmyra-x5",
@@ -2333,6 +2430,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     },
     contextLength: 128000,
     modalitiesLine: "文本生成",
+    providerName: "Writer",
   },
   {
     id: "br--writer--palmyra-x4",
@@ -2357,6 +2455,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     },
     contextLength: 128000,
     modalitiesLine: "文本生成",
+    providerName: "Writer",
   },
   {
     id: "br--twelvelabs--marengo-embed-3-0",
@@ -2380,6 +2479,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
       ko: "AWS Bedrock(TwelveLabs) — Video embeddings. 視頻嵌入向量，搜索/檢索",
     },
     modalitiesLine: "視頻嵌入",
+    providerName: "TwelveLabs",
   },
   {
     id: "br--twelvelabs--pegasus-v1-2",
@@ -2403,6 +2503,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
       ko: "AWS Bedrock(TwelveLabs) — Video understanding. 視頻轉文本，描述/摘要/問答",
     },
     modalitiesLine: "視頻理解",
+    providerName: "TwelveLabs",
   },
   {
     id: "br--twelvelabs--marengo-embed-v2-7",
@@ -2426,6 +2527,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
       ko: "AWS Bedrock(TwelveLabs) — Video embeddings. 多模態視頻理解/搜索/分類",
     },
     modalitiesLine: "視頻嵌入",
+    providerName: "TwelveLabs",
   },
   {
     id: "br--moonshot-ai--kimi-k2-5",
@@ -2450,6 +2552,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     },
     contextLength: 128000,
     modalitiesLine: "多模態",
+    providerName: "Moonshot AI",
   },
   {
     id: "br--moonshot-ai--kimi-k2-thinking",
@@ -2474,6 +2577,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     },
     contextLength: 128000,
     modalitiesLine: "推理",
+    providerName: "Moonshot AI",
   },
   {
     id: "br--z-ai--glm-4-7",
@@ -2498,6 +2602,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     },
     contextLength: 128000,
     modalitiesLine: "文本生成",
+    providerName: "Z.AI",
   },
   {
     id: "br--z-ai--glm-4-7-flash",
@@ -2522,6 +2627,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     },
     contextLength: 128000,
     modalitiesLine: "文本生成",
+    providerName: "Z.AI",
   },
   {
     id: "br--z-ai--glm-5",
@@ -2546,5 +2652,6 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     },
     contextLength: 128000,
     modalitiesLine: "文本生成",
+    providerName: "Z.AI",
   },
 ]

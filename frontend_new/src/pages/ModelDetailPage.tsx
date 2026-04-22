@@ -134,6 +134,11 @@ export function ModelDetailPage() {
                 {model.product === 'bedrock' ? (
                   <span className="model-detail-hero-pill">{t('models_filter_bedrock')}</span>
                 ) : null}
+                {model.providerName ? (
+                  <span className="model-detail-hero-pill model-detail-hero-pill--provider">
+                    {model.providerName}
+                  </span>
+                ) : null}
               </div>
               <h1>{title}</h1>
               <p className="model-detail-lead">{lead}</p>
@@ -208,6 +213,22 @@ export function ModelDetailPage() {
                 <div className="model-detail-specs-wrap">
                   <table className="model-detail-specs">
                     <tbody>
+                      {model.providerName ? (
+                        <tr>
+                          <th scope="row">{t('model_detail_provider')}</th>
+                          <td>{model.providerName}</td>
+                        </tr>
+                      ) : null}
+                      {model.product === 'openrouter' || model.product === 'bedrock' ? (
+                        <tr>
+                          <th scope="row">{t('model_detail_listing_source')}</th>
+                          <td>
+                            {model.product === 'openrouter'
+                              ? t('models_card_source_openrouter')
+                              : t('models_card_source_bedrock')}
+                          </td>
+                        </tr>
+                      ) : null}
                       {model.contextLength != null ? (
                         <tr>
                           <th scope="row">{t('models_ctx_prefix')}</th>

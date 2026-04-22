@@ -1,4 +1,5 @@
 import type { CatalogModel, ModelCapability, UiLang } from './modelsCatalog'
+import { openRouterProviderName } from './openRouterProvider'
 
 const OPENROUTER_MODELS_URL = 'https://openrouter.ai/api/v1/models'
 
@@ -77,6 +78,7 @@ export function mapOpenRouterRow(row: OpenRouterApiRow): CatalogModel {
     title: monoLocale(title),
     desc: monoLocale(desc),
     openRouterApiId: row.id,
+    providerName: openRouterProviderName(row.id),
     contextLength: row.context_length,
     modalitiesLine: buildModalitiesLine(row),
   }

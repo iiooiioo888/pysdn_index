@@ -24,6 +24,8 @@ export interface CatalogModel {
   desc: Record<UiLang, string>
   /** OpenRouter 官方 id（如 org/model），僅 `product === 'openrouter'` 時有值 */
   openRouterApiId?: string
+  /** 實際模型供應商／開發商顯示名（如 Anthropic）；OpenRouter 由 id 推導，Bedrock 來自資料表 */
+  providerName?: string
   contextLength?: number
   modalitiesLine?: string
 }

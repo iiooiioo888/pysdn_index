@@ -53,6 +53,16 @@ function catalogDeveloperLabel(dev: ModelDeveloper, t: (k: string) => string): s
   return t('models_dev_openrouter')
 }
 
+function catalogProviderLabel(m: CatalogModel, t: (k: string) => string): string {
+  return m.providerName ?? catalogDeveloperLabel(m.developer, t)
+}
+
+function catalogListingSourceShort(m: CatalogModel, t: (k: string) => string): string | null {
+  if (m.product === 'openrouter') return t('models_card_source_openrouter')
+  if (m.product === 'bedrock') return t('models_card_source_bedrock')
+  return null
+}
+
 const THUMB_HUES = [198, 280, 168, 32, 210, 145, 260, 22, 320]
 
 function thumbHueClassForModelId(id: string): string {
@@ -172,12 +182,14 @@ export function ModelsSection() {
         const id = m.id.toLowerCase()
         const api = (m.openRouterApiId ?? '').toLowerCase()
         const modalities = (m.modalitiesLine ?? '').toLowerCase()
+        const prov = (m.providerName ?? '').toLowerCase()
         return (
           title.includes(q) ||
           desc.includes(q) ||
           id.includes(q) ||
           api.includes(q) ||
-          modalities.includes(q)
+          modalities.includes(q) ||
+          prov.includes(q)
         )
       })
     }
@@ -244,7 +256,7 @@ export function ModelsSection() {
                 </button>
               </div>
 
-              {/* 三級：L1 分類標題列 · L2 功能／品牌／開發商（可摺疊）· L3 選項 */}
+              {/* 三層：① 模型能力 ② 資料來源／平台 ③ 供應商與整合 */}
               <ol className="models-menu-tier1" role="list">
                 <li className="models-menu-tier1-item">
                   <details className="models-menu-tier" open>
@@ -271,11 +283,21 @@ export function ModelsSection() {
                       <li>
                         <button
                           type="button"
-                          className={`models-filter-item ${capFilter === 'video' ? 'is-active' : ''}`}
-                          onClick={() => setCapFilter('video')}
+                          className={`models-filter-item ${capFilter === 'text' ? 'is-active' : ''}`}
+                          onClick={() => setCapFilter('text')}
                         >
-                          <span>{t('models_tab_video')}</span>
-                          <span className="models-filter-count">{counts.video}</span>
+                          <span>{t('models_tab_text')}</span>
+                          <span className="models-filter-count">{counts.text}</span>
+                        </button>
+                      </li>
+                      <li>
+                        <button
+                          type="button"
+                          className={`models-filter-item ${capFilter === 'multimodal' ? 'is-active' : ''}`}
+                          onClick={() => setCapFilter('multimodal')}
+                        >
+                          <span>{t('models_tab_multimodal')}</span>
+                          <span className="models-filter-count">{counts.multimodal}</span>
                         </button>
                       </li>
                       <li>
@@ -291,11 +313,11 @@ export function ModelsSection() {
                       <li>
                         <button
                           type="button"
-                          className={`models-filter-item ${capFilter === 'text' ? 'is-active' : ''}`}
-                          onClick={() => setCapFilter('text')}
+                          className={`models-filter-item ${capFilter === 'video' ? 'is-active' : ''}`}
+                          onClick={() => setCapFilter('video')}
                         >
-                          <span>{t('models_tab_text')}</span>
-                          <span className="models-filter-count">{counts.text}</span>
+                          <span>{t('models_tab_video')}</span>
+                          <span className="models-filter-count">{counts.video}</span>
                         </button>
                       </li>
                       <li>
@@ -306,16 +328,6 @@ export function ModelsSection() {
                         >
                           <span>{t('models_tab_audio')}</span>
                           <span className="models-filter-count">{counts.audio}</span>
-                        </button>
-                      </li>
-                      <li>
-                        <button
-                          type="button"
-                          className={`models-filter-item ${capFilter === 'multimodal' ? 'is-active' : ''}`}
-                          onClick={() => setCapFilter('multimodal')}
-                        >
-                          <span>{t('models_tab_multimodal')}</span>
-                          <span className="models-filter-count">{counts.multimodal}</span>
                         </button>
                       </li>
                     </ul>
@@ -516,7 +528,8 @@ export function ModelsSection() {
               <div className="models-card-grid">
                 {visibleSlice.map((m) => {
                   const cap = catalogCapabilityLabel(m.capability, t)
-                  const devLabel = catalogDeveloperLabel(m.developer, t)
+                  const providerLabel = catalogProviderLabel(m, t)
+                  const sourceShort = catalogListingSourceShort(m, t)
                   return (
                     <Link
                       key={m.id}
@@ -541,7 +554,12 @@ export function ModelsSection() {
                             )}
                             <div className="models-atlas-meta-tags">
                               <span className="models-atlas-cap">{cap}</span>
-                              <span className="models-atlas-dev">{devLabel}</span>
+                              <span className="models-atlas-dev">{providerLabel}</span>
+                              {sourceShort ? (
+                                <span className="models-atlas-source" title={t('model_detail_listing_source')}>
+                                  {sourceShort}
+                                </span>
+                              ) : null}
                             </div>
                           </div>
                           <h3 className="models-atlas-title">{pickModelText(m.title, lang)}</h3>

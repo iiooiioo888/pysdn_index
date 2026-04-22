@@ -170,6 +170,7 @@ def main():
         if ctx:
             lines.append(f"    contextLength: {ctx},")
         lines.append(f"    modalitiesLine: {j(mtype)},")
+        lines.append(f"    providerName: {j(prov)},")
         lines.append("  },")
 
     lines.append("]")

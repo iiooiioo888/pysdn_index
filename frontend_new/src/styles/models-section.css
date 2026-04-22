@@ -504,6 +504,20 @@ main.models-page-main {
   border: 1px solid rgba(251, 191, 36, 0.28);
 }
 
+.models-atlas-source {
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: rgba(167, 243, 208, 0.92);
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.28);
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .models-atlas-title {
   margin: 0 0 8px;
   font-size: 1rem;
