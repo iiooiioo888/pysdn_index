@@ -46,6 +46,48 @@ const STRATEGY = [
   { k: 'SuperTrack 注血', v: '「賽博龐克 AI」走勢 72h' },
 ]
 
+const PLOT_CHEKHOV = [
+  { item: '0B 封包圖示', planted: 'EP1·S03', payoff: 'EP2 待收', ok: 'open' },
+  { item: '監聽器紅點', planted: 'EP1·S01', payoff: 'EP1·S05', ok: 'planned' },
+  { item: '@KAI 的「以為」', planted: 'EP1·S02', payoff: 'EP1·S04', ok: 'risk' },
+  { item: '倉庫風扇節律', planted: 'EP1·S03', payoff: '配樂/剪輯', ok: 'style' },
+  { item: '雷聲遠近層次', planted: 'EP1·S01', payoff: '第二幕逆轉', ok: 'open' },
+  { item: 'BrandX 假新聞線', planted: '大綱', payoff: 'EP2·S04', ok: 'tbd' },
+]
+
+const SHOT_PLAN = [
+  { s: 'S03-α', len: '4.2s', cam: 'handheld→lock', light: '青銅/雨反', snd: '低頻脈衝' },
+  { s: 'S03-β', len: '2.1s', cam: 'ECU 螢幕', light: '螢光綠', snd: '機房风扇' },
+  { s: 'S03-γ', len: '3.0s', cam: 'OTS 兩人', light: '頂光硬', snd: '遠雷' },
+  { s: 'S03-δ', len: '5.0s', cam: 'dolly in', light: 'rim cyan', snd: '呼吸混響' },
+  { s: 'S04-α', len: 'TBD', cam: '—', light: '—', snd: '—' },
+]
+
+const AGENT_BUDGET = [
+  { agent: 'Architect', tok: '184k', usd: '$0.42', st: 'done' },
+  { agent: 'Continuity', tok: '96k', usd: '$0.19', st: 'done' },
+  { agent: 'Writer', tok: '312k +', usd: '$0.78', st: 'run' },
+  { agent: 'Format', tok: '—', usd: '—', st: 'wait' },
+]
+
+const NARR_DIMS = [
+  { k: '主題飽和度', w: 82 },
+  { k: '副線牽引', w: 68 },
+  { k: '資訊密度', w: 74 },
+  { k: '臺詞可演性', w: 90 },
+  { k: '剪輯節點可切性', w: 77 },
+  { k: '配樂情緒對齊', w: 71 },
+  { k: 'VFX/實景比例', w: 63 },
+  { k: '授權素材占比', w: 88 },
+]
+
+const DIAL_STATS = {
+  flesch: 58,
+  profanity: '0.2%',
+  gender_balance: '42% / 41% / 17%',
+  avg_len: 18,
+}
+
 const WRITER_BUFFER = `@MEI (INT. 倉庫 - 夜)
 她盯著螢幕上亂跳的信號。遠方雷聲被金屬牆悶住。風扇忽快忽慢，像有人在調她的呼吸節拍。
 
@@ -297,8 +339,144 @@ export function SuperScriptLabPanel() {
         </pre>
       </div>
 
+      <p className="doc-lab-note" style={{ marginTop: 12 }}>
+        敘事八維、伏筆表與分鏡／Agent 預算：用於導演、剪輯與製片對齊（示範）。
+      </p>
+      <div className="sim-card" style={{ marginTop: 12 }}>
+        <div className="sim-card-head">敘事維度雷達（8 軸 · 0–100）</div>
+        <div className="sim-consist" style={{ marginTop: 6 }}>
+          {NARR_DIMS.map((r) => (
+            <div className="sim-consist-row" key={r.k}>
+              <span className="sim-consist-name" style={{ width: 100 }}>
+                {r.k}
+              </span>
+              <div className="sim-bar" style={{ flex: 1 }}>
+                <div className="sim-bar-fill sim-bar-fill--amber" style={{ width: `${r.w}%` }} />
+              </div>
+              <span className="sim-consist-val">{r.w}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="sim-grid-2" style={{ marginTop: 12 }}>
+        <div className="sim-card">
+          <div className="sim-card-head">🪄 契訶夫槍 / 伏筆（6 條）</div>
+          <div className="sim-table-wrap">
+            <table className="sim-table">
+              <thead>
+                <tr>
+                  <th>物件/母題</th>
+                  <th>埋設</th>
+                  <th>回收</th>
+                  <th>風險</th>
+                </tr>
+              </thead>
+              <tbody>
+                {PLOT_CHEKHOV.map((r) => (
+                  <tr key={r.item}>
+                    <td style={{ fontSize: '0.72rem' }}>{r.item}</td>
+                    <td className="sim-mono">{r.planted}</td>
+                    <td>{r.payoff}</td>
+                    <td>
+                      <span className="sim-badge-soft">{r.ok}</span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div className="sim-card">
+          <div className="sim-card-head">🎥 S03 分鏡快表（4+1 鏡位）</div>
+          <div className="sim-table-wrap">
+            <table className="sim-table">
+              <thead>
+                <tr>
+                  <th>鏡位</th>
+                  <th>時長</th>
+                  <th>運動/光</th>
+                  <th>聲音</th>
+                </tr>
+              </thead>
+              <tbody>
+                {SHOT_PLAN.map((r) => (
+                  <tr key={r.s}>
+                    <td className="sim-mono">{r.s}</td>
+                    <td>{r.len}</td>
+                    <td style={{ fontSize: '0.7rem' }}>
+                      {r.cam}
+                      {r.light ? (
+                        <>
+                          <br />
+                          <span style={{ opacity: 0.75 }}>{r.light}</span>
+                        </>
+                      ) : null}
+                    </td>
+                    <td style={{ fontSize: '0.68rem' }}>{r.snd}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div className="sim-grid-2" style={{ marginTop: 12 }}>
+        <div className="sim-card">
+          <div className="sim-card-head">🧮 Agent 成本 / Token（本集 EP1 累計）</div>
+          <div className="sim-table-wrap">
+            <table className="sim-table">
+              <thead>
+                <tr>
+                  <th>Agent</th>
+                  <th>Token</th>
+                  <th>估價</th>
+                  <th>狀態</th>
+                </tr>
+              </thead>
+              <tbody>
+                {AGENT_BUDGET.map((r) => (
+                  <tr key={r.agent}>
+                    <td>{r.agent}</td>
+                    <td className="sim-mono">{r.tok}</td>
+                    <td>{r.usd}</td>
+                    <td>
+                      <span className="sim-badge-soft">{r.st}</span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div className="sim-card">
+          <div className="sim-card-head">🗣️ 對白可讀性 / 風險</div>
+          <div className="sim-stats">
+            <div className="sim-stat-row">
+              <span className="sim-stat-label">Flesch 型易讀(估)</span>
+              <span className="sim-stat-val sim-mono">{DIAL_STATS.flesch}</span>
+            </div>
+            <div className="sim-stat-row">
+              <span className="sim-stat-label">敏感詞比例</span>
+              <span className="sim-stat-val sim-mono">{DIAL_STATS.profanity}</span>
+            </div>
+            <div className="sim-stat-row">
+              <span className="sim-stat-label">性別戲份比 M/F/N</span>
+              <span className="sim-stat-val" style={{ fontSize: '0.7rem' }}>
+                {DIAL_STATS.gender_balance}
+              </span>
+            </div>
+            <div className="sim-stat-row">
+              <span className="sim-stat-label">平均句長(字)</span>
+              <span className="sim-stat-val sim-mono">{DIAL_STATS.avg_len}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <p className="doc-lab-note" style={{ marginTop: 16 }}>
-        左側四維一致性、右側 AI 建議；下方為額外示範列。
+        左側八維一致性、右側 AI 建議；再下為歷史優化列。
       </p>
       <div className="sim-grid-2">
         <div className="sim-card">
@@ -353,6 +531,24 @@ export function SuperScriptLabPanel() {
                 <div className="sim-bar-fill sim-bar-fill--green" style={{ width: '89%' }} />
               </div>
               <span className="sim-consist-val">89%</span>
+            </div>
+            <div className="sim-consist-row">
+              <span className="sim-consist-num">L7</span>
+              <span className="sim-consist-name">懸念回收率</span>
+              <div className="sim-bar">
+                <div className="sim-bar-fill sim-bar-fill--amber" style={{ width: '69%' }} />
+              </div>
+              <span className="sim-consist-val" style={{ color: '#f59e0b' }}>
+                69%
+              </span>
+            </div>
+            <div className="sim-consist-row">
+              <span className="sim-consist-num">L8</span>
+              <span className="sim-consist-name">支線飽和度</span>
+              <div className="sim-bar">
+                <div className="sim-bar-fill sim-bar-fill--green" style={{ width: '77%' }} />
+              </div>
+              <span className="sim-consist-val">77%</span>
             </div>
           </div>
         </div>

@@ -71,6 +71,44 @@ const GEO = [
   { r: '其他', h: 43 },
 ]
 
+const MOOD_MIX = [
+  { dim: '喜', w: 22 },
+  { dim: '驚', w: 18 },
+  { dim: '怒', w: 8 },
+  { dim: '哀', w: 11 },
+  { dim: '厭(疲)', w: 15 },
+  { dim: '信任', w: 26 },
+]
+
+const COMPET = [
+  { b: '品牌 A', sov: 32, dsov: '+2.1' },
+  { b: '品牌 B', sov: 24, dsov: '−0.4' },
+  { b: '我們', sov: 19, dsov: '+0.8' },
+  { b: '長尾帳號', sov: 25, dsov: '—' },
+]
+
+const CONTENT_MIX = [
+  { t: '短影片', p: 44 },
+  { t: '圖文 / 輪播', p: 28 },
+  { t: '直播切片', p: 12 },
+  { t: '純文字串文', p: 9 },
+  { t: '音訊 / 播客', p: 7 },
+]
+
+const FUNNEL = [
+  { st: '曝光', p: 100, drop: '—' },
+  { st: '互動', p: 38, drop: '62%' },
+  { st: '點擊外連', p: 12, drop: '68%' },
+  { st: '轉私域', p: 4, drop: '66%' },
+]
+
+const TRUST_INT = [
+  { k: '帳號合併置信', v: 0.91, note: '跨平台' },
+  { k: 'bot / 假互動風險', v: 0.12, note: '低' },
+  { k: '同簇操控嫌疑', v: 0.08, note: '監控中' },
+  { k: '來源多樣性', v: 0.86, note: '健康' },
+]
+
 export function SuperTrackLabPanel() {
   return (
     <div className="sim-panel sim-panel--lab">
@@ -136,6 +174,145 @@ export function SuperTrackLabPanel() {
         <div className="sim-kpi">
           <div className="sim-kpi-label">跨平台延遲 p95</div>
           <div className="sim-kpi-val">2.1s</div>
+        </div>
+        <div className="sim-kpi">
+          <div className="sim-kpi-label">entity_link</div>
+          <div className="sim-kpi-val">98.1%</div>
+          <div className="sim-kpi-sub">合併成功率</div>
+        </div>
+        <div className="sim-kpi">
+          <div className="sim-kpi-label">share_voice</div>
+          <div className="sim-kpi-val">19%</div>
+          <div className="sim-kpi-sub">本品牌 SOV</div>
+        </div>
+        <div className="sim-kpi">
+          <div className="sim-kpi-label">toxicity(估)</div>
+          <div className="sim-kpi-val">3.1%</div>
+          <div className="sim-kpi-sub">負向尖峰可告警</div>
+        </div>
+        <div className="sim-kpi">
+          <div className="sim-kpi-label">topic_drift</div>
+          <div className="sim-kpi-val">0.04</div>
+          <div className="sim-kpi-sub">24h 向量位移</div>
+        </div>
+        <div className="sim-kpi">
+          <div className="sim-kpi-label">lang_mix</div>
+          <div className="sim-kpi-val">zh 72%</div>
+          <div className="sim-kpi-sub">en/ja 副語</div>
+        </div>
+      </div>
+
+      <div className="sim-grid-2" style={{ marginTop: 12 }}>
+        <div className="sim-card">
+          <div className="sim-card-head">情緒混合（6 維度 · 相對佔比）</div>
+          <p className="sim-mini-hint">從多模態內容與互動情緒反饋綜合，示範非臨床診斷。</p>
+          {MOOD_MIX.map((m) => (
+            <div key={m.dim} style={{ marginBottom: 6 }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.72rem' }}>
+                <span>{m.dim}</span>
+                <span className="sim-mono">{m.w}%</span>
+              </div>
+              <div className="sim-bar" style={{ marginTop: 4 }}>
+                <div className="sim-bar-fill sim-bar-fill--amber" style={{ width: `${m.w * 2.5}%` }} />
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="sim-card">
+          <div className="sim-card-head">競品聲量佔比（SOV %）</div>
+          <div className="sim-table-wrap">
+            <table className="sim-table">
+              <thead>
+                <tr>
+                  <th>主體</th>
+                  <th>聲量</th>
+                  <th>週變化</th>
+                </tr>
+              </thead>
+              <tbody>
+                {COMPET.map((c) => (
+                  <tr key={c.b}>
+                    <td>{c.b}</td>
+                    <td className="sim-mono">{c.sov}%</td>
+                    <td
+                      style={{
+                        color:
+                          c.dsov === '—'
+                            ? 'var(--text-muted)'
+                            : c.dsov.startsWith('−') || c.dsov.startsWith('-')
+                              ? '#f87171'
+                              : '#4ade80',
+                      }}
+                    >
+                      {c.dsov}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div className="sim-grid-2" style={{ marginTop: 12 }}>
+        <div className="sim-card">
+          <div className="sim-card-head">內容型態結構</div>
+          {CONTENT_MIX.map((c) => (
+            <div key={c.t} style={{ marginBottom: 6 }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.72rem' }}>
+                <span>{c.t}</span>
+                <span className="sim-mono">{c.p}%</span>
+              </div>
+              <div className="sim-bar" style={{ marginTop: 4 }}>
+                <div className="sim-bar-fill sim-bar-fill--green" style={{ width: `${c.p * 1.5}%` }} />
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="sim-card">
+          <div className="sim-card-head">轉化漏斗（相對 100% 曝光）</div>
+          <div className="sim-table-wrap">
+            <table className="sim-table">
+              <thead>
+                <tr>
+                  <th>階段</th>
+                  <th>到達 %</th>
+                  <th>層內衰減</th>
+                </tr>
+              </thead>
+              <tbody>
+                {FUNNEL.map((f) => (
+                  <tr key={f.st}>
+                    <td>{f.st}</td>
+                    <td className="sim-mono">{f.p}%</td>
+                    <td>{f.drop}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div className="sim-card" style={{ marginTop: 12 }}>
+        <div className="sim-card-head">信任與風險層</div>
+        <div className="sim-grid-2" style={{ marginTop: 4 }}>
+          <div>
+            {TRUST_INT.map((r) => (
+              <div className="sim-net-row" key={r.k} style={{ marginBottom: 4 }}>
+                <span style={{ fontSize: '0.65rem' }}>{r.k}</span>
+                <div className="sim-bar" style={{ flex: 1, margin: '0 6px' }}>
+                  <div className="sim-bar-fill sim-bar-fill--green" style={{ width: `${r.v * 100}%` }} />
+                </div>
+                <span className="sim-mono" style={{ fontSize: '0.65rem' }}>
+                  {(r.v * 100).toFixed(0)}%
+                </span>
+              </div>
+            ))}
+          </div>
+          <p className="sim-mini-hint" style={{ margin: 0 }}>
+            與帳號合併、行為叢集、內容多樣性一併監控；高風險觸發可降權或人工覆核。
+          </p>
         </div>
       </div>
 
@@ -222,7 +399,7 @@ export function SuperTrackLabPanel() {
       </div>
 
       <p className="doc-lab-note" style={{ marginTop: 12 }}>
-        追蹤中的帳號：共 8 筆；含上升、熱詞與穩定狀態。
+        追蹤中的帳號：共 {ENTITIES.length} 筆；含上升、熱詞與穩定狀態。
       </p>
       <div className="sim-card">
         <div className="sim-card-head">📡 追蹤中的帳號</div>

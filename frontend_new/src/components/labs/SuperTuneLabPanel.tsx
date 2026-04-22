@@ -27,6 +27,30 @@ const GUARDRAIL = [
   { k: '品牌安全', v: 'A-', s: 85 },
   { k: '版權遮罩', v: 'on', s: 100 },
   { k: '人審佇列', v: '6 筆', s: 79 },
+  { k: '越獄嘗試', v: '0.04%', s: 96 },
+  { k: '地域/法域', v: 'EU OK', s: 90 },
+  { k: '浮水印追蹤', v: 'on', s: 100 },
+]
+
+const EXP_QUEUE = [
+  { id: 'exp-204', hyp: '長提示 + 節奏錨點', st: 'running', lift: '+4.1%' },
+  { id: 'exp-201', hyp: '負向 prompt 池擴容', st: 'review', lift: 'TBD' },
+  { id: 'exp-198', hyp: '4o vs mini 自適應', st: 'done', lift: '−$0.19' },
+  { id: 'exp-196', hyp: '多臂 Thompson', st: 'paused', lift: '0.0' },
+  { id: 'exp-190', hyp: 'RAG 重排 k=8→12', st: 'done', lift: '+1.2%' },
+]
+
+const ROUTE_POL = [
+  { rule: '代碼 / 推理', target: 'gpt-4o', since: '本季' },
+  { rule: '摘要 / 分類', target: 'gpt-4o-mini', since: '預設' },
+  { rule: '圖示 alt-text', target: 'claude-3.5-sonnet', since: 'A/B' },
+  { rule: 'embed 全站', target: 'embed-3-small', since: '固定' },
+]
+
+const FCST_7D = [
+  { d: 'D+1', low: 2.1, mid: 2.4, high: 2.7 },
+  { d: 'D+3', low: 2.0, mid: 2.5, high: 3.1 },
+  { d: 'D+7', low: 1.8, mid: 2.3, high: 3.4 },
 ]
 
 export function SuperTuneLabPanel() {
@@ -55,6 +79,129 @@ export function SuperTuneLabPanel() {
       </div>
 
       <p className="doc-lab-note">A/B 與成本面板：兩組平行測試＋彙總；下方為品質三卡與風格遷移。</p>
+
+      <div className="sim-grid-4" style={{ marginTop: 8 }}>
+        <div className="sim-kpi">
+          <div className="sim-kpi-label">active_exp</div>
+          <div className="sim-kpi-val">14</div>
+        </div>
+        <div className="sim-kpi">
+          <div className="sim-kpi-label">holdout</div>
+          <div className="sim-kpi-val">12/88</div>
+          <div className="sim-kpi-sub">% 流量</div>
+        </div>
+        <div className="sim-kpi">
+          <div className="sim-kpi-label">guard_pass</div>
+          <div className="sim-kpi-val sim-kpi-val--highlight">99.1%</div>
+        </div>
+        <div className="sim-kpi">
+          <div className="sim-kpi-label">bayes_uplift</div>
+          <div className="sim-kpi-val" style={{ color: '#4ade80' }}>
+            +3.8%
+          </div>
+        </div>
+        <div className="sim-kpi">
+          <div className="sim-kpi-label">regret(估)</div>
+          <div className="sim-kpi-val">0.02</div>
+        </div>
+        <div className="sim-kpi">
+          <div className="sim-kpi-label">rollout</div>
+          <div className="sim-kpi-val">canary 8%</div>
+        </div>
+        <div className="sim-kpi">
+          <div className="sim-kpi-label">feature_flags</div>
+          <div className="sim-kpi-val" style={{ fontSize: '0.75rem' }}>
+            22 on
+          </div>
+        </div>
+        <div className="sim-kpi">
+          <div className="sim-kpi-label">error_budg</div>
+          <div className="sim-kpi-val">42%</div>
+          <div className="sim-kpi-sub">剩餘本週</div>
+        </div>
+      </div>
+
+      <div className="sim-grid-2" style={{ marginTop: 12 }}>
+        <div className="sim-card">
+          <div className="sim-card-head">實驗佇列（5 則 · 多臂/貝氏）</div>
+          <div className="sim-table-wrap">
+            <table className="sim-table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>假設</th>
+                  <th>狀態</th>
+                  <th>指標</th>
+                </tr>
+              </thead>
+              <tbody>
+                {EXP_QUEUE.map((r) => (
+                  <tr key={r.id}>
+                    <td className="sim-mono">{r.id}</td>
+                    <td style={{ fontSize: '0.7rem' }}>{r.hyp}</td>
+                    <td>
+                      <span className="sim-badge-soft">{r.st}</span>
+                    </td>
+                    <td className="sim-mono">{r.lift}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div className="sim-card">
+          <div className="sim-card-head">路由政策（任務型 → 模型）</div>
+          <div className="sim-table-wrap">
+            <table className="sim-table">
+              <thead>
+                <tr>
+                  <th>規則</th>
+                  <th>導向</th>
+                  <th>自</th>
+                </tr>
+              </thead>
+              <tbody>
+                {ROUTE_POL.map((r) => (
+                  <tr key={r.rule}>
+                    <td style={{ fontSize: '0.7rem' }}>{r.rule}</td>
+                    <td>{r.target}</td>
+                    <td className="sim-mono">{r.since}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div className="sim-card" style={{ marginTop: 12 }}>
+        <div className="sim-card-head">7 日成本預測帶（USD k · 示範）</div>
+        <p className="sim-mini-hint">低/中/高：依流量與模型波動的蒙特卡羅 5k 次分位。</p>
+        <div className="sim-table-wrap">
+          <table className="sim-table">
+            <thead>
+              <tr>
+                <th>視窗</th>
+                <th>低</th>
+                <th>中位</th>
+                <th>高</th>
+              </tr>
+            </thead>
+            <tbody>
+              {FCST_7D.map((r) => (
+                <tr key={r.d}>
+                  <td className="sim-mono">{r.d}</td>
+                  <td>{r.low}k</td>
+                  <td className="sim-mono" style={{ color: '#a78bfa' }}>
+                    {r.mid}k
+                  </td>
+                  <td>{r.high}k</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
 
       <div className="sim-grid-2">
         <div className="sim-card">

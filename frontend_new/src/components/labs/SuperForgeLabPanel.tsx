@@ -13,6 +13,10 @@ const MOCK_HEALTH: HealthCell[] = [
   { pct: 83, labelKey: 'doc_sf_sim_h_model' },
   { pct: 71, label: 'Webhook 簽章' },
   { pct: 94, label: 'Embedding 工作佇列' },
+  { pct: 86, label: '多租戶隔離' },
+  { pct: 91, label: '稽核日誌' },
+  { pct: 78, label: 'PII 遮罩' },
+  { pct: 89, label: '引用／授權' },
 ]
 
 const MOCK_TABLE = [
@@ -32,6 +36,13 @@ const MOCK_TABLE = [
   { t: '13:59:02', ep: 'POST /v1/generations/preview', ms: '44ms', code: '201' },
   { t: '13:58:51', ep: 'GET /v1/prompts?cursor=...', ms: '21ms', code: '200' },
   { t: '13:58:40', ep: 'POST /v1/webhooks/dall-e', ms: '5ms', code: '204' },
+  { t: '13:58:10', ep: 'GET /v1/prompts/:id/lineage', ms: '27ms', code: '200' },
+  { t: '13:57:55', ep: 'POST /v1/dedup/cluster', ms: '190ms', code: '200' },
+  { t: '13:57:20', ep: 'PUT /v1/tenants/:id/quota', ms: '14ms', code: '200' },
+  { t: '13:56:48', ep: 'GET /v1/rag/hydrate?k=8', ms: '55ms', code: '200' },
+  { t: '13:56:01', ep: 'POST /v1/license/verify', ms: '33ms', code: '200' },
+  { t: '13:55:40', ep: 'GET /v1/metrics/usage/by-org', ms: '19ms', code: '200' },
+  { t: '13:55:02', ep: 'POST /v1/export/parquet', ms: '240ms', code: '202' },
 ]
 
 const MOCK_ENTITIES = [
@@ -96,6 +107,34 @@ const MOCK_LAT = [
   { k: '全文搜尋 p50', v: '6ms' },
   { k: '以圖搜圖 p90', v: '124ms' },
   { k: 'Webhook ack p99', v: '12ms' },
+  { k: 'RAG 串流首字', v: '88ms' },
+  { k: '跨模態對齊', v: '41ms' },
+  { k: '去重叢集讀', v: '26ms' },
+  { k: '金鑰簽名驗證', v: '3ms' },
+]
+
+const MOCK_RAG = [
+  { m: 'recall@5', v: '0.941' },
+  { m: 'MRR', v: '0.882' },
+  { m: 'nDCG@10', v: '0.901' },
+  { m: '幻覺率(抽樣)', v: '0.6%' },
+  { m: '重排序延遲 p95', v: '22ms' },
+  { m: '負向 chunk 權重', v: '0.12' },
+]
+
+const MOCK_TENANT = [
+  { org: 'acme_creative', rps: '48/s', burst: '120', role: 'admin' },
+  { org: 'studio_north', rps: '12/s', burst: '40', role: 'write' },
+  { org: 'vendor_x', rps: '4/s', burst: '12', role: 'read' },
+  { org: 'partner_api', rps: '200/s', burst: '500', role: 'service' },
+]
+
+const MOCK_LINEAGE = [
+  { src: 'Webhook MJ', to: 'prm_8f2a1', st: 'linked' },
+  { src: '手動匯入 CSV', to: 'batch_14', st: 'parsed' },
+  { src: 'embed job-7c1', to: 'vec_ns_prod', st: 'indexing' },
+  { src: 'SuperTrack 採集', to: 'tag_ext_ref', st: 'enriched' },
+  { src: '版本 diff v11→v12', to: 'audit_902', st: 'recorded' },
 ]
 
 const MOCK_VERSIONS = [
@@ -378,9 +417,105 @@ export function SuperForgeLabPanel({ t }: { t: T }) {
         </div>
       </div>
 
+      <p className="doc-lab-note" style={{ marginTop: 12 }}>
+        多租戶、RAG 與譜系：示範維度覆蓋配額、檢索品質與資料血緣；與 health 圖分開呈現便於排錯。
+      </p>
+      <div className="sim-grid-2" style={{ marginTop: 8 }}>
+        <div className="sim-card">
+          <div className="sim-card-head">RAG / 重排序品質</div>
+          <div className="sim-stats" style={{ marginTop: 4 }}>
+            {MOCK_RAG.map((r) => (
+              <div className="sim-stat-row" key={r.m}>
+                <span className="sim-stat-label">{r.m}</span>
+                <span className="sim-stat-val sim-mono">{r.v}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="sim-card">
+          <div className="sim-card-head">租戶與配額（示範）</div>
+          <div className="sim-table-wrap">
+            <table className="sim-table">
+              <thead>
+                <tr>
+                  <th>組織 / 專案</th>
+                  <th>RPS</th>
+                  <th>Burst</th>
+                  <th>權限</th>
+                </tr>
+              </thead>
+              <tbody>
+                {MOCK_TENANT.map((r) => (
+                  <tr key={r.org}>
+                    <td className="sim-mono">{r.org}</td>
+                    <td>{r.rps}</td>
+                    <td>{r.burst}</td>
+                    <td>
+                      <span className="sim-badge-soft">{r.role}</span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div className="sim-card" style={{ marginTop: 12 }}>
+        <div className="sim-card-head">資料譜系與審核（節選）</div>
+        <p className="sim-mini-hint">由來源 → 產物／索引狀態；可串稽核匯出。</p>
+        <div className="sim-table-wrap">
+          <table className="sim-table">
+            <thead>
+              <tr>
+                <th>來源</th>
+                <th>關聯目標</th>
+                <th>狀態</th>
+              </tr>
+            </thead>
+            <tbody>
+              {MOCK_LINEAGE.map((r, i) => (
+                <tr key={`${r.src}-${i}`}>
+                  <td>{r.src}</td>
+                  <td className="sim-mono">{r.to}</td>
+                  <td>
+                    <span className="sim-badge-soft">{r.st}</span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div className="sim-kpis" style={{ gridTemplateColumns: 'repeat(4, minmax(0,1fr))', marginTop: 12 }}>
+        <div className="sim-kpi">
+          <div className="sim-kpi-label">dedup_cluster</div>
+          <div className="sim-kpi-val">1,204</div>
+          <div className="sim-kpi-sub">合併候選</div>
+        </div>
+        <div className="sim-kpi">
+          <div className="sim-kpi-label">s3_egress</div>
+          <div className="sim-kpi-val">1.1TB/mo</div>
+          <div className="sim-kpi-delta">−6% 優化</div>
+        </div>
+        <div className="sim-kpi">
+          <div className="sim-kpi-label">pii_hits(24h)</div>
+          <div className="sim-kpi-val">3</div>
+          <div className="sim-kpi-sub">已遮罩</div>
+        </div>
+        <div className="sim-kpi">
+          <div className="sim-kpi-label">est_cost(月)</div>
+          <div className="sim-kpi-val">$480</div>
+          <div className="sim-kpi-sub">全租戶加總</div>
+        </div>
+      </div>
+
       <div className="sim-grid-2" style={{ marginTop: 16 }}>
         <div className="sim-card">
-          <div className="sim-card-head">{t('doc_sf_sim_health_title')}（8 維度）</div>
+          <div className="sim-card-head">
+            {t('doc_sf_sim_health_title')}（12 維度 · 含合規／租戶）
+          </div>
           <div className="sim-health-grid">
             {MOCK_HEALTH.map((h, i) => (
               <div className="sim-health-item" key={i}>
