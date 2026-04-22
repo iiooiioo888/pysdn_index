@@ -2,13 +2,13 @@
  * 首頁模型庫：內建 Seedance / Seedream 與 [Qwen Cloud](https://www.qwencloud.com/) 精選模型摘要（能力說明以各官方頁面為準）。
  */
 
-export type ModelProduct = 'seedance' | 'seedream' | 'qwencloud'
+export type ModelProduct = 'seedance' | 'seedream' | 'qwencloud' | 'openrouter' | 'bedrock'
 
 /** 功能維度（對應側欄篩選） */
 export type ModelCapability = 'video' | 'image' | 'text' | 'audio' | 'multimodal'
 
 /** 開發商／雲服務提供方 */
-export type ModelDeveloper = 'bytedance' | 'alibaba' | 'qwencloud'
+export type ModelDeveloper = 'bytedance' | 'alibaba' | 'qwencloud' | 'openrouter' | 'aws'
 
 export type UiLang = 'zh-TW' | 'zh-CN' | 'en' | 'ja' | 'ko'
 
@@ -22,6 +22,10 @@ export interface CatalogModel {
   price: string
   title: Record<UiLang, string>
   desc: Record<UiLang, string>
+  /** OpenRouter 官方 id（如 org/model），僅 `product === 'openrouter'` 時有值 */
+  openRouterApiId?: string
+  contextLength?: number
+  modalitiesLine?: string
 }
 
 export const CATALOG_MODELS: CatalogModel[] = [
@@ -215,6 +219,7 @@ export const CATALOG_MODELS: CatalogModel[] = [
   },
 ]
 
+/** 僅精選靜態目錄（不含 OpenRouter 動態載入列） */
 export function getCatalogModelById(id: string): CatalogModel | undefined {
   return CATALOG_MODELS.find((m) => m.id === id)
 }

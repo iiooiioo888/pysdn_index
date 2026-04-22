@@ -1,7 +1,9 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, useLocation } from 'react-router-dom'
 import { useLangQuery } from '../hooks/useLangQuery'
+import { BEDROCK_MODELS } from '../data/bedrockCatalog'
+import { ensureOpenRouterModels } from '../data/openRouterModels'
 import {
   CATALOG_MODELS,
   pickModelText,
@@ -14,13 +16,19 @@ import {
 import { pathToModelDetail } from '../routes/paths'
 
 type CapFilter = 'all' | ModelCapability
-type BrandFilter = 'all' | ModelProduct
+/** `volcano`：Seedance + Seedream，皆為火山引擎產品線 */
+type BrandFilter = 'all' | ModelProduct | 'volcano'
 type DevFilter = 'all' | ModelDeveloper
+
+/** 首屏與每次捲到底自動載入的筆數 */
+const MODELS_BATCH_SIZE = 9
 
 function brandFromLocationSearch(search: string): BrandFilter {
   const q = search.startsWith('?') ? search.slice(1) : search
   const b = new URLSearchParams(q).get('brand')
-  return b === 'seedance' || b === 'seedream' || b === 'qwencloud' ? b : 'all'
+  if (b === 'seedance' || b === 'seedream' || b === 'volcano') return 'volcano'
+  if (b === 'qwencloud' || b === 'openrouter' || b === 'bedrock') return b
+  return 'all'
 }
 
 function catalogCapabilityLabel(cap: ModelCapability, t: (k: string) => string): string {
@@ -40,7 +48,9 @@ function catalogCapabilityLabel(cap: ModelCapability, t: (k: string) => string):
 function catalogDeveloperLabel(dev: ModelDeveloper, t: (k: string) => string): string {
   if (dev === 'bytedance') return t('models_dev_bytedance')
   if (dev === 'alibaba') return t('models_dev_alibaba')
-  return t('models_dev_qwencloud')
+  if (dev === 'qwencloud') return t('models_dev_qwencloud')
+  if (dev === 'aws') return t('models_dev_aws')
+  return t('models_dev_openrouter')
 }
 
 const THUMB_HUES = [198, 280, 168, 32, 210, 145, 260, 22, 320]
@@ -50,6 +60,12 @@ function thumbHueClassForModelId(id: string): string {
   return `models-atlas-thumb--${idx}`
 }
 
+function matchesBrandFilter(m: CatalogModel, brand: BrandFilter): boolean {
+  if (brand === 'all') return true
+  if (brand === 'volcano') return m.product === 'seedance' || m.product === 'seedream'
+  return m.product === brand
+}
+
 function matchesFilters(
   cap: CapFilter,
   brand: BrandFilter,
@@ -57,7 +73,7 @@ function matchesFilters(
 ): (m: CatalogModel) => boolean {
   return (m) => {
     const okCap = cap === 'all' || m.capability === cap
-    const okBrand = brand === 'all' || m.product === brand
+    const okBrand = matchesBrandFilter(m, brand)
     const okDev = dev === 'all' || m.developer === dev
     return okCap && okBrand && okDev
   }
@@ -71,24 +87,60 @@ export function ModelsSection() {
   const [capFilter, setCapFilter] = useState<CapFilter>('all')
   const [brandFilter, setBrandFilter] = useState<BrandFilter>(() => brandFromLocationSearch(search))
   const [devFilter, setDevFilter] = useState<DevFilter>('all')
+  const [searchText, setSearchText] = useState('')
+  const [openRouterExtra, setOpenRouterExtra] = useState<CatalogModel[]>([])
+  const [openRouterStatus, setOpenRouterStatus] = useState<'loading' | 'ok' | 'error'>('loading')
+  const [listLimit, setListLimit] = useState(MODELS_BATCH_SIZE)
+  const loadSentinelRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
     setBrandFilter(brandFromLocationSearch(search))
   }, [search])
 
+  useEffect(() => {
+    let cancelled = false
+    setOpenRouterStatus('loading')
+    ensureOpenRouterModels()
+      .then((rows) => {
+        if (!cancelled) {
+          setOpenRouterExtra(rows)
+          setOpenRouterStatus('ok')
+        }
+      })
+      .catch(() => {
+        if (!cancelled) {
+          setOpenRouterExtra([])
+          setOpenRouterStatus('error')
+        }
+      })
+    return () => {
+      cancelled = true
+    }
+  }, [])
+
+  const allModels = useMemo(
+    () => [...CATALOG_MODELS, ...BEDROCK_MODELS, ...openRouterExtra],
+    [openRouterExtra],
+  )
+
   const counts = useMemo(() => {
-    const total = CATALOG_MODELS.length
-    const video = CATALOG_MODELS.filter((m) => m.capability === 'video').length
-    const image = CATALOG_MODELS.filter((m) => m.capability === 'image').length
-    const text = CATALOG_MODELS.filter((m) => m.capability === 'text').length
-    const audio = CATALOG_MODELS.filter((m) => m.capability === 'audio').length
-    const multimodal = CATALOG_MODELS.filter((m) => m.capability === 'multimodal').length
-    const seedance = CATALOG_MODELS.filter((m) => m.product === 'seedance').length
-    const seedream = CATALOG_MODELS.filter((m) => m.product === 'seedream').length
-    const qwencloud = CATALOG_MODELS.filter((m) => m.product === 'qwencloud').length
-    const bytedance = CATALOG_MODELS.filter((m) => m.developer === 'bytedance').length
-    const alibaba = CATALOG_MODELS.filter((m) => m.developer === 'alibaba').length
-    const qwencloudDev = CATALOG_MODELS.filter((m) => m.developer === 'qwencloud').length
+    const total = allModels.length
+    const video = allModels.filter((m) => m.capability === 'video').length
+    const image = allModels.filter((m) => m.capability === 'image').length
+    const text = allModels.filter((m) => m.capability === 'text').length
+    const audio = allModels.filter((m) => m.capability === 'audio').length
+    const multimodal = allModels.filter((m) => m.capability === 'multimodal').length
+    const seedance = allModels.filter((m) => m.product === 'seedance').length
+    const seedream = allModels.filter((m) => m.product === 'seedream').length
+    const qwencloud = allModels.filter((m) => m.product === 'qwencloud').length
+    const openrouter = allModels.filter((m) => m.product === 'openrouter').length
+    const bedrock = allModels.filter((m) => m.product === 'bedrock').length
+    const bytedance = allModels.filter((m) => m.developer === 'bytedance').length
+    const alibaba = allModels.filter((m) => m.developer === 'alibaba').length
+    const qwencloudDev = allModels.filter((m) => m.developer === 'qwencloud').length
+    const openrouterDev = allModels.filter((m) => m.developer === 'openrouter').length
+    const awsDev = allModels.filter((m) => m.developer === 'aws').length
+    const volcano = seedance + seedream
     return {
       total,
       video,
@@ -98,19 +150,69 @@ export function ModelsSection() {
       multimodal,
       seedance,
       seedream,
+      volcano,
       qwencloud,
+      openrouter,
+      bedrock,
       bytedance,
       alibaba,
       qwencloudDev,
+      openrouterDev,
+      awsDev,
     }
-  }, [])
+  }, [allModels])
 
-  const visible = useMemo(
-    () => CATALOG_MODELS.filter(matchesFilters(capFilter, brandFilter, devFilter)),
-    [capFilter, brandFilter, devFilter],
-  )
+  const visible = useMemo(() => {
+    const q = searchText.trim().toLowerCase()
+    let rows = allModels.filter(matchesFilters(capFilter, brandFilter, devFilter))
+    if (q) {
+      rows = rows.filter((m) => {
+        const title = pickModelText(m.title, lang).toLowerCase()
+        const desc = pickModelText(m.desc, lang).toLowerCase()
+        const id = m.id.toLowerCase()
+        const api = (m.openRouterApiId ?? '').toLowerCase()
+        const modalities = (m.modalitiesLine ?? '').toLowerCase()
+        return (
+          title.includes(q) ||
+          desc.includes(q) ||
+          id.includes(q) ||
+          api.includes(q) ||
+          modalities.includes(q)
+        )
+      })
+    }
+    return rows
+  }, [allModels, capFilter, brandFilter, devFilter, searchText, lang])
 
-  const filtersClear = capFilter === 'all' && brandFilter === 'all' && devFilter === 'all'
+  useEffect(() => {
+    setListLimit(MODELS_BATCH_SIZE)
+  }, [capFilter, brandFilter, devFilter, searchText, openRouterExtra])
+
+  const visibleSlice = useMemo(() => visible.slice(0, listLimit), [visible, listLimit])
+
+  const bumpListLimit = useCallback(() => {
+    setListLimit((n) => {
+      if (n >= visible.length) return n
+      return Math.min(n + MODELS_BATCH_SIZE, visible.length)
+    })
+  }, [visible.length])
+
+  useEffect(() => {
+    const el = loadSentinelRef.current
+    if (!el || visible.length === 0) return
+
+    const obs = new IntersectionObserver(
+      (entries) => {
+        if (entries[0]?.isIntersecting) bumpListLimit()
+      },
+      { root: null, rootMargin: '160px 0px', threshold: 0 },
+    )
+    obs.observe(el)
+    return () => obs.disconnect()
+  }, [bumpListLimit, visible.length, visibleSlice.length])
+
+  const filtersClear =
+    capFilter === 'all' && brandFilter === 'all' && devFilter === 'all' && searchText.trim() === ''
 
   return (
     <section id="models" className="section models-section">
@@ -134,6 +236,7 @@ export function ModelsSection() {
                     setCapFilter('all')
                     setBrandFilter('all')
                     setDevFilter('all')
+                    setSearchText('')
                   }}
                   disabled={filtersClear}
                 >
@@ -223,7 +326,7 @@ export function ModelsSection() {
                   <details className="models-menu-tier models-menu-tier--bordered" open>
                     <summary className="models-menu-tier-summary">
                       <span className="models-menu-tier-summary-text">
-                        {t('models_sidebar_group_brand')}
+                        {t('models_sidebar_group_kind')}
                       </span>
                       <span className="models-menu-tier-chevron" aria-hidden="true" />
                     </summary>
@@ -244,21 +347,11 @@ export function ModelsSection() {
                       <li>
                         <button
                           type="button"
-                          className={`models-filter-item ${brandFilter === 'seedance' ? 'is-active' : ''}`}
-                          onClick={() => setBrandFilter('seedance')}
+                          className={`models-filter-item ${brandFilter === 'volcano' ? 'is-active' : ''}`}
+                          onClick={() => setBrandFilter('volcano')}
                         >
-                          <span>{t('models_filter_seedance')}</span>
-                          <span className="models-filter-count">{counts.seedance}</span>
-                        </button>
-                      </li>
-                      <li>
-                        <button
-                          type="button"
-                          className={`models-filter-item ${brandFilter === 'seedream' ? 'is-active' : ''}`}
-                          onClick={() => setBrandFilter('seedream')}
-                        >
-                          <span>{t('models_filter_seedream')}</span>
-                          <span className="models-filter-count">{counts.seedream}</span>
+                          <span>{t('models_filter_volcano')}</span>
+                          <span className="models-filter-count">{counts.volcano}</span>
                         </button>
                       </li>
                       <li>
@@ -269,6 +362,26 @@ export function ModelsSection() {
                         >
                           <span>{t('models_filter_qwencloud')}</span>
                           <span className="models-filter-count">{counts.qwencloud}</span>
+                        </button>
+                      </li>
+                      <li>
+                        <button
+                          type="button"
+                          className={`models-filter-item ${brandFilter === 'openrouter' ? 'is-active' : ''}`}
+                          onClick={() => setBrandFilter('openrouter')}
+                        >
+                          <span>{t('models_filter_openrouter')}</span>
+                          <span className="models-filter-count">{counts.openrouter}</span>
+                        </button>
+                      </li>
+                      <li>
+                        <button
+                          type="button"
+                          className={`models-filter-item ${brandFilter === 'bedrock' ? 'is-active' : ''}`}
+                          onClick={() => setBrandFilter('bedrock')}
+                        >
+                          <span>{t('models_filter_bedrock')}</span>
+                          <span className="models-filter-count">{counts.bedrock}</span>
                         </button>
                       </li>
                     </ul>
@@ -329,6 +442,26 @@ export function ModelsSection() {
                           <span className="models-filter-count">{counts.qwencloudDev}</span>
                         </button>
                       </li>
+                      <li>
+                        <button
+                          type="button"
+                          className={`models-filter-item ${devFilter === 'openrouter' ? 'is-active' : ''}`}
+                          onClick={() => setDevFilter('openrouter')}
+                        >
+                          <span>{t('models_dev_openrouter')}</span>
+                          <span className="models-filter-count">{counts.openrouterDev}</span>
+                        </button>
+                      </li>
+                      <li>
+                        <button
+                          type="button"
+                          className={`models-filter-item ${devFilter === 'aws' ? 'is-active' : ''}`}
+                          onClick={() => setDevFilter('aws')}
+                        >
+                          <span>{t('models_dev_aws')}</span>
+                          <span className="models-filter-count">{counts.awsDev}</span>
+                        </button>
+                      </li>
                     </ul>
                   </details>
                 </li>
@@ -339,16 +472,49 @@ export function ModelsSection() {
           <div className="models-main">
             <div className="models-toolbar">
               <p className="models-toolbar-count">
-                {t('models_ui_count', { total: counts.total, shown: visible.length })}
+                {t('models_ui_count', {
+                  total: counts.total,
+                  filtered: visible.length,
+                  rendered: visibleSlice.length,
+                })}
               </p>
               <span className="models-toolbar-sort">{t('models_ui_sort')}</span>
+            </div>
+            <div className="models-toolbar-row">
+              <label className="models-search">
+                <span className="models-search-label">{t('models_search_label')}</span>
+                <input
+                  className="models-search-input"
+                  type="search"
+                  name="models-search"
+                  value={searchText}
+                  onChange={(e) => setSearchText(e.target.value)}
+                  placeholder={t('models_search_placeholder')}
+                  autoComplete="off"
+                  spellCheck={false}
+                />
+              </label>
+              {openRouterStatus === 'loading' ? (
+                <p className="models-openrouter-status models-openrouter-status--loading" role="status">
+                  {t('models_openrouter_loading')}
+                </p>
+              ) : openRouterStatus === 'error' ? (
+                <p className="models-openrouter-status models-openrouter-status--error" role="status">
+                  {t('models_openrouter_error')}
+                </p>
+              ) : (
+                <p className="models-openrouter-status models-openrouter-status--ok" role="status">
+                  {t('models_openrouter_ok', { count: counts.openrouter })}
+                </p>
+              )}
             </div>
 
             {visible.length === 0 ? (
               <p className="models-filter-empty">{t('models_filter_empty')}</p>
             ) : (
+              <>
               <div className="models-card-grid">
-                {visible.map((m) => {
+                {visibleSlice.map((m) => {
                   const cap = catalogCapabilityLabel(m.capability, t)
                   const devLabel = catalogDeveloperLabel(m.developer, t)
                   return (
@@ -395,6 +561,14 @@ export function ModelsSection() {
                   )
                 })}
               </div>
+              {visibleSlice.length < visible.length ? (
+                <div
+                  ref={loadSentinelRef}
+                  className="models-infinite-sentinel"
+                  aria-hidden="true"
+                />
+              ) : null}
+              </>
             )}
           </div>
         </div>

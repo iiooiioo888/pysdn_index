@@ -196,22 +196,13 @@ export function Hero() {
                 <p className="hero-strip-label">{t('hero_strip_models_label')}</p>
                 <div className="hero-model-spotlight" role="group" aria-label={t('hero_models_strip_aria')}>
                   <Link
-                    className="hero-model-pill hero-model-pill--seedance"
-                    to={{ pathname: PATHS.models, search: withSearchParam(langSearch, 'brand', 'seedance') }}
+                    className="hero-model-pill hero-model-pill--volcano"
+                    to={{ pathname: PATHS.models, search: withSearchParam(langSearch, 'brand', 'volcano') }}
                   >
                     <span className="hero-model-pill-tag" aria-hidden="true">
-                      {t('models_tab_video')}
+                      {t('hero_volcano_pill_tag')}
                     </span>
-                    <span className="hero-model-pill-name">{t('models_filter_seedance')}</span>
-                  </Link>
-                  <Link
-                    className="hero-model-pill hero-model-pill--seedream"
-                    to={{ pathname: PATHS.models, search: withSearchParam(langSearch, 'brand', 'seedream') }}
-                  >
-                    <span className="hero-model-pill-tag" aria-hidden="true">
-                      {t('models_tab_image')}
-                    </span>
-                    <span className="hero-model-pill-name">{t('models_filter_seedream')}</span>
+                    <span className="hero-model-pill-name">{t('models_filter_volcano')}</span>
                   </Link>
                   <Link
                     className="hero-model-pill hero-model-pill--qwencloud"

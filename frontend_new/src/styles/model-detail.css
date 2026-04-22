@@ -120,6 +120,30 @@ main.model-detail-main {
   background: rgba(245, 158, 11, 0.18);
 }
 
+.model-detail-official--secondary {
+  border-color: rgba(6, 182, 212, 0.42);
+  background: rgba(6, 182, 212, 0.1);
+  color: #e0f2fe;
+}
+
+.model-detail-official--secondary:hover {
+  border-color: rgba(34, 211, 238, 0.6);
+  background: rgba(6, 182, 212, 0.16);
+}
+
+.model-detail-loading {
+  margin: clamp(48px, 12vh, 120px) 0;
+  text-align: center;
+  font-size: var(--text-body);
+  color: var(--text-dim);
+}
+
+.model-detail-code {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  word-break: break-all;
+}
+
 @media (hover: hover) and (pointer: fine) {
   .model-detail-official:hover {
     transform: translateY(-1px);

@@ -256,6 +256,80 @@ main.models-page-main {
   color: var(--text-muted);
 }
 
+.models-toolbar-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 14px 20px;
+  margin-bottom: 18px;
+}
+
+.models-search {
+  flex: 1 1 220px;
+  min-width: min(100%, 200px);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.models-search-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.models-search-input {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: var(--radius);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(8, 10, 18, 0.45);
+  color: var(--text);
+  font-size: var(--text-ui);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  box-sizing: border-box;
+}
+
+.models-search-input::placeholder {
+  color: var(--text-muted);
+  opacity: 0.85;
+}
+
+.models-search-input:focus {
+  border-color: rgba(6, 182, 212, 0.45);
+  box-shadow: 0 0 0 2px rgba(6, 182, 212, 0.12);
+}
+
+.models-openrouter-status {
+  margin: 0;
+  flex: 0 1 280px;
+  font-size: var(--text-caption);
+  line-height: 1.5;
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.models-openrouter-status--loading {
+  color: rgba(103, 232, 249, 0.88);
+  border-color: rgba(6, 182, 212, 0.2);
+}
+
+.models-openrouter-status--ok {
+  color: rgba(167, 243, 208, 0.9);
+  border-color: rgba(16, 185, 129, 0.22);
+}
+
+.models-openrouter-status--error {
+  color: rgba(252, 165, 165, 0.92);
+  border-color: rgba(248, 113, 113, 0.25);
+}
+
 .models-filter-empty {
   margin: 0;
   padding: 28px 16px;
@@ -463,6 +537,14 @@ main.models-page-main {
   font-size: 0.8rem;
   font-weight: 600;
   color: rgba(167, 139, 250, 0.95);
+}
+
+/* 捲動載入：IntersectionObserver 觀察點（不占版面視覺） */
+.models-infinite-sentinel {
+  width: 100%;
+  height: 1px;
+  margin-top: 8px;
+  pointer-events: none;
 }
 
 .models-footnote {
