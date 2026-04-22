@@ -67,35 +67,105 @@ def parse_ctx(raw) -> str | None:
     return None
 
 
+def _parse_token_price(x) -> float | None:
+    if x is None or x == "" or str(x) == "nan":
+        return None
+    try:
+        return float(x)
+    except (TypeError, ValueError):
+        return None
+
+
+def normalize_note(ni: str) -> str:
+    """英文化／混寫備註 → 與前綴格式一致的繁中（便於全站顯示統一）。"""
+    s = (ni or "").strip()
+    if not s:
+        return ""
+    # 完整片語優先
+    full = {
+        "Cache read 90% off; Batch 50% off": "快取讀取 9 折、批次 5 折",
+        "Gated research preview": "受控研究預覽",
+        "Fastest in Claude family": "Claude 系列中速度最快",
+        "Speech-to-speech; text token pricing": "語音對語音；同採文字 tokens 計價",
+        "Global cross-region": "全球跨區",
+        "Speech-to-text": "語音轉文字",
+        "Output: 不適用 (嵌入模型)": "輸出：不適用（嵌入）",
+        "Output: 不適用": "輸出：不適用",
+        "US East; 推理模型溢價": "美東 · 推理加價",
+        "+ $0.00006/張圖像": "圖像每張＋$0.00006",
+        "未公開定價": "定價未公開",
+        "按視頻時長計費": "依影片時長計費",
+    }
+    if s in full:
+        return full[s]
+    s = s.replace("US East 區域", "美東")
+    s = s.replace("Sydney 區域", "雪梨")
+    return s
+
+
+def normalize_unit(u: str) -> str:
+    t = (u or "").strip()
+    m = {
+        "per 1M tokens": "每百萬 tokens",
+        "per 1K queries": "每千次查詢",
+        "per min video": "每分鐘影片",
+    }
+    return m.get(t, t)
+
+
 def fmt_price(inp, out, unit, note) -> str:
     u = str(unit or "").strip()
+    u_low = u.lower()
     ni = str(note or "").strip()
-    parts = []
-    if inp != "" and inp is not None and str(inp) != "nan":
-        try:
-            v = float(inp)
-            parts.append(f"In: ${v:g}/M tok")
-        except (TypeError, ValueError):
-            pass
-    if out != "" and out is not None and str(out) != "nan":
-        try:
-            v = float(out)
-            parts.append(f"Out: ${v:g}/M tok")
-        except (TypeError, ValueError):
-            pass
-    if parts:
-        s = " · ".join(parts)
-        if u and "per 1M" not in s.lower():
-            s += f" ({u})"
+    ni_n = normalize_note(ni)
+    pin = _parse_token_price(inp)
+    pout = _parse_token_price(out)
+
+    # 僅依「計價單位＋備註」的列（無 $/1M 數字）
+    if pin is None and pout is None:
+        if u_low == "per 1m tokens" and "未公開" in ni:
+            return "每百萬 tokens · 定價未公開"
+        if u_low in ("per 1k queries",):
+            m = re.search(r"\$?\s*([\d.]+)", ni)
+            if m:
+                return f"每千次查詢 ${m.group(1)}"
+            return f"每千次查詢 · {ni_n}" if ni_n else "每千次查詢"
+        if u_low in ("per min video",):
+            tail = ni_n or "依影片時長計費"
+            return f"每分鐘影片 · {tail}"
+        if u in ("依張", "依秒") and ni:
+            return ni
+        if u and ni:
+            return f"{normalize_unit(u)} · {ni_n}" if ni_n else f"{normalize_unit(u)}"
+        return normalize_unit(u) or ni_n or ""
+
+    # 百萬 tokens：僅輸入（嵌入等）
+    if pin is not None and pout is None:
+        head = f"輸入 ${pin:g}／百萬 tokens"
+        if "不適用" in ni or "嵌入" in ni:
+            if "嵌入" in ni:
+                return f"{head} · 輸出：不適用（嵌入）"
+            return f"{head} · 輸出：不適用"
         if ni:
-            s += f" · {ni}"
+            if ni.strip().startswith("+"):
+                return f"{head} · {ni_n}"
+            return f"{head} · {ni_n}"
+        return head
+
+    # 百萬 tokens：輸入＋輸出
+    if pin is not None and pout is not None:
+        s = f"輸入 ${pin:g}／百萬 tokens · 輸出 ${pout:g}／百萬 tokens"
+        if ni:
+            s += f" · {ni_n}"
         return s
-    if u:
-        base = u
+
+    # 僅有輸出價格（理論上少見）
+    if pout is not None and pin is None:
+        s = f"輸出 ${pout:g}／百萬 tokens"
         if ni:
-            base += f" · {ni}"
-        return base
-    return ni or ""
+            s += f" · {ni_n}"
+        return s
+    return ni_n or ""
 
 
 def main():

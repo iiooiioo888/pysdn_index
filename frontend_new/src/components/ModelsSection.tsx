@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { Link, useLocation } from 'react-router-dom'
 import { useLangQuery } from '../hooks/useLangQuery'
 import { BEDROCK_MODELS } from '../data/bedrockCatalog'
-import { ensureOpenRouterModels } from '../data/openRouterModels'
+import { OPENROUTER_MODELS } from '../data/openRouterModels'
 import {
   CATALOG_MODELS,
   pickModelText,
@@ -14,6 +14,9 @@ import {
   type ModelProduct,
 } from '../data/modelsCatalog'
 import { pathToModelDetail } from '../routes/paths'
+import { cardPipelineLabel, contextLengthPill, isCuratedCatalogModel } from '../data/modelDisplayLabels'
+import { ModelCardPrice } from './ModelCardPrice'
+import { ModelDeveloperIcon } from './ModelDeveloperIcon'
 
 type CapFilter = 'all' | ModelCapability
 /** `volcano`：Seedance + Seedream，皆為火山引擎產品線 */
@@ -22,14 +25,6 @@ type DevFilter = 'all' | ModelDeveloper
 
 /** 首屏與每次捲到底自動載入的筆數 */
 const MODELS_BATCH_SIZE = 9
-
-function brandFromLocationSearch(search: string): BrandFilter {
-  const q = search.startsWith('?') ? search.slice(1) : search
-  const b = new URLSearchParams(q).get('brand')
-  if (b === 'seedance' || b === 'seedream' || b === 'volcano') return 'volcano'
-  if (b === 'qwencloud' || b === 'openrouter' || b === 'bedrock') return b
-  return 'all'
-}
 
 function catalogCapabilityLabel(cap: ModelCapability, t: (k: string) => string): string {
   const key =
@@ -45,22 +40,29 @@ function catalogCapabilityLabel(cap: ModelCapability, t: (k: string) => string):
   return t(key)
 }
 
-function catalogDeveloperLabel(dev: ModelDeveloper, t: (k: string) => string): string {
-  if (dev === 'bytedance') return t('models_dev_bytedance')
-  if (dev === 'alibaba') return t('models_dev_alibaba')
-  if (dev === 'qwencloud') return t('models_dev_qwencloud')
-  if (dev === 'aws') return t('models_dev_aws')
-  return t('models_dev_openrouter')
-}
-
-function catalogProviderLabel(m: CatalogModel, t: (k: string) => string): string {
-  return m.providerName ?? catalogDeveloperLabel(m.developer, t)
-}
-
 function catalogListingSourceShort(m: CatalogModel, t: (k: string) => string): string | null {
   if (m.product === 'openrouter') return t('models_card_source_openrouter')
   if (m.product === 'bedrock') return t('models_card_source_bedrock')
   return null
+}
+
+function developerTitleKey(developer: ModelDeveloper): string {
+  const map: Record<ModelDeveloper, string> = {
+    bytedance: 'models_dev_bytedance',
+    alibaba: 'models_dev_alibaba',
+    qwencloud: 'models_dev_qwencloud',
+    openrouter: 'models_dev_openrouter',
+    aws: 'models_dev_aws',
+  }
+  return map[developer]
+}
+
+function brandFromLocationSearch(search: string): BrandFilter {
+  const q = search.startsWith('?') ? search.slice(1) : search
+  const b = new URLSearchParams(q).get('brand')
+  if (b === 'seedance' || b === 'seedream' || b === 'volcano') return 'volcano'
+  if (b === 'qwencloud' || b === 'openrouter' || b === 'bedrock') return b
+  return 'all'
 }
 
 const THUMB_HUES = [198, 280, 168, 32, 210, 145, 260, 22, 320]
@@ -98,8 +100,6 @@ export function ModelsSection() {
   const [brandFilter, setBrandFilter] = useState<BrandFilter>(() => brandFromLocationSearch(search))
   const [devFilter, setDevFilter] = useState<DevFilter>('all')
   const [searchText, setSearchText] = useState('')
-  const [openRouterExtra, setOpenRouterExtra] = useState<CatalogModel[]>([])
-  const [openRouterStatus, setOpenRouterStatus] = useState<'loading' | 'ok' | 'error'>('loading')
   const [listLimit, setListLimit] = useState(MODELS_BATCH_SIZE)
   const loadSentinelRef = useRef<HTMLDivElement | null>(null)
 
@@ -107,30 +107,9 @@ export function ModelsSection() {
     setBrandFilter(brandFromLocationSearch(search))
   }, [search])
 
-  useEffect(() => {
-    let cancelled = false
-    setOpenRouterStatus('loading')
-    ensureOpenRouterModels()
-      .then((rows) => {
-        if (!cancelled) {
-          setOpenRouterExtra(rows)
-          setOpenRouterStatus('ok')
-        }
-      })
-      .catch(() => {
-        if (!cancelled) {
-          setOpenRouterExtra([])
-          setOpenRouterStatus('error')
-        }
-      })
-    return () => {
-      cancelled = true
-    }
-  }, [])
-
   const allModels = useMemo(
-    () => [...CATALOG_MODELS, ...BEDROCK_MODELS, ...openRouterExtra],
-    [openRouterExtra],
+    () => [...CATALOG_MODELS, ...BEDROCK_MODELS, ...OPENROUTER_MODELS],
+    [],
   )
 
   const counts = useMemo(() => {
@@ -198,7 +177,7 @@ export function ModelsSection() {
 
   useEffect(() => {
     setListLimit(MODELS_BATCH_SIZE)
-  }, [capFilter, brandFilter, devFilter, searchText, openRouterExtra])
+  }, [capFilter, brandFilter, devFilter, searchText])
 
   const visibleSlice = useMemo(() => visible.slice(0, listLimit), [visible, listLimit])
 
@@ -229,11 +208,12 @@ export function ModelsSection() {
   return (
     <section id="models" className="section models-section">
       <div className="container models-container">
-        <div className="section-heading">
-          <div className="section-label reveal">{t('models_label')}</div>
-          <h2 className="section-title reveal">{t('models_title')}</h2>
-          <p className="section-desc reveal">{t('models_desc')}</p>
-          <p className="models-layout-note reveal">{t('models_ui_layout_note')}</p>
+        <div className="models-hero">
+          <div className="section-heading models-hero-heading">
+            <div className="section-label reveal">{t('models_label')}</div>
+            <h2 className="section-title models-hero-title reveal">{t('models_title')}</h2>
+            <p className="section-desc reveal">{t('models_desc')}</p>
+          </div>
         </div>
 
         <div className="models-layout reveal">
@@ -256,7 +236,7 @@ export function ModelsSection() {
                 </button>
               </div>
 
-              {/* 三層：① 模型能力 ② 資料來源／平台 ③ 供應商與整合 */}
+              {/* 側欄：① 模型能力 ② 資料來源／平台 ③ 開發商／系譜 */}
               <ol className="models-menu-tier1" role="list">
                 <li className="models-menu-tier1-item">
                   <details className="models-menu-tier" open>
@@ -362,7 +342,7 @@ export function ModelsSection() {
                           className={`models-filter-item ${brandFilter === 'volcano' ? 'is-active' : ''}`}
                           onClick={() => setBrandFilter('volcano')}
                         >
-                          <span>{t('models_filter_volcano')}</span>
+                          <span>{t('models_filter_volcano_short')}</span>
                           <span className="models-filter-count">{counts.volcano}</span>
                         </button>
                       </li>
@@ -482,43 +462,35 @@ export function ModelsSection() {
           </aside>
 
           <div className="models-main">
-            <div className="models-toolbar">
-              <p className="models-toolbar-count">
-                {t('models_ui_count', {
-                  total: counts.total,
-                  filtered: visible.length,
-                  rendered: visibleSlice.length,
-                })}
-              </p>
-              <span className="models-toolbar-sort">{t('models_ui_sort')}</span>
-            </div>
-            <div className="models-toolbar-row">
-              <label className="models-search">
-                <span className="models-search-label">{t('models_search_label')}</span>
-                <input
-                  className="models-search-input"
-                  type="search"
-                  name="models-search"
-                  value={searchText}
-                  onChange={(e) => setSearchText(e.target.value)}
-                  placeholder={t('models_search_placeholder')}
-                  autoComplete="off"
-                  spellCheck={false}
-                />
-              </label>
-              {openRouterStatus === 'loading' ? (
-                <p className="models-openrouter-status models-openrouter-status--loading" role="status">
-                  {t('models_openrouter_loading')}
+            <div className="models-toolbar-surface">
+              <div className="models-toolbar">
+                <p className="models-toolbar-count">
+                  {t('models_ui_count', {
+                    total: counts.total,
+                    filtered: visible.length,
+                    rendered: visibleSlice.length,
+                  })}
                 </p>
-              ) : openRouterStatus === 'error' ? (
-                <p className="models-openrouter-status models-openrouter-status--error" role="status">
-                  {t('models_openrouter_error')}
-                </p>
-              ) : (
+                <span className="models-toolbar-sort">{t('models_ui_sort')}</span>
+              </div>
+              <div className="models-toolbar-row">
+                <label className="models-search">
+                  <span className="models-search-label">{t('models_search_label')}</span>
+                  <input
+                    className="models-search-input"
+                    type="search"
+                    name="models-search"
+                    value={searchText}
+                    onChange={(e) => setSearchText(e.target.value)}
+                    placeholder={t('models_search_placeholder')}
+                    autoComplete="off"
+                    spellCheck={false}
+                  />
+                </label>
                 <p className="models-openrouter-status models-openrouter-status--ok" role="status">
                   {t('models_openrouter_ok', { count: counts.openrouter })}
                 </p>
-              )}
+              </div>
             </div>
 
             {visible.length === 0 ? (
@@ -528,8 +500,10 @@ export function ModelsSection() {
               <div className="models-card-grid">
                 {visibleSlice.map((m) => {
                   const cap = catalogCapabilityLabel(m.capability, t)
-                  const providerLabel = catalogProviderLabel(m, t)
+                  const pipeline = cardPipelineLabel(m.product, t)
                   const sourceShort = catalogListingSourceShort(m, t)
+                  const showCurated = isCuratedCatalogModel(m)
+                  const ctxPill = contextLengthPill(m.contextLength, t)
                   return (
                     <Link
                       key={m.id}
@@ -539,6 +513,10 @@ export function ModelsSection() {
                       <div className="models-atlas-card-inner">
                         <div className={`models-atlas-thumb ${thumbHueClassForModelId(m.id)}`}>
                           <span className="models-atlas-thumb-shine" aria-hidden="true" />
+                          <ModelDeveloperIcon
+                            developer={m.developer}
+                            title={t(developerTitleKey(m.developer))}
+                          />
                         </div>
                         <div className="models-atlas-body">
                           <div className="models-atlas-meta">
@@ -553,22 +531,52 @@ export function ModelsSection() {
                               </span>
                             )}
                             <div className="models-atlas-meta-tags">
-                              <span className="models-atlas-cap">{cap}</span>
-                              <span className="models-atlas-dev">{providerLabel}</span>
+                              <span className="models-atlas-cap" title={t('models_card_hint_capability')}>
+                                {cap}
+                              </span>
+                              <span
+                                className="models-atlas-pipeline"
+                                title={t('models_card_hint_pipeline')}
+                              >
+                                {pipeline}
+                              </span>
                               {sourceShort ? (
-                                <span className="models-atlas-source" title={t('model_detail_listing_source')}>
+                                <span
+                                  className="models-atlas-source"
+                                  title={t('models_card_hint_listing')}
+                                >
                                   {sourceShort}
+                                </span>
+                              ) : showCurated ? (
+                                <span
+                                  className="models-atlas-curated"
+                                  title={t('models_card_hint_curated')}
+                                >
+                                  {t('models_card_badge_curated')}
+                                </span>
+                              ) : null}
+                              {ctxPill ? (
+                                <span
+                                  className="models-atlas-ctx"
+                                  title={t('models_card_hint_context')}
+                                >
+                                  {ctxPill}
                                 </span>
                               ) : null}
                             </div>
                           </div>
                           <h3 className="models-atlas-title">{pickModelText(m.title, lang)}</h3>
                           <p className="models-atlas-desc">{pickModelText(m.desc, lang)}</p>
-                          {m.price ? (
-                            <div className="models-atlas-footer">
-                              <span className="models-atlas-price">{m.price}</span>
-                            </div>
-                          ) : null}
+                          <div
+                            className="models-atlas-body-spacer"
+                            aria-hidden="true"
+                          />
+                          <div
+                            className={`models-atlas-footer${m.price ? '' : ' models-atlas-footer--empty'}`}
+                            aria-hidden={m.price ? undefined : true}
+                          >
+                            {m.price ? <ModelCardPrice price={m.price} /> : null}
+                          </div>
                           <div className="models-atlas-cta">
                             <span>{t('model_detail_cta')}</span>
                             <span className="ui-chevron-right models-atlas-cta-chevron" aria-hidden="true" />

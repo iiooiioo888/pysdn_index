@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useMemo, useState } from 'react'
+import { lazy, Suspense, useMemo } from 'react'
 import { Link, Navigate, useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { Navbar } from '../components/Navbar'
@@ -10,10 +10,15 @@ import {
   CATALOG_MODELS,
   pickModelText,
   resolveUiLang,
-  type CatalogModel,
   type UiLang,
 } from '../data/modelsCatalog'
-import { ensureOpenRouterModels } from '../data/openRouterModels'
+import {
+  cardPipelineLabel,
+  detailCapabilityLabel,
+  detailProductLineLabel,
+  listingSourceLabel,
+} from '../data/modelDisplayLabels'
+import { OPENROUTER_MODELS } from '../data/openRouterModels'
 import { PATHS } from '../routes/paths'
 
 const Footer = lazy(() => import('../components/Footer').then((m) => ({ default: m.Footer })))
@@ -39,29 +44,9 @@ export function ModelDetailPage() {
   const canvasRef = useCanvasBackground()
   const langSearch = useLangQuery()
 
-  const [openRouterExtra, setOpenRouterExtra] = useState<CatalogModel[]>([])
-  const [openRouterFetched, setOpenRouterFetched] = useState(false)
-
-  useEffect(() => {
-    let cancelled = false
-    ensureOpenRouterModels()
-      .then((rows) => {
-        if (!cancelled) setOpenRouterExtra(rows)
-      })
-      .catch(() => {
-        if (!cancelled) setOpenRouterExtra([])
-      })
-      .finally(() => {
-        if (!cancelled) setOpenRouterFetched(true)
-      })
-    return () => {
-      cancelled = true
-    }
-  }, [])
-
   const mergedModels = useMemo(
-    () => [...CATALOG_MODELS, ...BEDROCK_MODELS, ...openRouterExtra],
-    [openRouterExtra],
+    () => [...CATALOG_MODELS, ...BEDROCK_MODELS, ...OPENROUTER_MODELS],
+    [],
   )
 
   const model = modelId ? mergedModels.find((m) => m.id === modelId) : undefined
@@ -80,23 +65,6 @@ export function ModelDetailPage() {
   }
 
   if (!model) {
-    if (orSlug && !openRouterFetched) {
-      return (
-        <>
-          <canvas ref={canvasRef} id="bgCanvas" aria-hidden="true" />
-          <div className="site-shell">
-            <Navbar />
-            <main className="model-detail-main">
-              <div className="model-detail-inner">
-                <p className="model-detail-loading" role="status">
-                  {t('models_openrouter_loading')}
-                </p>
-              </div>
-            </main>
-          </div>
-        </>
-      )
-    }
     return <Navigate to={{ pathname: PATHS.models, search: langSearch }} replace />
   }
 
@@ -122,22 +90,17 @@ export function ModelDetailPage() {
             <header className="model-detail-hero">
               <div className="model-detail-hero-meta">
                 <span className="model-detail-hero-pill">{t('models_label')}</span>
+                <span className="model-detail-hero-pill model-detail-hero-pill--cap">
+                  {detailCapabilityLabel(model.capability, t)}
+                </span>
+                <span className="model-detail-hero-pill model-detail-hero-pill--pipe">
+                  {cardPipelineLabel(model.product, t)}
+                </span>
                 {model.badges.includes('new') ? (
                   <span className="model-detail-hero-pill">{t('models_badge_new')}</span>
                 ) : null}
                 {model.badges.includes('hot') ? (
                   <span className="model-detail-hero-pill">{t('models_badge_hot')}</span>
-                ) : null}
-                {model.product === 'openrouter' ? (
-                  <span className="model-detail-hero-pill">{t('models_filter_openrouter')}</span>
-                ) : null}
-                {model.product === 'bedrock' ? (
-                  <span className="model-detail-hero-pill">{t('models_filter_bedrock')}</span>
-                ) : null}
-                {model.providerName ? (
-                  <span className="model-detail-hero-pill model-detail-hero-pill--provider">
-                    {model.providerName}
-                  </span>
                 ) : null}
               </div>
               <h1>{title}</h1>
@@ -167,6 +130,54 @@ export function ModelDetailPage() {
                 </div>
               ) : null}
             </header>
+
+            <section className="model-detail-block model-detail-block--quick" aria-labelledby="model-detail-quick">
+              <h2 id="model-detail-quick">{t('model_detail_quick_facts')}</h2>
+              <div className="model-detail-specs-wrap">
+                <table className="model-detail-specs model-detail-specs--facts">
+                  <tbody>
+                    <tr>
+                      <th scope="row">{t('model_detail_capability')}</th>
+                      <td>{detailCapabilityLabel(model.capability, t)}</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">{t('model_detail_product_line')}</th>
+                      <td>{detailProductLineLabel(model, t)}</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">{t('model_detail_listing_source')}</th>
+                      <td>{listingSourceLabel(model, t)}</td>
+                    </tr>
+                    {model.contextLength != null ? (
+                      <tr>
+                        <th scope="row">{t('models_ctx_prefix')}</th>
+                        <td>{model.contextLength.toLocaleString()}</td>
+                      </tr>
+                    ) : null}
+                    <tr>
+                      <th scope="row">{t('model_detail_modalities')}</th>
+                      <td>
+                        {model.modalitiesLine ? model.modalitiesLine : t('model_detail_modalities_note')}
+                      </td>
+                    </tr>
+                    {model.price ? (
+                      <tr>
+                        <th scope="row">{t('model_detail_pricing')}</th>
+                        <td className="model-detail-td-verbose">{model.price}</td>
+                      </tr>
+                    ) : null}
+                    <tr>
+                      <th scope="row">{t('model_detail_api_id')}</th>
+                      <td>
+                        <code className="model-detail-code">
+                          {model.openRouterApiId ?? model.id}
+                        </code>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </section>
 
             {doc ? (
               <>
@@ -205,60 +216,6 @@ export function ModelDetailPage() {
                   ))}
                 </section>
               </>
-            ) : null}
-
-            {!doc && (model.openRouterApiId || model.product === 'bedrock') ? (
-              <section className="model-detail-block" aria-labelledby="model-detail-or-specs">
-                <h2 id="model-detail-or-specs">{t('model_detail_specs')}</h2>
-                <div className="model-detail-specs-wrap">
-                  <table className="model-detail-specs">
-                    <tbody>
-                      {model.providerName ? (
-                        <tr>
-                          <th scope="row">{t('model_detail_provider')}</th>
-                          <td>{model.providerName}</td>
-                        </tr>
-                      ) : null}
-                      {model.product === 'openrouter' || model.product === 'bedrock' ? (
-                        <tr>
-                          <th scope="row">{t('model_detail_listing_source')}</th>
-                          <td>
-                            {model.product === 'openrouter'
-                              ? t('models_card_source_openrouter')
-                              : t('models_card_source_bedrock')}
-                          </td>
-                        </tr>
-                      ) : null}
-                      {model.contextLength != null ? (
-                        <tr>
-                          <th scope="row">{t('models_ctx_prefix')}</th>
-                          <td>{model.contextLength.toLocaleString()}</td>
-                        </tr>
-                      ) : null}
-                      {model.modalitiesLine ? (
-                        <tr>
-                          <th scope="row">{t('model_detail_modalities')}</th>
-                          <td>{model.modalitiesLine}</td>
-                        </tr>
-                      ) : null}
-                      {model.price ? (
-                        <tr>
-                          <th scope="row">{t('model_detail_pricing')}</th>
-                          <td>{model.price}</td>
-                        </tr>
-                      ) : null}
-                      <tr>
-                        <th scope="row">{t('model_detail_api_id')}</th>
-                        <td>
-                          <code className="model-detail-code">
-                            {model.openRouterApiId ?? model.id}
-                          </code>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </section>
             ) : null}
 
             <p className="model-detail-disclaimer">{t('model_detail_disclaimer')}</p>

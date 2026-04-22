@@ -1,6 +1,6 @@
 /**
  * OpenRouter `org/model` 的 org 段 → 人類可讀供應商名。
- * org 清單曾與 https://openrouter.ai/api/v1/models 回傳之 id 前綴對齊；新增模型時若顯示不準可在此補鍵。
+ * org 清單與內建快照 `openRouterModelsSnapshot.json` 之 id 前綴對齊；新增模型時若顯示不準可在此補鍵。
  * 前綴若以 `~` 開頭（路由別名），比對時會先去除再查表。
  */
 

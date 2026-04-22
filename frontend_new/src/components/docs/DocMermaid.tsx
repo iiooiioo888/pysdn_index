@@ -32,7 +32,7 @@ export function DocMermaid({ chart, className = '' }: DocMermaidProps) {
             secondaryColor: '#334155',
             tertiaryColor: '#0f172a',
             lineColor: '#64748b',
-            fontFamily: "'Plus Jakarta Sans', 'Noto Sans TC', system-ui, sans-serif",
+            fontFamily: "'Plus Jakarta Sans', 'Noto Sans SC', 'Noto Sans TC', 'Microsoft YaHei', system-ui, sans-serif",
           },
         })
         const graphId = `doc-mmd-${reactId}-${Math.random().toString(36).slice(2, 10)}`

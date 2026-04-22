@@ -13,7 +13,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'text',
     developer: 'aws',
     badges: [],
-    price: "In: $5/M tok · Out: $25/M tok (per 1M tokens) · Cache read 90% off; Batch 50% off",
+    price: "輸入 $5／百萬 tokens · 輸出 $25／百萬 tokens · 快取讀取 9 折、批次 5 折",
     title: {
       'zh-TW': "Claude Opus 4.7",
       'zh-CN': "Claude Opus 4.7",
@@ -38,7 +38,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'text',
     developer: 'aws',
     badges: [],
-    price: "In: $5/M tok · Out: $25/M tok (per 1M tokens) · Gated research preview",
+    price: "輸入 $5／百萬 tokens · 輸出 $25／百萬 tokens · 受控研究預覽",
     title: {
       'zh-TW': "Claude Mythos Preview",
       'zh-CN': "Claude Mythos Preview",
@@ -63,7 +63,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'multimodal',
     developer: 'aws',
     badges: [],
-    price: "In: $3/M tok · Out: $15/M tok (per 1M tokens) · Cache read 90% off; Batch 50% off",
+    price: "輸入 $3／百萬 tokens · 輸出 $15／百萬 tokens · 快取讀取 9 折、批次 5 折",
     title: {
       'zh-TW': "Claude Sonnet 4.6",
       'zh-CN': "Claude Sonnet 4.6",
@@ -88,7 +88,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'text',
     developer: 'aws',
     badges: [],
-    price: "In: $5/M tok · Out: $25/M tok (per 1M tokens) · Cache read 90% off; Batch 50% off",
+    price: "輸入 $5／百萬 tokens · 輸出 $25／百萬 tokens · 快取讀取 9 折、批次 5 折",
     title: {
       'zh-TW': "Claude Opus 4.6",
       'zh-CN': "Claude Opus 4.6",
@@ -113,7 +113,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'text',
     developer: 'aws',
     badges: [],
-    price: "In: $5/M tok · Out: $25/M tok (per 1M tokens)",
+    price: "輸入 $5／百萬 tokens · 輸出 $25／百萬 tokens",
     title: {
       'zh-TW': "Claude Opus 4.5",
       'zh-CN': "Claude Opus 4.5",
@@ -138,7 +138,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'text',
     developer: 'aws',
     badges: [],
-    price: "In: $1/M tok · Out: $5/M tok (per 1M tokens) · Fastest in Claude family",
+    price: "輸入 $1／百萬 tokens · 輸出 $5／百萬 tokens · Claude 系列中速度最快",
     title: {
       'zh-TW': "Claude Haiku 4.5",
       'zh-CN': "Claude Haiku 4.5",
@@ -163,7 +163,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'text',
     developer: 'aws',
     badges: [],
-    price: "In: $3/M tok · Out: $15/M tok (per 1M tokens)",
+    price: "輸入 $3／百萬 tokens · 輸出 $15／百萬 tokens",
     title: {
       'zh-TW': "Claude Sonnet 4.5",
       'zh-CN': "Claude Sonnet 4.5",
@@ -188,7 +188,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'text',
     developer: 'aws',
     badges: [],
-    price: "In: $5/M tok · Out: $25/M tok (per 1M tokens)",
+    price: "輸入 $5／百萬 tokens · 輸出 $25／百萬 tokens",
     title: {
       'zh-TW': "Claude Opus 4.1",
       'zh-CN': "Claude Opus 4.1",
@@ -213,7 +213,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'text',
     developer: 'aws',
     badges: [],
-    price: "In: $3/M tok · Out: $15/M tok (per 1M tokens)",
+    price: "輸入 $3／百萬 tokens · 輸出 $15／百萬 tokens",
     title: {
       'zh-TW': "Claude Sonnet 4",
       'zh-CN': "Claude Sonnet 4",
@@ -238,7 +238,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'text',
     developer: 'aws',
     badges: [],
-    price: "In: $0.8/M tok · Out: $4/M tok (per 1M tokens)",
+    price: "輸入 $0.8／百萬 tokens · 輸出 $4／百萬 tokens",
     title: {
       'zh-TW': "Claude 3.5 Haiku",
       'zh-CN': "Claude 3.5 Haiku",
@@ -263,7 +263,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'text',
     developer: 'aws',
     badges: [],
-    price: "In: $0.25/M tok · Out: $1.25/M tok (per 1M tokens)",
+    price: "輸入 $0.25／百萬 tokens · 輸出 $1.25／百萬 tokens",
     title: {
       'zh-TW': "Claude 3 Haiku",
       'zh-CN': "Claude 3 Haiku",
@@ -288,7 +288,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'audio',
     developer: 'aws',
     badges: [],
-    price: "In: $0.37/M tok · Out: $1.1/M tok (per 1M tokens) · Speech-to-speech; text token pricing",
+    price: "輸入 $0.37／百萬 tokens · 輸出 $1.1／百萬 tokens · 語音對語音；同採文字 tokens 計價",
     title: {
       'zh-TW': "Nova 2 Sonic",
       'zh-CN': "Nova 2 Sonic",
@@ -312,7 +312,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'multimodal',
     developer: 'aws',
     badges: [],
-    price: "In: $2.5/M tok · Out: $12.5/M tok (per 1M tokens) · Global cross-region",
+    price: "輸入 $2.5／百萬 tokens · 輸出 $12.5／百萬 tokens · 全球跨區",
     title: {
       'zh-TW': "Nova Premier",
       'zh-CN': "Nova Premier",
@@ -337,7 +337,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'audio',
     developer: 'aws',
     badges: [],
-    price: "In: $0.37/M tok · Out: $1.1/M tok (per 1M tokens) · Speech-to-speech; text token pricing",
+    price: "輸入 $0.37／百萬 tokens · 輸出 $1.1／百萬 tokens · 語音對語音；同採文字 tokens 計價",
     title: {
       'zh-TW': "Nova Sonic",
       'zh-CN': "Nova Sonic",
@@ -361,7 +361,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'multimodal',
     developer: 'aws',
     badges: [],
-    price: "In: $0.8/M tok · Out: $3.2/M tok (per 1M tokens) · Global cross-region",
+    price: "輸入 $0.8／百萬 tokens · 輸出 $3.2／百萬 tokens · 全球跨區",
     title: {
       'zh-TW': "Nova Pro",
       'zh-CN': "Nova Pro",
@@ -386,7 +386,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'multimodal',
     developer: 'aws',
     badges: [],
-    price: "In: $0.06/M tok · Out: $0.24/M tok (per 1M tokens) · Global cross-region",
+    price: "輸入 $0.06／百萬 tokens · 輸出 $0.24／百萬 tokens · 全球跨區",
     title: {
       'zh-TW': "Nova Lite",
       'zh-CN': "Nova Lite",
@@ -411,7 +411,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'text',
     developer: 'aws',
     badges: [],
-    price: "In: $0.035/M tok · Out: $0.14/M tok (per 1M tokens) · Global cross-region",
+    price: "輸入 $0.035／百萬 tokens · 輸出 $0.14／百萬 tokens · 全球跨區",
     title: {
       'zh-TW': "Nova Micro",
       'zh-CN': "Nova Micro",
@@ -436,7 +436,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'multimodal',
     developer: 'aws',
     badges: [],
-    price: "In: $0.06/M tok · Out: $0.24/M tok (per 1M tokens)",
+    price: "輸入 $0.06／百萬 tokens · 輸出 $0.24／百萬 tokens",
     title: {
       'zh-TW': "Nova 2 Lite",
       'zh-CN': "Nova 2 Lite",
@@ -461,7 +461,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'image',
     developer: 'aws',
     badges: [],
-    price: "per image · $0.04/張 (1024×1024 Standard)",
+    price: "每張 $0.04（1024×1024 標準）",
     title: {
       'zh-TW': "Nova Canvas",
       'zh-CN': "Nova Canvas",
@@ -485,7 +485,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'video',
     developer: 'aws',
     badges: [],
-    price: "per second · $0.08/秒 視頻",
+    price: "每影片秒 $0.08",
     title: {
       'zh-TW': "Nova Reel",
       'zh-CN': "Nova Reel",
@@ -509,7 +509,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'text',
     developer: 'aws',
     badges: [],
-    price: "In: $0.8/M tok · Out: $1.6/M tok (per 1M tokens)",
+    price: "輸入 $0.8／百萬 tokens · 輸出 $1.6／百萬 tokens",
     title: {
       'zh-TW': "Titan Text Large",
       'zh-CN': "Titan Text Large",
@@ -534,7 +534,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'text',
     developer: 'aws',
     badges: [],
-    price: "In: $0.02/M tok (per 1M tokens) · Output: 不適用 (嵌入模型)",
+    price: "輸入 $0.02／百萬 tokens · 輸出：不適用（嵌入）",
     title: {
       'zh-TW': "Titan Text Embeddings V2",
       'zh-CN': "Titan Text Embeddings V2",
@@ -559,7 +559,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'image',
     developer: 'aws',
     badges: [],
-    price: "per image · $0.04/張 (1024×1024 Standard)",
+    price: "每張 $0.04（1024×1024 標準）",
     title: {
       'zh-TW': "Titan Image Generator G1 v2",
       'zh-CN': "Titan Image Generator G1 v2",
@@ -583,7 +583,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'text',
     developer: 'aws',
     badges: [],
-    price: "In: $0.8/M tok (per 1M tokens) · + $0.00006/張圖像",
+    price: "輸入 $0.8／百萬 tokens · 圖像每張＋$0.00006",
     title: {
       'zh-TW': "Titan Multimodal Embeddings G1",
       'zh-CN': "Titan Multimodal Embeddings G1",
@@ -607,7 +607,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'text',
     developer: 'aws',
     badges: [],
-    price: "In: $0.1/M tok (per 1M tokens) · Output: 不適用 (嵌入模型)",
+    price: "輸入 $0.1／百萬 tokens · 輸出：不適用（嵌入）",
     title: {
       'zh-TW': "Titan Embeddings G1 - Text",
       'zh-CN': "Titan Embeddings G1 - Text",
@@ -632,7 +632,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'text',
     developer: 'aws',
     badges: [],
-    price: "In: $0.02/M tok (per 1M tokens)",
+    price: "輸入 $0.02／百萬 tokens",
     title: {
       'zh-TW': "Titan Text Embeddings v2",
       'zh-CN': "Titan Text Embeddings v2",
@@ -657,7 +657,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'multimodal',
     developer: 'aws',
     badges: [],
-    price: "In: $0.24/M tok · Out: $0.97/M tok (per 1M tokens)",
+    price: "輸入 $0.24／百萬 tokens · 輸出 $0.97／百萬 tokens",
     title: {
       'zh-TW': "Llama 4 Maverick 17B Instruct",
       'zh-CN': "Llama 4 Maverick 17B Instruct",
@@ -682,7 +682,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'multimodal',
     developer: 'aws',
     badges: [],
-    price: "In: $0.18/M tok · Out: $0.74/M tok (per 1M tokens)",
+    price: "輸入 $0.18／百萬 tokens · 輸出 $0.74／百萬 tokens",
     title: {
       'zh-TW': "Llama 4 Scout 17B Instruct",
       'zh-CN': "Llama 4 Scout 17B Instruct",
@@ -707,7 +707,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'text',
     developer: 'aws',
     badges: [],
-    price: "In: $0.72/M tok · Out: $0.72/M tok (per 1M tokens)",
+    price: "輸入 $0.72／百萬 tokens · 輸出 $0.72／百萬 tokens",
     title: {
       'zh-TW': "Llama 3.3 70B Instruct",
       'zh-CN': "Llama 3.3 70B Instruct",
@@ -732,7 +732,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'multimodal',
     developer: 'aws',
     badges: [],
-    price: "In: $0.72/M tok · Out: $0.72/M tok (per 1M tokens)",
+    price: "輸入 $0.72／百萬 tokens · 輸出 $0.72／百萬 tokens",
     title: {
       'zh-TW': "Llama 3.2 90B Instruct",
       'zh-CN': "Llama 3.2 90B Instruct",
@@ -757,7 +757,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'multimodal',
     developer: 'aws',
     badges: [],
-    price: "In: $0.16/M tok · Out: $0.16/M tok (per 1M tokens)",
+    price: "輸入 $0.16／百萬 tokens · 輸出 $0.16／百萬 tokens",
     title: {
       'zh-TW': "Llama 3.2 11B Instruct",
       'zh-CN': "Llama 3.2 11B Instruct",
@@ -782,7 +782,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'text',
     developer: 'aws',
     badges: [],
-    price: "In: $0.15/M tok · Out: $0.15/M tok (per 1M tokens)",
+    price: "輸入 $0.15／百萬 tokens · 輸出 $0.15／百萬 tokens",
     title: {
       'zh-TW': "Llama 3.2 3B Instruct",
       'zh-CN': "Llama 3.2 3B Instruct",
@@ -807,7 +807,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'text',
     developer: 'aws',
     badges: [],
-    price: "In: $0.1/M tok · Out: $0.1/M tok (per 1M tokens)",
+    price: "輸入 $0.1／百萬 tokens · 輸出 $0.1／百萬 tokens",
     title: {
       'zh-TW': "Llama 3.2 1B Instruct",
       'zh-CN': "Llama 3.2 1B Instruct",
@@ -832,7 +832,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'text',
     developer: 'aws',
     badges: [],
-    price: "In: $5.32/M tok · Out: $16/M tok (per 1M tokens)",
+    price: "輸入 $5.32／百萬 tokens · 輸出 $16／百萬 tokens",
     title: {
       'zh-TW': "Llama 3.1 405B Instruct",
       'zh-CN': "Llama 3.1 405B Instruct",
@@ -857,7 +857,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'text',
     developer: 'aws',
     badges: [],
-    price: "In: $0.72/M tok · Out: $0.72/M tok (per 1M tokens)",
+    price: "輸入 $0.72／百萬 tokens · 輸出 $0.72／百萬 tokens",
     title: {
       'zh-TW': "Llama 3.1 70B Instruct",
       'zh-CN': "Llama 3.1 70B Instruct",
@@ -882,7 +882,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'text',
     developer: 'aws',
     badges: [],
-    price: "In: $0.22/M tok · Out: $0.22/M tok (per 1M tokens)",
+    price: "輸入 $0.22／百萬 tokens · 輸出 $0.22／百萬 tokens",
     title: {
       'zh-TW': "Llama 3.1 8B Instruct",
       'zh-CN': "Llama 3.1 8B Instruct",
@@ -907,7 +907,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'text',
     developer: 'aws',
     badges: [],
-    price: "In: $2.56/M tok · Out: $3.4/M tok (per 1M tokens)",
+    price: "輸入 $2.56／百萬 tokens · 輸出 $3.4／百萬 tokens",
     title: {
       'zh-TW': "Llama 3 70B Instruct",
       'zh-CN': "Llama 3 70B Instruct",
@@ -932,7 +932,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'text',
     developer: 'aws',
     badges: [],
-    price: "In: $0.4/M tok · Out: $0.6/M tok (per 1M tokens)",
+    price: "輸入 $0.4／百萬 tokens · 輸出 $0.6／百萬 tokens",
     title: {
       'zh-TW': "Llama 3 8B Instruct",
       'zh-CN': "Llama 3 8B Instruct",
@@ -957,7 +957,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'text',
     developer: 'aws',
     badges: [],
-    price: "In: $0.5/M tok · Out: $1.5/M tok (per 1M tokens)",
+    price: "輸入 $0.5／百萬 tokens · 輸出 $1.5／百萬 tokens",
     title: {
       'zh-TW': "Mistral Large 3",
       'zh-CN': "Mistral Large 3",
@@ -982,7 +982,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'text',
     developer: 'aws',
     badges: [],
-    price: "In: $4/M tok · Out: $12/M tok (per 1M tokens)",
+    price: "輸入 $4／百萬 tokens · 輸出 $12／百萬 tokens",
     title: {
       'zh-TW': "Mistral Large",
       'zh-CN': "Mistral Large",
@@ -1007,7 +1007,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'text',
     developer: 'aws',
     badges: [],
-    price: "In: $0.2/M tok · Out: $0.6/M tok (per 1M tokens)",
+    price: "輸入 $0.2／百萬 tokens · 輸出 $0.6／百萬 tokens",
     title: {
       'zh-TW': "Mistral Small",
       'zh-CN': "Mistral Small",
@@ -1032,7 +1032,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'text',
     developer: 'aws',
     badges: [],
-    price: "In: $0.2/M tok · Out: $0.2/M tok (per 1M tokens)",
+    price: "輸入 $0.2／百萬 tokens · 輸出 $0.2／百萬 tokens",
     title: {
       'zh-TW': "Ministral 14B 3.0",
       'zh-CN': "Ministral 14B 3.0",
@@ -1057,7 +1057,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'text',
     developer: 'aws',
     badges: [],
-    price: "In: $0.15/M tok · Out: $0.15/M tok (per 1M tokens)",
+    price: "輸入 $0.15／百萬 tokens · 輸出 $0.15／百萬 tokens",
     title: {
       'zh-TW': "Ministral 3 8B",
       'zh-CN': "Ministral 3 8B",
@@ -1082,7 +1082,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'text',
     developer: 'aws',
     badges: [],
-    price: "In: $0.1/M tok · Out: $0.1/M tok (per 1M tokens)",
+    price: "輸入 $0.1／百萬 tokens · 輸出 $0.1／百萬 tokens",
     title: {
       'zh-TW': "Ministral 3B",
       'zh-CN': "Ministral 3B",
@@ -1107,7 +1107,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'audio',
     developer: 'aws',
     badges: [],
-    price: "In: $0.1/M tok · Out: $0.3/M tok (per 1M tokens) · Speech-to-text",
+    price: "輸入 $0.1／百萬 tokens · 輸出 $0.3／百萬 tokens · 語音轉文字",
     title: {
       'zh-TW': "Voxtral Small 24B 2507",
       'zh-CN': "Voxtral Small 24B 2507",
@@ -1131,7 +1131,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'audio',
     developer: 'aws',
     badges: [],
-    price: "In: $0.04/M tok · Out: $0.04/M tok (per 1M tokens) · Speech-to-text",
+    price: "輸入 $0.04／百萬 tokens · 輸出 $0.04／百萬 tokens · 語音轉文字",
     title: {
       'zh-TW': "Voxtral Mini 3B 2507",
       'zh-CN': "Voxtral Mini 3B 2507",
@@ -1155,7 +1155,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'text',
     developer: 'aws',
     badges: [],
-    price: "In: $0.5/M tok · Out: $1.5/M tok (per 1M tokens)",
+    price: "輸入 $0.5／百萬 tokens · 輸出 $1.5／百萬 tokens",
     title: {
       'zh-TW': "Magistral Small 2509",
       'zh-CN': "Magistral Small 2509",
@@ -1180,7 +1180,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'text',
     developer: 'aws',
     badges: [],
-    price: "In: $0.4/M tok · Out: $2/M tok (per 1M tokens)",
+    price: "輸入 $0.4／百萬 tokens · 輸出 $2／百萬 tokens",
     title: {
       'zh-TW': "Devstral 2 123B",
       'zh-CN': "Devstral 2 123B",
@@ -1205,7 +1205,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'multimodal',
     developer: 'aws',
     badges: [],
-    price: "In: $2/M tok · Out: $6/M tok (per 1M tokens)",
+    price: "輸入 $2／百萬 tokens · 輸出 $6／百萬 tokens",
     title: {
       'zh-TW': "Pixtral Large",
       'zh-CN': "Pixtral Large",
@@ -1230,7 +1230,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'text',
     developer: 'aws',
     badges: [],
-    price: "In: $0.45/M tok · Out: $0.7/M tok (per 1M tokens)",
+    price: "輸入 $0.45／百萬 tokens · 輸出 $0.7／百萬 tokens",
     title: {
       'zh-TW': "Mixtral 8x7B Instruct",
       'zh-CN': "Mixtral 8x7B Instruct",
@@ -1255,7 +1255,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'text',
     developer: 'aws',
     badges: [],
-    price: "In: $0.2/M tok · Out: $0.2/M tok (per 1M tokens)",
+    price: "輸入 $0.2／百萬 tokens · 輸出 $0.2／百萬 tokens",
     title: {
       'zh-TW': "Mistral 7B Instruct",
       'zh-CN': "Mistral 7B Instruct",
@@ -1280,7 +1280,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'text',
     developer: 'aws',
     badges: [],
-    price: "In: $2/M tok · Out: $8/M tok (per 1M tokens)",
+    price: "輸入 $2／百萬 tokens · 輸出 $8／百萬 tokens",
     title: {
       'zh-TW': "Jamba 1.5 Large",
       'zh-CN': "Jamba 1.5 Large",
@@ -1305,7 +1305,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'text',
     developer: 'aws',
     badges: [],
-    price: "In: $0.2/M tok · Out: $0.4/M tok (per 1M tokens)",
+    price: "輸入 $0.2／百萬 tokens · 輸出 $0.4／百萬 tokens",
     title: {
       'zh-TW': "Jamba 1.5 Mini",
       'zh-CN': "Jamba 1.5 Mini",
@@ -1330,7 +1330,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'text',
     developer: 'aws',
     badges: [],
-    price: "per 1M tokens · 未公開定價",
+    price: "每百萬 tokens · 定價未公開",
     title: {
       'zh-TW': "Embed v4",
       'zh-CN': "Embed v4",
@@ -1354,7 +1354,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'text',
     developer: 'aws',
     badges: [],
-    price: "per 1K queries · $2.00/千次查詢",
+    price: "每千次查詢 $2.00",
     title: {
       'zh-TW': "Rerank 3.5",
       'zh-CN': "Rerank 3.5",
@@ -1378,7 +1378,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'text',
     developer: 'aws',
     badges: [],
-    price: "In: $0.15/M tok · Out: $0.6/M tok (per 1M tokens)",
+    price: "輸入 $0.15／百萬 tokens · 輸出 $0.6／百萬 tokens",
     title: {
       'zh-TW': "Command R",
       'zh-CN': "Command R",
@@ -1403,7 +1403,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'text',
     developer: 'aws',
     badges: [],
-    price: "In: $2.5/M tok · Out: $10/M tok (per 1M tokens)",
+    price: "輸入 $2.5／百萬 tokens · 輸出 $10／百萬 tokens",
     title: {
       'zh-TW': "Command R+",
       'zh-CN': "Command R+",
@@ -1428,7 +1428,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'text',
     developer: 'aws',
     badges: [],
-    price: "In: $0.1/M tok (per 1M tokens) · Output: 不適用",
+    price: "輸入 $0.1／百萬 tokens · 輸出：不適用",
     title: {
       'zh-TW': "Embed English",
       'zh-CN': "Embed English",
@@ -1452,7 +1452,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'text',
     developer: 'aws',
     badges: [],
-    price: "In: $0.1/M tok (per 1M tokens) · Output: 不適用",
+    price: "輸入 $0.1／百萬 tokens · 輸出：不適用",
     title: {
       'zh-TW': "Embed Multilingual",
       'zh-CN': "Embed Multilingual",
@@ -1476,7 +1476,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'text',
     developer: 'aws',
     badges: [],
-    price: "In: $0.62/M tok · Out: $1.85/M tok (per 1M tokens) · US East 區域",
+    price: "輸入 $0.62／百萬 tokens · 輸出 $1.85／百萬 tokens · 美東",
     title: {
       'zh-TW': "DeepSeek V3.2",
       'zh-CN': "DeepSeek V3.2",
@@ -1501,7 +1501,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'text',
     developer: 'aws',
     badges: [],
-    price: "In: $0.6/M tok · Out: $1.73/M tok (per 1M tokens) · Sydney 區域",
+    price: "輸入 $0.6／百萬 tokens · 輸出 $1.73／百萬 tokens · 雪梨",
     title: {
       'zh-TW': "DeepSeek V3.1",
       'zh-CN': "DeepSeek V3.1",
@@ -1526,7 +1526,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'text',
     developer: 'aws',
     badges: [],
-    price: "In: $1.35/M tok · Out: $5.4/M tok (per 1M tokens) · US East; 推理模型溢價",
+    price: "輸入 $1.35／百萬 tokens · 輸出 $5.4／百萬 tokens · 美東 · 推理加價",
     title: {
       'zh-TW': "DeepSeek R1",
       'zh-CN': "DeepSeek R1",
@@ -1551,7 +1551,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'multimodal',
     developer: 'aws',
     badges: [],
-    price: "In: $0.23/M tok · Out: $0.38/M tok (per 1M tokens) · US East 區域",
+    price: "輸入 $0.23／百萬 tokens · 輸出 $0.38／百萬 tokens · 美東",
     title: {
       'zh-TW': "Gemma 3 27B PT",
       'zh-CN': "Gemma 3 27B PT",
@@ -1576,7 +1576,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'multimodal',
     developer: 'aws',
     badges: [],
-    price: "In: $0.09/M tok · Out: $0.29/M tok (per 1M tokens)",
+    price: "輸入 $0.09／百萬 tokens · 輸出 $0.29／百萬 tokens",
     title: {
       'zh-TW': "Gemma 3 12B IT",
       'zh-CN': "Gemma 3 12B IT",
@@ -1601,7 +1601,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'text',
     developer: 'aws',
     badges: [],
-    price: "In: $0.04/M tok · Out: $0.08/M tok (per 1M tokens)",
+    price: "輸入 $0.04／百萬 tokens · 輸出 $0.08／百萬 tokens",
     title: {
       'zh-TW': "Gemma 3 4B IT",
       'zh-CN': "Gemma 3 4B IT",
@@ -1626,7 +1626,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'text',
     developer: 'aws',
     badges: [],
-    price: "In: $0.15/M tok · Out: $0.62/M tok (per 1M tokens) · Sydney 區域",
+    price: "輸入 $0.15／百萬 tokens · 輸出 $0.62／百萬 tokens · 雪梨",
     title: {
       'zh-TW': "gpt-oss-120b",
       'zh-CN': "gpt-oss-120b",
@@ -1651,7 +1651,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'text',
     developer: 'aws',
     badges: [],
-    price: "In: $0.07/M tok · Out: $0.31/M tok (per 1M tokens) · Sydney 區域",
+    price: "輸入 $0.07／百萬 tokens · 輸出 $0.31／百萬 tokens · 雪梨",
     title: {
       'zh-TW': "gpt-oss-20b",
       'zh-CN': "gpt-oss-20b",
@@ -1676,7 +1676,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'text',
     developer: 'aws',
     badges: [],
-    price: "In: $0.15/M tok · Out: $0.6/M tok (per 1M tokens) · US East 區域",
+    price: "輸入 $0.15／百萬 tokens · 輸出 $0.6／百萬 tokens · 美東",
     title: {
       'zh-TW': "GPT OSS Safeguard 120b",
       'zh-CN': "GPT OSS Safeguard 120b",
@@ -1701,7 +1701,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'text',
     developer: 'aws',
     badges: [],
-    price: "In: $0.07/M tok · Out: $0.2/M tok (per 1M tokens) · US East 區域",
+    price: "輸入 $0.07／百萬 tokens · 輸出 $0.2／百萬 tokens · 美東",
     title: {
       'zh-TW': "GPT OSS Safeguard 20b",
       'zh-CN': "GPT OSS Safeguard 20b",
@@ -1726,7 +1726,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'text',
     developer: 'aws',
     badges: [],
-    price: "In: $0.5/M tok · Out: $1.2/M tok (per 1M tokens) · US East 區域",
+    price: "輸入 $0.5／百萬 tokens · 輸出 $1.2／百萬 tokens · 美東",
     title: {
       'zh-TW': "Qwen3 Coder Next",
       'zh-CN': "Qwen3 Coder Next",
@@ -1751,7 +1751,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'multimodal',
     developer: 'aws',
     badges: [],
-    price: "In: $0.53/M tok · Out: $2.66/M tok (per 1M tokens)",
+    price: "輸入 $0.53／百萬 tokens · 輸出 $2.66／百萬 tokens",
     title: {
       'zh-TW': "Qwen3 VL 235B A22B",
       'zh-CN': "Qwen3 VL 235B A22B",
@@ -1776,7 +1776,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'text',
     developer: 'aws',
     badges: [],
-    price: "In: $0.15/M tok · Out: $1.2/M tok (per 1M tokens)",
+    price: "輸入 $0.15／百萬 tokens · 輸出 $1.2／百萬 tokens",
     title: {
       'zh-TW': "Qwen3 Next 80B A3B",
       'zh-CN': "Qwen3 Next 80B A3B",
@@ -1801,7 +1801,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'text',
     developer: 'aws',
     badges: [],
-    price: "In: $0.15/M tok · Out: $0.62/M tok (per 1M tokens) · Sydney 區域",
+    price: "輸入 $0.15／百萬 tokens · 輸出 $0.62／百萬 tokens · 雪梨",
     title: {
       'zh-TW': "Qwen3 Coder 30B A3B",
       'zh-CN': "Qwen3 Coder 30B A3B",
@@ -1826,7 +1826,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'text',
     developer: 'aws',
     badges: [],
-    price: "In: $0.5/M tok · Out: $1.2/M tok (per 1M tokens)",
+    price: "輸入 $0.5／百萬 tokens · 輸出 $1.2／百萬 tokens",
     title: {
       'zh-TW': "Qwen3 Coder 480B A35B",
       'zh-CN': "Qwen3 Coder 480B A35B",
@@ -1851,7 +1851,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'text',
     developer: 'aws',
     badges: [],
-    price: "In: $0.15/M tok · Out: $0.62/M tok (per 1M tokens) · Sydney 區域",
+    price: "輸入 $0.15／百萬 tokens · 輸出 $0.62／百萬 tokens · 雪梨",
     title: {
       'zh-TW': "Qwen3 32B",
       'zh-CN': "Qwen3 32B",
@@ -1876,7 +1876,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'text',
     developer: 'aws',
     badges: [],
-    price: "In: $0.23/M tok · Out: $0.91/M tok (per 1M tokens) · Sydney 區域",
+    price: "輸入 $0.23／百萬 tokens · 輸出 $0.91／百萬 tokens · 雪梨",
     title: {
       'zh-TW': "Qwen3 235B A22B 2507",
       'zh-CN': "Qwen3 235B A22B 2507",
@@ -1901,7 +1901,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'image',
     developer: 'aws',
     badges: [],
-    price: "per image · $0.07/張",
+    price: "每張 $0.07",
     title: {
       'zh-TW': "Stable Image Remove Background",
       'zh-CN': "Stable Image Remove Background",
@@ -1925,7 +1925,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'image',
     developer: 'aws',
     badges: [],
-    price: "per image · $0.07/張",
+    price: "每張 $0.07",
     title: {
       'zh-TW': "Stable Image Search and Replace",
       'zh-CN': "Stable Image Search and Replace",
@@ -1949,7 +1949,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'image',
     developer: 'aws',
     badges: [],
-    price: "per image · $0.07/張",
+    price: "每張 $0.07",
     title: {
       'zh-TW': "Stable Image Style Guide",
       'zh-CN': "Stable Image Style Guide",
@@ -1973,7 +1973,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'image',
     developer: 'aws',
     badges: [],
-    price: "per image · $0.08/張",
+    price: "每張 $0.08",
     title: {
       'zh-TW': "Stable Image Style Transfer",
       'zh-CN': "Stable Image Style Transfer",
@@ -1997,7 +1997,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'image',
     developer: 'aws',
     badges: [],
-    price: "per image · $0.03/張",
+    price: "每張 $0.03",
     title: {
       'zh-TW': "Stable Image Fast Upscale",
       'zh-CN': "Stable Image Fast Upscale",
@@ -2021,7 +2021,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'image',
     developer: 'aws',
     badges: [],
-    price: "per image · $0.07/張",
+    price: "每張 $0.07",
     title: {
       'zh-TW': "Stable Image Search and Recolor",
       'zh-CN': "Stable Image Search and Recolor",
@@ -2045,7 +2045,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'image',
     developer: 'aws',
     badges: [],
-    price: "per image · $0.40/張",
+    price: "每張 $0.40",
     title: {
       'zh-TW': "Stable Image Conservative Upscale",
       'zh-CN': "Stable Image Conservative Upscale",
@@ -2069,7 +2069,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'image',
     developer: 'aws',
     badges: [],
-    price: "per image · $0.07/張",
+    price: "每張 $0.07",
     title: {
       'zh-TW': "Stable Image Erase Object",
       'zh-CN': "Stable Image Erase Object",
@@ -2093,7 +2093,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'image',
     developer: 'aws',
     badges: [],
-    price: "per image · $0.07/張",
+    price: "每張 $0.07",
     title: {
       'zh-TW': "Stable Image Control Structure",
       'zh-CN': "Stable Image Control Structure",
@@ -2117,7 +2117,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'image',
     developer: 'aws',
     badges: [],
-    price: "per image · $0.60/張",
+    price: "每張 $0.60",
     title: {
       'zh-TW': "Stable Image Creative Upscale",
       'zh-CN': "Stable Image Creative Upscale",
@@ -2141,7 +2141,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'image',
     developer: 'aws',
     badges: [],
-    price: "per image · $0.07/張",
+    price: "每張 $0.07",
     title: {
       'zh-TW': "Stable Image Control Sketch",
       'zh-CN': "Stable Image Control Sketch",
@@ -2165,7 +2165,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'image',
     developer: 'aws',
     badges: [],
-    price: "per image · $0.06/張",
+    price: "每張 $0.06",
     title: {
       'zh-TW': "Stable Image Outpaint",
       'zh-CN': "Stable Image Outpaint",
@@ -2189,7 +2189,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'image',
     developer: 'aws',
     badges: [],
-    price: "per image · $0.07/張",
+    price: "每張 $0.07",
     title: {
       'zh-TW': "Stable Image Inpaint",
       'zh-CN': "Stable Image Inpaint",
@@ -2213,7 +2213,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'text',
     developer: 'aws',
     badges: [],
-    price: "In: $0.06/M tok · Out: $0.23/M tok (per 1M tokens) · US East 區域",
+    price: "輸入 $0.06／百萬 tokens · 輸出 $0.23／百萬 tokens · 美東",
     title: {
       'zh-TW': "Nemotron Nano 9B v2",
       'zh-CN': "Nemotron Nano 9B v2",
@@ -2238,7 +2238,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'multimodal',
     developer: 'aws',
     badges: [],
-    price: "In: $0.2/M tok · Out: $0.6/M tok (per 1M tokens)",
+    price: "輸入 $0.2／百萬 tokens · 輸出 $0.6／百萬 tokens",
     title: {
       'zh-TW': "Nemotron Nano 12B v2 VL",
       'zh-CN': "Nemotron Nano 12B v2 VL",
@@ -2263,7 +2263,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'text',
     developer: 'aws',
     badges: [],
-    price: "In: $0.06/M tok · Out: $0.24/M tok (per 1M tokens)",
+    price: "輸入 $0.06／百萬 tokens · 輸出 $0.24／百萬 tokens",
     title: {
       'zh-TW': "Nemotron Nano 3 30B",
       'zh-CN': "Nemotron Nano 3 30B",
@@ -2288,7 +2288,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'text',
     developer: 'aws',
     badges: [],
-    price: "In: $0.15/M tok · Out: $0.65/M tok (per 1M tokens)",
+    price: "輸入 $0.15／百萬 tokens · 輸出 $0.65／百萬 tokens",
     title: {
       'zh-TW': "Nemotron 3 Super 120B",
       'zh-CN': "Nemotron 3 Super 120B",
@@ -2313,7 +2313,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'text',
     developer: 'aws',
     badges: [],
-    price: "In: $0.3/M tok · Out: $1.2/M tok (per 1M tokens) · US East 區域",
+    price: "輸入 $0.3／百萬 tokens · 輸出 $1.2／百萬 tokens · 美東",
     title: {
       'zh-TW': "MiniMax M2",
       'zh-CN': "MiniMax M2",
@@ -2338,7 +2338,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'text',
     developer: 'aws',
     badges: [],
-    price: "In: $0.3/M tok · Out: $1.2/M tok (per 1M tokens)",
+    price: "輸入 $0.3／百萬 tokens · 輸出 $1.2／百萬 tokens",
     title: {
       'zh-TW': "MiniMax M2.1",
       'zh-CN': "MiniMax M2.1",
@@ -2363,7 +2363,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'text',
     developer: 'aws',
     badges: [],
-    price: "In: $0.3/M tok · Out: $1.2/M tok (per 1M tokens)",
+    price: "輸入 $0.3／百萬 tokens · 輸出 $1.2／百萬 tokens",
     title: {
       'zh-TW': "MiniMax M2.5",
       'zh-CN': "MiniMax M2.5",
@@ -2388,7 +2388,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'multimodal',
     developer: 'aws',
     badges: [],
-    price: "In: $0.15/M tok · Out: $0.6/M tok (per 1M tokens)",
+    price: "輸入 $0.15／百萬 tokens · 輸出 $0.6／百萬 tokens",
     title: {
       'zh-TW': "Palmyra Vision 7B",
       'zh-CN': "Palmyra Vision 7B",
@@ -2413,7 +2413,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'text',
     developer: 'aws',
     badges: [],
-    price: "In: $0.6/M tok · Out: $6/M tok (per 1M tokens)",
+    price: "輸入 $0.6／百萬 tokens · 輸出 $6／百萬 tokens",
     title: {
       'zh-TW': "Palmyra X5",
       'zh-CN': "Palmyra X5",
@@ -2438,7 +2438,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'text',
     developer: 'aws',
     badges: [],
-    price: "In: $2.5/M tok · Out: $10/M tok (per 1M tokens)",
+    price: "輸入 $2.5／百萬 tokens · 輸出 $10／百萬 tokens",
     title: {
       'zh-TW': "Palmyra X4",
       'zh-CN': "Palmyra X4",
@@ -2463,7 +2463,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'video',
     developer: 'aws',
     badges: [],
-    price: "per min video · 按視頻時長計費",
+    price: "每分鐘影片 · 依影片時長計費",
     title: {
       'zh-TW': "Marengo Embed 3.0",
       'zh-CN': "Marengo Embed 3.0",
@@ -2487,7 +2487,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'video',
     developer: 'aws',
     badges: [],
-    price: "per min video · 按視頻時長計費",
+    price: "每分鐘影片 · 依影片時長計費",
     title: {
       'zh-TW': "Pegasus v1.2",
       'zh-CN': "Pegasus v1.2",
@@ -2511,7 +2511,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'video',
     developer: 'aws',
     badges: [],
-    price: "per min video · 按視頻時長計費",
+    price: "每分鐘影片 · 依影片時長計費",
     title: {
       'zh-TW': "Marengo Embed v2.7",
       'zh-CN': "Marengo Embed v2.7",
@@ -2535,7 +2535,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'multimodal',
     developer: 'aws',
     badges: [],
-    price: "In: $0.6/M tok · Out: $3/M tok (per 1M tokens) · US East 區域",
+    price: "輸入 $0.6／百萬 tokens · 輸出 $3／百萬 tokens · 美東",
     title: {
       'zh-TW': "Kimi K2.5",
       'zh-CN': "Kimi K2.5",
@@ -2560,7 +2560,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'text',
     developer: 'aws',
     badges: [],
-    price: "In: $0.6/M tok · Out: $2.5/M tok (per 1M tokens)",
+    price: "輸入 $0.6／百萬 tokens · 輸出 $2.5／百萬 tokens",
     title: {
       'zh-TW': "Kimi K2 Thinking",
       'zh-CN': "Kimi K2 Thinking",
@@ -2585,7 +2585,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'text',
     developer: 'aws',
     badges: [],
-    price: "In: $0.6/M tok · Out: $2.2/M tok (per 1M tokens) · US East 區域",
+    price: "輸入 $0.6／百萬 tokens · 輸出 $2.2／百萬 tokens · 美東",
     title: {
       'zh-TW': "GLM 4.7",
       'zh-CN': "GLM 4.7",
@@ -2610,7 +2610,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'text',
     developer: 'aws',
     badges: [],
-    price: "In: $0.07/M tok · Out: $0.4/M tok (per 1M tokens)",
+    price: "輸入 $0.07／百萬 tokens · 輸出 $0.4／百萬 tokens",
     title: {
       'zh-TW': "GLM 4.7 Flash",
       'zh-CN': "GLM 4.7 Flash",
@@ -2635,7 +2635,7 @@ export const BEDROCK_MODELS: CatalogModel[] = [
     capability: 'text',
     developer: 'aws',
     badges: [],
-    price: "In: $1/M tok · Out: $3.2/M tok (per 1M tokens)",
+    price: "輸入 $1／百萬 tokens · 輸出 $3.2／百萬 tokens",
     title: {
       'zh-TW': "GLM 5",
       'zh-CN': "GLM 5",

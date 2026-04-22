@@ -1,6 +1,7 @@
 /* ===== Component Styles ===== */
 @import './styles/nav.css';
 @import './styles/hero.css';
+@import './styles/home-sf.css';
 @import './styles/about.css';
 @import './styles/products.css';
 @import './styles/modules.css';
@@ -18,17 +19,19 @@
 
 /* ===== Design Tokens ===== */
 :root {
+  /* 全站內容縮放（與 useCanvasBackground CONTENT_SCALE 同步為 1.2 即 +20%） */
+  --app-scale: 1.2;
   /* Fixed nav + notch / home indicator safe areas */
   --nav-safe-top: env(safe-area-inset-top, 0px);
   --nav-safe-left: env(safe-area-inset-left, 0px);
   --nav-safe-right: env(safe-area-inset-right, 0px);
-  --nav-row-min-h: 64px;
+  --nav-row-min-h: calc(64px * var(--app-scale));
   /* Hero & standalone pages: clear nav + breathing room */
   --page-top-offset: max(
-    clamp(96px, 13vh, 124px),
-    calc(var(--nav-row-min-h) + var(--nav-safe-top) + 24px)
+    clamp(calc(96px * var(--app-scale)), 13vh, calc(124px * var(--app-scale))),
+    calc(var(--nav-row-min-h) + var(--nav-safe-top) + calc(24px * var(--app-scale)))
   );
-  --anchor-offset: calc(var(--nav-row-min-h) + var(--nav-safe-top) + 12px);
+  --anchor-offset: calc(var(--nav-row-min-h) + var(--nav-safe-top) + calc(12px * var(--app-scale)));
 
   --bg: #06060a;
   --bg-elevated: #0c0c14;
@@ -44,16 +47,18 @@
   --accent-emerald: #10b981;
   --gradient: linear-gradient(135deg, #06b6d4, #8b5cf6);
   --gradient-subtle: linear-gradient(135deg, rgba(6, 182, 212, 0.12), rgba(139, 92, 246, 0.12));
-  --radius: 14px;
-  --radius-lg: 22px;
+  --radius: calc(14px * var(--app-scale));
+  --radius-lg: calc(22px * var(--app-scale));
   --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  --shadow-glow: 0 0 0 1px rgba(255, 255, 255, 0.04), 0 24px 48px rgba(0, 0, 0, 0.35);
-  --shadow-card-hover: 0 0 0 1px rgba(6, 182, 212, 0.15), 0 20px 40px rgba(0, 0, 0, 0.4);
+  --shadow-glow: 0 0 0 1px rgba(255, 255, 255, 0.04),
+    0 calc(24px * var(--app-scale)) calc(48px * var(--app-scale)) rgba(0, 0, 0, 0.35);
+  --shadow-card-hover: 0 0 0 1px rgba(6, 182, 212, 0.15),
+    0 calc(20px * var(--app-scale)) calc(40px * var(--app-scale)) rgba(0, 0, 0, 0.4);
   --reveal-dur: 0.5s;
-  --reveal-y: 18px;
+  --reveal-y: calc(18px * var(--app-scale));
   /* Lightning streaks (hero / products / image cards) — shared rhythm */
-  --bolt-line-height: 2px;
-  --bolt-border-radius: 1px;
+  --bolt-line-height: calc(2px * var(--app-scale));
+  --bolt-border-radius: calc(1px * var(--app-scale));
   --bolt-gradient: linear-gradient(
     90deg,
     transparent,
@@ -64,28 +69,54 @@
   --bolt-duration: 4.5s;
   --bolt-ease: ease-in-out;
   --bolt-delay-step: 1.3s;
-  --bolt-grid-size: 40px;
+  --bolt-grid-size: calc(40px * var(--app-scale));
   --bolt-grid-line: rgba(6, 182, 212, 0.04);
   --bolt-grid-line-strong: rgba(6, 182, 212, 0.12);
 
   /* 全站主內容水平留白（手機／平板／桌面 + 安全區；略增以利可讀與觸控） */
-  --layout-pad-x: clamp(18px, 4.5vw, 48px);
-  --layout-pad-y: clamp(40px, 7vh, 96px);
+  --layout-pad-x: clamp(calc(18px * var(--app-scale)), 4.5vw, calc(48px * var(--app-scale)));
+  --layout-pad-y: clamp(calc(40px * var(--app-scale)), 7vh, calc(96px * var(--app-scale)));
   /* 內文欄寬上限（prose／FAQ 等）；全寬外殼內居中 */
   --layout-prose-max: min(56rem, 100%);
   /* 段落理想行长（約 65 字符） */
   --prose-measure-ch: 65ch;
 
-  /* Typography — 主要內文 ≥16px、導覽／按鈕 ≥14px，便於閱讀與點擊 */
-  --text-meta: 0.6875rem; /* 11px — 極小標籤（仍保留可辨識度） */
-  --text-caption: 0.8125rem; /* 13px — 小標、表單輔助 */
-  --text-ui: 0.875rem; /* 14px — 導覽、按鈕、頁尾連結 */
-  --text-body: 1rem; /* 16px — 內文基準 */
-  --text-body-lg: clamp(1rem, 0.35vw + 0.94rem, 1.125rem); /* 16–18px 區塊說明 */
+  /* Typography — 隨 html 根字級（≈16px×--app-scale）同步；皆用 rem 便於與 Tailwind 一致放大 */
+  --text-meta: 0.6875rem; /* 相對根字級 */
+  --text-caption: 0.8125rem;
+  --text-ui: 0.875rem;
+  --text-body: 1rem;
+  --text-body-lg: clamp(1rem, 0.35vw + 0.94rem, 1.125rem);
 
-  /* 字型：西文 Plus Jakarta Sans + CJK Noto；等寬 JetBrains Mono */
-  --font-sans: 'Plus Jakarta Sans', 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', 'Segoe UI', system-ui, sans-serif;
+  /* 字型：西文 Plus Jakarta Sans；CJK 依 html :lang 覆寫（簡中須用 SC，不可只排 TC） */
+  --font-sans: 'Plus Jakarta Sans', 'Noto Sans TC', 'Noto Sans SC', 'PingFang TC', 'PingFang SC', 'Microsoft JhengHei',
+    'Microsoft YaHei', 'SimHei', sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+}
+
+/* 簡體：Noto Sans SC 置前，並補 Windows／macOS 常見簡中黑體 */
+html:lang(zh-CN) {
+  --font-sans: 'Plus Jakarta Sans', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', 'SimHei', 'Noto Sans TC',
+    'PingFang TC', 'Microsoft JhengHei', sans-serif;
+}
+
+/* 繁體 */
+html:lang(zh-TW) {
+  --font-sans: 'Plus Jakarta Sans', 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', 'Noto Sans SC', 'PingFang SC',
+    'Microsoft YaHei', sans-serif;
+}
+
+html:lang(ja) {
+  --font-sans: 'Plus Jakarta Sans', 'Noto Sans JP', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', 'Meiryo',
+    sans-serif;
+}
+
+html:lang(ko) {
+  --font-sans: 'Plus Jakarta Sans', 'Noto Sans KR', 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;
+}
+
+html:lang(en) {
+  --font-sans: 'Plus Jakarta Sans', 'Segoe UI', system-ui, sans-serif;
 }
 
 /* Emoji bolt — nav / footer / doc logo (unified glow) */
@@ -102,6 +133,8 @@
 @layer base {
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
   html {
+    /* 根元素上 1rem = UA 預設（≈16px），×--app-scale 後全站 rem／Tailwind text-* 一併同步放大 */
+    font-size: calc(1rem * var(--app-scale));
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
     -webkit-text-size-adjust: 100%;
@@ -142,7 +175,7 @@
 
 .reveal {
   opacity: 0;
-  transform: translateY(28px);
+  transform: translateY(calc(28px * var(--app-scale)));
   transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .reveal.visible {
@@ -181,7 +214,7 @@
 
 /* ===== Section Common ===== */
 .section {
-  padding: clamp(72px, 12vw, 128px) 0;
+  padding: clamp(calc(72px * var(--app-scale)), 12vw, calc(128px * var(--app-scale))) 0;
   position: relative;
   scroll-margin-top: var(--anchor-offset);
 }
@@ -215,7 +248,7 @@ main > .section:last-child::after {
 /* 離屏區塊略過渲染／排版（Chromium）；降低版面配置與樣式成本。Hero 排除以免首屏延遲。 */
 main > section:not(.hero) {
   content-visibility: auto;
-  contain-intrinsic-size: auto 720px;
+  contain-intrinsic-size: auto calc(720px * var(--app-scale));
 }
 
 /* 輕量箭頭：取代多處 SVG path，縮小 DOM 深度與節點數 */
@@ -420,6 +453,20 @@ html:lang(ko) body {
     transition: none !important;
   }
   #bgCanvas {
+    display: none !important;
+  }
+  .home-sf__hud,
+  .home-sf__chroma,
+  .home-sf__corner,
+  .home-sf__scan,
+  .home-sf__scan2,
+  .home-sf__hex,
+  .home-sf__mesh,
+  .home-sf__noise,
+  .home-sf__sheen,
+  .home-sf__orbit,
+  .home-sf__ticker,
+  .home-sf__flick {
     display: none !important;
   }
   .hero-intro-bolt,

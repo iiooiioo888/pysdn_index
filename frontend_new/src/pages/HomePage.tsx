@@ -21,11 +21,27 @@ export function HomePage() {
 
   return (
     <>
-      <canvas ref={canvasRef} id="bgCanvas" aria-hidden="true" />
+      <div className="home-sf" aria-hidden="true">
+        <canvas ref={canvasRef} id="bgCanvas" className="home-sf__cv" aria-hidden="true" />
+        <div className="home-sf__hud" />
+        <div className="home-sf__corner home-sf__corner--tl" />
+        <div className="home-sf__corner home-sf__corner--tr" />
+        <div className="home-sf__chroma" />
+        <div className="home-sf__scan" />
+        <div className="home-sf__hex" />
+        <div className="home-sf__mesh" />
+        <div className="home-sf__noise" />
+        <div className="home-sf__sheen" />
+        <div className="home-sf__orbit" />
+        <div className="home-sf__scan2" />
+        <div className="home-sf__ticker" />
+        <div className="home-sf__flick" />
+        <div className="home-sf__vignette" />
+      </div>
 
       <div className="site-shell">
         <Navbar />
-        <main>
+        <main className="home-main home-main--sf">
           <Hero />
           <HomeLazySection minHeight={220}>
             <About />

@@ -96,27 +96,6 @@ export function useDocBundle(name: DocBundleName) {
     if (meta && desc) meta.setAttribute('content', desc)
   }, [dict])
 
-  useEffect(() => {
-    const map: Record<string, string> = {
-      'zh-CN': "'Plus Jakarta Sans', 'Noto Sans SC', sans-serif",
-      ja: "'Plus Jakarta Sans', 'Noto Sans JP', sans-serif",
-      ko: "'Plus Jakarta Sans', 'Noto Sans KR', sans-serif",
-    }
-    const f = map[resolvedLang]
-    if (f) document.body.style.fontFamily = f
-    else document.body.style.fontFamily = "'Plus Jakarta Sans', 'Noto Sans TC', sans-serif"
-    document.documentElement.lang =
-      resolvedLang === 'zh-TW'
-        ? 'zh-TW'
-        : resolvedLang === 'zh-CN'
-          ? 'zh-CN'
-          : resolvedLang
-
-    return () => {
-      document.body.style.fontFamily = ''
-    }
-  }, [resolvedLang])
-
   const ready = Boolean(!loadError && dict && dict.title)
 
   return { t, ready, loadError, lang: resolvedLang, dict }

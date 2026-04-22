@@ -85,6 +85,24 @@ main.model-detail-main {
   background: rgba(251, 191, 36, 0.08);
 }
 
+.model-detail-hero-pill--cap {
+  text-transform: none;
+  border-color: rgba(6, 182, 212, 0.4);
+  color: rgba(165, 243, 252, 0.98);
+  background: rgba(6, 182, 212, 0.12);
+  letter-spacing: 0.02em;
+  font-weight: 650;
+}
+
+.model-detail-hero-pill--pipe {
+  text-transform: none;
+  border-color: rgba(139, 92, 246, 0.32);
+  color: rgba(196, 181, 254, 0.96);
+  background: rgba(91, 33, 182, 0.12);
+  font-weight: 650;
+  letter-spacing: 0.02em;
+}
+
 .model-detail-hero h1 {
   font-size: clamp(1.5rem, 4vw, 2rem);
   font-weight: 800;
@@ -163,6 +181,12 @@ main.model-detail-main {
   margin-bottom: clamp(22px, 4vw, 32px);
 }
 
+.model-detail-block--quick {
+  border: 1px solid rgba(6, 182, 212, 0.15);
+  background: linear-gradient(175deg, rgba(6, 182, 212, 0.06) 0%, rgba(8, 10, 18, 0.35) 100%);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.2) inset;
+}
+
 .model-detail-block h2 {
   font-size: clamp(0.85rem, 2vw, 0.95rem);
   font-weight: 700;
@@ -212,6 +236,13 @@ main.model-detail-main {
   width: 100%;
   border-collapse: collapse;
   font-size: var(--text-ui);
+}
+
+.model-detail-td-verbose {
+  white-space: pre-wrap;
+  word-break: break-word;
+  line-height: 1.55;
+  font-size: 0.9rem;
 }
 
 .model-detail-specs th,

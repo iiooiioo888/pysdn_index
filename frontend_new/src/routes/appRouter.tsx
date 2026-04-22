@@ -1,5 +1,6 @@
 import { Suspense } from 'react'
 import { createBrowserRouter, Outlet } from 'react-router-dom'
+import { DocumentLangFont } from '../components/DocumentLangFont'
 import { RevealScanBridge } from '../components/RevealScanBridge'
 import { APP_ROUTE_ENTRIES } from './registry'
 import { NotFoundRedirect } from './NotFoundRedirect'
@@ -8,6 +9,7 @@ import { RouteFallback } from './RouteFallback'
 function RootLayout() {
   return (
     <>
+      <DocumentLangFont />
       <RevealScanBridge />
       <Suspense fallback={<RouteFallback />}>
         <Outlet />

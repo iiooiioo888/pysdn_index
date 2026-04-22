@@ -37,7 +37,7 @@ export const CATALOG_MODELS: CatalogModel[] = [
     capability: 'video',
     developer: 'bytedance',
     badges: ['new'],
-    price: '',
+    price: '每影片秒 $0.08',
     title: {
       'zh-TW': 'Seedance 2.0',
       'zh-CN': 'Seedance 2.0',
@@ -64,7 +64,7 @@ export const CATALOG_MODELS: CatalogModel[] = [
     capability: 'image',
     developer: 'bytedance',
     badges: ['new'],
-    price: '',
+    price: '每張 $0.04（1024×1024 標準）',
     title: {
       'zh-TW': 'Seedream 5.0 Lite',
       'zh-CN': 'Seedream 5.0 Lite',
@@ -221,7 +221,7 @@ export const CATALOG_MODELS: CatalogModel[] = [
   },
 ]
 
-/** 僅精選靜態目錄（不含 OpenRouter 動態載入列） */
+/** 僅精選靜態目錄（OpenRouter 全量列與價格見 `openRouterModels.ts`／`openRouterModelsSnapshot.json`） */
 export function getCatalogModelById(id: string): CatalogModel | undefined {
   return CATALOG_MODELS.find((m) => m.id === id)
 }
