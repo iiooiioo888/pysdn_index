@@ -5,10 +5,23 @@ import { DocNavbar } from '../../components/docs/DocNavbar'
 import { DocFooter } from '../../components/docs/DocFooter'
 import { DocReadingSummary } from '../../components/docs/DocReadingSummary'
 import { DocMermaid } from '../../components/docs/DocMermaid'
-import { SUPERTRACK_FLOW, SUPERTRACK_MINDMAP } from '../../components/docs/mermaidCharts'
+import {
+  SUPERTRACK_CRAWL,
+  SUPERTRACK_FLOW,
+  SUPERTRACK_IDENTITY,
+  SUPERTRACK_MINDMAP,
+} from '../../components/docs/mermaidCharts'
 import { useDocBundle } from '../../hooks/useDocBundle'
 import { PATHS } from '../../routes/paths'
 import { toLangSearch } from '../../routes/langQuery'
+
+function splitPlatformChips(raw: string): string[] {
+  if (!raw || !raw.includes('|')) return []
+  return raw
+    .split('|')
+    .map((s) => s.trim())
+    .filter(Boolean)
+}
 
 export function SuperTrackDocPage() {
   const { t: tUi } = useTranslation()
@@ -63,6 +76,28 @@ export function SuperTrackDocPage() {
             <p>SuperTrack 是 Pysdn SuperCool 生態系中的獨立擴展模組，專門為 SuperForge 提示詞引擎提供外部資訊採集能力。它的核心定位很明確：<strong>在公開網路中持續監測特定目標（人、品牌、話題），把散落在各平台的碎片化資訊匯聚、清洗、結構化，最終轉化為可直接使用的創作素材。</strong></p>
             <p>它解決的問題是：創作者和行銷人員每天花大量時間刷各個社群平台找靈感、盯競品、追熱點，但這些資訊既分散又稍縱即逝。SuperTrack 把這個「手動刷→人腦記→下次找不到」的低效循環，變成「系統刷→結構化存→隨時搜到」。</p>
 
+            <section className="doc-platform-scope" id="supported-platforms" aria-labelledby="platforms-heading">
+              <h3 id="platforms-heading">{t('h_platforms')}</h3>
+              <p>{t('platforms_lead')}</p>
+              <p className="doc-platform-scope__subhead">{t('platforms_group_cn')}</p>
+              <div className="doc-platform-chips" role="list">
+                {splitPlatformChips(t('platforms_chips_cn')).map((label) => (
+                  <span key={label} className="doc-tag doc-tag--track" role="listitem">
+                    {label}
+                  </span>
+                ))}
+              </div>
+              <p className="doc-platform-scope__subhead">{t('platforms_group_intl')}</p>
+              <div className="doc-platform-chips" role="list">
+                {splitPlatformChips(t('platforms_chips_intl')).map((label) => (
+                  <span key={label} className="doc-tag doc-tag--track" role="listitem">
+                    {label}
+                  </span>
+                ))}
+              </div>
+              <p className="doc-platform-scope__note">{t('platforms_note')}</p>
+            </section>
+
             <h2>{t('h_components')}</h2>
 
             <h3>跨平台身份合併：散落的碎片拼成完整畫像</h3>
@@ -75,6 +110,15 @@ export function SuperTrackDocPage() {
               ・Twitter/X：18.7K followers，日均互動率 1.8%<br/>
               ・抖音：156K 粉絲，日均互動率 5.1%<br/>
               三個平台的數據合在一起分析，你能看到完整的影響力版圖。</p>
+            </div>
+
+            <div className="doc-diagram-block">
+              <h3>跨平台身份合併（示意）</h3>
+              <p className="doc-diagram-lead">
+                多個平台帳號經合併引擎與置信度分數，收斂成單一追蹤實體，後續時間軸與 KPI
+                都掛在同一 ID 上。
+              </p>
+              <DocMermaid chart={SUPERTRACK_IDENTITY} />
             </div>
 
             <h3>智能爬蟲：像真人一樣刷社群</h3>
@@ -134,6 +178,14 @@ export function SuperTrackDocPage() {
                 的輸出。
               </p>
               <DocMermaid chart={SUPERTRACK_FLOW} />
+            </div>
+
+            <div className="doc-diagram-block">
+              <h3>擷取迴圈狀態（簡化）</h3>
+              <p className="doc-diagram-lead">
+                週期等待 → 模擬真人抓取；成功則解析入庫，失敗或觸發反爬則回退降頻，避免硬撞頻率。
+              </p>
+              <DocMermaid chart={SUPERTRACK_CRAWL} />
             </div>
 
             {/* ── 追蹤維度 ── */}
@@ -447,6 +499,14 @@ export function SuperTrackDocPage() {
             </div>
 
             <p style={{ fontSize: '0.88rem', color: 'var(--text-muted)', marginTop: 16 }}>
+              全網追蹤助手獨立面板（精簡導覽、同款 KPI 與列表）：
+            </p>
+            <p>
+              <Link className="doc-lab-cta" to={{ pathname: PATHS.panel.supertrack, search: toLangSearch(lang) }}>
+                開啟 SuperTrack 全網追蹤助手 →
+              </Link>
+            </p>
+            <p style={{ fontSize: '0.88rem', color: 'var(--text-muted)', marginTop: 12 }}>
               大螢幕完整版儀表板（更多警報、平台與熱詞列表示範）：
             </p>
             <p>
@@ -473,6 +533,13 @@ export function SuperTrackDocPage() {
               <li><strong>分析</strong>：NLP 引擎（情感分析、關鍵詞提取、主題分類）+ 圖像理解（AI 自動生成圖片描述、風格分類）+ 異常偵測（Z-score / IQR 動態基線）+ 品質評分模型（原創度 + 互動潛力 + 內容深度）</li>
               <li><strong>部署</strong>：Windows 服務（開機自動啟動、後台持續運作）+ 本地儲存（AES-256 加密，確保隱私和資料主權）+ 雲端同步（可選，端到端加密）</li>
             </ul>
+            <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)', marginTop: '1rem' }}>
+              <strong>調研參考（小紅書）</strong>：社群開源{' '}
+              <a href="https://github.com/cv-cat/Spider_XHS" target="_blank" rel="noopener noreferrer">
+                Spider_XHS
+              </a>{' '}
+              以 Python／Node 封裝小紅書相關介面（專案自述僅供學習交流）。與 SuperTrack 無整合或背書關係；實務上須遵守平台條款與 robots，並自行評估帳號與法遵風險。
+            </p>
 
           </article>
 

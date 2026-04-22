@@ -6,6 +6,9 @@ export const SUPERFORGE_MINDMAP = `mindmap
       pgvector 語意
       全文檢索
       版本與標籤
+    角色與權利
+      情緒·性格·方言·外觀
+      真人授權／OC·版權
     擷取管線
       匯入清洗
       結構化欄位
@@ -33,6 +36,9 @@ export const SUPERSCRIPT_MINDMAP = `mindmap
     Continuity
       人設一致
       時間線檢查
+    角色控制
+      情緒·性格·方言·外觀
+      真人審校／OC·版權
     Writer
       對白場景
       Voice Profile
@@ -115,3 +121,73 @@ export const SUPERTUNE_FLOW = `flowchart LR
   AP --> RW[回寫來源模組]
   SV --> RW
   SG --> RW`
+
+/** SuperForge：Webhook 回寫與可選角色歸戶 */
+export const SUPERFORGE_WEBHOOK = `flowchart TB
+  T[生圖工具] --> W[Webhook 回拋完成]
+  W --> M[與當下 prompt+參數+輸出網址 配對]
+  M --> C{帶 character_id?}
+  C -->|是| R[(角色+版本樹一併掛)]
+  C -->|否| V[(一般入庫)]`
+
+/** SuperForge：混合檢索兩路合流 */
+export const SUPERFORGE_HYBRID = `flowchart LR
+  Q[查詢文字] --> A[語意向量/Embedding]
+  Q --> B[全文與模糊]
+  A --> M[分數合併排序]
+  B --> M
+  M --> H[歷史提示詞與生成]`
+
+/** SuperScript：敘事弧位置 */
+export const SUPERSCRIPT_NARRATIVE_ARC = `flowchart LR
+  H[Hook] --> R[Rising]
+  R --> C[Climax]
+  C --> S[Resolution]`
+
+/** SuperScript：實體關聯與外溢 SuperForge */
+export const SUPERSCRIPT_ENTITY = `flowchart TB
+  PR[專案/劇本] --> SC[場景]
+  SC --> BE[節拍]
+  CH[角色+Voice] --> BE
+  BE --> D[台詞/舞台提示]
+  D -.->|character_id| SF[SuperForge]
+  SC -.->|場面描寫| SF`
+
+/** SuperTrack：跨平台身份合併概念 */
+export const SUPERTRACK_IDENTITY = `flowchart LR
+  P1[平台A帳] --> M[合併引擎/置信度]
+  P2[平台B帳] --> M
+  P3[平台C帳] --> M
+  M --> U[統一追蹤實體+時間軸]`
+
+/** SuperTrack：擷取狀態簡圖（反爬+重試意涵） */
+export const SUPERTRACK_CRAWL = `stateDiagram-v2
+  [*] --> Wait
+  Wait --> Fetch: interval
+  Fetch --> Parse: ok
+  Parse --> Wait: store
+  Fetch --> Wait: fail_or_throttle`
+
+/** SuperTune：A/B 統計決策 */
+export const SUPERTUNE_AB_DECISION = `flowchart TB
+  A[變體A] --> T[同條件推論]
+  B[變體B] --> T
+  T --> S[E 與 R 分數]
+  S --> P[p值/信心度]
+  P --> D{"高於門檻?"}
+  D -->|是| OK[建議採用勝出]
+  D -->|否| N1[不建議/加樣本]`
+
+/** SuperTune：四類成本節流匯總 */
+export const SUPERTUNE_COST = `flowchart TB
+  subgraph s1[四策略]
+    K1[Prompt 壓縮]
+    K2[Context 裁剪]
+    K3[Batch 合併]
+    K4[Model Tier]
+  end
+  K1 --> S[彙總節省]
+  K2 --> S
+  K3 --> S
+  K4 --> S
+  S --> R[日報/可回寫]`

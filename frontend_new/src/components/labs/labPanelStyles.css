@@ -49,6 +49,135 @@
   margin: 0 0 1rem;
 }
 
+/* 獨立面板頁：僅導覽列，避免與 sim-panel 儀表板雙重「面板」視覺 */
+.doc-panel-topnav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem 0.5rem;
+  margin-bottom: 1rem;
+}
+.doc-panel-topnav .doc-lab-back {
+  margin-bottom: 0;
+}
+.doc-panel-topnav-sep {
+  margin: 0 0.15rem;
+  opacity: 0.35;
+  user-select: none;
+}
+
+.sim-track-status {
+  min-height: 0;
+  margin: 0;
+  font-size: 0.78rem;
+  line-height: 1.4;
+  color: var(--doc-link);
+  transition: min-height 0.15s ease, margin 0.15s ease;
+}
+.sim-track-status:not(:empty) {
+  min-height: 1.35em;
+  margin-bottom: 10px;
+}
+
+.sim-card-head--row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.sim-filter-label {
+  margin: 0;
+}
+.sim-filter-input {
+  font: inherit;
+  font-size: 0.72rem;
+  padding: 4px 10px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text);
+  max-width: 220px;
+}
+.sim-filter-input:focus {
+  outline: 2px solid rgba(34, 211, 238, 0.35);
+  outline-offset: 1px;
+}
+.sim-filter-input--grow {
+  flex: 1;
+  min-width: 140px;
+  max-width: none;
+}
+
+.sim-table-empty {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  padding: 14px 12px !important;
+}
+.sim-table-empty--pad {
+  padding: 14px 16px;
+  margin: 0;
+}
+
+.sim-trend-row--btn {
+  width: 100%;
+  margin: 0;
+  padding: 5px 6px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.02);
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  text-align: left;
+  box-sizing: border-box;
+}
+.sim-trend-row--btn:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: var(--border);
+}
+.sim-trend-row--selected {
+  border-color: rgba(245, 158, 11, 0.45) !important;
+  background: rgba(245, 158, 11, 0.09);
+}
+
+.sim-btn:disabled {
+  opacity: 0.52;
+  cursor: not-allowed;
+}
+
+.sim-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.sim-ext-link {
+  color: var(--doc-link);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.sim-ext-link:hover {
+  opacity: 0.9;
+}
+
+.sim-kpis--compact {
+  gap: 6px;
+}
+.sim-card--xhs {
+  border-color: rgba(16, 185, 129, 0.22);
+  background: rgba(16, 185, 129, 0.03);
+}
+
 .sim-panel--lab {
   padding: 20px 18px 24px;
   font-size: 0.95rem;

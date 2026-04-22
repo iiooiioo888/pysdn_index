@@ -5,7 +5,12 @@ import { DocNavbar } from '../../components/docs/DocNavbar'
 import { DocFooter } from '../../components/docs/DocFooter'
 import { DocReadingSummary } from '../../components/docs/DocReadingSummary'
 import { DocMermaid } from '../../components/docs/DocMermaid'
-import { SUPERSCRIPT_FLOW, SUPERSCRIPT_MINDMAP } from '../../components/docs/mermaidCharts'
+import {
+  SUPERSCRIPT_ENTITY,
+  SUPERSCRIPT_FLOW,
+  SUPERSCRIPT_MINDMAP,
+  SUPERSCRIPT_NARRATIVE_ARC,
+} from '../../components/docs/mermaidCharts'
 import { useDocBundle } from '../../hooks/useDocBundle'
 import { PATHS } from '../../routes/paths'
 import { toLangSearch } from '../../routes/langQuery'
@@ -67,6 +72,14 @@ export function SuperScriptDocPage() {
               </p>
             </div>
 
+            <div className="doc-diagram-block">
+              <h3>敘事弧示意（一集內節點）</h3>
+              <p className="doc-diagram-lead">
+                典型四段：鉤子 → 升溫 → 高潮 → 收尾；實務上可在一集內多輪遞迴，但職能分工上仍對應 Architect 標注之結構欄位。
+              </p>
+              <DocMermaid chart={SUPERSCRIPT_NARRATIVE_ARC} />
+            </div>
+
             <h3>版本控制：改壞了？一鍵回來</h3>
             <p>每次 AI 修改劇本內容，SuperScript 都會自動建立一個新版本。你可以隨時回溯到任何歷史版本，也可以左右並排比較兩個版本的差異——系統會用顏色高亮標注出新增、刪除、修改的部分。</p>
             <p>這不只是「存了多個檔案」，而是真正的結構化版本管理。每次改動都附帶 AI 的修改理由：為什麼改、改了什麼、預期效果是什麼。</p>
@@ -98,6 +111,18 @@ export function SuperScriptDocPage() {
                 @Lin: 「行吧，反正每次都是我收拾殘局～」（輕鬆、吐槽 → voice_match: 93%）<br/>
                 @Mei: 「嗯，我覺得這件事情可能需要再考慮一下，你說呢？」（太長太客氣 → voice_match: 62% ⚠️）
               </p>
+            </div>
+
+            <h2>{t('h_char')}</h2>
+            <div dangerouslySetInnerHTML={{ __html: t('doc_ss_characters_html') }} />
+
+            <div className="doc-diagram-block">
+              <h3>資料實體關聯與外溢圖像</h3>
+              <p className="doc-diagram-lead">
+                劇本 → 場景 → 節拍 承接台詞；角色與 <code>character_id</code> 可與
+                SuperForge 對齊，場面描寫則可轉成畫面提示詞。
+              </p>
+              <DocMermaid chart={SUPERSCRIPT_ENTITY} />
             </div>
 
             <h3>模組串接：一個生態系打通</h3>

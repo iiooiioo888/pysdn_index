@@ -1,3 +1,4 @@
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import './labPanelStyles.css'
 
 const ENTITIES = [
@@ -28,7 +29,7 @@ const TRENDS = [
   { rank: '#10', name: '生成浮水印倫理', w: 42, heat: '↑71%' },
   { rank: '#11', name: '音樂版權探路', w: 38, heat: '↑64%' },
   { rank: '#12', name: 'UGC 二創合規', w: 35, heat: '↑58%' },
-]
+] as const
 
 const ALERTS = [
   { t: '09:12', sev: 'P1', who: '@design_daily', what: '互動率 3× baseline' },
@@ -43,7 +44,7 @@ const ALERTS = [
   { t: '04:01', sev: 'P2', who: '系統', what: '爬蟲節流：IG story 欄位 429×12' },
   { t: '02:40', sev: 'P1', who: '@vfx_breakdown', what: '留言「造假疑雲」熱度爬升' },
   { t: '昨 22:15', sev: 'P2', who: '@cyberpunk_art', what: '互動中樞但分享率低於同儕' },
-]
+] as const
 
 const AUDIENCE = [
   { a: '🧑‍💻', n: 'Z 世代數位原住民', m: '18-25 · 影迷', s: 87 },
@@ -54,14 +55,25 @@ const AUDIENCE = [
   { a: '🎧', n: '播客/解說 up', m: '20-38 · 二次創作', s: 77 },
 ]
 
+/** 主流分享／社群平台訊號來源（示範矩陣；實際以合規與平台策略為準） */
 const PLATFORMS = [
-  { p: 'X (Twitter)', sig: 4120, lat: '1.2s', q: 'ok', miss: '0.4%' },
+  { p: '小紅書', sig: 3620, lat: '2.0s', q: '簽名 ok', miss: '0.5%' },
+  { p: '抖音', sig: 5840, lat: '1.1s', q: 'ok', miss: '0.3%' },
+  { p: '快手', sig: 3210, lat: '1.4s', q: 'ok', miss: '0.6%' },
+  { p: 'Bilibili', sig: 2980, lat: '1.6s', q: 'ok', miss: '0.4%' },
+  { p: '微博', sig: 2650, lat: '0.9s', q: '限流', miss: '1.0%' },
+  { p: '微信影片號／公眾號', sig: 1180, lat: '3.2s', q: '公開範圍', miss: '2.1%' },
+  { p: 'TikTok（國際）', sig: 5102, lat: '0.9s', q: 'ok', miss: '0.2%' },
   { p: 'Instagram', sig: 2890, lat: '2.8s', q: '429 節流', miss: '1.1%' },
-  { p: 'TikTok 熱榜', sig: 5102, lat: '0.9s', q: 'ok', miss: '0.2%' },
-  { p: 'YouTube 留言', sig: 980, lat: '3.1s', q: 'ok', miss: '0.7%' },
-  { p: 'Reddit / 子版', sig: 640, lat: '1.4s', q: '審查延遲', miss: '2.0%' },
+  { p: 'X (Twitter)', sig: 4120, lat: '1.2s', q: 'ok', miss: '0.4%' },
+  { p: 'YouTube', sig: 2240, lat: '2.2s', q: 'ok', miss: '0.5%' },
+  { p: 'Facebook', sig: 1560, lat: '2.5s', q: 'ok', miss: '0.9%' },
+  { p: 'Threads', sig: 920, lat: '1.8s', q: 'ok', miss: '1.2%' },
+  { p: 'LinkedIn', sig: 480, lat: '1.5s', q: 'ok', miss: '0.8%' },
+  { p: 'Reddit', sig: 640, lat: '1.4s', q: '審查延遲', miss: '2.0%' },
+  { p: 'Telegram 公開頻道', sig: 410, lat: '1.1s', q: 'ok', miss: '1.4%' },
   { p: '新聞 RSS', sig: 210, lat: '0.3s', q: 'ok', miss: '0%' },
-]
+] as const
 
 const GEO = [
   { r: '東亞', h: 88 },
@@ -109,9 +121,269 @@ const TRUST_INT = [
   { k: '來源多樣性', v: 0.86, note: '健康' },
 ]
 
-export function SuperTrackLabPanel() {
+type DashboardKpi = {
+  entities: number
+  alerts24h: number
+  alertsBarPct: number
+  hotTopics: number
+  sentiment: number
+  crawlRate: number
+  signalsPerMin: number
+  noiseFilter: number
+  latencyP95: number
+  entityLink: number
+  shareVoice: number
+  toxicity: number
+  topicDrift: number
+  langZh: number
+}
+
+type RoiState = {
+  mult: number
+  audienceFit: number
+  genreMatch: number
+  trendAlign: number
+}
+
+/** 小紅書／Spider_XHS 能力地圖對照之示範數據（非真實後端） */
+type XhsDemoState = {
+  notes24h: number
+  commentBatches: number
+  searchJobs: number
+  kolSnapshots: number
+  creatorQueue: number
+  cookieHoursLeft: number
+  apiSuccessPct: number
+  signerLabel: string
+}
+
+const SIGNER_LABEL_POOL = ['PC xs · v56 示範', 'PC+Creator 簽名 · 示範', '靜態 JS 引擎 · 示範'] as const
+
+const DEFAULT_XHS: XhsDemoState = {
+  notes24h: 142,
+  commentBatches: 54,
+  searchJobs: 11,
+  kolSnapshots: 9,
+  creatorQueue: 2,
+  cookieHoursLeft: 21,
+  apiSuccessPct: 97.6,
+  signerLabel: 'PC xs · v56 示範',
+}
+
+const DEFAULT_KPI: DashboardKpi = {
+  entities: 42,
+  alerts24h: 12,
+  alertsBarPct: 62,
+  hotTopics: 16,
+  sentiment: 0.78,
+  crawlRate: 98.2,
+  signalsPerMin: 168,
+  noiseFilter: 91,
+  latencyP95: 2.1,
+  entityLink: 98.1,
+  shareVoice: 19,
+  toxicity: 3.1,
+  topicDrift: 0.04,
+  langZh: 72,
+}
+
+const DEFAULT_ROI: RoiState = {
+  mult: 3.4,
+  audienceFit: 0.86,
+  genreMatch: 0.91,
+  trendAlign: 0.75,
+}
+
+function clamp(n: number, min: number, max: number) {
+  return Math.min(max, Math.max(min, n))
+}
+
+function jitterKpi(prev: DashboardKpi): DashboardKpi {
+  const r = () => (Math.random() - 0.5) * 2
+  return {
+    entities: Math.round(clamp(prev.entities + r() * 6, 30, 55)),
+    alerts24h: Math.round(clamp(prev.alerts24h + r() * 4, 5, 22)),
+    alertsBarPct: Math.round(clamp(prev.alertsBarPct + r() * 15, 35, 92)),
+    hotTopics: Math.round(clamp(prev.hotTopics + r() * 5, 8, 24)),
+    sentiment: clamp(prev.sentiment + r() * 0.06, 0.55, 0.92),
+    crawlRate: clamp(prev.crawlRate + r() * 1.2, 94.5, 99.4),
+    signalsPerMin: Math.round(clamp(prev.signalsPerMin + r() * 40, 110, 240)),
+    noiseFilter: Math.round(clamp(prev.noiseFilter + r() * 8, 78, 97)),
+    latencyP95: clamp(prev.latencyP95 + r() * 0.5, 0.8, 4.2),
+    entityLink: clamp(prev.entityLink + r() * 1.5, 93, 99.6),
+    shareVoice: Math.round(clamp(prev.shareVoice + r() * 5, 12, 32)),
+    toxicity: clamp(prev.toxicity + r() * 1.2, 1.2, 8.5),
+    topicDrift: clamp(prev.topicDrift + r() * 0.03, 0.01, 0.14),
+    langZh: Math.round(clamp(prev.langZh + r() * 10, 55, 85)),
+  }
+}
+
+function jitterRoi(prev: RoiState): RoiState {
+  const r = () => (Math.random() - 0.5) * 2
+  return {
+    mult: clamp(prev.mult + r() * 0.35, 2.4, 4.2),
+    audienceFit: clamp(prev.audienceFit + r() * 0.06, 0.65, 0.96),
+    genreMatch: clamp(prev.genreMatch + r() * 0.05, 0.72, 0.97),
+    trendAlign: clamp(prev.trendAlign + r() * 0.08, 0.55, 0.92),
+  }
+}
+
+function jitterXhs(prev: XhsDemoState): XhsDemoState {
+  const r = () => (Math.random() - 0.5) * 2
+  return {
+    notes24h: Math.round(clamp(prev.notes24h + r() * 35, 70, 260)),
+    commentBatches: Math.round(clamp(prev.commentBatches + r() * 12, 28, 88)),
+    searchJobs: Math.round(clamp(prev.searchJobs + r() * 4, 4, 22)),
+    kolSnapshots: Math.round(clamp(prev.kolSnapshots + r() * 3, 3, 18)),
+    creatorQueue: Math.round(clamp(prev.creatorQueue + r() * 2, 0, 8)),
+    cookieHoursLeft: clamp(prev.cookieHoursLeft + r() * 6, 4, 72),
+    apiSuccessPct: clamp(prev.apiSuccessPct + r() * 1.2, 93.5, 99.2),
+    signerLabel: SIGNER_LABEL_POOL[Math.floor(Math.random() * SIGNER_LABEL_POOL.length)],
+  }
+}
+
+type SuperTrackLabPanelProps = {
+  /** lab：實驗室頁；assistant：全網追蹤助手獨立面板 */
+  context?: 'lab' | 'assistant'
+}
+
+type AlertSevFilter = 'all' | 'P0' | 'P1' | 'P2' | 'P3' | 'other'
+
+export function SuperTrackLabPanel({ context = 'lab' }: SuperTrackLabPanelProps = {}) {
+  const contextBadge = context === 'assistant' ? '全網追蹤助手 · 示範資料' : 'LAB · 示範資料'
+  const [kpi, setKpi] = useState<DashboardKpi>(() => ({ ...DEFAULT_KPI }))
+  const [roi, setRoi] = useState<RoiState>(() => ({ ...DEFAULT_ROI }))
+  const [xhs, setXhs] = useState<XhsDemoState>(() => ({ ...DEFAULT_XHS }))
+  const [syncBusy, setSyncBusy] = useState(false)
+  const [exportBusy, setExportBusy] = useState(false)
+  const [injectBusy, setInjectBusy] = useState(false)
+  const [statusMsg, setStatusMsg] = useState<string | null>(null)
+  const [entityQuery, setEntityQuery] = useState('')
+  const [alertSev, setAlertSev] = useState<AlertSevFilter>('all')
+  const [selectedTrendRank, setSelectedTrendRank] = useState<string | null>(null)
+
+  const statusTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  const showStatus = useCallback((msg: string) => {
+    if (statusTimer.current) clearTimeout(statusTimer.current)
+    setStatusMsg(msg)
+    statusTimer.current = setTimeout(() => {
+      setStatusMsg(null)
+      statusTimer.current = null
+    }, 4500)
+  }, [])
+
+  useEffect(() => {
+    return () => {
+      if (statusTimer.current) clearTimeout(statusTimer.current)
+    }
+  }, [])
+
+  const filteredEntities = useMemo(() => {
+    const q = entityQuery.trim().toLowerCase()
+    if (!q) return [...ENTITIES]
+    return ENTITIES.filter((e) => e.name.toLowerCase().includes(q))
+  }, [entityQuery])
+
+  const filteredAlerts = useMemo(() => {
+    if (alertSev === 'all') return [...ALERTS]
+    if (alertSev === 'other') return ALERTS.filter((a) => a.sev === '—')
+    return ALERTS.filter((a) => a.sev === alertSev)
+  }, [alertSev])
+
+  const injectHooks = useMemo(() => {
+    if (selectedTrendRank != null) {
+      const one = TRENDS.find((t) => t.rank === selectedTrendRank)
+      return one ? [one.name] : TRENDS.slice(0, 3).map((t) => t.name)
+    }
+    return TRENDS.slice(0, 3).map((t) => t.name)
+  }, [selectedTrendRank])
+
+  const handleRetryAll = useCallback(() => {
+    if (syncBusy) return
+    setSyncBusy(true)
+    window.setTimeout(() => {
+      setKpi((prev) => jitterKpi(prev))
+      setRoi((prev) => jitterRoi(prev))
+      setXhs((prev) => jitterXhs(prev))
+      setSyncBusy(false)
+      showStatus('已重新同步示範資料（KPI／ROI／小紅書管線已擾動）')
+    }, 520)
+  }, [syncBusy, showStatus])
+
+  const handleExport = useCallback(() => {
+    if (exportBusy) return
+    setExportBusy(true)
+    try {
+      const report = {
+        title: 'SuperTrack 示範報告',
+        disclaimer: '數值為前端示範，不代表真實平台',
+        generated_at: new Date().toISOString(),
+        kpi,
+        roi,
+        xhs_pipeline: xhs,
+        xhs_reference_repo: 'https://github.com/cv-cat/Spider_XHS',
+        top_trends: TRENDS.slice(0, 8),
+        alerts_sample: ALERTS.slice(0, 8),
+        entities_tracked: ENTITIES.map((e) => e.name),
+      }
+      const blob = new Blob([JSON.stringify(report, null, 2)], { type: 'application/json;charset=utf-8' })
+      const url = URL.createObjectURL(blob)
+      const a = document.createElement('a')
+      const stamp = new Date().toISOString().slice(0, 19).replace(/[:T]/g, '-')
+      a.href = url
+      a.download = `supertrack-report-${stamp}.json`
+      a.rel = 'noopener'
+      document.body.appendChild(a)
+      a.click()
+      document.body.removeChild(a)
+      URL.revokeObjectURL(url)
+      showStatus('已下載 JSON 報告（示範匯出）')
+    } catch {
+      showStatus('匯出失敗，請稍後再試')
+    } finally {
+      window.setTimeout(() => setExportBusy(false), 200)
+    }
+  }, [exportBusy, kpi, roi, xhs, showStatus])
+
+  const handleInjectScript = useCallback(async () => {
+    if (injectBusy) return
+    setInjectBusy(true)
+    const payload = {
+      source: 'supertrack',
+      action: 'inject_superscript',
+      generated_at: new Date().toISOString(),
+      topic_hooks: injectHooks,
+      selected_rank: selectedTrendRank,
+      note: '示範：正式環境將由 SuperScript API 接收',
+    }
+    const text = JSON.stringify(payload, null, 2)
+    try {
+      await navigator.clipboard.writeText(text)
+      showStatus('已複製注入 payload 到剪貼簿（JSON）')
+    } catch {
+      showStatus('無法寫入剪貼簿，請手動複製主控台 payload')
+      console.info('[SuperTrack inject demo]', text)
+    } finally {
+      window.setTimeout(() => setInjectBusy(false), 200)
+    }
+  }, [injectBusy, injectHooks, selectedTrendRank, showStatus])
+
+  const toggleTrendRow = useCallback((rank: string) => {
+    setSelectedTrendRank((prev) => (prev === rank ? null : rank))
+  }, [])
+
   return (
     <div className="sim-panel sim-panel--lab">
+      <div
+        className="sim-track-status"
+        role="status"
+        aria-live="polite"
+        aria-atomic="true"
+      >
+        {statusMsg ?? ''}
+      </div>
+
       <div className="sim-header">
         <div className="sim-header-left">
           <span className="sim-icon">🛰️</span>
@@ -121,84 +393,185 @@ export function SuperTrackLabPanel() {
             <span className="sim-dot sim-dot--green" /> LIVE
           </span>
           <span className="sim-badge-soft" style={{ marginLeft: 8 }}>
-            LAB · 示範資料
+            {contextBadge}
           </span>
         </div>
         <div className="sim-header-right">
-          <button type="button" className="sim-btn">
-            🔄 重試全部
+          <button
+            type="button"
+            className="sim-btn"
+            disabled={syncBusy}
+            onClick={handleRetryAll}
+          >
+            {syncBusy ? '⏳ 同步中…' : '🔄 重試全部'}
           </button>
-          <button type="button" className="sim-btn sim-btn--outline">
-            📤 匯出報告
+          <button
+            type="button"
+            className="sim-btn sim-btn--outline"
+            disabled={exportBusy}
+            onClick={handleExport}
+          >
+            {exportBusy ? '…' : '📤 匯出報告'}
           </button>
         </div>
       </div>
 
-      <p className="doc-lab-note">即時 KPI：實體、警報、熱詞、情緒、爬蟲成功率、訊號量；下方加上平台與地理熱力示範。</p>
+      <p className="doc-lab-note">
+        即時 KPI：實體、警報、熱詞、情緒、爬蟲成功率、訊號量；含小紅書採集管線示範與平台矩陣。
+      </p>
       <div className="sim-kpis" style={{ gridTemplateColumns: 'repeat(4, minmax(0,1fr))' }}>
         <div className="sim-kpi">
           <div className="sim-kpi-label">entities</div>
-          <div className="sim-kpi-val">42</div>
+          <div className="sim-kpi-val">{kpi.entities}</div>
         </div>
         <div className="sim-kpi">
           <div className="sim-kpi-label">alerts (24h)</div>
-          <div className="sim-kpi-val sim-kpi-val--highlight">12</div>
+          <div className="sim-kpi-val sim-kpi-val--highlight">{kpi.alerts24h}</div>
           <div className="sim-bar">
-            <div className="sim-bar-fill sim-bar-fill--green" style={{ width: '62%' }} />
+            <div className="sim-bar-fill sim-bar-fill--green" style={{ width: `${kpi.alertsBarPct}%` }} />
           </div>
         </div>
         <div className="sim-kpi">
           <div className="sim-kpi-label">hot_topics</div>
-          <div className="sim-kpi-val sim-kpi-val--highlight">16</div>
+          <div className="sim-kpi-val sim-kpi-val--highlight">{kpi.hotTopics}</div>
         </div>
         <div className="sim-kpi">
           <div className="sim-kpi-label">sentiment</div>
-          <div className="sim-kpi-val">0.78</div>
+          <div className="sim-kpi-val">{kpi.sentiment.toFixed(2)}</div>
           <div className="sim-bar">
-            <div className="sim-bar-fill sim-bar-fill--green" style={{ width: '78%' }} />
+            <div
+              className="sim-bar-fill sim-bar-fill--green"
+              style={{ width: `${Math.round(kpi.sentiment * 100)}%` }}
+            />
           </div>
         </div>
         <div className="sim-kpi">
           <div className="sim-kpi-label">crawl_rate</div>
-          <div className="sim-kpi-val">98.2%</div>
+          <div className="sim-kpi-val">{kpi.crawlRate.toFixed(1)}%</div>
         </div>
         <div className="sim-kpi">
           <div className="sim-kpi-label">signals/min</div>
-          <div className="sim-kpi-val">168</div>
+          <div className="sim-kpi-val">{kpi.signalsPerMin}</div>
         </div>
         <div className="sim-kpi">
           <div className="sim-kpi-label">noise filter</div>
-          <div className="sim-kpi-val">91%</div>
+          <div className="sim-kpi-val">{kpi.noiseFilter}%</div>
           <div className="sim-kpi-sub">已剃除機器/重複</div>
         </div>
         <div className="sim-kpi">
           <div className="sim-kpi-label">跨平台延遲 p95</div>
-          <div className="sim-kpi-val">2.1s</div>
+          <div className="sim-kpi-val">{kpi.latencyP95.toFixed(1)}s</div>
         </div>
         <div className="sim-kpi">
           <div className="sim-kpi-label">entity_link</div>
-          <div className="sim-kpi-val">98.1%</div>
+          <div className="sim-kpi-val">{kpi.entityLink.toFixed(1)}%</div>
           <div className="sim-kpi-sub">合併成功率</div>
         </div>
         <div className="sim-kpi">
           <div className="sim-kpi-label">share_voice</div>
-          <div className="sim-kpi-val">19%</div>
+          <div className="sim-kpi-val">{kpi.shareVoice}%</div>
           <div className="sim-kpi-sub">本品牌 SOV</div>
         </div>
         <div className="sim-kpi">
           <div className="sim-kpi-label">toxicity(估)</div>
-          <div className="sim-kpi-val">3.1%</div>
+          <div className="sim-kpi-val">{kpi.toxicity.toFixed(1)}%</div>
           <div className="sim-kpi-sub">負向尖峰可告警</div>
         </div>
         <div className="sim-kpi">
           <div className="sim-kpi-label">topic_drift</div>
-          <div className="sim-kpi-val">0.04</div>
+          <div className="sim-kpi-val">{kpi.topicDrift.toFixed(2)}</div>
           <div className="sim-kpi-sub">24h 向量位移</div>
         </div>
         <div className="sim-kpi">
           <div className="sim-kpi-label">lang_mix</div>
-          <div className="sim-kpi-val">zh 72%</div>
+          <div className="sim-kpi-val">zh {kpi.langZh}%</div>
           <div className="sim-kpi-sub">en/ja 副語</div>
+        </div>
+      </div>
+
+      <div className="sim-card sim-card--xhs" style={{ marginTop: 14 }}>
+        <div className="sim-card-head">📒 小紅書採集管線（示範 · 對照 Spider_XHS）</div>
+        <p className="sim-mini-hint" style={{ marginBottom: 10 }}>
+          下列數值為儀表板示範，欄位意涵對齊社群專案{' '}
+          <a
+            href="https://github.com/cv-cat/Spider_XHS"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="sim-ext-link"
+          >
+            Spider_XHS
+          </a>
+          （PC 端／創作者／蒲公英等模組）；正式環境須遵守平台條款與授權。
+        </p>
+        <div
+          className="sim-kpis sim-kpis--compact"
+          style={{ gridTemplateColumns: 'repeat(4, minmax(0, 1fr))', marginTop: 0 }}
+        >
+          <div className="sim-kpi">
+            <div className="sim-kpi-label">xhs 筆記 24h</div>
+            <div className="sim-kpi-val sim-kpi-val--highlight">{xhs.notes24h}</div>
+            <div className="sim-kpi-sub">入庫（搜尋+詳情）</div>
+          </div>
+          <div className="sim-kpi">
+            <div className="sim-kpi-label">評論批次</div>
+            <div className="sim-kpi-val">{xhs.commentBatches}</div>
+            <div className="sim-kpi-sub">本輪抓取</div>
+          </div>
+          <div className="sim-kpi">
+            <div className="sim-kpi-label">關鍵字任務</div>
+            <div className="sim-kpi-val">{xhs.searchJobs}</div>
+            <div className="sim-kpi-sub">監控佇列</div>
+          </div>
+          <div className="sim-kpi">
+            <div className="sim-kpi-label">API 成功率</div>
+            <div className="sim-kpi-val">{xhs.apiSuccessPct.toFixed(1)}%</div>
+            <div className="sim-kpi-sub">PC 端示範</div>
+          </div>
+        </div>
+        <div className="sim-table-wrap" style={{ marginTop: 12 }}>
+          <table className="sim-table">
+            <thead>
+              <tr>
+                <th>能力面向</th>
+                <th>對照模組（概念）</th>
+                <th>示範狀態</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>PC 端筆記／搜尋</td>
+                <td className="sim-mono">xhs_pc_apis</td>
+                <td>
+                  運作中 · 本日 {xhs.notes24h} 筆 · 搜尋任務 {xhs.searchJobs}
+                </td>
+              </tr>
+              <tr>
+                <td>筆記評論</td>
+                <td className="sim-mono">get_note_comments</td>
+                <td>本日批次 {xhs.commentBatches}</td>
+              </tr>
+              <tr>
+                <td>創作者發布</td>
+                <td className="sim-mono">xhs_creator_apis</td>
+                <td>佇列待發 {xhs.creatorQueue} 則</td>
+              </tr>
+              <tr>
+                <td>蒲公英 KOL</td>
+                <td className="sim-mono">xhs_pugongying_apis</td>
+                <td>快照 {xhs.kolSnapshots} 位</td>
+              </tr>
+              <tr>
+                <td>登入 Cookie 時效</td>
+                <td className="sim-mono">.env COOKIES</td>
+                <td>約剩 {Math.max(1, Math.round(xhs.cookieHoursLeft))} h（示範）</td>
+              </tr>
+              <tr>
+                <td>簽名／JS 引擎</td>
+                <td className="sim-mono">static/*.js</td>
+                <td>{xhs.signerLabel}</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
 
@@ -318,7 +691,7 @@ export function SuperTrackLabPanel() {
 
       <div className="sim-grid-2" style={{ marginTop: 12 }}>
         <div className="sim-card">
-          <div className="sim-card-head">訊號來源佔比（6 平台 · 示範）</div>
+          <div className="sim-card-head">訊號來源佔比（主流平台 · {PLATFORMS.length} · 示範）</div>
           <div className="sim-table-wrap">
             <table className="sim-table">
               <thead>
@@ -362,7 +735,24 @@ export function SuperTrackLabPanel() {
       </div>
 
       <div className="sim-card" style={{ marginTop: 16 }}>
-        <div className="sim-card-head">最近警報（{ALERTS.length} 筆 · 示範）</div>
+        <div className="sim-card-head sim-card-head--row">
+          <span>最近警報（{filteredAlerts.length} 筆 · 示範）</span>
+          <label className="sim-filter-label">
+            <span className="sim-sr-only">依嚴重度篩選</span>
+            <select
+              className="sim-filter-input"
+              value={alertSev}
+              onChange={(e) => setAlertSev(e.target.value as AlertSevFilter)}
+            >
+              <option value="all">全部嚴重度</option>
+              <option value="P0">P0</option>
+              <option value="P1">P1</option>
+              <option value="P2">P2</option>
+              <option value="P3">P3</option>
+              <option value="other">系統／其他（—）</option>
+            </select>
+          </label>
+        </div>
         <div className="sim-table-wrap">
           <table className="sim-table">
             <thead>
@@ -374,53 +764,75 @@ export function SuperTrackLabPanel() {
               </tr>
             </thead>
             <tbody>
-              {ALERTS.map((a) => (
-                <tr key={a.t + a.who}>
-                  <td className="sim-mono">{a.t}</td>
-                  <td>
-                    <span
-                      className="sim-badge-soft"
-                      style={
-                        a.sev === 'P0'
-                          ? { color: '#fecaca', border: '1px solid rgba(239,68,68,0.35)' }
-                          : undefined
-                      }
-                    >
-                      {a.sev}
-                    </span>
+              {filteredAlerts.length === 0 ? (
+                <tr>
+                  <td colSpan={4} className="sim-table-empty">
+                    此條件下沒有警報
                   </td>
-                  <td>{a.who}</td>
-                  <td>{a.what}</td>
                 </tr>
-              ))}
+              ) : (
+                filteredAlerts.map((a) => (
+                  <tr key={a.t + a.who + a.what}>
+                    <td className="sim-mono">{a.t}</td>
+                    <td>
+                      <span
+                        className="sim-badge-soft"
+                        style={
+                          a.sev === 'P0'
+                            ? { color: '#fecaca', border: '1px solid rgba(239,68,68,0.35)' }
+                            : undefined
+                        }
+                      >
+                        {a.sev}
+                      </span>
+                    </td>
+                    <td>{a.who}</td>
+                    <td>{a.what}</td>
+                  </tr>
+                ))
+              )}
             </tbody>
           </table>
         </div>
       </div>
 
       <p className="doc-lab-note" style={{ marginTop: 12 }}>
-        追蹤中的帳號：共 {ENTITIES.length} 筆；含上升、熱詞與穩定狀態。
+        追蹤中的帳號：顯示 {filteredEntities.length} / {ENTITIES.length} 筆；含上升、熱詞與穩定狀態。
       </p>
       <div className="sim-card">
-        <div className="sim-card-head">📡 追蹤中的帳號</div>
+        <div className="sim-card-head sim-card-head--row">
+          <span>📡 追蹤中的帳號</span>
+          <input
+            type="search"
+            className="sim-filter-input sim-filter-input--grow"
+            placeholder="篩選帳號名稱…"
+            value={entityQuery}
+            onChange={(e) => setEntityQuery(e.target.value)}
+            aria-label="篩選追蹤帳號"
+          />
+        </div>
         <div className="sim-entity-list">
-          {ENTITIES.map((e) => (
-            <div className="sim-entity" key={e.name}>
-              <span className="sim-entity-icon">{e.icon}</span>
-              <span className="sim-entity-name">{e.name}</span>
-              <span
-                className={
-                  e.kind === 'up'
-                    ? 'sim-entity-metric sim-entity-metric--up'
-                    : e.kind === 'hot'
-                      ? 'sim-entity-metric sim-entity-metric--alert'
-                      : 'sim-entity-metric'
-                }
-              >
-                {e.m}
-              </span>
-            </div>
-          ))}
+          {filteredEntities.length === 0 ? (
+            <p className="sim-table-empty sim-table-empty--pad">沒有符合條件的帳號</p>
+          ) : (
+            filteredEntities.map((e) => (
+              <div className="sim-entity" key={e.name}>
+                <span className="sim-entity-icon">{e.icon}</span>
+                <span className="sim-entity-name">{e.name}</span>
+                <span
+                  className={
+                    e.kind === 'up'
+                      ? 'sim-entity-metric sim-entity-metric--up'
+                      : e.kind === 'hot'
+                        ? 'sim-entity-metric sim-entity-metric--alert'
+                        : 'sim-entity-metric'
+                  }
+                >
+                  {e.m}
+                </span>
+              </div>
+            ))
+          )}
         </div>
       </div>
 
@@ -445,27 +857,40 @@ export function SuperTrackLabPanel() {
 
         <div className="sim-card">
           <div className="sim-card-head">📡 熱詞趨勢（TOP {TRENDS.length}）</div>
+          <p className="sim-mini-hint" style={{ marginBottom: 8 }}>
+            點列可選定要注入的熱詞（未選時預設取前三項）；再按「一鍵注入腳本」複製 JSON。
+          </p>
           <div className="sim-trend">
-            {TRENDS.map((r) => (
-              <div className="sim-trend-row" key={r.rank}>
-                <span className="sim-trend-rank">{r.rank}</span>
-                <span className="sim-trend-name">{r.name}</span>
-                <div className="sim-bar">
-                  <div
-                    className="sim-bar-fill sim-bar-fill--red"
-                    style={{ width: `${r.w}%`, opacity: r.w > 80 ? 1 : 0.85 }}
-                  />
-                </div>
-                <span className="sim-trend-heat">{r.heat}</span>
-              </div>
-            ))}
+            {TRENDS.map((r) => {
+              const selected = selectedTrendRank === r.rank
+              return (
+                <button
+                  key={r.rank}
+                  type="button"
+                  className={`sim-trend-row sim-trend-row--btn${selected ? ' sim-trend-row--selected' : ''}`}
+                  onClick={() => toggleTrendRow(r.rank)}
+                >
+                  <span className="sim-trend-rank">{r.rank}</span>
+                  <span className="sim-trend-name">{r.name}</span>
+                  <div className="sim-bar">
+                    <div
+                      className="sim-bar-fill sim-bar-fill--red"
+                      style={{ width: `${r.w}%`, opacity: r.w > 80 ? 1 : 0.85 }}
+                    />
+                  </div>
+                  <span className="sim-trend-heat">{r.heat}</span>
+                </button>
+              )
+            })}
           </div>
           <button
             type="button"
             className="sim-btn sim-btn--primary"
             style={{ marginTop: 8, width: '100%', textAlign: 'center' }}
+            disabled={injectBusy}
+            onClick={() => void handleInjectScript()}
           >
-            💉 一鍵注入腳本
+            {injectBusy ? '…' : '💉 一鍵注入腳本'}
           </button>
         </div>
       </div>
@@ -482,30 +907,39 @@ export function SuperTrackLabPanel() {
               fontFamily: "'JetBrains Mono', monospace",
             }}
           >
-            3.4×
+            {roi.mult.toFixed(1)}×
           </div>
         </div>
         <div className="sim-net-metrics">
           <div className="sim-net-row">
             <span>audience_fit</span>
             <div className="sim-bar">
-              <div className="sim-bar-fill sim-bar-fill--green" style={{ width: '86%' }} />
+              <div
+                className="sim-bar-fill sim-bar-fill--green"
+                style={{ width: `${roi.audienceFit * 100}%` }}
+              />
             </div>
-            <span>0.86</span>
+            <span>{roi.audienceFit.toFixed(2)}</span>
           </div>
           <div className="sim-net-row">
             <span>genre_match</span>
             <div className="sim-bar">
-              <div className="sim-bar-fill sim-bar-fill--green" style={{ width: '91%' }} />
+              <div
+                className="sim-bar-fill sim-bar-fill--green"
+                style={{ width: `${roi.genreMatch * 100}%` }}
+              />
             </div>
-            <span>0.91</span>
+            <span>{roi.genreMatch.toFixed(2)}</span>
           </div>
           <div className="sim-net-row">
             <span>trend_align</span>
             <div className="sim-bar">
-              <div className="sim-bar-fill sim-bar-fill--green" style={{ width: '75%' }} />
+              <div
+                className="sim-bar-fill sim-bar-fill--green"
+                style={{ width: `${roi.trendAlign * 100}%` }}
+              />
             </div>
-            <span>0.75</span>
+            <span>{roi.trendAlign.toFixed(2)}</span>
           </div>
         </div>
       </div>

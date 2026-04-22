@@ -519,6 +519,21 @@
   background: rgba(139, 92, 246, 0.12);
 }
 
+.hero-doc-panel-row {
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+.hero-doc-pill--panel {
+  border-style: dashed;
+  opacity: 0.95;
+}
+.hero-doc-pill--panel:hover {
+  opacity: 1;
+}
+
 @media (max-width: 560px) {
   .hero-module-docs-primary {
     grid-template-columns: 1fr;

@@ -143,9 +143,14 @@ export function ModulesPage() {
                     <li>{t('mod_track_f3')}</li>
                     <li>{t('mod_track_f4')}</li>
                   </ul>
-                  <Link className="mod-card-link" to={{ pathname: PATHS.docs.supertrack, search: langSearch }}>
-                    {t('mod_link_doc')}
-                  </Link>
+                  <div className="mod-card-link-stack">
+                    <Link className="mod-card-link" to={{ pathname: PATHS.docs.supertrack, search: langSearch }}>
+                      {t('mod_link_doc')}
+                    </Link>
+                    <Link className="mod-card-link mod-card-link--sub" to={{ pathname: PATHS.panel.supertrack, search: langSearch }}>
+                      {t('mod_link_supertrack_panel')}
+                    </Link>
+                  </div>
                   <div className="mod-card-tags">
                     <span>{t('mod_track_tag1')}</span>
                     <span>{t('mod_track_tag2')}</span>

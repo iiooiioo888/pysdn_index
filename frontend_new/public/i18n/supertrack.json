@@ -48,7 +48,14 @@
     "footer_modules": "模組總覽",
     "footer_home": "返回主站",
     "doc_summary_title": "閱讀摘要",
-    "doc_summary_p": "本頁說明 SuperTrack 的追蹤對象、採集與預警流程、與靈感庫／知識庫的銜接，以及合規與技術背景。僅處理公開可得之資料，請遵守各平台使用條款與 robots 規範。"
+    "doc_summary_p": "本頁說明 SuperTrack 的追蹤對象、採集與預警流程、與靈感庫／知識庫的銜接，以及合規與技術背景。僅處理公開可得之資料，請遵守各平台使用條款與 robots 規範。",
+    "h_platforms": "主流分享與社群平台（追蹤範圍示意）",
+    "platforms_lead": "設計上可涵蓋兩岸與國際常見的內容與社交網路。下列標籤與儀表板「訊號來源」示範矩陣一致，便於對照營運監測維度。",
+    "platforms_group_cn": "大中華",
+    "platforms_group_intl": "國際",
+    "platforms_chips_cn": "小紅書|抖音|快手|Bilibili|微博|微信影片號|微信公眾號（公開可及）",
+    "platforms_chips_intl": "Instagram|TikTok|YouTube|X（Twitter）|Facebook|Threads|LinkedIn|Reddit|Telegram 公開頻道|新聞 RSS",
+    "platforms_note": "實際可用性依各平台公開資料政策、robots／服務條款與反自動化策略而定；若平台禁止自動化採集，系統會標示為不可用或降權。"
   },
   "zh-CN": {
     "title": "SuperTrack — 全网追踪助手 | Pysdn SuperCool",
@@ -99,7 +106,14 @@
     "footer_modules": "模块总览",
     "footer_home": "返回主站",
     "doc_summary_title": "阅读摘要",
-    "doc_summary_p": "本页说明 SuperTrack 的追踪对象、采集与预警流程、与灵感库/知识库的衔接，以及合规与技术背景。仅针对公开资料，请遵守各平台规则。"
+    "doc_summary_p": "本页说明 SuperTrack 的追踪对象、采集与预警流程、与灵感库/知识库的衔接，以及合规与技术背景。仅针对公开资料，请遵守各平台规则。",
+    "h_platforms": "主流分享与社群平台（追踪范围示意）",
+    "platforms_lead": "设计上可涵盖两岸与国际常见的内容与社交网络。下列标签与仪表板「信号来源」示范矩阵一致，便于对照运营监测维度。",
+    "platforms_group_cn": "大中华",
+    "platforms_group_intl": "国际",
+    "platforms_chips_cn": "小红书|抖音|快手|Bilibili|微博|微信视频号|微信公众号（公开可及）",
+    "platforms_chips_intl": "Instagram|TikTok|YouTube|X（Twitter）|Facebook|Threads|LinkedIn|Reddit|Telegram 公开频道|新闻 RSS",
+    "platforms_note": "实际可用性依各平台公开资料政策、robots／服务条款与反自动化策略而定；若平台禁止自动化采集，系统会标示为不可用或降权。"
   },
   "en": {
     "title": "SuperTrack — Web Tracking Assistant | Pysdn SuperCool",
@@ -150,7 +164,14 @@
     "footer_modules": "All modules",
     "footer_home": "Back to app",
     "doc_summary_title": "Reading summary",
-    "doc_summary_p": "Explains SuperTrack targets, collection & alerts, handoff to your library, compliance, and stack notes—public data only; respect each platform’s terms."
+    "doc_summary_p": "Explains SuperTrack targets, collection & alerts, handoff to your library, compliance, and stack notes—public data only; respect each platform’s terms.",
+    "h_platforms": "Mainstream social & content platforms (scope)",
+    "platforms_lead": "Designed to cover major creator and social networks across regions. Tags match the dashboard “signal sources” demo matrix for ops alignment.",
+    "platforms_group_cn": "Greater China",
+    "platforms_group_intl": "International",
+    "platforms_chips_cn": "Xiaohongshu|Douyin|Kuaishou|Bilibili|Weibo|WeChat Channels|WeChat Official Accounts (public)",
+    "platforms_chips_intl": "Instagram|TikTok|YouTube|X (Twitter)|Facebook|Threads|LinkedIn|Reddit|Telegram public channels|News RSS",
+    "platforms_note": "Availability depends on each platform’s public-data rules, ToS, and anti-automation; blocked sources are marked disabled or down-ranked."
   },
   "ja": {
     "title": "SuperTrack — Web追跡アシスタント | Pysdn SuperCool",
@@ -201,7 +222,14 @@
     "footer_modules": "モジュール一覧",
     "footer_home": "サイトへ戻る",
     "doc_summary_title": "読む前に",
-    "doc_summary_p": "SuperTrack の追跡対象、取得・アラート、ライブラリ連携、コンプライアンスと技術背景。公開情報のみ、各プラットフォームの規約に従ってください。"
+    "doc_summary_p": "SuperTrack の追跡対象、取得・アラート、ライブラリ連携、コンプライアンスと技術背景。公開情報のみ、各プラットフォームの規約に従ってください。",
+    "h_platforms": "主流SNS・共有プラットフォーム（対象範囲の例）",
+    "platforms_lead": "設計上、国内外の主要なコンテンツ／ソーシャルネットワークをカバーします。以下のタグはダッシュボードの「シグナルソース」デモ行列と対応します。",
+    "platforms_group_cn": "中華圏",
+    "platforms_group_intl": "海外",
+    "platforms_chips_cn": "小紅書|抖音（Douyin）|快手|Bilibili|微博|WeChat チャンネル|WeChat 公式アカウント（公開範囲）",
+    "platforms_chips_intl": "Instagram|TikTok|YouTube|X（Twitter）|Facebook|Threads|LinkedIn|Reddit|Telegram 公開チャンネル|ニュース RSS",
+    "platforms_note": "利用可否は各プラットフォームの公開データ方針、利用規約、ボット対策によります。自動取得が禁止されている場合は無効または降格表示されます。"
   },
   "ko": {
     "title": "SuperTrack — 웹 추적 도우미 | Pysdn SuperCool",
@@ -252,6 +280,13 @@
     "footer_modules": "모듈 목록",
     "footer_home": "앱으로 돌아가기",
     "doc_summary_title": "읽기 요약",
-    "doc_summary_p": "SuperTrack 추적 대상, 수집·알림, 라이브러리 연동, 컴플라이언스·스택. 공개 데이터만, 플랫폼 약관 준수."
+    "doc_summary_p": "SuperTrack 추적 대상, 수집·알림, 라이브러리 연동, 컴플라이언스·스택. 공개 데이터만, 플랫폼 약관 준수.",
+    "h_platforms": "주류 소셜·콘텐츠 플랫폼(범위 예시)",
+    "platforms_lead": "설계상 양안과 국제 주요 콘텐츠·소셜 네트워크를 포괄합니다. 아래 태그는 대시보드 「신호 출처」 데모 매트릭스와 맞춥니다.",
+    "platforms_group_cn": "중화권",
+    "platforms_group_intl": "국제",
+    "platforms_chips_cn": "샤오홍슈|도우인|콰이쇼우|Bilibili|웨이보|위챗 채널|위챗 공식 계정(공개 범위)",
+    "platforms_chips_intl": "Instagram|TikTok|YouTube|X(Twitter)|Facebook|Threads|LinkedIn|Reddit|Telegram 공개 채널|뉴스 RSS",
+    "platforms_note": "가용성은 각 플랫폼의 공개 데이터 정책·이용약관·자동화 대응에 따릅니다. 자동 수집이 금지된 경우 비활성 또는 가중치 하향 처리됩니다."
   }
 }

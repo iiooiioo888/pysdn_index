@@ -19,6 +19,10 @@ export const PATHS = {
     supertrack: '/labs/supertrack',
     supertune: '/labs/supertune',
   },
+  /** SuperTrack：全網追蹤助手（獨立儀表板，精簡導覽） */
+  panel: {
+    supertrack: '/panel/supertrack',
+  },
 } as const
 
 export type DocSlug = keyof typeof PATHS.docs

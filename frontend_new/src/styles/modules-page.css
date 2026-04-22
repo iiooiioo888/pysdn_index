@@ -479,6 +479,20 @@
   color: #fbbf24;
 }
 
+.modules-page .mod-card .mod-card-link-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  margin-top: 4px;
+}
+.modules-page .mod-card--track .mod-card-link--sub {
+  font-size: 0.8rem;
+  font-weight: 550;
+  opacity: 0.88;
+  text-decoration-style: dashed;
+}
+
 .modules-page .mod-card .mod-card-tags {
   display: flex;
   flex-wrap: wrap;

@@ -1,8 +1,16 @@
 {
-  "superforge-mindmap": "mindmap\n  root((SuperForge))\n    知識儲存\n      pgvector 語意\n      全文檢索\n      版本與標籤\n    擷取管線\n      匯入清洗\n      結構化欄位\n      同步備援\n    檢索與應用\n      混合搜尋\n      命中率優化\n      對接生成工作流",
+  "superforge-mindmap": "mindmap\n  root((SuperForge))\n    知識儲存\n      pgvector 語意\n      全文檢索\n      版本與標籤\n    角色與權利\n      情緒·性格·方言·外觀\n      真人授權／OC·版權\n    擷取管線\n      匯入清洗\n      結構化欄位\n      同步備援\n    檢索與應用\n      混合搜尋\n      命中率優化\n      對接生成工作流",
   "superforge-flow": "flowchart LR\n  A[創作者 / API] --> B[匯入與驗證]\n  B --> C[Embedding]\n  C --> D[(pgvector)]\n  B --> E[(全文索引)]\n  D --> F[混合檢索]\n  E --> F\n  F --> G[提示詞建議]\n  G --> H[影像生成工作流]",
-  "superscript-mindmap": "mindmap\n  root((SuperScript))\n    Architect\n      集幕骨架\n      角色弧線\n    Continuity\n      人設一致\n      時間線檢查\n    Writer\n      對白場景\n      Voice Profile\n    Format\n      場頭 INT/EXT\n      匯出格式",
+  "superscript-mindmap": "mindmap\n  root((SuperScript))\n    Architect\n      集幕骨架\n      角色弧線\n    Continuity\n      人設一致\n      時間線檢查\n    角色控制\n      情緒·性格·方言·外觀\n      真人審校／OC·版權\n    Writer\n      對白場景\n      Voice Profile\n    Format\n      場頭 INT/EXT\n      匯出格式",
   "superscript-flow": "flowchart LR\n  U[使用者設定] --> A[Architect 骨架]\n  A --> C[Continuity]\n  C -->|通過| W[Writer]\n  C -->|退回| A\n  W --> F[Format]\n  F --> OUT[標準劇本]\n  W -.->|場景提示詞| SF[SuperForge]\n  ST[SuperTrack] -.->|熱點注入| A\n  W -.->|對白 A/B| TU[SuperTune]",
   "supertrack-mindmap": "mindmap\n  root((SuperTrack))\n    目標層\n      帳號\n      話題\n      品牌\n    擷取層\n      真人行為模擬\n      頻率與深度\n      反爬適應\n    分析層\n      跨平台合併\n      時間軸\n      異常偵測\n    輸出層\n      精華入 SuperForge\n      熱點送 SuperScript\n      指標給 SuperTune",
-  "supertrack-flow": "flowchart TB\n  P[多平台來源] --> B[行為化爬蟲]\n  B --> R[原始內容]\n  R --> I[身份合併]\n  R --> T[時間軸索引]\n  I --> X[分析與 KPI]\n  T --> X\n  X --> L{異常閾值}\n  L -->|觸發| N[通知 Webhook/Email]\n  X --> Q[品質篩選]\n  Q --> SF[(SuperForge)]\n  X --> SC[SuperScript 建議]\n  X --> STU[SuperTune 基準]"
+  "supertrack-flow": "flowchart TB\n  P[多平台來源] --> B[行為化爬蟲]\n  B --> R[原始內容]\n  R --> I[身份合併]\n  R --> T[時間軸索引]\n  I --> X[分析與 KPI]\n  T --> X\n  X --> L{異常閾值}\n  L -->|觸發| N[通知 Webhook/Email]\n  X --> Q[品質篩選]\n  Q --> SF[(SuperForge)]\n  X --> SC[SuperScript 建議]\n  X --> STU[SuperTune 基準]",
+  "superforge-webhook": "flowchart TB\n  T[生圖工具] --> W[Webhook 回拋完成]\n  W --> M[與當下 prompt+參數+輸出網址 配對]\n  M --> C{帶 character_id?}\n  C -->|是| R[(角色+版本樹一併掛)]\n  C -->|否| V[(一般入庫)]",
+  "superforge-hybrid": "flowchart LR\n  Q[查詢文字] --> A[語意向量/Embedding]\n  Q --> B[全文與模糊]\n  A --> M[分數合併排序]\n  B --> M\n  M --> H[歷史提示詞與生成]",
+  "superscript-arc": "flowchart LR\n  H[Hook] --> R[Rising]\n  R --> C[Climax]\n  C --> S[Resolution]",
+  "superscript-entity": "flowchart TB\n  PR[專案/劇本] --> SC[場景]\n  SC --> BE[節拍]\n  CH[角色+Voice] --> BE\n  BE --> D[台詞/舞台提示]\n  D -.->|character_id| SF[SuperForge]\n  SC -.->|場面描寫| SF",
+  "supertrack-identity": "flowchart LR\n  P1[平台A帳] --> M[合併引擎/置信度]\n  P2[平台B帳] --> M\n  P3[平台C帳] --> M\n  M --> U[統一追蹤實體+時間軸]",
+  "supertrack-crawl": "stateDiagram-v2\n  [*] --> Wait\n  Wait --> Fetch: interval\n  Fetch --> Parse: ok\n  Parse --> Wait: store\n  Fetch --> Wait: fail_or_throttle",
+  "supertune-ab": "flowchart TB\n  A[變體A] --> T[同條件推論]\n  B[變體B] --> T\n  T --> S[E 與 R 分數]\n  S --> P[p值/信心度]\n  P --> D[高於門檻?]\n  D -->|是| OK[建議採用勝出]\n  D -->|否| N1[不建議/加樣本]",
+  "supertune-cost": "flowchart TB\n  subgraph s1[四策略]\n    K1[Prompt 壓縮]\n    K2[Context 裁剪]\n    K3[Batch 合併]\n    K4[Model Tier]\n  end\n  K1 --> S[彙總節省]\n  K2 --> S\n  K3 --> S\n  K4 --> S\n  S --> R[日報/可回寫]"
 }

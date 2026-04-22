@@ -11,6 +11,10 @@
 - **Framer Motion** - 強大的動畫庫
 - **i18next** - 國際化支持（中文/英文）
 - **Axios** - HTTP 請求庫
+- **React Router** - 單頁應用路由、程式碼分割（`React.lazy` + `Suspense`）
+- **Zustand** - 輕量全域狀態（API 基底 URL 等）
+
+前端 **React 實作要點**（入口層次、`useDocBundle` 文件 i18n、StrictMode 與 ErrorBoundary、新增頁面流程）已寫在 [`frontend_new/DEVELOPER_HANDOFF.md`](frontend_new/DEVELOPER_HANDOFF.md) **§2.1**。
 
 ## 📦 安裝
 

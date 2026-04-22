@@ -180,6 +180,15 @@ export function Hero() {
                     SuperTune
                   </Link>
                 </div>
+                <div className="hero-doc-panel-row" role="group" aria-label={t('hero_supertrack_panel_aria')}>
+                  <Link
+                    className="hero-doc-pill hero-doc-pill--track hero-doc-pill--panel"
+                    to={{ pathname: PATHS.panel.supertrack, search: langSearch }}
+                  >
+                    <span className="hero-doc-pill-dot hero-doc-pill-dot--track" aria-hidden="true" />
+                    {t('hero_link_supertrack_panel')}
+                  </Link>
+                </div>
               </div>
               <div className="hero-strip hero-strip--models">
                 <p className="hero-strip-label">{t('hero_strip_models_label')}</p>

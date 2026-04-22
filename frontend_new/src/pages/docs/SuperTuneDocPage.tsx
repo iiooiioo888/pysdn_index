@@ -5,7 +5,12 @@ import { DocNavbar } from '../../components/docs/DocNavbar'
 import { DocFooter } from '../../components/docs/DocFooter'
 import { DocReadingSummary } from '../../components/docs/DocReadingSummary'
 import { DocMermaid } from '../../components/docs/DocMermaid'
-import { SUPERTUNE_FLOW, SUPERTUNE_MINDMAP } from '../../components/docs/mermaidCharts'
+import {
+  SUPERTUNE_AB_DECISION,
+  SUPERTUNE_COST,
+  SUPERTUNE_FLOW,
+  SUPERTUNE_MINDMAP,
+} from '../../components/docs/mermaidCharts'
 import { useDocBundle } from '../../hooks/useDocBundle'
 import { PATHS } from '../../routes/paths'
 import { toLangSearch } from '../../routes/langQuery'
@@ -99,6 +104,14 @@ export function SuperTuneDocPage() {
               結果：B 版加入鏡頭語言和具體場景描述，出圖穩定度大幅提升。</p>
             </div>
 
+            <div className="doc-diagram-block">
+              <h3>A/B 統計決策（示意）</h3>
+              <p className="doc-diagram-lead">
+                兩變體在相同條件下出分，再綜合效果 E、回應品質 R 與顯著性；僅在信心度足夠時建議採用勝出，避免隨機波動。
+              </p>
+              <DocMermaid chart={SUPERTUNE_AB_DECISION} />
+            </div>
+
             {/* ── 成本優化 ── */}
             <h2>💸 成本優化</h2>
             <p>SuperTune 自動幫你省 token，不是砍品質，是更聰明地用。系統會分析你的使用模式，找出可以優化的地方，然後給出具體省了多少錢。</p>
@@ -117,6 +130,14 @@ export function SuperTuneDocPage() {
               ・Context Window：省 $0.22（只傳最近 3 場的上下文）<br/>
               ・Batch 合併：省 $0.15（10 個場景一批次處理）<br/>
               總計降到 $4.12，省了 39%。品質分數只降了 1.2%，幾乎無感。</p>
+            </div>
+
+            <div className="doc-diagram-block">
+              <h3>四策略節流匯總</h3>
+              <p className="doc-diagram-lead">
+                壓縮、裁剪上下文、合併批次、模型降階可疊加；彙總成節省報表後，可一併納入回寫與團隊成本治理。
+              </p>
+              <DocMermaid chart={SUPERTUNE_COST} />
             </div>
 
             {/* ── 節奏指數 ── */}

@@ -319,9 +319,14 @@ export function ModulesPanel() {
                 <li>✅ {t('mp_track_f4', '靈感庫串接：好內容自動存進提示詞素材庫')}</li>
                 <li>✅ {t('mp_track_f5', '合規追蹤：只抓公開資料，遵守網站規範')}</li>
               </ul>
-              <Link to={{ pathname: PATHS.docs.supertrack, search: langSearch }} className="mp-doc-link">
-                {t('mp_view_docs', '查看完整文件')} →
-              </Link>
+              <div className="mp-doc-link-stack">
+                <Link to={{ pathname: PATHS.docs.supertrack, search: langSearch }} className="mp-doc-link">
+                  {t('mp_view_docs', '查看完整文件')} →
+                </Link>
+                <Link to={{ pathname: PATHS.panel.supertrack, search: langSearch }} className="mp-doc-link mp-doc-link--panel">
+                  {t('mp_open_supertrack_panel', '開啟全網追蹤助手（示範面板）')} →
+                </Link>
+              </div>
             </div>
           </div>
         )}

@@ -31,6 +31,9 @@ export const SuperScriptLabPage = lazy(() =>
 export const SuperTrackLabPage = lazy(() =>
   import('../pages/labs/SuperTrackLabPage').then((m) => ({ default: m.SuperTrackLabPage })),
 )
+export const SuperTrackPanelPage = lazy(() =>
+  import('../pages/panel/SuperTrackPanelPage').then((m) => ({ default: m.SuperTrackPanelPage })),
+)
 export const SuperTuneLabPage = lazy(() =>
   import('../pages/labs/SuperTuneLabPage').then((m) => ({ default: m.SuperTuneLabPage })),
 )

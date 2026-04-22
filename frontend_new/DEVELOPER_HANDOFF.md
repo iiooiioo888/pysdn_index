@@ -25,6 +25,54 @@
 
 ---
 
+## 2.1 React 應用架構（擴充說明）
+
+本專案為 **全函式元件**（function components）+ **Hooks** 為主；唯 **`ErrorBoundary`** 使用 **class 元件**（因 React 18 仍無內建 error boundary hook，需 `getDerivedStateFromError` / `componentDidCatch`）。
+
+### 2.1.1 掛載與根節點
+
+- 入口檔 `src/main.tsx`：`initI18n()` 完成後，以 `createRoot` 掛在 `#root`。
+- 層次（由外到內）：`StrictMode` → `ErrorBoundary` → `BrowserRouter`（`basename` 與生產 `base` 一致，見 §3）→ `App`。
+- `App`（`App.tsx`）僅組合兩子樹：全域 **Reveal 掃描橋** `RevealScanBridge`、以及 **`AppRoutes`**。勿在 `App` 放業務邏輯，宜留在頁面或子元件。
+
+### 2.1.2 路由與 `React.Suspense`
+
+- 所有頁面元件在 `lazyPages.tsx` 以 `React.lazy(() => import(...))` 動態匯入，**降低首包體積**。
+- `AppRoutes` 以單一 `<Suspense fallback={<RouteFallback />}>` 包住整棵 `<Routes>`，懶載入頁面切換時顯示統一載入 UI。
+- 使用 React Router 7 的 **宣告式** `<Route path={...} element={...} />`；實際 URL 前綴仍受 `basename` 約束，路徑常數集中於 `paths.ts` 的 `PATHS`，**避免字串路徑散落**。
+- 萬用路由 `path="*"` 使用 `NotFoundRedirect`，導回首頁並保留 `search`（含 `?lang=`），避免變更語系或分享連結丟參。
+
+### 2.1.3 文件／模組頁與 `useDocBundle`
+
+- 多數 **文件頁、模組總覽** 不直接依賴主站 `locales/*.json` 的長篇 HTML，而透過 `useDocBundle('superforge' | 'superscript' | …)` 從 `public/i18n/<name>.json` **fetch** 整包文案。
+- Hook 內行為要點：
+  - 依 `?lang=` 與 `i18n.language` 決定 `resolvedLang`，並合併 **zh-TW 底層** + 當前語覆蓋，得到 `dict`。
+  - 提供 `t(key)`（無 `i18n` 的 namespaced 路徑，純平鋪 key）、`ready`、`loadError`、`lang`。
+  - 副作用：同步 `document.title`、`meta description`、**依語系調整** `body` 字族與 `html[lang]`（中日韓體驗與可及性）。
+- 頁面內以 `ready` 閘門顯示載入/錯誤；內文若為 HTML 字串，以 **`dangerouslySetInnerHTML`** 渲染，修改文案時需 **同步五語 JSON**，並注意 XSS 僅上可信內容（建置期靜態 JSON）。
+
+### 2.1.4 主站 UI 的 `react-i18next`
+
+- 首頁、Navbar、Footer 等用 **`useTranslation()`** + `src/locales/*.json`；與 `useDocBundle` 為 **兩套 i18n 資料流**，新字串前要先想好放在哪一邊，避免重複定義。
+
+### 2.1.5 跨頁可重用邏輯
+
+- 依需求可查 `src/hooks/`（例如捲動、Reveal、首頁雜湊、文件 bundle）與 `lib/` 的 store／API。
+- **Zustand** 用於全站層級 API baseURL、UI 小狀態；頁內表單優先用 **React `useState` / `useReducer`**，避免過早全域化。
+
+### 2.1.6 圖表與非 React 內容
+
+- 模組文件中的 **Mermaid** 由 `components/docs/DocMermaid.tsx` 等封裝；靜態 HTML 參考 `public/js/doc-diagrams.json`，兩邊圖定義宜 **語意一致**（已於思維導圖同步時留意）。
+
+### 2.1.7 新開發者檢核（React 向）
+
+1. 新頁面：`paths.ts` → `AppRoutes` → `lazyPages.tsx` 懶匯出（與 §10 同）。
+2. 需要多語長文且含 HTML：優先放 `public/i18n/*.json` + `useDocBundle`；短 UI 字串用 `locales` + `t()`。
+3. 不直接在元件內寫死 **絕對路徑** 去 fetch 靜態資源；用 `` `${import.meta.env.BASE_URL}...` ``。
+4. 在 StrictMode 下，開發期 **useEffect 可能執行兩次**；若寫了訂閱或 fetch，務必帶 **cleanup**（`useDocBundle` 已用 `cancelled` 範式）。
+
+---
+
 ## 3. 部署與 Base Path（極重要）
 
 - **生產 base**：`vite.config.ts` 內 `base: '/pysdn_index/'`（GitHub Pages 路徑）。
