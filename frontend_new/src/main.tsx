@@ -1,3 +1,6 @@
+/**
+ * 入口：主站 `initI18n` → `src/locales`；文件頁 `useDocBundle` → `src/locales/doc`（i18next 命名空間 `doc_*`）。
+ */
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { RouterProvider } from 'react-router-dom'

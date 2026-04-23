@@ -66,7 +66,8 @@ export default defineConfig({
   },
   build: {
     outDir: 'dist',
-    sourcemap: false,
+    /** 產物含 map 供 Sentry 等上傳，但不寫入 bundle 註解連結，避免對外暴露路徑 */
+    sourcemap: 'hidden',
     cssMinify: true,
     cssCodeSplit: true,
     rollupOptions: {
@@ -81,6 +82,7 @@ export default defineConfig({
           if (id.includes('node_modules/react-i18next/') || id.includes('node_modules/i18next/')) {
             return 'i18n'
           }
+          /* 僅 `DocMermaid` 內 `import('mermaid')` 會觸發；獨立 chunk 利於快取 */
           if (id.includes('node_modules/mermaid')) {
             return 'mermaid'
           }

@@ -1,5 +1,6 @@
 import { readdirSync, copyFileSync } from 'fs';
 import { join } from 'path';
+import { spawnSync } from 'child_process';
 
 const distAssets = join(process.cwd(), 'dist', 'assets');
 const files = readdirSync(distAssets);
@@ -14,3 +15,8 @@ if (cssFile) {
 } else {
   console.warn('no index-*.css found, skipping postbuild copy');
 }
+
+spawnSync(process.execPath, ['scripts/sync-doc-i18n.mjs'], {
+  cwd: process.cwd(),
+  stdio: 'inherit',
+});

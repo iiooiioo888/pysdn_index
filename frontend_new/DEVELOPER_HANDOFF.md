@@ -44,16 +44,17 @@
 
 ### 2.1.3 文件／模組頁與 `useDocBundle`
 
-- 多數 **文件頁、模組總覽** 不直接依賴主站 `locales/*.json` 的長篇 HTML，而透過 `useDocBundle('superforge' | 'superscript' | …)` 從 `public/i18n/<name>.json` **fetch** 整包文案。
-- Hook 內行為要點：
-  - 依 `?lang=` 與 `i18n.language` 決定 `resolvedLang`，並合併 **zh-TW 底層** + 當前語覆蓋，得到 `dict`。
-  - 提供 `t(key)`（無 `i18n` 的 namespaced 路徑，純平鋪 key）、`ready`、`loadError`、`lang`。
-  - 副作用：同步 `document.title`、`meta description`、**依語系調整** `body` 字族與 `html[lang]`（中日韓體驗與可及性）。
-- 頁面內以 `ready` 閘門顯示載入/錯誤；內文若為 HTML 字串，以 **`dangerouslySetInnerHTML`** 渲染，修改文案時需 **同步五語 JSON**，並注意 XSS 僅上可信內容（建置期靜態 JSON）。
+- 文件頁／模組總覽透過 `useDocBundle('superforge' | …)`：**Vite 動態 import** `src/locales/doc/<name>.json`，以 **i18next 命名空間 `doc_<name>`** 註冊（與主站同一 `i18n` 實例）。
+- 仍以 **zh-TW 為底、當前語覆蓋** 合併後寫入各語 resource（行為與舊版 `dict` 合併一致）。
+- 提供 `t(key)`（等同 `useTranslation('doc_*')`）、`ready`、`loadError`、`lang`、`dict`（相容舊呼叫）。
+- 副作用：同步 `document.title`、`meta description`。
+- `npm run dev` 的 **predev** 與 **postbuild** 會跑 `scripts/sync-doc-i18n.mjs`，把 `src/locales/doc/*.json` 複製到 `public/i18n/`，供 `public/*.html` 靜態頁 `fetch` 使用。
+- 頁面內以 `ready` 閘門顯示載入/錯誤；HTML 字串仍以 **`dangerouslySetInnerHTML`** 渲染，僅上可信內容。
 
 ### 2.1.4 主站 UI 的 `react-i18next`
 
-- 首頁、Navbar、Footer 等用 **`useTranslation()`** + `src/locales/*.json`；與 `useDocBundle` 為 **兩套 i18n 資料流**，新字串前要先想好放在哪一邊，避免重複定義。
+- 首頁、Navbar 等用 **`useTranslation()`**（預設命名空間 `translation`）+ `src/locales/*.json`。
+- 文件長文用 **`useTranslation('doc_<bundle>')`**（由 `useDocBundle` 封裝）。**資料路徑不同，但皆為同一套 i18next**，新字串仍須區分：短 UI 鍵放 `locales`，長篇 HTML 鍵放 `locales/doc`。
 
 ### 2.1.5 跨頁可重用邏輯
 
@@ -67,7 +68,7 @@
 ### 2.1.7 新開發者檢核（React 向）
 
 1. 新頁面：`paths.ts` → `AppRoutes` → `lazyPages.tsx` 懶匯出（與 §10 同）。
-2. 需要多語長文且含 HTML：優先放 `public/i18n/*.json` + `useDocBundle`；短 UI 字串用 `locales` + `t()`。
+2. 需要多語長文且含 HTML：放 `src/locales/doc/*.json` + `useDocBundle`（並依需要跑 `sync-doc-i18n`）；短 UI 字串用 `src/locales` + `t()`。
 3. 不直接在元件內寫死 **絕對路徑** 去 fetch 靜態資源；用 `` `${import.meta.env.BASE_URL}...` ``。
 4. 在 StrictMode 下，開發期 **useEffect 可能執行兩次**；若寫了訂閱或 fetch，務必帶 **cleanup**（`useDocBundle` 已用 `cancelled` 範式）。
 
@@ -79,7 +80,7 @@
 - **React Router**：`src/main.tsx` 使用 `BrowserRouter basename={import.meta.env.BASE_URL 去尾斜線}`，所有 **in-app 路徑** 必須相對於此 basename（見 `src/routes/paths.ts`）。
 - **Dev 行為**：自訂 plugin `devRewriteRootToBase` 把 `/` 與 `/pysdn_index` 改寫到帶 base 的 URL，避免多餘 redirect。
 - **GitHub Pages SPA**：`scripts/copy-404.mjs` 把 `dist/index.html` 複製為 `dist/404.html`，讓子路徑重新整理仍可回 SPA。
-- **Postbuild**：`scripts/postbuild.mjs` 將 hashed CSS 複製為 `dist/assets/styles.css` 與 `dist/styles.css`，供 `public/*.html` 等靜態頁引用。
+- **Postbuild**：`scripts/postbuild.mjs` 將 hashed CSS 複製為 `dist/assets/styles.css` 與 `dist/styles.css`；並執行 `sync-doc-i18n.mjs` 更新 `dist` 建置前之 `public/i18n`（供靜態 HTML）。
 
 改部署網址或子路徑時，需同步：`vite.config.ts` 的 `base`、`index.html` 內 canonical／OG／JSON-LD 網址（若仍用該站）。
 
@@ -95,7 +96,7 @@ frontend_new/
 ├── postcss.config.cjs
 ├── tsconfig.json
 ├── public/                 # 靜態資源（build 時拷貝到 dist）
-│   ├── i18n/*.json         # 文件／模組頁用「分 bundle」翻譯（非 src/locales）
+│   ├── i18n/*.json         # 由 src/locales/doc 同步而來（靜態 HTML fetch）；單一真相在 src
 │   ├── *.html              # 部分舊式／獨立 HTML（如 superforge.html）
 │   ├── css/, js/           # 文件頁輔助樣式與腳本
 │   └── sitemap.xml, robots.txt
@@ -103,7 +104,7 @@ frontend_new/
 └── src/
     ├── main.tsx            # initI18n → ErrorBoundary → BrowserRouter → App
     ├── App.tsx             # RevealScanBridge + AppRoutes
-    ├── index.css           # @import 各元件 CSS + Tailwind + :root tokens
+    ├── index.css           # @import app-sections.css（合併後區塊樣式）+ Tailwind + :root tokens
     ├── routes/
     │   ├── AppRoutes.tsx   # 所有 Route 定義
     │   ├── paths.ts        # PATHS 單一真相來源
@@ -116,9 +117,10 @@ frontend_new/
     ├── hooks/
     ├── lib/                # i18n.ts, store.ts, api.ts, motionPreference.ts
     ├── services/api.ts     # re-export lib/api
-    ├── locales/*.json      # 主站 UI 翻譯（i18next）
+    ├── locales/*.json      # 主站 UI 翻譯（translation）
+    ├── locales/doc/*.json  # 文件／模組長文案（命名空間 doc_*）
     ├── data/modelsCatalog.ts
-    └── styles/*.css
+    └── styles/*.css        # 首頁區塊：分檔 nav/hero/… 為編輯來源；`merge-app-sections-css.mjs` 產出 app-sections.css（predev/build 自動執行）
 ```
 
 ---
@@ -143,28 +145,28 @@ frontend_new/
 
 ---
 
-## 6. 國際化（兩套系統）
+## 6. 國際化（同一 i18next，兩類命名空間／檔案）
 
 ### 6.1 主站 UI — `src/locales/*.json` + `src/lib/i18n.ts`
 
 - 語系：`zh-TW`（預設與 fallback）、`zh-CN`、`en`、`ja`、`ko`（`langQuery.ts` 與 `i18n.ts` 一致）。
 - **首屏策略**：依 URL `?lang=` 只先載入當前語系 + 必要時 fallback；其餘語系在 `changeLanguage` 時動態 `addResourceBundle`。
-- 元件內使用 `useTranslation()`。
+- 元件內使用 `useTranslation()`（命名空間 `translation`）。
 
-### 6.2 文件頁／模組總覽 — `public/i18n/{superforge,superscript,supertrack,supertune,modules}.json`
+### 6.2 文件頁／模組總覽 — `src/locales/doc/{superforge,superscript,supertrack,supertune,modules}.json`
 
-- `useDocBundle(name)`：`fetch(\`${import.meta.env.BASE_URL}i18n/${name}.json\`)`，依 `?lang=` 與 `i18n.language` 合併字串（zh-TW 底 + 當前語覆蓋）。
-- 會同步：補上 query `lang`、必要時觸發 `i18n.changeLanguage`、更新 `document.title` / `meta description`、依語系調整 `body` 字族與 `html[lang]`。
-- 文件頁大量內容透過翻譯 key 的 **HTML 字串**（如 `dangerouslySetInnerHTML`）插入，修改文案時需同步各語 JSON。
+- `useDocBundle(name)`：動態 `import()` 對應 JSON，以命名空間 **`doc_<name>`** 註冊；合併規則仍為 zh-TW 底 + 當前語覆蓋。
+- 會同步：補上 query `lang`、必要時觸發 `i18n.changeLanguage`、更新 `document.title` / `meta description`。
+- **`public/i18n/*.json`** 僅為靜態 HTML 相容副本，由 `scripts/sync-doc-i18n.mjs` 從 `src/locales/doc` 複製，**勿當作編輯主檔**。
+- 文件頁大量內容為 **HTML 字串** key，修改時同步五語 JSON。
 
 ---
 
 ## 7. 狀態與 API
 
 - **Zustand**（`src/lib/store.ts`）：
-  - `useApiStore`：`baseUrl`（預設 `VITE_API_URL` 或 localhost）、loading / error。
-  - `useUIStore`：選單、activeSection、theme。
-- **Axios**（`src/lib/api.ts`）：攔截器掛上 `useApiStore.getState().baseUrl`；`apiService` 封裝 health、video、drama、image、modules、contact 等路徑（與後端 `/api/...` 約定一致）。
+  - `useApiStore`：僅 `baseUrl`（預設 `VITE_API_URL` 或 localhost）與 `setBaseUrl`。
+- **Axios**（`src/lib/api.ts` + `apiTypes.ts`）：攔截器掛上 `useApiStore.getState().baseUrl`；`apiService` 以型別化請求／回應封裝 health、video、drama、image、modules、contact 等路徑（與後端 `/api/...` 約定一致）。
 - **Vite proxy**：開發時 `/api` 走 `localhost:8000`，與 `api` 的 baseURL 搭配使用。
 
 ---
@@ -173,8 +175,8 @@ frontend_new/
 
 - **Reveal 動畫**：根層 `RevealScanBridge` 呼叫 `useRevealPageScan()`，統一掃描 `.reveal`，避免多處 `IntersectionObserver`。
 - **首頁背景**：`useCanvasBackground` + `#bgCanvas`；`useHomeHashScroll` 處理錨點捲動。
-- **模型展示**：`src/data/modelsCatalog.ts` 定義型別與 `CATALOG_MODELS`；文案為多語 `Record<UiLang, string>`。
-- **樣式**：`index.css` 匯入各功能 CSS，並定義 `:root` 設計 token；Tailwind 用於工具類；文件頁另有 `src/styles/doc-page.css` 等。
+- **模型展示**：`src/data/modelsCatalog.ts` 定義型別；條目內容在 `catalogModels.json`（多語 `Record<UiLang, string>`）。
+- **樣式**：`index.css` → `app-sections.css`（首頁區塊合併檔，由 `scripts/merge-app-sections-css.mjs` 產生）+ `:root` token；Tailwind 工具類；文件頁另有 `src/styles/doc-page.css` 等。
 - **錯誤**：`ErrorBoundary` 包住整個 app。
 
 ---
@@ -184,7 +186,9 @@ frontend_new/
 | 腳本 | 用途（依檔名與 repo 慣例） |
 |------|---------------------------|
 | `copy-404.mjs` | SPA 404 fallback |
-| `postbuild.mjs` | 複製 hashed CSS 為 `styles.css` |
+| `postbuild.mjs` | 複製 hashed CSS 為 `styles.css`；執行 `sync-doc-i18n.mjs` |
+| `sync-doc-i18n.mjs` | `src/locales/doc` → `public/i18n`（靜態頁） |
+| `merge-app-sections-css.mjs` | 合併首頁 13 區塊 CSS → `app-sections.css` |
 | `syncLocalesFromZhTw.mjs` | 語系同步 |
 | `gen-modules-i18n.mjs` | 模組 i18n 生成 |
 | `merge-superforge-doc-html.mjs` / `patch-doc-bundles.mjs` / `doc-bodies/` | SuperForge 文件 HTML 合併與 bundle 修補 |
@@ -198,7 +202,7 @@ frontend_new/
 
 1. **新增頁面**：在 `paths.ts` 加常數 → `AppRoutes.tsx` 加 `Route` → 新增 page 元件並在 `lazyPages.tsx` lazy 匯出。
 2. **導覽連結**：使用 `PATHS` + `Link`；若需語系，搭配 `toLangSearch` / `useLangQuery`（與現有 Navbar 一致）。
-3. **新字串**：主站用 `locales/*.json`；文件或模組總覽用 `public/i18n/*.json` 並在頁面用 `useDocBundle` 或擴充該 hook。
+3. **新字串**：主站用 `src/locales/*.json`；文件長文用 `src/locales/doc/*.json` + `useDocBundle`（必要時跑 `sync-doc-i18n`）。
 4. **絕對 URL**：任何 `fetch` 靜態資源請用 `` `${import.meta.env.BASE_URL}...` ``，避免 base path 錯誤。
 5. **後端契約**：只改 `lib/api.ts` 的 path／payload 時，需與 repo 內後端或 API 規格對齊。
 
@@ -206,7 +210,7 @@ frontend_new/
 
 ## 11. 依賴一覽（production）
 
-`react`、`react-dom`、`react-router-dom`、`i18next`、`react-i18next`、`zustand`、`axios`、`vite`、`@vitejs/plugin-react`（見 `package.json`；Vite 相關在開發建置時使用）。
+`react`、`react-dom`、`react-router-dom`、`i18next`、`react-i18next`、`zustand`、`axios`、`mermaid`（見 `package.json`；`vite`／`@vitejs/plugin-react` 在 devDependencies）。
 
 ---
 

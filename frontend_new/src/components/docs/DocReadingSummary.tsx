@@ -10,7 +10,7 @@ function looksLikeMissingKey(t: TDoc, key: string): boolean {
 }
 
 /**
- * 模組技術文件頁頂部「閱讀摘要」：內容來自 public/i18n/{bundle}.json 的 doc_summary_*。
+ * 模組技術文件頁頂部「閱讀摘要」：內容來自 `src/locales/doc/{bundle}.json` 的 doc_summary_*。
  */
 export function DocReadingSummary({ t, variant }: { t: TDoc; variant: DocPageBundleName }) {
   if (looksLikeMissingKey(t, 'doc_summary_title') || looksLikeMissingKey(t, 'doc_summary_p')) {

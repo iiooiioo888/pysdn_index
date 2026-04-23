@@ -1,17 +1,5 @@
-/* ===== Component Styles ===== */
-@import './styles/nav.css';
-@import './styles/hero.css';
-@import './styles/home-sf.css';
-@import './styles/about.css';
-@import './styles/products.css';
-@import './styles/modules.css';
-@import './styles/modules-panel.css';
-@import './styles/showcase.css';
-@import './styles/workflow-faq.css';
-@import './styles/contact.css';
-@import './styles/models-section.css';
-@import './styles/model-detail.css';
-@import './styles/footer.css';
+/* ===== Component Styles（原 13 個區塊 CSS 已合併為單檔，減少 dev 連線數）===== */
+@import './styles/app-sections.css';
 
 @tailwind base;
 @tailwind components;
@@ -245,10 +233,36 @@ main > .section:last-child::after {
   background: linear-gradient(180deg, transparent 0%, rgba(6, 182, 212, 0.025) 100%);
 }
 
-/* 離屏區塊略過渲染／排版（Chromium）；降低版面配置與樣式成本。Hero 排除以免首屏延遲。 */
-main > section:not(.hero) {
+/*
+ * 離屏區塊略過渲染（Chromium）。懶載入區塊在 `main` 下非直接子代 section，故用後代選擇器。
+ * `contain-intrinsic-size` 與 `HomeLazySection` 的 minHeight 大致對齊，減少捲動條跳動。
+ */
+main section:not(.hero) {
   content-visibility: auto;
+}
+main section.section.about {
+  contain-intrinsic-size: auto calc(220px * var(--app-scale));
+}
+main section.section.products {
+  contain-intrinsic-size: auto calc(320px * var(--app-scale));
+}
+main section.section.modules-panel-section {
+  contain-intrinsic-size: auto calc(360px * var(--app-scale));
+}
+main section.section.showcase {
+  contain-intrinsic-size: auto calc(280px * var(--app-scale));
+}
+main section.section.workflow-section {
+  contain-intrinsic-size: auto calc(300px * var(--app-scale));
+}
+main section.section.contact {
+  contain-intrinsic-size: auto calc(240px * var(--app-scale));
+}
+main section.section.models-section {
   contain-intrinsic-size: auto calc(720px * var(--app-scale));
+}
+main section.section.faq-section {
+  contain-intrinsic-size: auto calc(480px * var(--app-scale));
 }
 
 /* 輕量箭頭：取代多處 SVG path，縮小 DOM 深度與節點數 */

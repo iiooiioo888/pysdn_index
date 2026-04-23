@@ -1,3 +1,7 @@
+/**
+ * 主站 React UI 國際化（react-i18next + `src/locales/*.json`，命名空間 `translation`）。
+ * 技術文件長文案：`useDocBundle` 以命名空間 `doc_{bundle}` 載入 `src/locales/doc/*.json`（同一条 i18n 實例）。
+ */
 import i18n from 'i18next'
 import { initReactI18next } from 'react-i18next'
 import { isAppLangCode, type AppLangCode } from '../routes/langQuery'

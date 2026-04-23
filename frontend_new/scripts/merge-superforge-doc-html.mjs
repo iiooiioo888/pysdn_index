@@ -1,5 +1,5 @@
 /**
- * Merges doc HTML fragments + sim UI keys into public/i18n/superforge.json
+ * Merges doc HTML fragments + sim UI keys into src/locales/doc/superforge.json
  * Run: node scripts/merge-superforge-doc-html.mjs
  */
 import fs from 'fs'
@@ -8,7 +8,7 @@ import { fileURLToPath } from 'url'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const root = path.join(__dirname, '..')
-const jsonPath = path.join(root, 'public/i18n/superforge.json')
+const jsonPath = path.join(root, 'src/locales/doc/superforge.json')
 const bodyDir = path.join(root, 'scripts/doc-bodies/superforge')
 
 const bundle = JSON.parse(fs.readFileSync(jsonPath, 'utf8'))

@@ -1,5 +1,5 @@
 /**
- * One-off generator for public/i18n/modules.json (modules hub copy).
+ * One-off generator for src/locales/doc/modules.json（模組總覽）；會由 predev/postbuild 同步至 public/i18n。
  * Run: node scripts/gen-modules-i18n.mjs
  */
 import fs from 'fs'
@@ -7,7 +7,7 @@ import path from 'path'
 import { fileURLToPath } from 'url'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
-const out = path.join(__dirname, '../public/i18n/modules.json')
+const out = path.join(__dirname, '../src/locales/doc/modules.json')
 
 const zhTW = {
   title: 'SuperCool 擴展模組 — SuperForge、SuperTune、SuperTrack、SuperScript | Pysdn',

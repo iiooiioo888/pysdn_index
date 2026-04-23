@@ -130,7 +130,10 @@
       </div>
     </noscript>
     <div id="root"></div>
-    <!-- GitHub Pages SPA fallback: restore real path from 404.html redirect -->
+    <!--
+      GitHub Pages SPA fallback：404.html 會把真實路徑塞進 ?/path；此腳本還原為 pathname + hash。
+      若改為 Netlify／Cloudflare Pages 等原生 SPA 導向，可刪除此段並改用平台 rewrites。
+    -->
     <script>
       (function(l) {
         if (l.search[1] === '/') {

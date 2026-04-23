@@ -1,11 +1,12 @@
 /**
- * One-off merge: 優化模組總覽與各模組 public/i18n/*.json 文案（閱讀導覽、摘要、首屏描述）。
+ * One-off merge: 優化模組總覽與各模組 `src/locales/doc/*.json` 文案（閱讀導覽、摘要、首屏描述）。
  * Run: node scripts/patch-doc-bundles.mjs
+ * 完成後請執行 `node scripts/sync-doc-i18n.mjs` 或 `npm run dev`（predev 會同步 public）。
  */
 import fs from 'node:fs'
 import path from 'node:path'
 
-const I18N = path.join(process.cwd(), 'public', 'i18n')
+const I18N = path.join(process.cwd(), 'src', 'locales', 'doc')
 
 function mergeJson(file, perLang) {
   const p = path.join(I18N, file)

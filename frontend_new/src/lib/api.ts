@@ -1,5 +1,22 @@
 import axios from 'axios'
 import { useApiStore } from './store'
+import type {
+  ApiTaskPayload,
+  ContactSubmitRequest,
+  DramaCreateRequest,
+  DramaListItem,
+  HealthResponse,
+  ImageGenerateRequest,
+  ImageListItem,
+  ImageListQuery,
+  PaginatedQuery,
+  PaginatedResponse,
+  SuperForgeListItem,
+  SuperTrackTrendsRequest,
+  SuperTuneOptimizeRequest,
+  VideoGenerateRequest,
+  VideoListItem,
+} from './apiTypes'
 
 export const api = axios.create({
   headers: {
@@ -7,7 +24,6 @@ export const api = axios.create({
   },
 })
 
-// Request interceptor to add base URL
 api.interceptors.request.use((config) => {
   const baseUrl = useApiStore.getState().baseUrl
   if (!config.url?.startsWith('http')) {
@@ -16,44 +32,40 @@ api.interceptors.request.use((config) => {
   return config
 })
 
-// Response interceptor for error handling
 api.interceptors.response.use(
   (response) => response,
   (error) => {
     console.error('API Error:', error)
     return Promise.reject(error)
-  }
+  },
 )
 
-// API Service functions
 export const apiService = {
-  // Health check
-  health: () => api.get('/api/health'),
-  
-  // Video generation
-  generateVideo: (data: any) => api.post('/api/video/generate', data),
-  getVideoStatus: (taskId: string) => api.get(`/api/video/status/${taskId}`),
-  listVideos: (params?: { limit?: number; offset?: number }) =>
-    api.get('/api/video/list', { params }),
-  
-  // Drama production
-  createDrama: (data: any) => api.post('/api/drama/create', data),
-  listDramaSeries: (params?: { limit?: number; offset?: number }) =>
-    api.get('/api/drama/list', { params }),
-  
-  // Image workshop
-  generateImage: (data: any) => api.post('/api/image/generate', data),
-  listImages: (params?: { limit?: number; offset?: number; style?: string }) =>
-    api.get('/api/image/list', { params }),
-  
-  // Extensions (maps to backend modules)
-  optimizePrompt: (data: any) => api.post('/api/modules/supertune', data),
-  getTrends: (data: any) => api.post('/api/modules/supertrack', data),
+  health: () => api.get<HealthResponse>('/api/health'),
 
-  // Modules
-  superforgeList: () => api.post('/api/modules/superforge', { action: 'list' }),
-  supertrackTrends: (data: any) => api.post('/api/modules/supertrack', data),
-  
-  // Contact
-  submitContact: (data: any) => api.post('/api/contact', data),
+  generateVideo: (data: VideoGenerateRequest) =>
+    api.post<ApiTaskPayload>('/api/video/generate', data),
+  getVideoStatus: (taskId: string) => api.get<ApiTaskPayload>(`/api/video/status/${taskId}`),
+  listVideos: (params?: PaginatedQuery) =>
+    api.get<PaginatedResponse<VideoListItem>>('/api/video/list', { params }),
+
+  createDrama: (data: DramaCreateRequest) => api.post<ApiTaskPayload>('/api/drama/create', data),
+  listDramaSeries: (params?: PaginatedQuery) =>
+    api.get<PaginatedResponse<DramaListItem>>('/api/drama/list', { params }),
+
+  generateImage: (data: ImageGenerateRequest) =>
+    api.post<ApiTaskPayload>('/api/image/generate', data),
+  listImages: (params?: ImageListQuery) =>
+    api.get<PaginatedResponse<ImageListItem>>('/api/image/list', { params }),
+
+  optimizePrompt: (data: SuperTuneOptimizeRequest) =>
+    api.post<unknown>('/api/modules/supertune', data),
+  getTrends: (data: SuperTrackTrendsRequest) => api.post<unknown>('/api/modules/supertrack', data),
+
+  superforgeList: () =>
+    api.post<PaginatedResponse<SuperForgeListItem>>('/api/modules/superforge', { action: 'list' }),
+  supertrackTrends: (data: SuperTrackTrendsRequest) =>
+    api.post<unknown>('/api/modules/supertrack', data),
+
+  submitContact: (data: ContactSubmitRequest) => api.post<unknown>('/api/contact', data),
 }

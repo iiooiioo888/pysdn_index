@@ -9,7 +9,12 @@ build/
 # 環境變數與密鑰（勿提交）
 .env
 .env.*
+.env.local
 !**/.env.example
+
+# Python
+__pycache__/
+*.py[cod]
 
 # 日誌與快取
 *.log

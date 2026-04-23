@@ -8,7 +8,6 @@
 - **TypeScript** - 類型安全的 JavaScript 超集
 - **Vite** - 快速的開發服務器和構建工具
 - **Tailwind CSS** - 實用優先的 CSS 框架
-- **Framer Motion** - 強大的動畫庫
 - **i18next** - 國際化支持（中文/英文）
 - **Axios** - HTTP 請求庫
 - **React Router** - 單頁應用路由、程式碼分割（`React.lazy` + `Suspense`）
@@ -18,7 +17,10 @@
 
 ## 📦 安裝
 
+需 **Node.js 20+**（見 `frontend_new/package.json` 的 `engines` 與 `frontend_new/.nvmrc`）。
+
 ```bash
+cd frontend_new
 npm install
 ```
 
@@ -27,26 +29,29 @@ npm install
 啟動開發服務器：
 
 ```bash
+cd frontend_new
 npm run dev
 ```
 
-訪問 http://localhost:5173
+訪問 http://localhost:3000（見 `frontend_new/vite.config.ts` 的 `server.port`）
 
 ## 🏗️ 構建
 
 生產環境構建：
 
 ```bash
+cd frontend_new
 npm run build
 ```
 
-構建輸出在 `dist/` 目錄
+構建輸出在 `frontend_new/dist/` 目錄
 
 ## 🔍 預覽
 
 預覽生產構建：
 
 ```bash
+cd frontend_new
 npm run preview
 ```
 
@@ -135,7 +140,7 @@ pysdn_index/
 
 ## 📄 License
 
-ISC
+[ISC License](LICENSE)（倉庫根目錄 `LICENSE`）
 
 ---
 
