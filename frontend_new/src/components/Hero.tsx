@@ -14,12 +14,19 @@ import {
 } from '../hooks/useAnimations'
 import { scrollToHash } from '../utils/scrollToHash'
 import { prefersReducedMotion } from '../lib/motionPreference'
+import { CATALOG_MODELS } from '../data/modelsCatalog'
+import { BEDROCK_MODELS } from '../data/bedrockCatalog'
+import { OPENROUTER_MODELS } from '../data/openRouterModels'
 
-/** 首頁數據條：模型隊列 · 並行任務 · 可接入模型（非行銷型數字） */
+/** 與 `ModelsSection` 匯總一致：精選目錄 + Bedrock + OpenRouter 快照 */
+const HERO_MODELS_TOTAL =
+  CATALOG_MODELS.length + BEDROCK_MODELS.length + OPENROUTER_MODELS.length
+
+/** 首頁數據條：隊列／並行為管線容量取向；可接入模型數隨目錄更新 */
 const HERO_STATS = {
-  modelQueue: 32,
-  concurrentJobs: 8,
-  availableModels: 12,
+  modelQueue: 64,
+  concurrentJobs: 16,
+  availableModels: HERO_MODELS_TOTAL,
 } as const
 
 export function Hero() {
@@ -213,24 +220,34 @@ export function Hero() {
               </div>
               <div className="hero-strip hero-strip--models">
                 <p className="hero-strip-label">{t('hero_strip_models_label')}</p>
-                <div className="hero-model-spotlight" role="group" aria-label={t('hero_models_strip_aria')}>
+                <div className="hero-provider-grid" role="group" aria-label={t('hero_models_strip_aria')}>
                   <Link
-                    className="hero-model-pill hero-model-pill--volcano"
+                    className="hero-provider-card hero-provider-card--volcano"
                     to={{ pathname: PATHS.models, search: withSearchParam(langSearch, 'brand', 'volcano') }}
                   >
-                    <span className="hero-model-pill-tag" aria-hidden="true">
-                      {t('hero_volcano_pill_tag')}
-                    </span>
-                    <span className="hero-model-pill-name">{t('models_filter_volcano')}</span>
+                    <span className="hero-provider-card-name">{t('models_filter_volcano_short')}</span>
+                    <span className="hero-provider-card-models">{t('hero_volcano_flagship_models')}</span>
                   </Link>
                   <Link
-                    className="hero-model-pill hero-model-pill--qwencloud"
+                    className="hero-provider-card hero-provider-card--qwencloud"
                     to={{ pathname: PATHS.models, search: withSearchParam(langSearch, 'brand', 'qwencloud') }}
                   >
-                    <span className="hero-model-pill-tag" aria-hidden="true">
-                      {t('models_filter_qwencloud')}
-                    </span>
-                    <span className="hero-model-pill-name">{t('hero_qwencloud_models_short')}</span>
+                    <span className="hero-provider-card-name">{t('models_dev_qwencloud')}</span>
+                    <span className="hero-provider-card-models">{t('hero_qwencloud_models_short')}</span>
+                  </Link>
+                  <Link
+                    className="hero-provider-card hero-provider-card--bedrock"
+                    to={{ pathname: PATHS.models, search: withSearchParam(langSearch, 'brand', 'bedrock') }}
+                  >
+                    <span className="hero-provider-card-name">{t('models_dev_aws')}</span>
+                    <span className="hero-provider-card-models">{t('hero_bedrock_flagship_models')}</span>
+                  </Link>
+                  <Link
+                    className="hero-provider-card hero-provider-card--openrouter"
+                    to={{ pathname: PATHS.models, search: withSearchParam(langSearch, 'brand', 'openrouter') }}
+                  >
+                    <span className="hero-provider-card-name">{t('models_dev_openrouter')}</span>
+                    <span className="hero-provider-card-models">{t('hero_openrouter_flagship_models')}</span>
                   </Link>
                 </div>
               </div>
@@ -259,14 +276,6 @@ export function Hero() {
             </div>
           </div>
         </div>
-      </div>
-
-      {/* Scroll Indicator */}
-      <div className="hero-scroll" aria-hidden="true">
-        <div className="scroll-indicator">
-          <div className="scroll-dot" />
-        </div>
-        <span>SCROLL</span>
       </div>
     </section>
   )

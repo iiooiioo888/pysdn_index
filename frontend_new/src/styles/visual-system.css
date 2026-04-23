@@ -52,6 +52,57 @@
   --glass-backdrop-soft: blur(var(--glass-blur-soft)) saturate(var(--glass-sat-soft));
   --glass-backdrop: blur(var(--glass-blur)) saturate(var(--glass-sat));
   --glass-backdrop-strong: blur(var(--glass-blur-strong)) saturate(var(--glass-sat-strong));
+
+  /* —— 面板（大卡／mockup 視窗／格線底紋；Hero、Products、Modules 共用）—— */
+  --panel-radius-lg: clamp(20px, 2.8vw, 26px);
+  --panel-radius-md: 18px;
+  --panel-radius-sm: 14px;
+  --panel-border: 1px solid rgba(255, 255, 255, 0.1);
+  --panel-border-soft: 1px solid rgba(255, 255, 255, 0.09);
+  --panel-ring-cyan: rgba(6, 182, 212, 0.06);
+  --panel-surface-bg: linear-gradient(
+    165deg,
+    rgba(255, 255, 255, 0.06) 0%,
+    rgba(255, 255, 255, 0.02) 42%,
+    rgba(6, 182, 212, 0.04) 100%
+  );
+  --panel-surface-bg-elevated: linear-gradient(
+    165deg,
+    rgba(255, 255, 255, 0.07) 0%,
+    rgba(255, 255, 255, 0.02) 42%,
+    rgba(6, 182, 212, 0.04) 100%
+  );
+  --panel-intro-surface-bg: linear-gradient(
+    148deg,
+    rgba(255, 255, 255, 0.065) 0%,
+    rgba(255, 255, 255, 0.02) 42%,
+    rgba(139, 92, 246, 0.05) 100%
+  );
+  --panel-shadow-ambient: 0 28px 80px rgba(0, 0, 0, 0.38);
+  --panel-shadow-elevated: 0 28px 56px rgba(0, 0, 0, 0.38);
+  --panel-inset-top: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  --panel-inset-top-soft: inset 0 1px 0 rgba(255, 255, 255, 0.07);
+  --panel-grid-line: rgba(255, 255, 255, 0.035);
+  --panel-grid-line-subtle: rgba(255, 255, 255, 0.03);
+  --panel-grid-size: 32px;
+  --panel-grid-size-tight: 22px;
+  --panel-grid-fade: 0.4;
+  --panel-grid-fade-strong: 0.45;
+  --panel-grid-mask: radial-gradient(ellipse 88% 70% at 50% 0%, #000 18%, transparent 72%);
+  --panel-grid-mask-tight: radial-gradient(ellipse 85% 70% at 50% 0%, #000 20%, transparent 75%);
+  --panel-mockup-fill: linear-gradient(180deg, rgba(12, 14, 22, 0.92) 0%, rgba(6, 8, 14, 0.88) 100%);
+  --panel-mockup-shadow: 0 24px 56px rgba(0, 0, 0, 0.45);
+  --panel-chrome-bg: rgba(255, 255, 255, 0.03);
+  --panel-chrome-border: 1px solid rgba(255, 255, 255, 0.08);
+  --panel-dot-red: #f87171;
+  --panel-dot-amber: #fbbf24;
+  --panel-dot-green: #34d399;
+  --panel-dock-bg: rgba(0, 0, 0, 0.22);
+  --panel-dock-border: 1px solid rgba(255, 255, 255, 0.07);
+  --panel-dock-inset: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  --panel-inset-card-bg: rgba(255, 255, 255, 0.03);
+  --panel-inset-card-border: 1px solid rgba(255, 255, 255, 0.09);
+  --panel-inset-card-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
 }
 
 html[data-visual-tier='rich'] {

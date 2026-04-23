@@ -441,7 +441,6 @@ html:lang(ko) body {
   /* 首頁背景為 Canvas 靜態星空，無 SF DOM 疊層 */
   .hero-intro-bolt,
   .hero-intro-orb,
-  .hero-scroll,
   .badge-dot,
   .typing-cursor,
   .lightning-orb,

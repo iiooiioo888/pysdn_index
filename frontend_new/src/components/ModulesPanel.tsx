@@ -20,32 +20,34 @@ export function ModulesPanel() {
   return (
     <section id="modules-panel" className="section modules-panel-section">
       <div className="container">
-        <div className="section-heading">
-          <div className="section-label reveal">{t('mp_label', 'MODULE DASHBOARD')}</div>
-          <h2 className="section-title reveal">{t('mp_title', '模組面板')}</h2>
-          <p className="section-desc reveal">
-            {t('mp_desc', '每個模組都有自己的工作空間，點進去就能直接用。')}
-          </p>
-        </div>
+        <div className="mp-surface reveal">
+          <header className="mp-surface-head">
+            <div className="section-heading mp-heading">
+              <div className="section-label">{t('mp_label', 'MODULE DASHBOARD')}</div>
+              <h2 className="section-title">{t('mp_title', '模組面板')}</h2>
+              <p className="section-desc">{t('mp_desc', '每個模組都有自己的工作空間，點進去就能直接用。')}</p>
+            </div>
+          </header>
 
-        {/* Tabs */}
-        <div className="mp-tabs reveal" role="tablist" aria-label="Module panels">
-          {tabs.map((tab) => (
-            <button
-              key={tab.id}
-              className={`mp-tab mp-tab--${tab.color} ${activeTab === tab.id ? 'active' : ''}`}
-              role="tab"
-              aria-selected={activeTab === tab.id}
-              onClick={() => setActiveTab(tab.id)}
-            >
-              {tab.label}
-            </button>
-          ))}
-        </div>
+          <div className="mp-tablist-shell" role="presentation">
+            <div className="mp-tabs" role="tablist" aria-label="Module panels">
+              {tabs.map((tab) => (
+                <button
+                  key={tab.id}
+                  className={`mp-tab mp-tab--${tab.color} ${activeTab === tab.id ? 'active' : ''}`}
+                  role="tab"
+                  aria-selected={activeTab === tab.id ? true : false}
+                  onClick={() => setActiveTab(tab.id)}
+                >
+                  {tab.label}
+                </button>
+              ))}
+            </div>
+          </div>
 
-        {/* ===== SuperForge Panel ===== */}
+          {/* ===== SuperForge Panel ===== */}
         {activeTab === 'forge' && (
-          <div className="mp-panel active reveal" role="tabpanel">
+          <div className="mp-panel mp-panel--forge active" role="tabpanel">
             <div className="mp-panel-mockup">
               <div className="mp-mockup-header">
                 <div className="mockup-dots"><span /><span /><span /></div>
@@ -136,7 +138,7 @@ export function ModulesPanel() {
 
         {/* ===== SuperScript Panel ===== */}
         {activeTab === 'script' && (
-          <div className="mp-panel active reveal" role="tabpanel">
+          <div className="mp-panel mp-panel--script active" role="tabpanel">
             <div className="mp-panel-mockup">
               <div className="mp-mockup-header">
                 <div className="mockup-dots"><span /><span /><span /></div>
@@ -227,7 +229,7 @@ export function ModulesPanel() {
 
         {/* ===== SuperTrack Panel ===== */}
         {activeTab === 'track' && (
-          <div className="mp-panel active reveal" role="tabpanel">
+          <div className="mp-panel mp-panel--track active" role="tabpanel">
             <div className="mp-panel-mockup">
               <div className="mp-mockup-header">
                 <div className="mockup-dots"><span /><span /><span /></div>
@@ -342,7 +344,7 @@ export function ModulesPanel() {
 
         {/* ===== SuperTune Panel ===== */}
         {activeTab === 'tune' && (
-          <div className="mp-panel active reveal" role="tabpanel">
+          <div className="mp-panel mp-panel--tune active" role="tabpanel">
             <div className="mp-panel-mockup">
               <div className="mp-mockup-header">
                 <div className="mockup-dots"><span /><span /><span /></div>
@@ -440,6 +442,7 @@ export function ModulesPanel() {
             </div>
           </div>
         )}
+        </div>
       </div>
     </section>
   )
