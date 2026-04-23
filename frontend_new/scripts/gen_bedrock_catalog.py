@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-"""從 bedrock_models_raw.json 產生 bedrockCatalog.ts（請在更新 Excel 後重跑）。"""
+"""從 bedrock_models_raw.json 產生 bedrockCatalog.json（請在更新 Excel 後重跑）。"""
 import json
 import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 RAW_JSON = ROOT / "src" / "data" / "bedrock_models_raw.json"
-OUT = ROOT / "src" / "data" / "bedrockCatalog.ts"
+OUT = ROOT / "src" / "data" / "bedrockCatalog.json"
 
 TYPE_EN = {
     "圖像生成": "Image generation",
@@ -170,17 +170,7 @@ def fmt_price(inp, out, unit, note) -> str:
 
 def main():
     rows = json.loads(RAW_JSON.read_text(encoding="utf-8"))
-    lines = [
-        "/**",
-        " * AWS Bedrock 模型目錄 — 由 `scripts/gen_bedrock_catalog.py` 自 `bedrock_models_raw.json` 產生。",
-        " * 更新 Excel 後請重跑：",
-        " *   python scripts/gen_bedrock_catalog.py",
-        " */",
-        "",
-        "import type { CatalogModel } from './modelsCatalog'",
-        "",
-        "export const BEDROCK_MODELS: CatalogModel[] = [",
-    ]
+    models: list[dict] = []
 
     seen: set[str] = set()
     for r in rows:
@@ -213,39 +203,35 @@ def main():
         desc_ja = f"AWS Bedrock（{prov}）— {type_en}. {feat}"
         desc_ko = f"AWS Bedrock({prov}) — {type_en}. {feat}"
 
-        def j(s: str) -> str:
-            return json.dumps(s, ensure_ascii=False)
-
-        lines.append("  {")
-        lines.append(f"    id: {j(mid)},")
-        lines.append("    product: 'bedrock',")
-        lines.append(f"    capability: '{cap}',")
-        lines.append("    developer: 'aws',")
-        lines.append("    badges: [],")
-        lines.append(f"    price: {j(price)},")
-        lines.append("    title: {")
-        lines.append(f"      'zh-TW': {j(name)},")
-        lines.append(f"      'zh-CN': {j(name)},")
-        lines.append(f"      en: {j(name)},")
-        lines.append(f"      ja: {j(name)},")
-        lines.append(f"      ko: {j(name)},")
-        lines.append("    },")
-        lines.append("    desc: {")
-        lines.append(f"      'zh-TW': {j(desc_zhtw)},")
-        lines.append(f"      'zh-CN': {j(desc_zhcn)},")
-        lines.append(f"      en: {j(desc_en)},")
-        lines.append(f"      ja: {j(desc_ja)},")
-        lines.append(f"      ko: {j(desc_ko)},")
-        lines.append("    },")
+        item: dict = {
+            "id": mid,
+            "product": "bedrock",
+            "capability": cap,
+            "developer": "aws",
+            "badges": [],
+            "price": price,
+            "title": {
+                "zh-TW": name,
+                "zh-CN": name,
+                "en": name,
+                "ja": name,
+                "ko": name,
+            },
+            "desc": {
+                "zh-TW": desc_zhtw,
+                "zh-CN": desc_zhcn,
+                "en": desc_en,
+                "ja": desc_ja,
+                "ko": desc_ko,
+            },
+            "modalitiesLine": mtype,
+            "providerName": prov,
+        }
         if ctx:
-            lines.append(f"    contextLength: {ctx},")
-        lines.append(f"    modalitiesLine: {j(mtype)},")
-        lines.append(f"    providerName: {j(prov)},")
-        lines.append("  },")
+            item["contextLength"] = int(ctx)
+        models.append(item)
 
-    lines.append("]")
-    lines.append("")
-    OUT.write_text("\n".join(lines), encoding="utf-8")
+    OUT.write_text(json.dumps(models, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(f"Wrote {OUT} ({len(rows)} models)")
 
 

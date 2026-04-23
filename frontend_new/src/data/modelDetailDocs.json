@@ -1,0 +1,1740 @@
+{
+  "seedance-2": {
+    "highlights": {
+      "en": [
+        "Director-style multimodal video: text, image, audio, and video references in one flow.",
+        "Strong shot control, motion stability, and physics-aware movement.",
+        "Native audio–video sync and editing-friendly timelines."
+      ],
+      "zh-TW": [
+        "導演向多模態影片：文字、圖像、音訊與影片參考可納入同一工作流。",
+        "運鏡與動作穩定度高，貼近物理直覺的運動表現。",
+        "原生音畫同步，並利於後續剪輯與迭代。"
+      ],
+      "zh-CN": [
+        "导演向多模态视频：文本、图像、音频与视频参考可纳入同一工作流。",
+        "运镜与动作稳定性高，贴近物理直觉的运动表现。",
+        "原生音画同步，并利于后续剪辑与迭代。"
+      ],
+      "ja": [
+        "Director-style multimodal video: text, image, audio, and video references in one flow.",
+        "Strong shot control, motion stability, and physics-aware movement.",
+        "Native audio–video sync and editing-friendly timelines."
+      ],
+      "ko": [
+        "Director-style multimodal video: text, image, audio, and video references in one flow.",
+        "Strong shot control, motion stability, and physics-aware movement.",
+        "Native audio–video sync and editing-friendly timelines."
+      ]
+    },
+    "specs": {
+      "en": [
+        {
+          "label": "Capability",
+          "value": "Video generation"
+        },
+        {
+          "label": "Brand",
+          "value": "Seedance 2.0"
+        },
+        {
+          "label": "Developer",
+          "value": "ByteDance"
+        },
+        {
+          "label": "Typical inputs",
+          "value": "Text · Image · Audio · Video reference"
+        }
+      ],
+      "zh-TW": [
+        {
+          "label": "能力",
+          "value": "影片生成"
+        },
+        {
+          "label": "品牌",
+          "value": "Seedance 2.0"
+        },
+        {
+          "label": "開發商",
+          "value": "字節跳動"
+        },
+        {
+          "label": "常見輸入",
+          "value": "文字 · 圖像 · 音訊 · 影片參考"
+        }
+      ],
+      "zh-CN": [
+        {
+          "label": "能力",
+          "value": "视频生成"
+        },
+        {
+          "label": "品牌",
+          "value": "Seedance 2.0"
+        },
+        {
+          "label": "开发商",
+          "value": "字节跳动"
+        },
+        {
+          "label": "常见输入",
+          "value": "文本 · 图像 · 音频 · 视频参考"
+        }
+      ],
+      "ja": [
+        {
+          "label": "Capability",
+          "value": "Video generation"
+        },
+        {
+          "label": "Brand",
+          "value": "Seedance 2.0"
+        },
+        {
+          "label": "Developer",
+          "value": "ByteDance"
+        },
+        {
+          "label": "Typical inputs",
+          "value": "Text · Image · Audio · Video reference"
+        }
+      ],
+      "ko": [
+        {
+          "label": "Capability",
+          "value": "Video generation"
+        },
+        {
+          "label": "Brand",
+          "value": "Seedance 2.0"
+        },
+        {
+          "label": "Developer",
+          "value": "ByteDance"
+        },
+        {
+          "label": "Typical inputs",
+          "value": "Text · Image · Audio · Video reference"
+        }
+      ]
+    },
+    "sections": {
+      "en": [
+        {
+          "heading": "When to choose Seedance 2.0",
+          "body": "Use it when you need controllable camera language, coherent motion across shots, and synchronized sound without rebuilding the whole pipeline in post."
+        },
+        {
+          "heading": "Integration note",
+          "body": "Treat Seedance as the motion layer in SuperCool: prompts and references flow in; mastered clips feed SuperTrack / SuperForge when you need search, signals, or structured assets."
+        }
+      ],
+      "zh-TW": [
+        {
+          "heading": "何時選 Seedance 2.0",
+          "body": "當你需要可讀的鏡頭語言、跨鏡頭連貫的動作，以及不必在後期硬拼的音畫同步，Seedance 適合作為影片生成主幹。"
+        },
+        {
+          "heading": "與模組協作",
+          "body": "可把 Seedance 視為 SuperCool 的「影像動態層」：提示與參考入、成片出；若要可搜尋資產、訊號或結構化內容，再交給 SuperTrack、SuperForge 等延伸模組。"
+        }
+      ],
+      "zh-CN": [
+        {
+          "heading": "何时选 Seedance 2.0",
+          "body": "当你需要可读的镜头语言、跨镜头连贯的动作，以及不必在后期硬拼的音画同步，Seedance 适合作为视频生成主干。"
+        },
+        {
+          "heading": "与模块协作",
+          "body": "可把 Seedance 视为 SuperCool 的「影像动态层」：提示与参考入、成片出；若要可检索资产、信号或结构化内容，再交给 SuperTrack、SuperForge 等扩展模块。"
+        }
+      ],
+      "ja": [
+        {
+          "heading": "When to choose Seedance 2.0",
+          "body": "Use it when you need controllable camera language, coherent motion across shots, and synchronized sound without rebuilding the whole pipeline in post."
+        },
+        {
+          "heading": "Integration note",
+          "body": "Treat Seedance as the motion layer in SuperCool: prompts and references flow in; mastered clips feed SuperTrack / SuperForge when you need search, signals, or structured assets."
+        }
+      ],
+      "ko": [
+        {
+          "heading": "When to choose Seedance 2.0",
+          "body": "Use it when you need controllable camera language, coherent motion across shots, and synchronized sound without rebuilding the whole pipeline in post."
+        },
+        {
+          "heading": "Integration note",
+          "body": "Treat Seedance as the motion layer in SuperCool: prompts and references flow in; mastered clips feed SuperTrack / SuperForge when you need search, signals, or structured assets."
+        }
+      ]
+    }
+  },
+  "seedream-5-lite": {
+    "highlights": {
+      "en": [
+        "High-reasoning image model with layout and instruction following.",
+        "Strong for precise placement, style control, and iterative refinement.",
+        "Works well with retrieval-augmented creative workflows."
+      ],
+      "zh-TW": [
+        "高理解力圖像生成：版面落位、指令遵循表現突出。",
+        "適合風格一致、反覆微調的創作節奏。",
+        "可與檢索增強類流程搭配，補足題材與事實脈絡。"
+      ],
+      "zh-CN": [
+        "高理解力图像生成：版面落位、指令遵循表现突出。",
+        "适合风格一致、反复微调的创作节奏。",
+        "可与检索增强类流程搭配，补足题材与事实脉络。"
+      ],
+      "ja": [
+        "High-reasoning image model with layout and instruction following.",
+        "Strong for precise placement, style control, and iterative refinement.",
+        "Works well with retrieval-augmented creative workflows."
+      ],
+      "ko": [
+        "High-reasoning image model with layout and instruction following.",
+        "Strong for precise placement, style control, and iterative refinement.",
+        "Works well with retrieval-augmented creative workflows."
+      ]
+    },
+    "specs": {
+      "en": [
+        {
+          "label": "Capability",
+          "value": "Image generation"
+        },
+        {
+          "label": "Brand",
+          "value": "Seedream 5.0 Lite"
+        },
+        {
+          "label": "Developer",
+          "value": "ByteDance"
+        },
+        {
+          "label": "Sweet spot",
+          "value": "Layouts, posters, storyboards, branded stills"
+        }
+      ],
+      "zh-TW": [
+        {
+          "label": "能力",
+          "value": "圖像生成"
+        },
+        {
+          "label": "品牌",
+          "value": "Seedream 5.0 Lite"
+        },
+        {
+          "label": "開發商",
+          "value": "字節跳動"
+        },
+        {
+          "label": "適用場景",
+          "value": "版面、海報、分鏡、品牌靜態素材"
+        }
+      ],
+      "zh-CN": [
+        {
+          "label": "能力",
+          "value": "图像生成"
+        },
+        {
+          "label": "品牌",
+          "value": "Seedream 5.0 Lite"
+        },
+        {
+          "label": "开发商",
+          "value": "字节跳动"
+        },
+        {
+          "label": "适用场景",
+          "value": "版面、海报、分镜、品牌静态素材"
+        }
+      ],
+      "ja": [
+        {
+          "label": "Capability",
+          "value": "Image generation"
+        },
+        {
+          "label": "Brand",
+          "value": "Seedream 5.0 Lite"
+        },
+        {
+          "label": "Developer",
+          "value": "ByteDance"
+        },
+        {
+          "label": "Sweet spot",
+          "value": "Layouts, posters, storyboards, branded stills"
+        }
+      ],
+      "ko": [
+        {
+          "label": "Capability",
+          "value": "Image generation"
+        },
+        {
+          "label": "Brand",
+          "value": "Seedream 5.0 Lite"
+        },
+        {
+          "label": "Developer",
+          "value": "ByteDance"
+        },
+        {
+          "label": "Sweet spot",
+          "value": "Layouts, posters, storyboards, branded stills"
+        }
+      ]
+    },
+    "sections": {
+      "en": [
+        {
+          "heading": "When to choose Seedream 5.0 Lite",
+          "body": "Pick it for still frames that must respect structure—grid systems, packaging mocks, UI-adjacent art—while keeping language alignment tight to the prompt."
+        },
+        {
+          "heading": "Pairing with video",
+          "body": "Many teams storyboard in Seedream, then animate selected frames in Seedance for a consistent visual bible."
+        }
+      ],
+      "zh-TW": [
+        {
+          "heading": "何時選 Seedream 5.0 Lite",
+          "body": "當靜態畫面必須服從結構——柵格、包裝示意、接近 UI 的視覺——且要緊貼提示語意時，Seedream 特別合適。"
+        },
+        {
+          "heading": "與影片搭配",
+          "body": "常見流程是先用 Seedream 定調分鏡或關鍵幀，再挑選畫面交 Seedance 做成動態，維持同一套視覺聖經。"
+        }
+      ],
+      "zh-CN": [
+        {
+          "heading": "何时选 Seedream 5.0 Lite",
+          "body": "当静态画面必须服从结构——栅格、包装示意、接近 UI 的视觉——且要紧贴提示语义时，Seedream 特别合适。"
+        },
+        {
+          "heading": "与视频搭配",
+          "body": "常见流程是先用 Seedream 定调分镜或关键帧，再挑选画面交 Seedance 做成动态，维持同一套视觉圣经。"
+        }
+      ],
+      "ja": [
+        {
+          "heading": "When to choose Seedream 5.0 Lite",
+          "body": "Pick it for still frames that must respect structure—grid systems, packaging mocks, UI-adjacent art—while keeping language alignment tight to the prompt."
+        },
+        {
+          "heading": "Pairing with video",
+          "body": "Many teams storyboard in Seedream, then animate selected frames in Seedance for a consistent visual bible."
+        }
+      ],
+      "ko": [
+        {
+          "heading": "When to choose Seedream 5.0 Lite",
+          "body": "Pick it for still frames that must respect structure—grid systems, packaging mocks, UI-adjacent art—while keeping language alignment tight to the prompt."
+        },
+        {
+          "heading": "Pairing with video",
+          "body": "Many teams storyboard in Seedream, then animate selected frames in Seedance for a consistent visual bible."
+        }
+      ]
+    }
+  },
+  "qwen-wan-t2v": {
+    "officialUrl": "https://www.qwencloud.com/",
+    "highlights": {
+      "en": [
+        "Wan2.6 hosted text-to-video: multi-shot narrative, subject/scene consistency, ~15s clips.",
+        "Strong instruction following and visual fidelity per Qwen Cloud marketplace positioning.",
+        "Exact model id, pricing, and RPM—verify on Qwen Cloud console/docs before production."
+      ],
+      "zh-TW": [
+        "Wan2.6 託管文生影片：多鏡頭敘事、主體與場景一致性，短片級時長。",
+        "主打指令遵循與畫面細節（以官方說明為準）。",
+        "實際模型名、計價與配額請以主控台／API 文件為準；官網列表為精選展示。"
+      ],
+      "zh-CN": [
+        "Wan2.6 托管文生视频：多镜头叙事、主体与场景一致性，短片级时长。",
+        "主打指令遵循与画面细节（以官方说明为准）。",
+        "实际模型名、计价与配额请以控制台／API 文档为准；官网列表为精选展示。"
+      ],
+      "ja": [
+        "Wan2.6 hosted text-to-video: multi-shot narrative, subject/scene consistency, ~15s clips.",
+        "Strong instruction following and visual fidelity per Qwen Cloud marketplace positioning.",
+        "Exact model id, pricing, and RPM—verify on Qwen Cloud console/docs before production."
+      ],
+      "ko": [
+        "Wan2.6 hosted text-to-video: multi-shot narrative, subject/scene consistency, ~15s clips.",
+        "Strong instruction following and visual fidelity per Qwen Cloud marketplace positioning.",
+        "Exact model id, pricing, and RPM—verify on Qwen Cloud console/docs before production."
+      ]
+    },
+    "specs": {
+      "en": [
+        {
+          "label": "Capability",
+          "value": "Video (text-to-video)"
+        },
+        {
+          "label": "Provider",
+          "value": "Qwen Cloud"
+        },
+        {
+          "label": "Model",
+          "value": "Wan2.6-T2V"
+        },
+        {
+          "label": "Verify live",
+          "value": "Console & API docs (marketplace is curated)"
+        }
+      ],
+      "zh-TW": [
+        {
+          "label": "能力",
+          "value": "影片（文生影片）"
+        },
+        {
+          "label": "供應方",
+          "value": "Qwen Cloud"
+        },
+        {
+          "label": "模型",
+          "value": "Wan2.6-T2V"
+        },
+        {
+          "label": "即時規格",
+          "value": "以主控台／API 為準（官網為精選）"
+        }
+      ],
+      "zh-CN": [
+        {
+          "label": "能力",
+          "value": "视频（文生视频）"
+        },
+        {
+          "label": "供应方",
+          "value": "Qwen Cloud"
+        },
+        {
+          "label": "模型",
+          "value": "Wan2.6-T2V"
+        },
+        {
+          "label": "即时规格",
+          "value": "以控制台／API 为准（官网为精选）"
+        }
+      ],
+      "ja": [
+        {
+          "label": "Capability",
+          "value": "Video (text-to-video)"
+        },
+        {
+          "label": "Provider",
+          "value": "Qwen Cloud"
+        },
+        {
+          "label": "Model",
+          "value": "Wan2.6-T2V"
+        },
+        {
+          "label": "Verify live",
+          "value": "Console & API docs (marketplace is curated)"
+        }
+      ],
+      "ko": [
+        {
+          "label": "Capability",
+          "value": "Video (text-to-video)"
+        },
+        {
+          "label": "Provider",
+          "value": "Qwen Cloud"
+        },
+        {
+          "label": "Model",
+          "value": "Wan2.6-T2V"
+        },
+        {
+          "label": "Verify live",
+          "value": "Console & API docs (marketplace is curated)"
+        }
+      ]
+    },
+    "sections": {
+      "en": [
+        {
+          "heading": "Operational checklist",
+          "body": "Confirm regional availability, concurrency, and per-second billing on Qwen Cloud before wiring Wan2.6-T2V into automated jobs."
+        },
+        {
+          "heading": "Creative fit",
+          "body": "Use Wan2.6-T2V when you want cloud-managed inference with less ops overhead than self-hosting video diffusion stacks."
+        }
+      ],
+      "zh-TW": [
+        {
+          "heading": "上線前核對",
+          "body": "在把 Wan2.6-T2V 接進自動化任務前，請於 Qwen Cloud 確認區域、併發與計費方式（例如按秒計價）是否滿足 SLA。"
+        },
+        {
+          "heading": "創作定位",
+          "body": "若希望以託管 API 取得影片、降低自建擴散推理叢集的成本，Wan2.6-T2V 可作為雲端影片選項之一。"
+        }
+      ],
+      "zh-CN": [
+        {
+          "heading": "上线前核对",
+          "body": "在把 Wan2.6-T2V 接进自动化任务前，请于 Qwen Cloud 确认区域、并发与计费方式（例如按秒计价）是否满足 SLA。"
+        },
+        {
+          "heading": "创作定位",
+          "body": "若希望以托管 API 取得视频、降低自建扩散推理集群的成本，Wan2.6-T2V 可作为云端视频选项之一。"
+        }
+      ],
+      "ja": [
+        {
+          "heading": "Operational checklist",
+          "body": "Confirm regional availability, concurrency, and per-second billing on Qwen Cloud before wiring Wan2.6-T2V into automated jobs."
+        },
+        {
+          "heading": "Creative fit",
+          "body": "Use Wan2.6-T2V when you want cloud-managed inference with less ops overhead than self-hosting video diffusion stacks."
+        }
+      ],
+      "ko": [
+        {
+          "heading": "Operational checklist",
+          "body": "Confirm regional availability, concurrency, and per-second billing on Qwen Cloud before wiring Wan2.6-T2V into automated jobs."
+        },
+        {
+          "heading": "Creative fit",
+          "body": "Use Wan2.6-T2V when you want cloud-managed inference with less ops overhead than self-hosting video diffusion stacks."
+        }
+      ]
+    }
+  },
+  "qwen-3-6-plus": {
+    "officialUrl": "https://www.qwencloud.com/",
+    "highlights": {
+      "en": [
+        "Flagship Qwen3.6 native vision-language “Plus” line.",
+        "Strong at long-context reasoning, coding/agentic tasks, and document-style OCR.",
+        "Check token pricing tiers on Qwen Cloud for your region."
+      ],
+      "zh-TW": [
+        "Qwen3.6 原生視覺語言 Plus 系列，定位旗艦級。",
+        "長上下文、程式／Agentic 任務與文件型 OCR 場景表現突出。",
+        "各區域輸入／輸出單價請以 Qwen Cloud 即時標示為準。"
+      ],
+      "zh-CN": [
+        "Qwen3.6 原生视觉语言 Plus 系列，定位旗舰级。",
+        "长上下文、程序／Agentic 任务与文档型 OCR 场景表现突出。",
+        "各区域输入／输出单价请以 Qwen Cloud 即时标价为准。"
+      ],
+      "ja": [
+        "Flagship Qwen3.6 native vision-language “Plus” line.",
+        "Strong at long-context reasoning, coding/agentic tasks, and document-style OCR.",
+        "Check token pricing tiers on Qwen Cloud for your region."
+      ],
+      "ko": [
+        "Flagship Qwen3.6 native vision-language “Plus” line.",
+        "Strong at long-context reasoning, coding/agentic tasks, and document-style OCR.",
+        "Check token pricing tiers on Qwen Cloud for your region."
+      ]
+    },
+    "specs": {
+      "en": [
+        {
+          "label": "Capability",
+          "value": "Multimodal (VLM)"
+        },
+        {
+          "label": "Provider",
+          "value": "Qwen Cloud"
+        },
+        {
+          "label": "Model",
+          "value": "Qwen3.6-Plus"
+        },
+        {
+          "label": "Context",
+          "value": "See provider docs for max context & modalities"
+        }
+      ],
+      "zh-TW": [
+        {
+          "label": "能力",
+          "value": "多模態（VLM）"
+        },
+        {
+          "label": "供應方",
+          "value": "Qwen Cloud"
+        },
+        {
+          "label": "模型",
+          "value": "Qwen3.6-Plus"
+        },
+        {
+          "label": "上下文",
+          "value": "依官方文件之最大上下文與模態為準"
+        }
+      ],
+      "zh-CN": [
+        {
+          "label": "能力",
+          "value": "多模态（VLM）"
+        },
+        {
+          "label": "供应方",
+          "value": "Qwen Cloud"
+        },
+        {
+          "label": "模型",
+          "value": "Qwen3.6-Plus"
+        },
+        {
+          "label": "上下文",
+          "value": "以官方文档之最大上下文与模态为准"
+        }
+      ],
+      "ja": [
+        {
+          "label": "Capability",
+          "value": "Multimodal (VLM)"
+        },
+        {
+          "label": "Provider",
+          "value": "Qwen Cloud"
+        },
+        {
+          "label": "Model",
+          "value": "Qwen3.6-Plus"
+        },
+        {
+          "label": "Context",
+          "value": "See provider docs for max context & modalities"
+        }
+      ],
+      "ko": [
+        {
+          "label": "Capability",
+          "value": "Multimodal (VLM)"
+        },
+        {
+          "label": "Provider",
+          "value": "Qwen Cloud"
+        },
+        {
+          "label": "Model",
+          "value": "Qwen3.6-Plus"
+        },
+        {
+          "label": "Context",
+          "value": "See provider docs for max context & modalities"
+        }
+      ]
+    },
+    "sections": {
+      "en": [
+        {
+          "heading": "Best workloads",
+          "body": "Executive summaries over mixed PDFs/UI screenshots, multilingual desk research, and front-end/code co-piloting with vision grounding."
+        },
+        {
+          "heading": "Compliance",
+          "body": "Data residency and enterprise VPC options are described on Qwen Cloud—validate against your infosec checklist."
+        }
+      ],
+      "zh-TW": [
+        {
+          "heading": "適合的工作負載",
+          "body": "混排 PDF／介面截圖的摘要、跨語系桌面研究，以及需要畫面對齊的前端／程式協作。"
+        },
+        {
+          "heading": "合規與部署",
+          "body": "資料落地與企業隔離等選項請以 Qwen Cloud 安全／部署說明為準，並與資安清單對照。"
+        }
+      ],
+      "zh-CN": [
+        {
+          "heading": "适合的工作负载",
+          "body": "混排 PDF／界面截图的摘要、跨语系桌面研究，以及需要画面对齐的前端／程序协作。"
+        },
+        {
+          "heading": "合规与部署",
+          "body": "数据落地与企业隔离等选项请以 Qwen Cloud 安全／部署说明为准，并与安全清单对照。"
+        }
+      ],
+      "ja": [
+        {
+          "heading": "Best workloads",
+          "body": "Executive summaries over mixed PDFs/UI screenshots, multilingual desk research, and front-end/code co-piloting with vision grounding."
+        },
+        {
+          "heading": "Compliance",
+          "body": "Data residency and enterprise VPC options are described on Qwen Cloud—validate against your infosec checklist."
+        }
+      ],
+      "ko": [
+        {
+          "heading": "Best workloads",
+          "body": "Executive summaries over mixed PDFs/UI screenshots, multilingual desk research, and front-end/code co-piloting with vision grounding."
+        },
+        {
+          "heading": "Compliance",
+          "body": "Data residency and enterprise VPC options are described on Qwen Cloud—validate against your infosec checklist."
+        }
+      ]
+    }
+  },
+  "qwen-3-5-open": {
+    "officialUrl": "https://www.qwencloud.com/",
+    "highlights": {
+      "en": [
+        "Open-weight Qwen3.5 vision-language stack with hybrid attention + sparse MoE.",
+        "Balances multimodal breadth with inference efficiency.",
+        "Ideal when you need on-prem or custom fine-tuning paths."
+      ],
+      "zh-TW": [
+        "開源權重 Qwen3.5 視覺語言：線性注意力＋稀疏 MoE 混合架構。",
+        "在維持多模態能力同時，偏向較高效率的推理路徑。",
+        "適合需要私有化部署或自管微調的團隊評估。"
+      ],
+      "zh-CN": [
+        "开源权重 Qwen3.5 视觉语言：线性注意力＋稀疏 MoE 混合架构。",
+        "在维持多模态能力同时，偏向较高效率的推理路径。",
+        "适合需要私有化部署或自管微调的团队评估。"
+      ],
+      "ja": [
+        "Open-weight Qwen3.5 vision-language stack with hybrid attention + sparse MoE.",
+        "Balances multimodal breadth with inference efficiency.",
+        "Ideal when you need on-prem or custom fine-tuning paths."
+      ],
+      "ko": [
+        "Open-weight Qwen3.5 vision-language stack with hybrid attention + sparse MoE.",
+        "Balances multimodal breadth with inference efficiency.",
+        "Ideal when you need on-prem or custom fine-tuning paths."
+      ]
+    },
+    "specs": {
+      "en": [
+        {
+          "label": "Capability",
+          "value": "Text / open VLM"
+        },
+        {
+          "label": "Provider",
+          "value": "Qwen Cloud (open series)"
+        },
+        {
+          "label": "Model",
+          "value": "Qwen3.5-Open-Source"
+        },
+        {
+          "label": "Deployment",
+          "value": "Cloud API and/or self-hosted weights"
+        }
+      ],
+      "zh-TW": [
+        {
+          "label": "能力",
+          "value": "文字／開源 VLM"
+        },
+        {
+          "label": "供應方",
+          "value": "Qwen Cloud（開源系列）"
+        },
+        {
+          "label": "模型",
+          "value": "Qwen3.5-Open-Source"
+        },
+        {
+          "label": "部署",
+          "value": "雲端 API 與／或自建權重"
+        }
+      ],
+      "zh-CN": [
+        {
+          "label": "能力",
+          "value": "文本／开源 VLM"
+        },
+        {
+          "label": "供应方",
+          "value": "Qwen Cloud（开源系列）"
+        },
+        {
+          "label": "模型",
+          "value": "Qwen3.5-Open-Source"
+        },
+        {
+          "label": "部署",
+          "value": "云端 API 与／或自建权重"
+        }
+      ],
+      "ja": [
+        {
+          "label": "Capability",
+          "value": "Text / open VLM"
+        },
+        {
+          "label": "Provider",
+          "value": "Qwen Cloud (open series)"
+        },
+        {
+          "label": "Model",
+          "value": "Qwen3.5-Open-Source"
+        },
+        {
+          "label": "Deployment",
+          "value": "Cloud API and/or self-hosted weights"
+        }
+      ],
+      "ko": [
+        {
+          "label": "Capability",
+          "value": "Text / open VLM"
+        },
+        {
+          "label": "Provider",
+          "value": "Qwen Cloud (open series)"
+        },
+        {
+          "label": "Model",
+          "value": "Qwen3.5-Open-Source"
+        },
+        {
+          "label": "Deployment",
+          "value": "Cloud API and/or self-hosted weights"
+        }
+      ]
+    },
+    "sections": {
+      "en": [
+        {
+          "heading": "Why open weights matter",
+          "body": "You can pin a revision, run offline evaluations, and pair the model with internal toolchains without depending solely on hosted prompts."
+        },
+        {
+          "heading": "Operational caveat",
+          "body": "Self-hosting still needs GPU planning, batching policies, and safety filters—budget engineering time alongside license review."
+        }
+      ],
+      "zh-TW": [
+        {
+          "heading": "開源權重的意義",
+          "body": "可鎖定版本、離線評測，並與內部工具鏈整合，而不只依賴託管提示詞流程。"
+        },
+        {
+          "heading": "維運提醒",
+          "body": "自建仍需 GPU 規劃、批次策略與安全過濾——請同步編列工程與法遵審閱時間。"
+        }
+      ],
+      "zh-CN": [
+        {
+          "heading": "开源权重的意义",
+          "body": "可锁定版本、离线评测，并与内部工具链整合，而不只依赖托管提示词流程。"
+        },
+        {
+          "heading": "运维提醒",
+          "body": "自建仍需 GPU 规划、批次策略与安全过滤——请同步编列工程与法遵审阅时间。"
+        }
+      ],
+      "ja": [
+        {
+          "heading": "Why open weights matter",
+          "body": "You can pin a revision, run offline evaluations, and pair the model with internal toolchains without depending solely on hosted prompts."
+        },
+        {
+          "heading": "Operational caveat",
+          "body": "Self-hosting still needs GPU planning, batching policies, and safety filters—budget engineering time alongside license review."
+        }
+      ],
+      "ko": [
+        {
+          "heading": "Why open weights matter",
+          "body": "You can pin a revision, run offline evaluations, and pair the model with internal toolchains without depending solely on hosted prompts."
+        },
+        {
+          "heading": "Operational caveat",
+          "body": "Self-hosting still needs GPU planning, batching policies, and safety filters—budget engineering time alongside license review."
+        }
+      ]
+    }
+  },
+  "qwen-cosyvoice": {
+    "officialUrl": "https://www.qwencloud.com/",
+    "highlights": {
+      "en": [
+        "CosyVoice v3 Plus: voice cloning and TTS from Tongyi Lab on Qwen Cloud.",
+        "5–20 seconds of reference audio can produce a highly similar custom voice.",
+        "Supports realtime and streaming synthesis—check billing and regions in console."
+      ],
+      "zh-TW": [
+        "CosyVoice v3 Plus：通義實驗室在 Qwen Cloud 上提供的語音克隆／合成。",
+        "約 5–20 秒參考音可快速得到相近音色（以官方能力說明為準）。",
+        "即時與串流合成請在主控台確認計費與區域。"
+      ],
+      "zh-CN": [
+        "CosyVoice v3 Plus：通义实验室在 Qwen Cloud 上提供的语音克隆／合成。",
+        "约 5–20 秒参考音频可快速得到相近音色（以官方能力说明为准）。",
+        "实时与流式合成请在控制台确认计费与区域。"
+      ],
+      "ja": [
+        "CosyVoice v3 Plus: voice cloning and TTS from Tongyi Lab on Qwen Cloud.",
+        "5–20 seconds of reference audio can produce a highly similar custom voice.",
+        "Supports realtime and streaming synthesis—check billing and regions in console."
+      ],
+      "ko": [
+        "CosyVoice v3 Plus: voice cloning and TTS from Tongyi Lab on Qwen Cloud.",
+        "5–20 seconds of reference audio can produce a highly similar custom voice.",
+        "Supports realtime and streaming synthesis—check billing and regions in console."
+      ]
+    },
+    "specs": {
+      "en": [
+        {
+          "label": "Capability",
+          "value": "Speech / TTS / cloning"
+        },
+        {
+          "label": "Provider",
+          "value": "Qwen Cloud"
+        },
+        {
+          "label": "Model",
+          "value": "CosyVoice v3 Plus"
+        },
+        {
+          "label": "Typical output",
+          "value": "Natural speech from text; custom timbre from short reference"
+        }
+      ],
+      "zh-TW": [
+        {
+          "label": "能力",
+          "value": "語音／TTS／克隆"
+        },
+        {
+          "label": "供應方",
+          "value": "Qwen Cloud"
+        },
+        {
+          "label": "模型",
+          "value": "CosyVoice v3 Plus"
+        },
+        {
+          "label": "輸出",
+          "value": "文本轉語音；短參考音自訂音色"
+        }
+      ],
+      "zh-CN": [
+        {
+          "label": "能力",
+          "value": "语音／TTS／克隆"
+        },
+        {
+          "label": "供应方",
+          "value": "Qwen Cloud"
+        },
+        {
+          "label": "模型",
+          "value": "CosyVoice v3 Plus"
+        },
+        {
+          "label": "输出",
+          "value": "文本转语音；短参考音频自定义音色"
+        }
+      ],
+      "ja": [
+        {
+          "label": "Capability",
+          "value": "Speech / TTS / cloning"
+        },
+        {
+          "label": "Provider",
+          "value": "Qwen Cloud"
+        },
+        {
+          "label": "Model",
+          "value": "CosyVoice v3 Plus"
+        },
+        {
+          "label": "Typical output",
+          "value": "Natural speech from text; custom timbre from short reference"
+        }
+      ],
+      "ko": [
+        {
+          "label": "Capability",
+          "value": "Speech / TTS / cloning"
+        },
+        {
+          "label": "Provider",
+          "value": "Qwen Cloud"
+        },
+        {
+          "label": "Model",
+          "value": "CosyVoice v3 Plus"
+        },
+        {
+          "label": "Typical output",
+          "value": "Natural speech from text; custom timbre from short reference"
+        }
+      ]
+    },
+    "sections": {
+      "en": [
+        {
+          "heading": "Audio pipeline tips",
+          "body": "Normalize text (numbers, abbreviations) before synthesis, and keep a human QC loop for brand-sensitive reads."
+        },
+        {
+          "heading": "Latency",
+          "body": "For real-time UX, test regional endpoints and streaming APIs exposed by Qwen Cloud rather than assuming batch defaults."
+        }
+      ],
+      "zh-TW": [
+        {
+          "heading": "音訊流程建議",
+          "body": "合成前正規化數字、縮寫與標點；品牌敏感讀稿仍建議保留人工抽檢。"
+        },
+        {
+          "heading": "延遲與即時性",
+          "body": "即時體驗請實測區域端點與串流 API，勿假設批次預設可沿用。"
+        }
+      ],
+      "zh-CN": [
+        {
+          "heading": "音频流程建议",
+          "body": "合成前规范化数字、缩写与标点；品牌敏感读稿仍建议保留人工抽检。"
+        },
+        {
+          "heading": "延迟与即时性",
+          "body": "即时体验请实测区域端点与流式 API，勿假设批次默认可沿用。"
+        }
+      ],
+      "ja": [
+        {
+          "heading": "Audio pipeline tips",
+          "body": "Normalize text (numbers, abbreviations) before synthesis, and keep a human QC loop for brand-sensitive reads."
+        },
+        {
+          "heading": "Latency",
+          "body": "For real-time UX, test regional endpoints and streaming APIs exposed by Qwen Cloud rather than assuming batch defaults."
+        }
+      ],
+      "ko": [
+        {
+          "heading": "Audio pipeline tips",
+          "body": "Normalize text (numbers, abbreviations) before synthesis, and keep a human QC loop for brand-sensitive reads."
+        },
+        {
+          "heading": "Latency",
+          "body": "For real-time UX, test regional endpoints and streaming APIs exposed by Qwen Cloud rather than assuming batch defaults."
+        }
+      ]
+    }
+  },
+  "qwen-3-omni-flash": {
+    "officialUrl": "https://www.qwencloud.com/",
+    "highlights": {
+      "en": [
+        "Thinker–Talker MoE omni model spanning text, image, audio, and video.",
+        "Supports multilingual chat plus speech-centric interactions.",
+        "Ideal for unified multimodal assistants on Qwen Cloud."
+      ],
+      "zh-TW": [
+        "Thinker–Talker 混合專家架構，涵蓋文字、圖像、音訊與影片。",
+        "支援多語文本與語音互動，適合「全模態助理」原型。",
+        "在 Qwen Cloud 上以託管方式快速試作與擴展。"
+      ],
+      "zh-CN": [
+        "Thinker–Talker 混合专家架构，涵盖文本、图像、音频与视频。",
+        "支持多语文本与语音互动，适合「全模态助理」原型。",
+        "在 Qwen Cloud 上以托管方式快速试作与扩展。"
+      ],
+      "ja": [
+        "Thinker–Talker MoE omni model spanning text, image, audio, and video.",
+        "Supports multilingual chat plus speech-centric interactions.",
+        "Ideal for unified multimodal assistants on Qwen Cloud."
+      ],
+      "ko": [
+        "Thinker–Talker MoE omni model spanning text, image, audio, and video.",
+        "Supports multilingual chat plus speech-centric interactions.",
+        "Ideal for unified multimodal assistants on Qwen Cloud."
+      ]
+    },
+    "specs": {
+      "en": [
+        {
+          "label": "Capability",
+          "value": "Multimodal omni"
+        },
+        {
+          "label": "Provider",
+          "value": "Qwen Cloud"
+        },
+        {
+          "label": "Model",
+          "value": "Qwen3-Omni-Flash"
+        },
+        {
+          "label": "Architecture",
+          "value": "Thinker–Talker MoE (per provider)"
+        }
+      ],
+      "zh-TW": [
+        {
+          "label": "能力",
+          "value": "全模態"
+        },
+        {
+          "label": "供應方",
+          "value": "Qwen Cloud"
+        },
+        {
+          "label": "模型",
+          "value": "Qwen3-Omni-Flash"
+        },
+        {
+          "label": "架構",
+          "value": "Thinker–Talker MoE（依官方）"
+        }
+      ],
+      "zh-CN": [
+        {
+          "label": "能力",
+          "value": "全模态"
+        },
+        {
+          "label": "供应方",
+          "value": "Qwen Cloud"
+        },
+        {
+          "label": "模型",
+          "value": "Qwen3-Omni-Flash"
+        },
+        {
+          "label": "架构",
+          "value": "Thinker–Talker MoE（依官方）"
+        }
+      ],
+      "ja": [
+        {
+          "label": "Capability",
+          "value": "Multimodal omni"
+        },
+        {
+          "label": "Provider",
+          "value": "Qwen Cloud"
+        },
+        {
+          "label": "Model",
+          "value": "Qwen3-Omni-Flash"
+        },
+        {
+          "label": "Architecture",
+          "value": "Thinker–Talker MoE (per provider)"
+        }
+      ],
+      "ko": [
+        {
+          "label": "Capability",
+          "value": "Multimodal omni"
+        },
+        {
+          "label": "Provider",
+          "value": "Qwen Cloud"
+        },
+        {
+          "label": "Model",
+          "value": "Qwen3-Omni-Flash"
+        },
+        {
+          "label": "Architecture",
+          "value": "Thinker–Talker MoE (per provider)"
+        }
+      ]
+    },
+    "sections": {
+      "en": [
+        {
+          "heading": "Design pattern",
+          "body": "Route user utterances to the omni endpoint when inputs may mix modalities in a single session—avoid chaining separate single-modal APIs unless you need fine control."
+        },
+        {
+          "heading": "Cost control",
+          "body": "Omni models can be thirsty; log token/audio/video usage per workflow and set guardrails in SuperTune or your own policy layer."
+        }
+      ],
+      "zh-TW": [
+        {
+          "heading": "設計模式",
+          "body": "當單一工作階段可能交錯多模態輸入時，優先走 omni 端點；除非要極細控制，否則不必硬拆成多個單模態 API。"
+        },
+        {
+          "heading": "成本控管",
+          "body": "全模態模型耗用較高，請逐工作流記錄 token／音訊／影片用量，並在 SuperTune 或自有策略層設上限。"
+        }
+      ],
+      "zh-CN": [
+        {
+          "heading": "设计模式",
+          "body": "当单一工作阶段可能交错多模态输入时，优先走 omni 端点；除非要极细控制，否则不必硬拆成多个单模态 API。"
+        },
+        {
+          "heading": "成本管控",
+          "body": "全模态模型耗用较高，请逐工作流记录 token／音频／视频用量，并在 SuperTune 或自有策略层设上限。"
+        }
+      ],
+      "ja": [
+        {
+          "heading": "Design pattern",
+          "body": "Route user utterances to the omni endpoint when inputs may mix modalities in a single session—avoid chaining separate single-modal APIs unless you need fine control."
+        },
+        {
+          "heading": "Cost control",
+          "body": "Omni models can be thirsty; log token/audio/video usage per workflow and set guardrails in SuperTune or your own policy layer."
+        }
+      ],
+      "ko": [
+        {
+          "heading": "Design pattern",
+          "body": "Route user utterances to the omni endpoint when inputs may mix modalities in a single session—avoid chaining separate single-modal APIs unless you need fine control."
+        },
+        {
+          "heading": "Cost control",
+          "body": "Omni models can be thirsty; log token/audio/video usage per workflow and set guardrails in SuperTune or your own policy layer."
+        }
+      ]
+    }
+  },
+  "qwen-3-5-plus": {
+    "officialUrl": "https://www.qwencloud.com/models",
+    "highlights": {
+      "en": [
+        "Qwen3.5-Plus: advanced reasoning line for enterprise and agent workflows.",
+        "Strong for long-horizon reasoning, tool use, and instruction following.",
+        "Marketplace highlights text/reasoning—confirm exact SKU in API/console."
+      ],
+      "zh-TW": [
+        "Qwen3.5-Plus：面向企業與 Agent 的進階語言推理系列。",
+        "長鏈推理、工具使用與複雜指令場景可優先評估。",
+        "官網主打文字／推理定位；實際計費與端點名稱以 API 為準。"
+      ],
+      "zh-CN": [
+        "Qwen3.5-Plus：面向企业与智能体的进阶语言推理系列。",
+        "长链推理、工具使用与复杂指令场景可优先评估。",
+        "官网主打文字／推理定位；实际计费与端点名称以 API 为准。"
+      ],
+      "ja": [
+        "Qwen3.5-Plus: advanced reasoning line for enterprise and agent workflows.",
+        "Strong for long-horizon reasoning, tool use, and instruction following.",
+        "Marketplace highlights text/reasoning—confirm exact SKU in API/console."
+      ],
+      "ko": [
+        "Qwen3.5-Plus: advanced reasoning line for enterprise and agent workflows.",
+        "Strong for long-horizon reasoning, tool use, and instruction following.",
+        "Marketplace highlights text/reasoning—confirm exact SKU in API/console."
+      ]
+    },
+    "specs": {
+      "en": [
+        {
+          "label": "Capability",
+          "value": "Text / reasoning"
+        },
+        {
+          "label": "Provider",
+          "value": "Qwen Cloud"
+        },
+        {
+          "label": "Model",
+          "value": "Qwen3.5-Plus"
+        },
+        {
+          "label": "Note",
+          "value": "Distinct from Qwen3.5 open-weight VLM series"
+        }
+      ],
+      "zh-TW": [
+        {
+          "label": "能力",
+          "value": "文字／推理"
+        },
+        {
+          "label": "供應方",
+          "value": "Qwen Cloud"
+        },
+        {
+          "label": "模型",
+          "value": "Qwen3.5-Plus"
+        },
+        {
+          "label": "備註",
+          "value": "與 Qwen3.5 開源視覺語言系列不同"
+        }
+      ],
+      "zh-CN": [
+        {
+          "label": "能力",
+          "value": "文本／推理"
+        },
+        {
+          "label": "供应方",
+          "value": "Qwen Cloud"
+        },
+        {
+          "label": "模型",
+          "value": "Qwen3.5-Plus"
+        },
+        {
+          "label": "备注",
+          "value": "与 Qwen3.5 开源视觉语言系列不同"
+        }
+      ],
+      "ja": [
+        {
+          "label": "Capability",
+          "value": "Text / reasoning"
+        },
+        {
+          "label": "Provider",
+          "value": "Qwen Cloud"
+        },
+        {
+          "label": "Model",
+          "value": "Qwen3.5-Plus"
+        },
+        {
+          "label": "Note",
+          "value": "Distinct from Qwen3.5 open-weight VLM series"
+        }
+      ],
+      "ko": [
+        {
+          "label": "Capability",
+          "value": "Text / reasoning"
+        },
+        {
+          "label": "Provider",
+          "value": "Qwen Cloud"
+        },
+        {
+          "label": "Model",
+          "value": "Qwen3.5-Plus"
+        },
+        {
+          "label": "Note",
+          "value": "Distinct from Qwen3.5 open-weight VLM series"
+        }
+      ]
+    },
+    "sections": {
+      "en": [
+        {
+          "heading": "When to choose",
+          "body": "Use Plus when you need hosted, closed-model reasoning with vendor SLAs rather than self-hosted open weights."
+        },
+        {
+          "heading": "Catalog caveat",
+          "body": "The public model marketplace is curated; if a card is missing, check the console for the full callable list."
+        }
+      ],
+      "zh-TW": [
+        {
+          "heading": "適用時機",
+          "body": "需要託管閉源推理與供應商 SLA 時選 Plus；若要自建與微調，可另評估開源系列。"
+        },
+        {
+          "heading": "目錄說明",
+          "body": "公開模型市集為精選展示；若覺得「型號不齊」，請以主控台可調用清單為準。"
+        }
+      ],
+      "zh-CN": [
+        {
+          "heading": "适用时机",
+          "body": "需要托管闭源推理与供应商 SLA 时选 Plus；若要自建与微调，可另评估开源系列。"
+        },
+        {
+          "heading": "目录说明",
+          "body": "公开模型市集为精选展示；若觉得「型号不齐」，请以控制台可调用清单为准。"
+        }
+      ],
+      "ja": [
+        {
+          "heading": "When to choose",
+          "body": "Use Plus when you need hosted, closed-model reasoning with vendor SLAs rather than self-hosted open weights."
+        },
+        {
+          "heading": "Catalog caveat",
+          "body": "The public model marketplace is curated; if a card is missing, check the console for the full callable list."
+        }
+      ],
+      "ko": [
+        {
+          "heading": "When to choose",
+          "body": "Use Plus when you need hosted, closed-model reasoning with vendor SLAs rather than self-hosted open weights."
+        },
+        {
+          "heading": "Catalog caveat",
+          "body": "The public model marketplace is curated; if a card is missing, check the console for the full callable list."
+        }
+      ]
+    }
+  },
+  "qwen-wan-image-edit": {
+    "officialUrl": "https://www.qwencloud.com/models",
+    "highlights": {
+      "en": [
+        "Wan image line: text-to-image, image-to-sequence, editing, multi-reference, interactive edits.",
+        "Emphasizes text rendering in images, subject consistency, and complex prompts.",
+        "Positioned as Wan2.7-class on the marketplace—verify model id in docs."
+      ],
+      "zh-TW": [
+        "Wan 圖像：文生圖、圖生連圖、編輯、多圖參考與互動式編輯。",
+        "畫面內文字渲染、主體一致性與複雜指令為主打。",
+        "市集文案對應 Wan2.7 級能力；實際 API 模型名請查文件。"
+      ],
+      "zh-CN": [
+        "Wan 图像：文生图、图生连图、编辑、多图参考与交互式编辑。",
+        "画面内文字渲染、主体一致性与复杂指令为主打。",
+        "市集文案对应 Wan2.7 级能力；实际 API 模型名请查文档。"
+      ],
+      "ja": [
+        "Wan image line: text-to-image, image-to-sequence, editing, multi-reference, interactive edits.",
+        "Emphasizes text rendering in images, subject consistency, and complex prompts.",
+        "Positioned as Wan2.7-class on the marketplace—verify model id in docs."
+      ],
+      "ko": [
+        "Wan image line: text-to-image, image-to-sequence, editing, multi-reference, interactive edits.",
+        "Emphasizes text rendering in images, subject consistency, and complex prompts.",
+        "Positioned as Wan2.7-class on the marketplace—verify model id in docs."
+      ]
+    },
+    "specs": {
+      "en": [
+        {
+          "label": "Capability",
+          "value": "Image generation & editing"
+        },
+        {
+          "label": "Provider",
+          "value": "Qwen Cloud"
+        },
+        {
+          "label": "Product",
+          "value": "Wan (image)"
+        },
+        {
+          "label": "Verify",
+          "value": "Console & API model list"
+        }
+      ],
+      "zh-TW": [
+        {
+          "label": "能力",
+          "value": "圖像生成與編輯"
+        },
+        {
+          "label": "供應方",
+          "value": "Qwen Cloud"
+        },
+        {
+          "label": "產品線",
+          "value": "Wan（圖像）"
+        },
+        {
+          "label": "核對",
+          "value": "主控台與 API 模型列表"
+        }
+      ],
+      "zh-CN": [
+        {
+          "label": "能力",
+          "value": "图像生成与编辑"
+        },
+        {
+          "label": "供应方",
+          "value": "Qwen Cloud"
+        },
+        {
+          "label": "产品线",
+          "value": "Wan（图像）"
+        },
+        {
+          "label": "核对",
+          "value": "控制台与 API 模型列表"
+        }
+      ],
+      "ja": [
+        {
+          "label": "Capability",
+          "value": "Image generation & editing"
+        },
+        {
+          "label": "Provider",
+          "value": "Qwen Cloud"
+        },
+        {
+          "label": "Product",
+          "value": "Wan (image)"
+        },
+        {
+          "label": "Verify",
+          "value": "Console & API model list"
+        }
+      ],
+      "ko": [
+        {
+          "label": "Capability",
+          "value": "Image generation & editing"
+        },
+        {
+          "label": "Provider",
+          "value": "Qwen Cloud"
+        },
+        {
+          "label": "Product",
+          "value": "Wan (image)"
+        },
+        {
+          "label": "Verify",
+          "value": "Console & API model list"
+        }
+      ]
+    },
+    "sections": {
+      "en": [
+        {
+          "heading": "Pipeline fit",
+          "body": "Pair Wan image with Wan2.6-T2V when you need consistent stills before animating, or use editing passes for brand-safe iterations."
+        },
+        {
+          "heading": "Why the marketplace feels short",
+          "body": "Cards group product lines; underlying API may expose multiple checkpoints—always diff console vs marketing page."
+        }
+      ],
+      "zh-TW": [
+        {
+          "heading": "流程搭配",
+          "body": "需要動畫前後風格一致時，可與 Wan2.6-T2V 搭配；品牌微調可走編輯與多圖參考流程。"
+        },
+        {
+          "heading": "為何官網看起來「不全」",
+          "body": "市集以產品卡聚合，底層 API 可能有多個檢查點名稱；請對照主控台與行銷頁。"
+        }
+      ],
+      "zh-CN": [
+        {
+          "heading": "流程搭配",
+          "body": "需要动画前后风格一致时，可与 Wan2.6-T2V 搭配；品牌微调可走编辑与多图参考流程。"
+        },
+        {
+          "heading": "为何官网看起来「不全」",
+          "body": "市集以产品卡聚合，底层 API 可能有多个检查点名称；请对照控制台与营销页。"
+        }
+      ],
+      "ja": [
+        {
+          "heading": "Pipeline fit",
+          "body": "Pair Wan image with Wan2.6-T2V when you need consistent stills before animating, or use editing passes for brand-safe iterations."
+        },
+        {
+          "heading": "Why the marketplace feels short",
+          "body": "Cards group product lines; underlying API may expose multiple checkpoints—always diff console vs marketing page."
+        }
+      ],
+      "ko": [
+        {
+          "heading": "Pipeline fit",
+          "body": "Pair Wan image with Wan2.6-T2V when you need consistent stills before animating, or use editing passes for brand-safe iterations."
+        },
+        {
+          "heading": "Why the marketplace feels short",
+          "body": "Cards group product lines; underlying API may expose multiple checkpoints—always diff console vs marketing page."
+        }
+      ]
+    }
+  },
+  "qwen-image-2": {
+    "officialUrl": "https://www.qwencloud.com/models",
+    "highlights": {
+      "en": [
+        "Qwen-Image-2.0: high-fidelity generation and editing for product and media teams.",
+        "Suited to polished marketing stills, catalog shots, and creative retouching.",
+        "Pricing and quotas on Qwen Cloud—compare against Wan if you need heavier editing UX."
+      ],
+      "zh-TW": [
+        "Qwen-Image-2.0：高保真圖像生成與編輯，面向產品與媒體製作。",
+        "適合精緻行銷靜態、目錄圖與創意修圖流程。",
+        "計價與配額見 Qwen Cloud；若偏重互動編輯可與 Wan 圖像線一併評估。"
+      ],
+      "zh-CN": [
+        "Qwen-Image-2.0：高保真图像生成与编辑，面向产品与媒体制作。",
+        "适合精致营销静态、目录图与创意修图流程。",
+        "计价与配额见 Qwen Cloud；若偏重交互编辑可与 Wan 图像线一并评估。"
+      ],
+      "ja": [
+        "Qwen-Image-2.0: high-fidelity generation and editing for product and media teams.",
+        "Suited to polished marketing stills, catalog shots, and creative retouching.",
+        "Pricing and quotas on Qwen Cloud—compare against Wan if you need heavier editing UX."
+      ],
+      "ko": [
+        "Qwen-Image-2.0: high-fidelity generation and editing for product and media teams.",
+        "Suited to polished marketing stills, catalog shots, and creative retouching.",
+        "Pricing and quotas on Qwen Cloud—compare against Wan if you need heavier editing UX."
+      ]
+    },
+    "specs": {
+      "en": [
+        {
+          "label": "Capability",
+          "value": "Image (gen + edit)"
+        },
+        {
+          "label": "Provider",
+          "value": "Qwen Cloud"
+        },
+        {
+          "label": "Model",
+          "value": "Qwen-Image-2.0"
+        },
+        {
+          "label": "Verify",
+          "value": "API / console naming"
+        }
+      ],
+      "zh-TW": [
+        {
+          "label": "能力",
+          "value": "圖像（生成＋編輯）"
+        },
+        {
+          "label": "供應方",
+          "value": "Qwen Cloud"
+        },
+        {
+          "label": "模型",
+          "value": "Qwen-Image-2.0"
+        },
+        {
+          "label": "核對",
+          "value": "API／主控台命名"
+        }
+      ],
+      "zh-CN": [
+        {
+          "label": "能力",
+          "value": "图像（生成＋编辑）"
+        },
+        {
+          "label": "供应方",
+          "value": "Qwen Cloud"
+        },
+        {
+          "label": "模型",
+          "value": "Qwen-Image-2.0"
+        },
+        {
+          "label": "核对",
+          "value": "API／控制台命名"
+        }
+      ],
+      "ja": [
+        {
+          "label": "Capability",
+          "value": "Image (gen + edit)"
+        },
+        {
+          "label": "Provider",
+          "value": "Qwen Cloud"
+        },
+        {
+          "label": "Model",
+          "value": "Qwen-Image-2.0"
+        },
+        {
+          "label": "Verify",
+          "value": "API / console naming"
+        }
+      ],
+      "ko": [
+        {
+          "label": "Capability",
+          "value": "Image (gen + edit)"
+        },
+        {
+          "label": "Provider",
+          "value": "Qwen Cloud"
+        },
+        {
+          "label": "Model",
+          "value": "Qwen-Image-2.0"
+        },
+        {
+          "label": "Verify",
+          "value": "API / console naming"
+        }
+      ]
+    },
+    "sections": {
+      "en": [
+        {
+          "heading": "Choosing vs Wan image",
+          "body": "Qwen-Image-2.0 skews toward flagship still quality; Wan highlights interactive and multi-reference editing—pick by workflow, not badge alone."
+        },
+        {
+          "heading": "Completeness",
+          "body": "If the marketplace omits a variant you saw in docs, the console model picker is authoritative."
+        }
+      ],
+      "zh-TW": [
+        {
+          "heading": "與 Wan 圖像如何選",
+          "body": "Qwen-Image-2.0 偏旗艦靜態品質；Wan 強調互動與多圖編輯—依工作流選型，不只看標籤。"
+        },
+        {
+          "heading": "型號完整性",
+          "body": "若文件有、市集沒列出的變體，以主控台模型選擇器為準。"
+        }
+      ],
+      "zh-CN": [
+        {
+          "heading": "与 Wan 图像如何选",
+          "body": "Qwen-Image-2.0 偏旗舰静态品质；Wan 强调交互与多图编辑—依工作流选型，不只看标签。"
+        },
+        {
+          "heading": "型号完整性",
+          "body": "若文档有、市集没列出的变体，以控制台模型选择器为准。"
+        }
+      ],
+      "ja": [
+        {
+          "heading": "Choosing vs Wan image",
+          "body": "Qwen-Image-2.0 skews toward flagship still quality; Wan highlights interactive and multi-reference editing—pick by workflow, not badge alone."
+        },
+        {
+          "heading": "Completeness",
+          "body": "If the marketplace omits a variant you saw in docs, the console model picker is authoritative."
+        }
+      ],
+      "ko": [
+        {
+          "heading": "Choosing vs Wan image",
+          "body": "Qwen-Image-2.0 skews toward flagship still quality; Wan highlights interactive and multi-reference editing—pick by workflow, not badge alone."
+        },
+        {
+          "heading": "Completeness",
+          "body": "If the marketplace omits a variant you saw in docs, the console model picker is authoritative."
+        }
+      ]
+    }
+  }
+}

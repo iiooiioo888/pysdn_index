@@ -1,0 +1,7 @@
+{
+  "videoId": "\\b(t2v|i2v|text-to-video|image-to-video|sora|veo|kling|runway|wan[- ]?2)",
+  "t2iId": "(flux|dall-?e|sdxl|stable-?diffusion|imagen|z-image|playground-?v2|midjourney)",
+  "vlmId": "(llava|qwen.*vl|omni-?flash|gemini-2|gemini-1\\.5|gpt-4o|4o-2024|claude-3|claude-sonnet-4|vision|idefics|minicpm|moondream|multimodal|phi-3\\.5-vision)",
+  "embedId": "(embedd|bge-|-embed|text-embedding)",
+  "audioBag": "(whisper|tts|speech|stt|sonic|nova)"
+}

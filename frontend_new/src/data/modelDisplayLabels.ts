@@ -40,6 +40,12 @@ export function detailProductLineLabel(m: CatalogModel, t: (k: string) => string
       return t('models_product_line_qwen_cosy')
     case 'qwen-3-omni-flash':
       return t('models_product_line_qwen_omni')
+    case 'qwen-3-5-plus':
+      return t('models_product_line_qwen_35p')
+    case 'qwen-wan-image-edit':
+      return t('models_product_line_qwen_wan_img')
+    case 'qwen-image-2':
+      return t('models_product_line_qwen_img2')
     default:
       if (m.product === 'qwencloud') return t('models_product_line_qwen_default')
       if (m.product === 'seedance' || m.product === 'seedream') return t('models_pipeline_volcano')

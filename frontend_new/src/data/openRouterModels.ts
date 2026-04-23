@@ -1,4 +1,5 @@
 import type { CatalogModel, ModelCapability, UiLang } from './modelsCatalog'
+import capabilityPatternsJson from './openRouterCapabilityPatterns.json'
 import { openRouterProviderName } from './openRouterProvider'
 import openRouterSnapshot from './openRouterModelsSnapshot.json'
 
@@ -78,10 +79,11 @@ function formatOpenRouterPricing(p?: OpenRouterApiRow['pricing']): string {
   return rest.join(' · ')
 }
 
-const RE_VID = /\b(t2v|i2v|text-to-video|image-to-video|sora|veo|kling|runway|wan[- ]?2)/i
-const RE_T2I = /(flux|dall-?e|sdxl|stable-?diffusion|imagen|z-image|playground-?v2|midjourney)/i
-const RE_VLM = /(llava|qwen.*vl|omni-?flash|gemini-2|gemini-1\.5|gpt-4o|4o-2024|claude-3|claude-sonnet-4|vision|idefics|minicpm|moondream|multimodal|phi-3\.5-vision)/i
-const RE_EMB = /(embedd|bge-|-embed|text-embedding)/i
+const RE_VID = new RegExp(capabilityPatternsJson.videoId, 'i')
+const RE_T2I = new RegExp(capabilityPatternsJson.t2iId, 'i')
+const RE_VLM = new RegExp(capabilityPatternsJson.vlmId, 'i')
+const RE_EMB = new RegExp(capabilityPatternsJson.embedId, 'i')
+const RE_AUDIO_BAG = new RegExp(capabilityPatternsJson.audioBag, 'i')
 
 function isTextMod(t: string): boolean {
   const x = t.toLowerCase()
@@ -100,7 +102,7 @@ function inferCapability(row: OpenRouterApiRow): ModelCapability {
   if (RE_VID.test(bag) || RE_VID.test(idL) || (bag.includes('video') && (outs.some((o) => o.includes('video')) || mod.includes('video')))) {
     return 'video'
   }
-  if (bag.includes('audio') || /(whisper|tts|speech|stt|sonic|nova)/.test(bag) || /(whisper|tts-)/.test(idL)) {
+  if (bag.includes('audio') || RE_AUDIO_BAG.test(bag) || /(whisper|tts-)/.test(idL)) {
     if (!bag.includes('image') && !/vision/.test(bag)) return 'audio'
   }
 

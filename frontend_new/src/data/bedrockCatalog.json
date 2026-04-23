@@ -1,0 +1,2649 @@
+[
+  {
+    "id": "br--anthropic--claude-opus-4-7",
+    "product": "bedrock",
+    "capability": "text",
+    "developer": "aws",
+    "badges": [],
+    "price": "輸入 $5／百萬 tokens · 輸出 $25／百萬 tokens · 快取讀取 9 折、批次 5 折",
+    "title": {
+      "zh-TW": "Claude Opus 4.7",
+      "zh-CN": "Claude Opus 4.7",
+      "en": "Claude Opus 4.7",
+      "ja": "Claude Opus 4.7",
+      "ko": "Claude Opus 4.7"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（Anthropic）｜文本生成｜最強通用模型，編碼/企業/Agent 領先",
+      "zh-CN": "AWS Bedrock（Anthropic）｜文本生成｜最強通用模型，編碼/企業/Agent 領先",
+      "en": "Anthropic on AWS Bedrock — Text generation. 最強通用模型，編碼/企業/Agent 領先",
+      "ja": "AWS Bedrock（Anthropic）— Text generation. 最強通用模型，編碼/企業/Agent 領先",
+      "ko": "AWS Bedrock(Anthropic) — Text generation. 最強通用模型，編碼/企業/Agent 領先"
+    },
+    "modalitiesLine": "文本生成",
+    "providerName": "Anthropic",
+    "contextLength": 1000000
+  },
+  {
+    "id": "br--anthropic--claude-mythos-preview",
+    "product": "bedrock",
+    "capability": "text",
+    "developer": "aws",
+    "badges": [],
+    "price": "輸入 $5／百萬 tokens · 輸出 $25／百萬 tokens · 受控研究預覽",
+    "title": {
+      "zh-TW": "Claude Mythos Preview",
+      "zh-CN": "Claude Mythos Preview",
+      "en": "Claude Mythos Preview",
+      "ja": "Claude Mythos Preview",
+      "ko": "Claude Mythos Preview"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（Anthropic）｜文本生成｜網絡安全、自主編碼、長時 Agent（限預覽）",
+      "zh-CN": "AWS Bedrock（Anthropic）｜文本生成｜網絡安全、自主編碼、長時 Agent（限預覽）",
+      "en": "Anthropic on AWS Bedrock — Text generation. 網絡安全、自主編碼、長時 Agent（限預覽）",
+      "ja": "AWS Bedrock（Anthropic）— Text generation. 網絡安全、自主編碼、長時 Agent（限預覽）",
+      "ko": "AWS Bedrock(Anthropic) — Text generation. 網絡安全、自主編碼、長時 Agent（限預覽）"
+    },
+    "modalitiesLine": "文本生成",
+    "providerName": "Anthropic",
+    "contextLength": 1000000
+  },
+  {
+    "id": "br--anthropic--claude-sonnet-4-6",
+    "product": "bedrock",
+    "capability": "multimodal",
+    "developer": "aws",
+    "badges": [],
+    "price": "輸入 $3／百萬 tokens · 輸出 $15／百萬 tokens · 快取讀取 9 折、批次 5 折",
+    "title": {
+      "zh-TW": "Claude Sonnet 4.6",
+      "zh-CN": "Claude Sonnet 4.6",
+      "en": "Claude Sonnet 4.6",
+      "ja": "Claude Sonnet 4.6",
+      "ko": "Claude Sonnet 4.6"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（Anthropic）｜多模態｜中階旗艦，1M 上下文，改進編碼/電腦使用",
+      "zh-CN": "AWS Bedrock（Anthropic）｜多模態｜中階旗艦，1M 上下文，改進編碼/電腦使用",
+      "en": "Anthropic on AWS Bedrock — Multimodal. 中階旗艦，1M 上下文，改進編碼/電腦使用",
+      "ja": "AWS Bedrock（Anthropic）— Multimodal. 中階旗艦，1M 上下文，改進編碼/電腦使用",
+      "ko": "AWS Bedrock(Anthropic) — Multimodal. 中階旗艦，1M 上下文，改進編碼/電腦使用"
+    },
+    "modalitiesLine": "多模態",
+    "providerName": "Anthropic",
+    "contextLength": 1000000
+  },
+  {
+    "id": "br--anthropic--claude-opus-4-6",
+    "product": "bedrock",
+    "capability": "text",
+    "developer": "aws",
+    "badges": [],
+    "price": "輸入 $5／百萬 tokens · 輸出 $25／百萬 tokens · 快取讀取 9 折、批次 5 折",
+    "title": {
+      "zh-TW": "Claude Opus 4.6",
+      "zh-CN": "Claude Opus 4.6",
+      "en": "Claude Opus 4.6",
+      "ja": "Claude Opus 4.6",
+      "ko": "Claude Opus 4.6"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（Anthropic）｜文本生成｜旗艦模型，大型代碼庫和長時 Agent",
+      "zh-CN": "AWS Bedrock（Anthropic）｜文本生成｜旗艦模型，大型代碼庫和長時 Agent",
+      "en": "Anthropic on AWS Bedrock — Text generation. 旗艦模型，大型代碼庫和長時 Agent",
+      "ja": "AWS Bedrock（Anthropic）— Text generation. 旗艦模型，大型代碼庫和長時 Agent",
+      "ko": "AWS Bedrock(Anthropic) — Text generation. 旗艦模型，大型代碼庫和長時 Agent"
+    },
+    "modalitiesLine": "文本生成",
+    "providerName": "Anthropic",
+    "contextLength": 1000000
+  },
+  {
+    "id": "br--anthropic--claude-opus-4-5",
+    "product": "bedrock",
+    "capability": "text",
+    "developer": "aws",
+    "badges": [],
+    "price": "輸入 $5／百萬 tokens · 輸出 $25／百萬 tokens",
+    "title": {
+      "zh-TW": "Claude Opus 4.5",
+      "zh-CN": "Claude Opus 4.5",
+      "en": "Claude Opus 4.5",
+      "ja": "Claude Opus 4.5",
+      "ko": "Claude Opus 4.5"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（Anthropic）｜文本生成｜編碼/Agent/電子表格改進",
+      "zh-CN": "AWS Bedrock（Anthropic）｜文本生成｜編碼/Agent/電子表格改進",
+      "en": "Anthropic on AWS Bedrock — Text generation. 編碼/Agent/電子表格改進",
+      "ja": "AWS Bedrock（Anthropic）— Text generation. 編碼/Agent/電子表格改進",
+      "ko": "AWS Bedrock(Anthropic) — Text generation. 編碼/Agent/電子表格改進"
+    },
+    "modalitiesLine": "文本生成",
+    "providerName": "Anthropic",
+    "contextLength": 1000000
+  },
+  {
+    "id": "br--anthropic--claude-haiku-4-5",
+    "product": "bedrock",
+    "capability": "text",
+    "developer": "aws",
+    "badges": [],
+    "price": "輸入 $1／百萬 tokens · 輸出 $5／百萬 tokens · Claude 系列中速度最快",
+    "title": {
+      "zh-TW": "Claude Haiku 4.5",
+      "zh-CN": "Claude Haiku 4.5",
+      "en": "Claude Haiku 4.5",
+      "ja": "Claude Haiku 4.5",
+      "ko": "Claude Haiku 4.5"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（Anthropic）｜文本生成｜輕量快速模型，強編碼和 Agent",
+      "zh-CN": "AWS Bedrock（Anthropic）｜文本生成｜輕量快速模型，強編碼和 Agent",
+      "en": "Anthropic on AWS Bedrock — Text generation. 輕量快速模型，強編碼和 Agent",
+      "ja": "AWS Bedrock（Anthropic）— Text generation. 輕量快速模型，強編碼和 Agent",
+      "ko": "AWS Bedrock(Anthropic) — Text generation. 輕量快速模型，強編碼和 Agent"
+    },
+    "modalitiesLine": "文本生成",
+    "providerName": "Anthropic",
+    "contextLength": 200000
+  },
+  {
+    "id": "br--anthropic--claude-sonnet-4-5",
+    "product": "bedrock",
+    "capability": "text",
+    "developer": "aws",
+    "badges": [],
+    "price": "輸入 $3／百萬 tokens · 輸出 $15／百萬 tokens",
+    "title": {
+      "zh-TW": "Claude Sonnet 4.5",
+      "zh-CN": "Claude Sonnet 4.5",
+      "en": "Claude Sonnet 4.5",
+      "ja": "Claude Sonnet 4.5",
+      "ko": "Claude Sonnet 4.5"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（Anthropic）｜文本生成｜Agent/編碼/電腦使用全面升級",
+      "zh-CN": "AWS Bedrock（Anthropic）｜文本生成｜Agent/編碼/電腦使用全面升級",
+      "en": "Anthropic on AWS Bedrock — Text generation. Agent/編碼/電腦使用全面升級",
+      "ja": "AWS Bedrock（Anthropic）— Text generation. Agent/編碼/電腦使用全面升級",
+      "ko": "AWS Bedrock(Anthropic) — Text generation. Agent/編碼/電腦使用全面升級"
+    },
+    "modalitiesLine": "文本生成",
+    "providerName": "Anthropic",
+    "contextLength": 1000000
+  },
+  {
+    "id": "br--anthropic--claude-opus-4-1",
+    "product": "bedrock",
+    "capability": "text",
+    "developer": "aws",
+    "badges": [],
+    "price": "輸入 $5／百萬 tokens · 輸出 $25／百萬 tokens",
+    "title": {
+      "zh-TW": "Claude Opus 4.1",
+      "zh-CN": "Claude Opus 4.1",
+      "en": "Claude Opus 4.1",
+      "ja": "Claude Opus 4.1",
+      "ko": "Claude Opus 4.1"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（Anthropic）｜文本生成｜編碼/推理/Agent 升級",
+      "zh-CN": "AWS Bedrock（Anthropic）｜文本生成｜編碼/推理/Agent 升級",
+      "en": "Anthropic on AWS Bedrock — Text generation. 編碼/推理/Agent 升級",
+      "ja": "AWS Bedrock（Anthropic）— Text generation. 編碼/推理/Agent 升級",
+      "ko": "AWS Bedrock(Anthropic) — Text generation. 編碼/推理/Agent 升級"
+    },
+    "modalitiesLine": "文本生成",
+    "providerName": "Anthropic",
+    "contextLength": 1000000
+  },
+  {
+    "id": "br--anthropic--claude-sonnet-4",
+    "product": "bedrock",
+    "capability": "text",
+    "developer": "aws",
+    "badges": [],
+    "price": "輸入 $3／百萬 tokens · 輸出 $15／百萬 tokens",
+    "title": {
+      "zh-TW": "Claude Sonnet 4",
+      "zh-CN": "Claude Sonnet 4",
+      "en": "Claude Sonnet 4",
+      "ja": "Claude Sonnet 4",
+      "ko": "Claude Sonnet 4"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（Anthropic）｜文本生成｜平衡型，強編碼推理，延展思考+工具",
+      "zh-CN": "AWS Bedrock（Anthropic）｜文本生成｜平衡型，強編碼推理，延展思考+工具",
+      "en": "Anthropic on AWS Bedrock — Text generation. 平衡型，強編碼推理，延展思考+工具",
+      "ja": "AWS Bedrock（Anthropic）— Text generation. 平衡型，強編碼推理，延展思考+工具",
+      "ko": "AWS Bedrock(Anthropic) — Text generation. 平衡型，強編碼推理，延展思考+工具"
+    },
+    "modalitiesLine": "文本生成",
+    "providerName": "Anthropic",
+    "contextLength": 200000
+  },
+  {
+    "id": "br--anthropic--claude-3-5-haiku",
+    "product": "bedrock",
+    "capability": "text",
+    "developer": "aws",
+    "badges": [],
+    "price": "輸入 $0.8／百萬 tokens · 輸出 $4／百萬 tokens",
+    "title": {
+      "zh-TW": "Claude 3.5 Haiku",
+      "zh-CN": "Claude 3.5 Haiku",
+      "en": "Claude 3.5 Haiku",
+      "ja": "Claude 3.5 Haiku",
+      "ko": "Claude 3.5 Haiku"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（Anthropic）｜文本生成｜快速模型，編碼推理超 3 Haiku",
+      "zh-CN": "AWS Bedrock（Anthropic）｜文本生成｜快速模型，編碼推理超 3 Haiku",
+      "en": "Anthropic on AWS Bedrock — Text generation. 快速模型，編碼推理超 3 Haiku",
+      "ja": "AWS Bedrock（Anthropic）— Text generation. 快速模型，編碼推理超 3 Haiku",
+      "ko": "AWS Bedrock(Anthropic) — Text generation. 快速模型，編碼推理超 3 Haiku"
+    },
+    "modalitiesLine": "文本生成",
+    "providerName": "Anthropic",
+    "contextLength": 200000
+  },
+  {
+    "id": "br--anthropic--claude-3-haiku",
+    "product": "bedrock",
+    "capability": "text",
+    "developer": "aws",
+    "badges": [],
+    "price": "輸入 $0.25／百萬 tokens · 輸出 $1.25／百萬 tokens",
+    "title": {
+      "zh-TW": "Claude 3 Haiku",
+      "zh-CN": "Claude 3 Haiku",
+      "en": "Claude 3 Haiku",
+      "ja": "Claude 3 Haiku",
+      "ko": "Claude 3 Haiku"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（Anthropic）｜文本生成｜最快速最緊湊的 Claude 3",
+      "zh-CN": "AWS Bedrock（Anthropic）｜文本生成｜最快速最緊湊的 Claude 3",
+      "en": "Anthropic on AWS Bedrock — Text generation. 最快速最緊湊的 Claude 3",
+      "ja": "AWS Bedrock（Anthropic）— Text generation. 最快速最緊湊的 Claude 3",
+      "ko": "AWS Bedrock(Anthropic) — Text generation. 最快速最緊湊的 Claude 3"
+    },
+    "modalitiesLine": "文本生成",
+    "providerName": "Anthropic",
+    "contextLength": 200000
+  },
+  {
+    "id": "br--amazon--nova-2-sonic",
+    "product": "bedrock",
+    "capability": "audio",
+    "developer": "aws",
+    "badges": [],
+    "price": "輸入 $0.37／百萬 tokens · 輸出 $1.1／百萬 tokens · 語音對語音；同採文字 tokens 計價",
+    "title": {
+      "zh-TW": "Nova 2 Sonic",
+      "zh-CN": "Nova 2 Sonic",
+      "en": "Nova 2 Sonic",
+      "ja": "Nova 2 Sonic",
+      "ko": "Nova 2 Sonic"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（Amazon）｜語音｜語音對語音基礎模型",
+      "zh-CN": "AWS Bedrock（Amazon）｜語音｜語音對語音基礎模型",
+      "en": "Amazon on AWS Bedrock — Speech. 語音對語音基礎模型",
+      "ja": "AWS Bedrock（Amazon）— Speech. 語音對語音基礎模型",
+      "ko": "AWS Bedrock(Amazon) — Speech. 語音對語音基礎模型"
+    },
+    "modalitiesLine": "語音",
+    "providerName": "Amazon"
+  },
+  {
+    "id": "br--amazon--nova-premier",
+    "product": "bedrock",
+    "capability": "multimodal",
+    "developer": "aws",
+    "badges": [],
+    "price": "輸入 $2.5／百萬 tokens · 輸出 $12.5／百萬 tokens · 全球跨區",
+    "title": {
+      "zh-TW": "Nova Premier",
+      "zh-CN": "Nova Premier",
+      "en": "Nova Premier",
+      "ja": "Nova Premier",
+      "ko": "Nova Premier"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（Amazon）｜多模態｜複雜推理、Agent 工作流、模型蒸餾",
+      "zh-CN": "AWS Bedrock（Amazon）｜多模態｜複雜推理、Agent 工作流、模型蒸餾",
+      "en": "Amazon on AWS Bedrock — Multimodal. 複雜推理、Agent 工作流、模型蒸餾",
+      "ja": "AWS Bedrock（Amazon）— Multimodal. 複雜推理、Agent 工作流、模型蒸餾",
+      "ko": "AWS Bedrock(Amazon) — Multimodal. 複雜推理、Agent 工作流、模型蒸餾"
+    },
+    "modalitiesLine": "多模態",
+    "providerName": "Amazon",
+    "contextLength": 1000000
+  },
+  {
+    "id": "br--amazon--nova-sonic",
+    "product": "bedrock",
+    "capability": "audio",
+    "developer": "aws",
+    "badges": [],
+    "price": "輸入 $0.37／百萬 tokens · 輸出 $1.1／百萬 tokens · 語音對語音；同採文字 tokens 計價",
+    "title": {
+      "zh-TW": "Nova Sonic",
+      "zh-CN": "Nova Sonic",
+      "en": "Nova Sonic",
+      "ja": "Nova Sonic",
+      "ko": "Nova Sonic"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（Amazon）｜語音｜低延遲語音對語音，多語言",
+      "zh-CN": "AWS Bedrock（Amazon）｜語音｜低延遲語音對語音，多語言",
+      "en": "Amazon on AWS Bedrock — Speech. 低延遲語音對語音，多語言",
+      "ja": "AWS Bedrock（Amazon）— Speech. 低延遲語音對語音，多語言",
+      "ko": "AWS Bedrock(Amazon) — Speech. 低延遲語音對語音，多語言"
+    },
+    "modalitiesLine": "語音",
+    "providerName": "Amazon"
+  },
+  {
+    "id": "br--amazon--nova-pro",
+    "product": "bedrock",
+    "capability": "multimodal",
+    "developer": "aws",
+    "badges": [],
+    "price": "輸入 $0.8／百萬 tokens · 輸出 $3.2／百萬 tokens · 全球跨區",
+    "title": {
+      "zh-TW": "Nova Pro",
+      "zh-CN": "Nova Pro",
+      "en": "Nova Pro",
+      "ja": "Nova Pro",
+      "ko": "Nova Pro"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（Amazon）｜多模態｜平衡多模態，強準確度+速度+成本",
+      "zh-CN": "AWS Bedrock（Amazon）｜多模態｜平衡多模態，強準確度+速度+成本",
+      "en": "Amazon on AWS Bedrock — Multimodal. 平衡多模態，強準確度+速度+成本",
+      "ja": "AWS Bedrock（Amazon）— Multimodal. 平衡多模態，強準確度+速度+成本",
+      "ko": "AWS Bedrock(Amazon) — Multimodal. 平衡多模態，強準確度+速度+成本"
+    },
+    "modalitiesLine": "多模態",
+    "providerName": "Amazon",
+    "contextLength": 300000
+  },
+  {
+    "id": "br--amazon--nova-lite",
+    "product": "bedrock",
+    "capability": "multimodal",
+    "developer": "aws",
+    "badges": [],
+    "price": "輸入 $0.06／百萬 tokens · 輸出 $0.24／百萬 tokens · 全球跨區",
+    "title": {
+      "zh-TW": "Nova Lite",
+      "zh-CN": "Nova Lite",
+      "en": "Nova Lite",
+      "ja": "Nova Lite",
+      "ko": "Nova Lite"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（Amazon）｜多模態｜低成本多模態（文本/圖像/視頻）",
+      "zh-CN": "AWS Bedrock（Amazon）｜多模態｜低成本多模態（文本/圖像/視頻）",
+      "en": "Amazon on AWS Bedrock — Multimodal. 低成本多模態（文本/圖像/視頻）",
+      "ja": "AWS Bedrock（Amazon）— Multimodal. 低成本多模態（文本/圖像/視頻）",
+      "ko": "AWS Bedrock(Amazon) — Multimodal. 低成本多模態（文本/圖像/視頻）"
+    },
+    "modalitiesLine": "多模態",
+    "providerName": "Amazon",
+    "contextLength": 300000
+  },
+  {
+    "id": "br--amazon--nova-micro",
+    "product": "bedrock",
+    "capability": "text",
+    "developer": "aws",
+    "badges": [],
+    "price": "輸入 $0.035／百萬 tokens · 輸出 $0.14／百萬 tokens · 全球跨區",
+    "title": {
+      "zh-TW": "Nova Micro",
+      "zh-CN": "Nova Micro",
+      "en": "Nova Micro",
+      "ja": "Nova Micro",
+      "ko": "Nova Micro"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（Amazon）｜文本生成｜最快文本模型，摘要/翻譯/分類",
+      "zh-CN": "AWS Bedrock（Amazon）｜文本生成｜最快文本模型，摘要/翻譯/分類",
+      "en": "Amazon on AWS Bedrock — Text generation. 最快文本模型，摘要/翻譯/分類",
+      "ja": "AWS Bedrock（Amazon）— Text generation. 最快文本模型，摘要/翻譯/分類",
+      "ko": "AWS Bedrock(Amazon) — Text generation. 最快文本模型，摘要/翻譯/分類"
+    },
+    "modalitiesLine": "文本生成",
+    "providerName": "Amazon",
+    "contextLength": 128000
+  },
+  {
+    "id": "br--amazon--nova-2-lite",
+    "product": "bedrock",
+    "capability": "multimodal",
+    "developer": "aws",
+    "badges": [],
+    "price": "輸入 $0.06／百萬 tokens · 輸出 $0.24／百萬 tokens",
+    "title": {
+      "zh-TW": "Nova 2 Lite",
+      "zh-CN": "Nova 2 Lite",
+      "en": "Nova 2 Lite",
+      "ja": "Nova 2 Lite",
+      "ko": "Nova 2 Lite"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（Amazon）｜多模態｜成本效益多模態，文件處理/客服",
+      "zh-CN": "AWS Bedrock（Amazon）｜多模態｜成本效益多模態，文件處理/客服",
+      "en": "Amazon on AWS Bedrock — Multimodal. 成本效益多模態，文件處理/客服",
+      "ja": "AWS Bedrock（Amazon）— Multimodal. 成本效益多模態，文件處理/客服",
+      "ko": "AWS Bedrock(Amazon) — Multimodal. 成本效益多模態，文件處理/客服"
+    },
+    "modalitiesLine": "多模態",
+    "providerName": "Amazon",
+    "contextLength": 1000000
+  },
+  {
+    "id": "br--amazon--nova-canvas",
+    "product": "bedrock",
+    "capability": "image",
+    "developer": "aws",
+    "badges": [],
+    "price": "每張 $0.04（1024×1024 標準）",
+    "title": {
+      "zh-TW": "Nova Canvas",
+      "zh-CN": "Nova Canvas",
+      "en": "Nova Canvas",
+      "ja": "Nova Canvas",
+      "ko": "Nova Canvas"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（Amazon）｜圖像生成｜圖像生成，內建水印+內容審核",
+      "zh-CN": "AWS Bedrock（Amazon）｜圖像生成｜圖像生成，內建水印+內容審核",
+      "en": "Amazon on AWS Bedrock — Image generation. 圖像生成，內建水印+內容審核",
+      "ja": "AWS Bedrock（Amazon）— Image generation. 圖像生成，內建水印+內容審核",
+      "ko": "AWS Bedrock(Amazon) — Image generation. 圖像生成，內建水印+內容審核"
+    },
+    "modalitiesLine": "圖像生成",
+    "providerName": "Amazon"
+  },
+  {
+    "id": "br--amazon--nova-reel",
+    "product": "bedrock",
+    "capability": "video",
+    "developer": "aws",
+    "badges": [],
+    "price": "每影片秒 $0.08",
+    "title": {
+      "zh-TW": "Nova Reel",
+      "zh-CN": "Nova Reel",
+      "en": "Nova Reel",
+      "ja": "Nova Reel",
+      "ko": "Nova Reel"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（Amazon）｜視頻生成｜視頻生成，攝影機運動控制",
+      "zh-CN": "AWS Bedrock（Amazon）｜視頻生成｜視頻生成，攝影機運動控制",
+      "en": "Amazon on AWS Bedrock — Video generation. 視頻生成，攝影機運動控制",
+      "ja": "AWS Bedrock（Amazon）— Video generation. 視頻生成，攝影機運動控制",
+      "ko": "AWS Bedrock(Amazon) — Video generation. 視頻生成，攝影機運動控制"
+    },
+    "modalitiesLine": "視頻生成",
+    "providerName": "Amazon"
+  },
+  {
+    "id": "br--amazon--titan-text-large",
+    "product": "bedrock",
+    "capability": "text",
+    "developer": "aws",
+    "badges": [],
+    "price": "輸入 $0.8／百萬 tokens · 輸出 $1.6／百萬 tokens",
+    "title": {
+      "zh-TW": "Titan Text Large",
+      "zh-CN": "Titan Text Large",
+      "en": "Titan Text Large",
+      "ja": "Titan Text Large",
+      "ko": "Titan Text Large"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（Amazon）｜文本生成｜通用文本生成",
+      "zh-CN": "AWS Bedrock（Amazon）｜文本生成｜通用文本生成",
+      "en": "Amazon on AWS Bedrock — Text generation. 通用文本生成",
+      "ja": "AWS Bedrock（Amazon）— Text generation. 通用文本生成",
+      "ko": "AWS Bedrock(Amazon) — Text generation. 通用文本生成"
+    },
+    "modalitiesLine": "文本生成",
+    "providerName": "Amazon",
+    "contextLength": 32000
+  },
+  {
+    "id": "br--amazon--titan-text-embeddings-v2",
+    "product": "bedrock",
+    "capability": "text",
+    "developer": "aws",
+    "badges": [],
+    "price": "輸入 $0.02／百萬 tokens · 輸出：不適用（嵌入）",
+    "title": {
+      "zh-TW": "Titan Text Embeddings V2",
+      "zh-CN": "Titan Text Embeddings V2",
+      "en": "Titan Text Embeddings V2",
+      "ja": "Titan Text Embeddings V2",
+      "ko": "Titan Text Embeddings V2"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（Amazon）｜嵌入｜第二代文本嵌入，可配置輸出維度",
+      "zh-CN": "AWS Bedrock（Amazon）｜嵌入｜第二代文本嵌入，可配置輸出維度",
+      "en": "Amazon on AWS Bedrock — Embeddings. 第二代文本嵌入，可配置輸出維度",
+      "ja": "AWS Bedrock（Amazon）— Embeddings. 第二代文本嵌入，可配置輸出維度",
+      "ko": "AWS Bedrock(Amazon) — Embeddings. 第二代文本嵌入，可配置輸出維度"
+    },
+    "modalitiesLine": "嵌入",
+    "providerName": "Amazon",
+    "contextLength": 8000
+  },
+  {
+    "id": "br--amazon--titan-image-generator-g1-v2",
+    "product": "bedrock",
+    "capability": "image",
+    "developer": "aws",
+    "badges": [],
+    "price": "每張 $0.04（1024×1024 標準）",
+    "title": {
+      "zh-TW": "Titan Image Generator G1 v2",
+      "zh-CN": "Titan Image Generator G1 v2",
+      "en": "Titan Image Generator G1 v2",
+      "ja": "Titan Image Generator G1 v2",
+      "ko": "Titan Image Generator G1 v2"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（Amazon）｜圖像生成｜圖像生成/編輯，內建水印",
+      "zh-CN": "AWS Bedrock（Amazon）｜圖像生成｜圖像生成/編輯，內建水印",
+      "en": "Amazon on AWS Bedrock — Image generation. 圖像生成/編輯，內建水印",
+      "ja": "AWS Bedrock（Amazon）— Image generation. 圖像生成/編輯，內建水印",
+      "ko": "AWS Bedrock(Amazon) — Image generation. 圖像生成/編輯，內建水印"
+    },
+    "modalitiesLine": "圖像生成",
+    "providerName": "Amazon"
+  },
+  {
+    "id": "br--amazon--titan-multimodal-embeddings-g1",
+    "product": "bedrock",
+    "capability": "text",
+    "developer": "aws",
+    "badges": [],
+    "price": "輸入 $0.8／百萬 tokens · 圖像每張＋$0.00006",
+    "title": {
+      "zh-TW": "Titan Multimodal Embeddings G1",
+      "zh-CN": "Titan Multimodal Embeddings G1",
+      "en": "Titan Multimodal Embeddings G1",
+      "ja": "Titan Multimodal Embeddings G1",
+      "ko": "Titan Multimodal Embeddings G1"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（Amazon）｜嵌入｜文本+圖像嵌入",
+      "zh-CN": "AWS Bedrock（Amazon）｜嵌入｜文本+圖像嵌入",
+      "en": "Amazon on AWS Bedrock — Embeddings. 文本+圖像嵌入",
+      "ja": "AWS Bedrock（Amazon）— Embeddings. 文本+圖像嵌入",
+      "ko": "AWS Bedrock(Amazon) — Embeddings. 文本+圖像嵌入"
+    },
+    "modalitiesLine": "嵌入",
+    "providerName": "Amazon"
+  },
+  {
+    "id": "br--amazon--titan-embeddings-g1-text",
+    "product": "bedrock",
+    "capability": "text",
+    "developer": "aws",
+    "badges": [],
+    "price": "輸入 $0.1／百萬 tokens · 輸出：不適用（嵌入）",
+    "title": {
+      "zh-TW": "Titan Embeddings G1 - Text",
+      "zh-CN": "Titan Embeddings G1 - Text",
+      "en": "Titan Embeddings G1 - Text",
+      "ja": "Titan Embeddings G1 - Text",
+      "ko": "Titan Embeddings G1 - Text"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（Amazon）｜嵌入｜文本向量嵌入",
+      "zh-CN": "AWS Bedrock（Amazon）｜嵌入｜文本向量嵌入",
+      "en": "Amazon on AWS Bedrock — Embeddings. 文本向量嵌入",
+      "ja": "AWS Bedrock（Amazon）— Embeddings. 文本向量嵌入",
+      "ko": "AWS Bedrock(Amazon) — Embeddings. 文本向量嵌入"
+    },
+    "modalitiesLine": "嵌入",
+    "providerName": "Amazon",
+    "contextLength": 8000
+  },
+  {
+    "id": "br--amazon--titan-text-embeddings-v2-2",
+    "product": "bedrock",
+    "capability": "text",
+    "developer": "aws",
+    "badges": [],
+    "price": "輸入 $0.02／百萬 tokens",
+    "title": {
+      "zh-TW": "Titan Text Embeddings v2",
+      "zh-CN": "Titan Text Embeddings v2",
+      "en": "Titan Text Embeddings v2",
+      "ja": "Titan Text Embeddings v2",
+      "ko": "Titan Text Embeddings v2"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（Amazon）｜嵌入｜文本嵌入（另一版本）",
+      "zh-CN": "AWS Bedrock（Amazon）｜嵌入｜文本嵌入（另一版本）",
+      "en": "Amazon on AWS Bedrock — Embeddings. 文本嵌入（另一版本）",
+      "ja": "AWS Bedrock（Amazon）— Embeddings. 文本嵌入（另一版本）",
+      "ko": "AWS Bedrock(Amazon) — Embeddings. 文本嵌入（另一版本）"
+    },
+    "modalitiesLine": "嵌入",
+    "providerName": "Amazon",
+    "contextLength": 8000
+  },
+  {
+    "id": "br--meta--llama-4-maverick-17b-instruct",
+    "product": "bedrock",
+    "capability": "multimodal",
+    "developer": "aws",
+    "badges": [],
+    "price": "輸入 $0.24／百萬 tokens · 輸出 $0.97／百萬 tokens",
+    "title": {
+      "zh-TW": "Llama 4 Maverick 17B Instruct",
+      "zh-CN": "Llama 4 Maverick 17B Instruct",
+      "en": "Llama 4 Maverick 17B Instruct",
+      "ja": "Llama 4 Maverick 17B Instruct",
+      "ko": "Llama 4 Maverick 17B Instruct"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（Meta）｜多模態｜17B 活躍參數 MoE，128 專家",
+      "zh-CN": "AWS Bedrock（Meta）｜多模態｜17B 活躍參數 MoE，128 專家",
+      "en": "Meta on AWS Bedrock — Multimodal. 17B 活躍參數 MoE，128 專家",
+      "ja": "AWS Bedrock（Meta）— Multimodal. 17B 活躍參數 MoE，128 專家",
+      "ko": "AWS Bedrock(Meta) — Multimodal. 17B 活躍參數 MoE，128 專家"
+    },
+    "modalitiesLine": "多模態",
+    "providerName": "Meta",
+    "contextLength": 1000000
+  },
+  {
+    "id": "br--meta--llama-4-scout-17b-instruct",
+    "product": "bedrock",
+    "capability": "multimodal",
+    "developer": "aws",
+    "badges": [],
+    "price": "輸入 $0.18／百萬 tokens · 輸出 $0.74／百萬 tokens",
+    "title": {
+      "zh-TW": "Llama 4 Scout 17B Instruct",
+      "zh-CN": "Llama 4 Scout 17B Instruct",
+      "en": "Llama 4 Scout 17B Instruct",
+      "ja": "Llama 4 Scout 17B Instruct",
+      "ko": "Llama 4 Scout 17B Instruct"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（Meta）｜多模態｜17B 活躍參數 MoE，16 專家",
+      "zh-CN": "AWS Bedrock（Meta）｜多模態｜17B 活躍參數 MoE，16 專家",
+      "en": "Meta on AWS Bedrock — Multimodal. 17B 活躍參數 MoE，16 專家",
+      "ja": "AWS Bedrock（Meta）— Multimodal. 17B 活躍參數 MoE，16 專家",
+      "ko": "AWS Bedrock(Meta) — Multimodal. 17B 活躍參數 MoE，16 專家"
+    },
+    "modalitiesLine": "多模態",
+    "providerName": "Meta",
+    "contextLength": 10000000
+  },
+  {
+    "id": "br--meta--llama-3-3-70b-instruct",
+    "product": "bedrock",
+    "capability": "text",
+    "developer": "aws",
+    "badges": [],
+    "price": "輸入 $0.72／百萬 tokens · 輸出 $0.72／百萬 tokens",
+    "title": {
+      "zh-TW": "Llama 3.3 70B Instruct",
+      "zh-CN": "Llama 3.3 70B Instruct",
+      "en": "Llama 3.3 70B Instruct",
+      "ja": "Llama 3.3 70B Instruct",
+      "ko": "Llama 3.3 70B Instruct"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（Meta）｜文本生成｜70B，高效推理編碼",
+      "zh-CN": "AWS Bedrock（Meta）｜文本生成｜70B，高效推理編碼",
+      "en": "Meta on AWS Bedrock — Text generation. 70B，高效推理編碼",
+      "ja": "AWS Bedrock（Meta）— Text generation. 70B，高效推理編碼",
+      "ko": "AWS Bedrock(Meta) — Text generation. 70B，高效推理編碼"
+    },
+    "modalitiesLine": "文本生成",
+    "providerName": "Meta",
+    "contextLength": 128000
+  },
+  {
+    "id": "br--meta--llama-3-2-90b-instruct",
+    "product": "bedrock",
+    "capability": "multimodal",
+    "developer": "aws",
+    "badges": [],
+    "price": "輸入 $0.72／百萬 tokens · 輸出 $0.72／百萬 tokens",
+    "title": {
+      "zh-TW": "Llama 3.2 90B Instruct",
+      "zh-CN": "Llama 3.2 90B Instruct",
+      "en": "Llama 3.2 90B Instruct",
+      "ja": "Llama 3.2 90B Instruct",
+      "ko": "Llama 3.2 90B Instruct"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（Meta）｜多模態｜90B 多模態（文本+圖像）",
+      "zh-CN": "AWS Bedrock（Meta）｜多模態｜90B 多模態（文本+圖像）",
+      "en": "Meta on AWS Bedrock — Multimodal. 90B 多模態（文本+圖像）",
+      "ja": "AWS Bedrock（Meta）— Multimodal. 90B 多模態（文本+圖像）",
+      "ko": "AWS Bedrock(Meta) — Multimodal. 90B 多模態（文本+圖像）"
+    },
+    "modalitiesLine": "多模態",
+    "providerName": "Meta",
+    "contextLength": 128000
+  },
+  {
+    "id": "br--meta--llama-3-2-11b-instruct",
+    "product": "bedrock",
+    "capability": "multimodal",
+    "developer": "aws",
+    "badges": [],
+    "price": "輸入 $0.16／百萬 tokens · 輸出 $0.16／百萬 tokens",
+    "title": {
+      "zh-TW": "Llama 3.2 11B Instruct",
+      "zh-CN": "Llama 3.2 11B Instruct",
+      "en": "Llama 3.2 11B Instruct",
+      "ja": "Llama 3.2 11B Instruct",
+      "ko": "Llama 3.2 11B Instruct"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（Meta）｜多模態｜11B 多模態",
+      "zh-CN": "AWS Bedrock（Meta）｜多模態｜11B 多模態",
+      "en": "Meta on AWS Bedrock — Multimodal. 11B 多模態",
+      "ja": "AWS Bedrock（Meta）— Multimodal. 11B 多模態",
+      "ko": "AWS Bedrock(Meta) — Multimodal. 11B 多模態"
+    },
+    "modalitiesLine": "多模態",
+    "providerName": "Meta",
+    "contextLength": 128000
+  },
+  {
+    "id": "br--meta--llama-3-2-3b-instruct",
+    "product": "bedrock",
+    "capability": "text",
+    "developer": "aws",
+    "badges": [],
+    "price": "輸入 $0.15／百萬 tokens · 輸出 $0.15／百萬 tokens",
+    "title": {
+      "zh-TW": "Llama 3.2 3B Instruct",
+      "zh-CN": "Llama 3.2 3B Instruct",
+      "en": "Llama 3.2 3B Instruct",
+      "ja": "Llama 3.2 3B Instruct",
+      "ko": "Llama 3.2 3B Instruct"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（Meta）｜文本生成｜3B 輕量，端側部署",
+      "zh-CN": "AWS Bedrock（Meta）｜文本生成｜3B 輕量，端側部署",
+      "en": "Meta on AWS Bedrock — Text generation. 3B 輕量，端側部署",
+      "ja": "AWS Bedrock（Meta）— Text generation. 3B 輕量，端側部署",
+      "ko": "AWS Bedrock(Meta) — Text generation. 3B 輕量，端側部署"
+    },
+    "modalitiesLine": "文本生成",
+    "providerName": "Meta",
+    "contextLength": 128000
+  },
+  {
+    "id": "br--meta--llama-3-2-1b-instruct",
+    "product": "bedrock",
+    "capability": "text",
+    "developer": "aws",
+    "badges": [],
+    "price": "輸入 $0.1／百萬 tokens · 輸出 $0.1／百萬 tokens",
+    "title": {
+      "zh-TW": "Llama 3.2 1B Instruct",
+      "zh-CN": "Llama 3.2 1B Instruct",
+      "en": "Llama 3.2 1B Instruct",
+      "ja": "Llama 3.2 1B Instruct",
+      "ko": "Llama 3.2 1B Instruct"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（Meta）｜文本生成｜1B 超輕量，邊緣部署",
+      "zh-CN": "AWS Bedrock（Meta）｜文本生成｜1B 超輕量，邊緣部署",
+      "en": "Meta on AWS Bedrock — Text generation. 1B 超輕量，邊緣部署",
+      "ja": "AWS Bedrock（Meta）— Text generation. 1B 超輕量，邊緣部署",
+      "ko": "AWS Bedrock(Meta) — Text generation. 1B 超輕量，邊緣部署"
+    },
+    "modalitiesLine": "文本生成",
+    "providerName": "Meta",
+    "contextLength": 128000
+  },
+  {
+    "id": "br--meta--llama-3-1-405b-instruct",
+    "product": "bedrock",
+    "capability": "text",
+    "developer": "aws",
+    "badges": [],
+    "price": "輸入 $5.32／百萬 tokens · 輸出 $16／百萬 tokens",
+    "title": {
+      "zh-TW": "Llama 3.1 405B Instruct",
+      "zh-CN": "Llama 3.1 405B Instruct",
+      "en": "Llama 3.1 405B Instruct",
+      "ja": "Llama 3.1 405B Instruct",
+      "ko": "Llama 3.1 405B Instruct"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（Meta）｜文本生成｜最大開源模型，405B 參數",
+      "zh-CN": "AWS Bedrock（Meta）｜文本生成｜最大開源模型，405B 參數",
+      "en": "Meta on AWS Bedrock — Text generation. 最大開源模型，405B 參數",
+      "ja": "AWS Bedrock（Meta）— Text generation. 最大開源模型，405B 參數",
+      "ko": "AWS Bedrock(Meta) — Text generation. 最大開源模型，405B 參數"
+    },
+    "modalitiesLine": "文本生成",
+    "providerName": "Meta",
+    "contextLength": 128000
+  },
+  {
+    "id": "br--meta--llama-3-1-70b-instruct",
+    "product": "bedrock",
+    "capability": "text",
+    "developer": "aws",
+    "badges": [],
+    "price": "輸入 $0.72／百萬 tokens · 輸出 $0.72／百萬 tokens",
+    "title": {
+      "zh-TW": "Llama 3.1 70B Instruct",
+      "zh-CN": "Llama 3.1 70B Instruct",
+      "en": "Llama 3.1 70B Instruct",
+      "ja": "Llama 3.1 70B Instruct",
+      "ko": "Llama 3.1 70B Instruct"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（Meta）｜文本生成｜70B，工具使用和代碼生成",
+      "zh-CN": "AWS Bedrock（Meta）｜文本生成｜70B，工具使用和代碼生成",
+      "en": "Meta on AWS Bedrock — Text generation. 70B，工具使用和代碼生成",
+      "ja": "AWS Bedrock（Meta）— Text generation. 70B，工具使用和代碼生成",
+      "ko": "AWS Bedrock(Meta) — Text generation. 70B，工具使用和代碼生成"
+    },
+    "modalitiesLine": "文本生成",
+    "providerName": "Meta",
+    "contextLength": 128000
+  },
+  {
+    "id": "br--meta--llama-3-1-8b-instruct",
+    "product": "bedrock",
+    "capability": "text",
+    "developer": "aws",
+    "badges": [],
+    "price": "輸入 $0.22／百萬 tokens · 輸出 $0.22／百萬 tokens",
+    "title": {
+      "zh-TW": "Llama 3.1 8B Instruct",
+      "zh-CN": "Llama 3.1 8B Instruct",
+      "en": "Llama 3.1 8B Instruct",
+      "ja": "Llama 3.1 8B Instruct",
+      "ko": "Llama 3.1 8B Instruct"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（Meta）｜文本生成｜8B 緊湊，端側/微調",
+      "zh-CN": "AWS Bedrock（Meta）｜文本生成｜8B 緊湊，端側/微調",
+      "en": "Meta on AWS Bedrock — Text generation. 8B 緊湊，端側/微調",
+      "ja": "AWS Bedrock（Meta）— Text generation. 8B 緊湊，端側/微調",
+      "ko": "AWS Bedrock(Meta) — Text generation. 8B 緊湊，端側/微調"
+    },
+    "modalitiesLine": "文本生成",
+    "providerName": "Meta",
+    "contextLength": 128000
+  },
+  {
+    "id": "br--meta--llama-3-70b-instruct",
+    "product": "bedrock",
+    "capability": "text",
+    "developer": "aws",
+    "badges": [],
+    "price": "輸入 $2.56／百萬 tokens · 輸出 $3.4／百萬 tokens",
+    "title": {
+      "zh-TW": "Llama 3 70B Instruct",
+      "zh-CN": "Llama 3 70B Instruct",
+      "en": "Llama 3 70B Instruct",
+      "ja": "Llama 3 70B Instruct",
+      "ko": "Llama 3 70B Instruct"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（Meta）｜文本生成｜70B，對話優化",
+      "zh-CN": "AWS Bedrock（Meta）｜文本生成｜70B，對話優化",
+      "en": "Meta on AWS Bedrock — Text generation. 70B，對話優化",
+      "ja": "AWS Bedrock（Meta）— Text generation. 70B，對話優化",
+      "ko": "AWS Bedrock(Meta) — Text generation. 70B，對話優化"
+    },
+    "modalitiesLine": "文本生成",
+    "providerName": "Meta",
+    "contextLength": 8000
+  },
+  {
+    "id": "br--meta--llama-3-8b-instruct",
+    "product": "bedrock",
+    "capability": "text",
+    "developer": "aws",
+    "badges": [],
+    "price": "輸入 $0.4／百萬 tokens · 輸出 $0.6／百萬 tokens",
+    "title": {
+      "zh-TW": "Llama 3 8B Instruct",
+      "zh-CN": "Llama 3 8B Instruct",
+      "en": "Llama 3 8B Instruct",
+      "ja": "Llama 3 8B Instruct",
+      "ko": "Llama 3 8B Instruct"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（Meta）｜文本生成｜8B，高效部署",
+      "zh-CN": "AWS Bedrock（Meta）｜文本生成｜8B，高效部署",
+      "en": "Meta on AWS Bedrock — Text generation. 8B，高效部署",
+      "ja": "AWS Bedrock（Meta）— Text generation. 8B，高效部署",
+      "ko": "AWS Bedrock(Meta) — Text generation. 8B，高效部署"
+    },
+    "modalitiesLine": "文本生成",
+    "providerName": "Meta",
+    "contextLength": 8000
+  },
+  {
+    "id": "br--mistral-ai--mistral-large-3",
+    "product": "bedrock",
+    "capability": "text",
+    "developer": "aws",
+    "badges": [],
+    "price": "輸入 $0.5／百萬 tokens · 輸出 $1.5／百萬 tokens",
+    "title": {
+      "zh-TW": "Mistral Large 3",
+      "zh-CN": "Mistral Large 3",
+      "en": "Mistral Large 3",
+      "ja": "Mistral Large 3",
+      "ko": "Mistral Large 3"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（Mistral AI）｜文本生成｜675B 參數，強編碼/推理/多語言",
+      "zh-CN": "AWS Bedrock（Mistral AI）｜文本生成｜675B 參數，強編碼/推理/多語言",
+      "en": "Mistral AI on AWS Bedrock — Text generation. 675B 參數，強編碼/推理/多語言",
+      "ja": "AWS Bedrock（Mistral AI）— Text generation. 675B 參數，強編碼/推理/多語言",
+      "ko": "AWS Bedrock(Mistral AI) — Text generation. 675B 參數，強編碼/推理/多語言"
+    },
+    "modalitiesLine": "文本生成",
+    "providerName": "Mistral AI",
+    "contextLength": 128000
+  },
+  {
+    "id": "br--mistral-ai--mistral-large",
+    "product": "bedrock",
+    "capability": "text",
+    "developer": "aws",
+    "badges": [],
+    "price": "輸入 $4／百萬 tokens · 輸出 $12／百萬 tokens",
+    "title": {
+      "zh-TW": "Mistral Large",
+      "zh-CN": "Mistral Large",
+      "en": "Mistral Large",
+      "ja": "Mistral Large",
+      "ko": "Mistral Large"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（Mistral AI）｜文本生成｜旗艦，32K 上下文",
+      "zh-CN": "AWS Bedrock（Mistral AI）｜文本生成｜旗艦，32K 上下文",
+      "en": "Mistral AI on AWS Bedrock — Text generation. 旗艦，32K 上下文",
+      "ja": "AWS Bedrock（Mistral AI）— Text generation. 旗艦，32K 上下文",
+      "ko": "AWS Bedrock(Mistral AI) — Text generation. 旗艦，32K 上下文"
+    },
+    "modalitiesLine": "文本生成",
+    "providerName": "Mistral AI",
+    "contextLength": 32000
+  },
+  {
+    "id": "br--mistral-ai--mistral-small",
+    "product": "bedrock",
+    "capability": "text",
+    "developer": "aws",
+    "badges": [],
+    "price": "輸入 $0.2／百萬 tokens · 輸出 $0.6／百萬 tokens",
+    "title": {
+      "zh-TW": "Mistral Small",
+      "zh-CN": "Mistral Small",
+      "en": "Mistral Small",
+      "ja": "Mistral Small",
+      "ko": "Mistral Small"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（Mistral AI）｜文本生成｜成本效益，低延遲分類/翻譯",
+      "zh-CN": "AWS Bedrock（Mistral AI）｜文本生成｜成本效益，低延遲分類/翻譯",
+      "en": "Mistral AI on AWS Bedrock — Text generation. 成本效益，低延遲分類/翻譯",
+      "ja": "AWS Bedrock（Mistral AI）— Text generation. 成本效益，低延遲分類/翻譯",
+      "ko": "AWS Bedrock(Mistral AI) — Text generation. 成本效益，低延遲分類/翻譯"
+    },
+    "modalitiesLine": "文本生成",
+    "providerName": "Mistral AI",
+    "contextLength": 32000
+  },
+  {
+    "id": "br--mistral-ai--ministral-14b-3-0",
+    "product": "bedrock",
+    "capability": "text",
+    "developer": "aws",
+    "badges": [],
+    "price": "輸入 $0.2／百萬 tokens · 輸出 $0.2／百萬 tokens",
+    "title": {
+      "zh-TW": "Ministral 14B 3.0",
+      "zh-CN": "Ministral 14B 3.0",
+      "en": "Ministral 14B 3.0",
+      "ja": "Ministral 14B 3.0",
+      "ko": "Ministral 14B 3.0"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（Mistral AI）｜文本生成｜14B 端側模型",
+      "zh-CN": "AWS Bedrock（Mistral AI）｜文本生成｜14B 端側模型",
+      "en": "Mistral AI on AWS Bedrock — Text generation. 14B 端側模型",
+      "ja": "AWS Bedrock（Mistral AI）— Text generation. 14B 端側模型",
+      "ko": "AWS Bedrock(Mistral AI) — Text generation. 14B 端側模型"
+    },
+    "modalitiesLine": "文本生成",
+    "providerName": "Mistral AI",
+    "contextLength": 128000
+  },
+  {
+    "id": "br--mistral-ai--ministral-3-8b",
+    "product": "bedrock",
+    "capability": "text",
+    "developer": "aws",
+    "badges": [],
+    "price": "輸入 $0.15／百萬 tokens · 輸出 $0.15／百萬 tokens",
+    "title": {
+      "zh-TW": "Ministral 3 8B",
+      "zh-CN": "Ministral 3 8B",
+      "en": "Ministral 3 8B",
+      "ja": "Ministral 3 8B",
+      "ko": "Ministral 3 8B"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（Mistral AI）｜文本生成｜8B 緊湊端側",
+      "zh-CN": "AWS Bedrock（Mistral AI）｜文本生成｜8B 緊湊端側",
+      "en": "Mistral AI on AWS Bedrock — Text generation. 8B 緊湊端側",
+      "ja": "AWS Bedrock（Mistral AI）— Text generation. 8B 緊湊端側",
+      "ko": "AWS Bedrock(Mistral AI) — Text generation. 8B 緊湊端側"
+    },
+    "modalitiesLine": "文本生成",
+    "providerName": "Mistral AI",
+    "contextLength": 128000
+  },
+  {
+    "id": "br--mistral-ai--ministral-3b",
+    "product": "bedrock",
+    "capability": "text",
+    "developer": "aws",
+    "badges": [],
+    "price": "輸入 $0.1／百萬 tokens · 輸出 $0.1／百萬 tokens",
+    "title": {
+      "zh-TW": "Ministral 3B",
+      "zh-CN": "Ministral 3B",
+      "en": "Ministral 3B",
+      "ja": "Ministral 3B",
+      "ko": "Ministral 3B"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（Mistral AI）｜文本生成｜3B 超緊湊",
+      "zh-CN": "AWS Bedrock（Mistral AI）｜文本生成｜3B 超緊湊",
+      "en": "Mistral AI on AWS Bedrock — Text generation. 3B 超緊湊",
+      "ja": "AWS Bedrock（Mistral AI）— Text generation. 3B 超緊湊",
+      "ko": "AWS Bedrock(Mistral AI) — Text generation. 3B 超緊湊"
+    },
+    "modalitiesLine": "文本生成",
+    "providerName": "Mistral AI",
+    "contextLength": 128000
+  },
+  {
+    "id": "br--mistral-ai--voxtral-small-24b-2507",
+    "product": "bedrock",
+    "capability": "audio",
+    "developer": "aws",
+    "badges": [],
+    "price": "輸入 $0.1／百萬 tokens · 輸出 $0.3／百萬 tokens · 語音轉文字",
+    "title": {
+      "zh-TW": "Voxtral Small 24B 2507",
+      "zh-CN": "Voxtral Small 24B 2507",
+      "en": "Voxtral Small 24B 2507",
+      "ja": "Voxtral Small 24B 2507",
+      "ko": "Voxtral Small 24B 2507"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（Mistral AI）｜語音轉文本｜語音轉文本，24B",
+      "zh-CN": "AWS Bedrock（Mistral AI）｜語音轉文本｜語音轉文本，24B",
+      "en": "Mistral AI on AWS Bedrock — Speech-to-text. 語音轉文本，24B",
+      "ja": "AWS Bedrock（Mistral AI）— Speech-to-text. 語音轉文本，24B",
+      "ko": "AWS Bedrock(Mistral AI) — Speech-to-text. 語音轉文本，24B"
+    },
+    "modalitiesLine": "語音轉文本",
+    "providerName": "Mistral AI"
+  },
+  {
+    "id": "br--mistral-ai--voxtral-mini-3b-2507",
+    "product": "bedrock",
+    "capability": "audio",
+    "developer": "aws",
+    "badges": [],
+    "price": "輸入 $0.04／百萬 tokens · 輸出 $0.04／百萬 tokens · 語音轉文字",
+    "title": {
+      "zh-TW": "Voxtral Mini 3B 2507",
+      "zh-CN": "Voxtral Mini 3B 2507",
+      "en": "Voxtral Mini 3B 2507",
+      "ja": "Voxtral Mini 3B 2507",
+      "ko": "Voxtral Mini 3B 2507"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（Mistral AI）｜語音轉文本｜緊湊語音轉文本，端側",
+      "zh-CN": "AWS Bedrock（Mistral AI）｜語音轉文本｜緊湊語音轉文本，端側",
+      "en": "Mistral AI on AWS Bedrock — Speech-to-text. 緊湊語音轉文本，端側",
+      "ja": "AWS Bedrock（Mistral AI）— Speech-to-text. 緊湊語音轉文本，端側",
+      "ko": "AWS Bedrock(Mistral AI) — Speech-to-text. 緊湊語音轉文本，端側"
+    },
+    "modalitiesLine": "語音轉文本",
+    "providerName": "Mistral AI"
+  },
+  {
+    "id": "br--mistral-ai--magistral-small-2509",
+    "product": "bedrock",
+    "capability": "text",
+    "developer": "aws",
+    "badges": [],
+    "price": "輸入 $0.5／百萬 tokens · 輸出 $1.5／百萬 tokens",
+    "title": {
+      "zh-TW": "Magistral Small 2509",
+      "zh-CN": "Magistral Small 2509",
+      "en": "Magistral Small 2509",
+      "ja": "Magistral Small 2509",
+      "ko": "Magistral Small 2509"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（Mistral AI）｜推理｜推理模型（CoT），數學/編碼/邏輯",
+      "zh-CN": "AWS Bedrock（Mistral AI）｜推理｜推理模型（CoT），數學/編碼/邏輯",
+      "en": "Mistral AI on AWS Bedrock — Inference. 推理模型（CoT），數學/編碼/邏輯",
+      "ja": "AWS Bedrock（Mistral AI）— Inference. 推理模型（CoT），數學/編碼/邏輯",
+      "ko": "AWS Bedrock(Mistral AI) — Inference. 推理模型（CoT），數學/編碼/邏輯"
+    },
+    "modalitiesLine": "推理",
+    "providerName": "Mistral AI",
+    "contextLength": 128000
+  },
+  {
+    "id": "br--mistral-ai--devstral-2-123b",
+    "product": "bedrock",
+    "capability": "text",
+    "developer": "aws",
+    "badges": [],
+    "price": "輸入 $0.4／百萬 tokens · 輸出 $2／百萬 tokens",
+    "title": {
+      "zh-TW": "Devstral 2 123B",
+      "zh-CN": "Devstral 2 123B",
+      "en": "Devstral 2 123B",
+      "ja": "Devstral 2 123B",
+      "ko": "Devstral 2 123B"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（Mistral AI）｜編碼｜編碼專用，123B",
+      "zh-CN": "AWS Bedrock（Mistral AI）｜編碼｜編碼專用，123B",
+      "en": "Mistral AI on AWS Bedrock — Code. 編碼專用，123B",
+      "ja": "AWS Bedrock（Mistral AI）— Code. 編碼專用，123B",
+      "ko": "AWS Bedrock(Mistral AI) — Code. 編碼專用，123B"
+    },
+    "modalitiesLine": "編碼",
+    "providerName": "Mistral AI",
+    "contextLength": 128000
+  },
+  {
+    "id": "br--mistral-ai--pixtral-large",
+    "product": "bedrock",
+    "capability": "multimodal",
+    "developer": "aws",
+    "badges": [],
+    "price": "輸入 $2／百萬 tokens · 輸出 $6／百萬 tokens",
+    "title": {
+      "zh-TW": "Pixtral Large",
+      "zh-CN": "Pixtral Large",
+      "en": "Pixtral Large",
+      "ja": "Pixtral Large",
+      "ko": "Pixtral Large"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（Mistral AI）｜多模態｜124B 多模態（文本+圖像）",
+      "zh-CN": "AWS Bedrock（Mistral AI）｜多模態｜124B 多模態（文本+圖像）",
+      "en": "Mistral AI on AWS Bedrock — Multimodal. 124B 多模態（文本+圖像）",
+      "ja": "AWS Bedrock（Mistral AI）— Multimodal. 124B 多模態（文本+圖像）",
+      "ko": "AWS Bedrock(Mistral AI) — Multimodal. 124B 多模態（文本+圖像）"
+    },
+    "modalitiesLine": "多模態",
+    "providerName": "Mistral AI",
+    "contextLength": 128000
+  },
+  {
+    "id": "br--mistral-ai--mixtral-8x7b-instruct",
+    "product": "bedrock",
+    "capability": "text",
+    "developer": "aws",
+    "badges": [],
+    "price": "輸入 $0.45／百萬 tokens · 輸出 $0.7／百萬 tokens",
+    "title": {
+      "zh-TW": "Mixtral 8x7B Instruct",
+      "zh-CN": "Mixtral 8x7B Instruct",
+      "en": "Mixtral 8x7B Instruct",
+      "ja": "Mixtral 8x7B Instruct",
+      "ko": "Mixtral 8x7B Instruct"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（Mistral AI）｜文本生成｜8 專家 MoE",
+      "zh-CN": "AWS Bedrock（Mistral AI）｜文本生成｜8 專家 MoE",
+      "en": "Mistral AI on AWS Bedrock — Text generation. 8 專家 MoE",
+      "ja": "AWS Bedrock（Mistral AI）— Text generation. 8 專家 MoE",
+      "ko": "AWS Bedrock(Mistral AI) — Text generation. 8 專家 MoE"
+    },
+    "modalitiesLine": "文本生成",
+    "providerName": "Mistral AI",
+    "contextLength": 32000
+  },
+  {
+    "id": "br--mistral-ai--mistral-7b-instruct",
+    "product": "bedrock",
+    "capability": "text",
+    "developer": "aws",
+    "badges": [],
+    "price": "輸入 $0.2／百萬 tokens · 輸出 $0.2／百萬 tokens",
+    "title": {
+      "zh-TW": "Mistral 7B Instruct",
+      "zh-CN": "Mistral 7B Instruct",
+      "en": "Mistral 7B Instruct",
+      "ja": "Mistral 7B Instruct",
+      "ko": "Mistral 7B Instruct"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（Mistral AI）｜文本生成｜7B，高效長上下文",
+      "zh-CN": "AWS Bedrock（Mistral AI）｜文本生成｜7B，高效長上下文",
+      "en": "Mistral AI on AWS Bedrock — Text generation. 7B，高效長上下文",
+      "ja": "AWS Bedrock（Mistral AI）— Text generation. 7B，高效長上下文",
+      "ko": "AWS Bedrock(Mistral AI) — Text generation. 7B，高效長上下文"
+    },
+    "modalitiesLine": "文本生成",
+    "providerName": "Mistral AI",
+    "contextLength": 32000
+  },
+  {
+    "id": "br--ai21-labs--jamba-1-5-large",
+    "product": "bedrock",
+    "capability": "text",
+    "developer": "aws",
+    "badges": [],
+    "price": "輸入 $2／百萬 tokens · 輸出 $8／百萬 tokens",
+    "title": {
+      "zh-TW": "Jamba 1.5 Large",
+      "zh-CN": "Jamba 1.5 Large",
+      "en": "Jamba 1.5 Large",
+      "ja": "Jamba 1.5 Large",
+      "ko": "Jamba 1.5 Large"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（AI21 Labs）｜文本生成｜398B 混合 SSM-Transformer",
+      "zh-CN": "AWS Bedrock（AI21 Labs）｜文本生成｜398B 混合 SSM-Transformer",
+      "en": "AI21 Labs on AWS Bedrock — Text generation. 398B 混合 SSM-Transformer",
+      "ja": "AWS Bedrock（AI21 Labs）— Text generation. 398B 混合 SSM-Transformer",
+      "ko": "AWS Bedrock(AI21 Labs) — Text generation. 398B 混合 SSM-Transformer"
+    },
+    "modalitiesLine": "文本生成",
+    "providerName": "AI21 Labs",
+    "contextLength": 256000
+  },
+  {
+    "id": "br--ai21-labs--jamba-1-5-mini",
+    "product": "bedrock",
+    "capability": "text",
+    "developer": "aws",
+    "badges": [],
+    "price": "輸入 $0.2／百萬 tokens · 輸出 $0.4／百萬 tokens",
+    "title": {
+      "zh-TW": "Jamba 1.5 Mini",
+      "zh-CN": "Jamba 1.5 Mini",
+      "en": "Jamba 1.5 Mini",
+      "ja": "Jamba 1.5 Mini",
+      "ko": "Jamba 1.5 Mini"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（AI21 Labs）｜文本生成｜52B 混合 SSM-Transformer",
+      "zh-CN": "AWS Bedrock（AI21 Labs）｜文本生成｜52B 混合 SSM-Transformer",
+      "en": "AI21 Labs on AWS Bedrock — Text generation. 52B 混合 SSM-Transformer",
+      "ja": "AWS Bedrock（AI21 Labs）— Text generation. 52B 混合 SSM-Transformer",
+      "ko": "AWS Bedrock(AI21 Labs) — Text generation. 52B 混合 SSM-Transformer"
+    },
+    "modalitiesLine": "文本生成",
+    "providerName": "AI21 Labs",
+    "contextLength": 256000
+  },
+  {
+    "id": "br--cohere--embed-v4",
+    "product": "bedrock",
+    "capability": "text",
+    "developer": "aws",
+    "badges": [],
+    "price": "每百萬 tokens · 定價未公開",
+    "title": {
+      "zh-TW": "Embed v4",
+      "zh-CN": "Embed v4",
+      "en": "Embed v4",
+      "ja": "Embed v4",
+      "ko": "Embed v4"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（Cohere）｜嵌入｜統一多模態嵌入（文本/圖像/混合）",
+      "zh-CN": "AWS Bedrock（Cohere）｜嵌入｜統一多模態嵌入（文本/圖像/混合）",
+      "en": "Cohere on AWS Bedrock — Embeddings. 統一多模態嵌入（文本/圖像/混合）",
+      "ja": "AWS Bedrock（Cohere）— Embeddings. 統一多模態嵌入（文本/圖像/混合）",
+      "ko": "AWS Bedrock(Cohere) — Embeddings. 統一多模態嵌入（文本/圖像/混合）"
+    },
+    "modalitiesLine": "嵌入",
+    "providerName": "Cohere"
+  },
+  {
+    "id": "br--cohere--rerank-3-5",
+    "product": "bedrock",
+    "capability": "text",
+    "developer": "aws",
+    "badges": [],
+    "price": "每千次查詢 $2.00",
+    "title": {
+      "zh-TW": "Rerank 3.5",
+      "zh-CN": "Rerank 3.5",
+      "en": "Rerank 3.5",
+      "ja": "Rerank 3.5",
+      "ko": "Rerank 3.5"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（Cohere）｜重排｜相關性評分，搜索結果重排",
+      "zh-CN": "AWS Bedrock（Cohere）｜重排｜相關性評分，搜索結果重排",
+      "en": "Cohere on AWS Bedrock — Rerank. 相關性評分，搜索結果重排",
+      "ja": "AWS Bedrock（Cohere）— Rerank. 相關性評分，搜索結果重排",
+      "ko": "AWS Bedrock(Cohere) — Rerank. 相關性評分，搜索結果重排"
+    },
+    "modalitiesLine": "重排",
+    "providerName": "Cohere"
+  },
+  {
+    "id": "br--cohere--command-r",
+    "product": "bedrock",
+    "capability": "text",
+    "developer": "aws",
+    "badges": [],
+    "price": "輸入 $0.15／百萬 tokens · 輸出 $0.6／百萬 tokens",
+    "title": {
+      "zh-TW": "Command R",
+      "zh-CN": "Command R",
+      "en": "Command R",
+      "ja": "Command R",
+      "ko": "Command R"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（Cohere）｜文本生成｜可擴展 LLM，RAG+工具使用",
+      "zh-CN": "AWS Bedrock（Cohere）｜文本生成｜可擴展 LLM，RAG+工具使用",
+      "en": "Cohere on AWS Bedrock — Text generation. 可擴展 LLM，RAG+工具使用",
+      "ja": "AWS Bedrock（Cohere）— Text generation. 可擴展 LLM，RAG+工具使用",
+      "ko": "AWS Bedrock(Cohere) — Text generation. 可擴展 LLM，RAG+工具使用"
+    },
+    "modalitiesLine": "文本生成",
+    "providerName": "Cohere",
+    "contextLength": 128000
+  },
+  {
+    "id": "br--cohere--command-r-2",
+    "product": "bedrock",
+    "capability": "text",
+    "developer": "aws",
+    "badges": [],
+    "price": "輸入 $2.5／百萬 tokens · 輸出 $10／百萬 tokens",
+    "title": {
+      "zh-TW": "Command R+",
+      "zh-CN": "Command R+",
+      "en": "Command R+",
+      "ja": "Command R+",
+      "ko": "Command R+"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（Cohere）｜文本生成｜複雜 RAG 工作流，多步工具使用",
+      "zh-CN": "AWS Bedrock（Cohere）｜文本生成｜複雜 RAG 工作流，多步工具使用",
+      "en": "Cohere on AWS Bedrock — Text generation. 複雜 RAG 工作流，多步工具使用",
+      "ja": "AWS Bedrock（Cohere）— Text generation. 複雜 RAG 工作流，多步工具使用",
+      "ko": "AWS Bedrock(Cohere) — Text generation. 複雜 RAG 工作流，多步工具使用"
+    },
+    "modalitiesLine": "文本生成",
+    "providerName": "Cohere",
+    "contextLength": 128000
+  },
+  {
+    "id": "br--cohere--embed-english",
+    "product": "bedrock",
+    "capability": "text",
+    "developer": "aws",
+    "badges": [],
+    "price": "輸入 $0.1／百萬 tokens · 輸出：不適用",
+    "title": {
+      "zh-TW": "Embed English",
+      "zh-CN": "Embed English",
+      "en": "Embed English",
+      "ja": "Embed English",
+      "ko": "Embed English"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（Cohere）｜嵌入｜英文文本嵌入",
+      "zh-CN": "AWS Bedrock（Cohere）｜嵌入｜英文文本嵌入",
+      "en": "Cohere on AWS Bedrock — Embeddings. 英文文本嵌入",
+      "ja": "AWS Bedrock（Cohere）— Embeddings. 英文文本嵌入",
+      "ko": "AWS Bedrock(Cohere) — Embeddings. 英文文本嵌入"
+    },
+    "modalitiesLine": "嵌入",
+    "providerName": "Cohere"
+  },
+  {
+    "id": "br--cohere--embed-multilingual",
+    "product": "bedrock",
+    "capability": "text",
+    "developer": "aws",
+    "badges": [],
+    "price": "輸入 $0.1／百萬 tokens · 輸出：不適用",
+    "title": {
+      "zh-TW": "Embed Multilingual",
+      "zh-CN": "Embed Multilingual",
+      "en": "Embed Multilingual",
+      "ja": "Embed Multilingual",
+      "ko": "Embed Multilingual"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（Cohere）｜嵌入｜100+ 語言文本嵌入",
+      "zh-CN": "AWS Bedrock（Cohere）｜嵌入｜100+ 語言文本嵌入",
+      "en": "Cohere on AWS Bedrock — Embeddings. 100+ 語言文本嵌入",
+      "ja": "AWS Bedrock（Cohere）— Embeddings. 100+ 語言文本嵌入",
+      "ko": "AWS Bedrock(Cohere) — Embeddings. 100+ 語言文本嵌入"
+    },
+    "modalitiesLine": "嵌入",
+    "providerName": "Cohere"
+  },
+  {
+    "id": "br--deepseek--deepseek-v3-2",
+    "product": "bedrock",
+    "capability": "text",
+    "developer": "aws",
+    "badges": [],
+    "price": "輸入 $0.62／百萬 tokens · 輸出 $1.85／百萬 tokens · 美東",
+    "title": {
+      "zh-TW": "DeepSeek V3.2",
+      "zh-CN": "DeepSeek V3.2",
+      "en": "DeepSeek V3.2",
+      "ja": "DeepSeek V3.2",
+      "ko": "DeepSeek V3.2"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（DeepSeek）｜文本生成｜MoE，改進推理/編碼/指令遵循",
+      "zh-CN": "AWS Bedrock（DeepSeek）｜文本生成｜MoE，改進推理/編碼/指令遵循",
+      "en": "DeepSeek on AWS Bedrock — Text generation. MoE，改進推理/編碼/指令遵循",
+      "ja": "AWS Bedrock（DeepSeek）— Text generation. MoE，改進推理/編碼/指令遵循",
+      "ko": "AWS Bedrock(DeepSeek) — Text generation. MoE，改進推理/編碼/指令遵循"
+    },
+    "modalitiesLine": "文本生成",
+    "providerName": "DeepSeek",
+    "contextLength": 128000
+  },
+  {
+    "id": "br--deepseek--deepseek-v3-1",
+    "product": "bedrock",
+    "capability": "text",
+    "developer": "aws",
+    "badges": [],
+    "price": "輸入 $0.6／百萬 tokens · 輸出 $1.73／百萬 tokens · 雪梨",
+    "title": {
+      "zh-TW": "DeepSeek V3.1",
+      "zh-CN": "DeepSeek V3.1",
+      "en": "DeepSeek V3.1",
+      "ja": "DeepSeek V3.1",
+      "ko": "DeepSeek V3.1"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（DeepSeek）｜文本生成｜685B MoE，強編碼/數學/推理",
+      "zh-CN": "AWS Bedrock（DeepSeek）｜文本生成｜685B MoE，強編碼/數學/推理",
+      "en": "DeepSeek on AWS Bedrock — Text generation. 685B MoE，強編碼/數學/推理",
+      "ja": "AWS Bedrock（DeepSeek）— Text generation. 685B MoE，強編碼/數學/推理",
+      "ko": "AWS Bedrock(DeepSeek) — Text generation. 685B MoE，強編碼/數學/推理"
+    },
+    "modalitiesLine": "文本生成",
+    "providerName": "DeepSeek",
+    "contextLength": 128000
+  },
+  {
+    "id": "br--deepseek--deepseek-r1",
+    "product": "bedrock",
+    "capability": "text",
+    "developer": "aws",
+    "badges": [],
+    "price": "輸入 $1.35／百萬 tokens · 輸出 $5.4／百萬 tokens · 美東 · 推理加價",
+    "title": {
+      "zh-TW": "DeepSeek R1",
+      "zh-CN": "DeepSeek R1",
+      "en": "DeepSeek R1",
+      "ja": "DeepSeek R1",
+      "ko": "DeepSeek R1"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（DeepSeek）｜推理｜推理模型（CoT），複雜數學/編碼/邏輯",
+      "zh-CN": "AWS Bedrock（DeepSeek）｜推理｜推理模型（CoT），複雜數學/編碼/邏輯",
+      "en": "DeepSeek on AWS Bedrock — Inference. 推理模型（CoT），複雜數學/編碼/邏輯",
+      "ja": "AWS Bedrock（DeepSeek）— Inference. 推理模型（CoT），複雜數學/編碼/邏輯",
+      "ko": "AWS Bedrock(DeepSeek) — Inference. 推理模型（CoT），複雜數學/編碼/邏輯"
+    },
+    "modalitiesLine": "推理",
+    "providerName": "DeepSeek",
+    "contextLength": 128000
+  },
+  {
+    "id": "br--google--gemma-3-27b-pt",
+    "product": "bedrock",
+    "capability": "multimodal",
+    "developer": "aws",
+    "badges": [],
+    "price": "輸入 $0.23／百萬 tokens · 輸出 $0.38／百萬 tokens · 美東",
+    "title": {
+      "zh-TW": "Gemma 3 27B PT",
+      "zh-CN": "Gemma 3 27B PT",
+      "en": "Gemma 3 27B PT",
+      "ja": "Gemma 3 27B PT",
+      "ko": "Gemma 3 27B PT"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（Google）｜多模態｜27B 多模態開源",
+      "zh-CN": "AWS Bedrock（Google）｜多模態｜27B 多模態開源",
+      "en": "Google on AWS Bedrock — Multimodal. 27B 多模態開源",
+      "ja": "AWS Bedrock（Google）— Multimodal. 27B 多模態開源",
+      "ko": "AWS Bedrock(Google) — Multimodal. 27B 多模態開源"
+    },
+    "modalitiesLine": "多模態",
+    "providerName": "Google",
+    "contextLength": 128000
+  },
+  {
+    "id": "br--google--gemma-3-12b-it",
+    "product": "bedrock",
+    "capability": "multimodal",
+    "developer": "aws",
+    "badges": [],
+    "price": "輸入 $0.09／百萬 tokens · 輸出 $0.29／百萬 tokens",
+    "title": {
+      "zh-TW": "Gemma 3 12B IT",
+      "zh-CN": "Gemma 3 12B IT",
+      "en": "Gemma 3 12B IT",
+      "ja": "Gemma 3 12B IT",
+      "ko": "Gemma 3 12B IT"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（Google）｜多模態｜12B 指令調優，多模態",
+      "zh-CN": "AWS Bedrock（Google）｜多模態｜12B 指令調優，多模態",
+      "en": "Google on AWS Bedrock — Multimodal. 12B 指令調優，多模態",
+      "ja": "AWS Bedrock（Google）— Multimodal. 12B 指令調優，多模態",
+      "ko": "AWS Bedrock(Google) — Multimodal. 12B 指令調優，多模態"
+    },
+    "modalitiesLine": "多模態",
+    "providerName": "Google",
+    "contextLength": 128000
+  },
+  {
+    "id": "br--google--gemma-3-4b-it",
+    "product": "bedrock",
+    "capability": "text",
+    "developer": "aws",
+    "badges": [],
+    "price": "輸入 $0.04／百萬 tokens · 輸出 $0.08／百萬 tokens",
+    "title": {
+      "zh-TW": "Gemma 3 4B IT",
+      "zh-CN": "Gemma 3 4B IT",
+      "en": "Gemma 3 4B IT",
+      "ja": "Gemma 3 4B IT",
+      "ko": "Gemma 3 4B IT"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（Google）｜文本生成｜4B 緊湊，端側部署",
+      "zh-CN": "AWS Bedrock（Google）｜文本生成｜4B 緊湊，端側部署",
+      "en": "Google on AWS Bedrock — Text generation. 4B 緊湊，端側部署",
+      "ja": "AWS Bedrock（Google）— Text generation. 4B 緊湊，端側部署",
+      "ko": "AWS Bedrock(Google) — Text generation. 4B 緊湊，端側部署"
+    },
+    "modalitiesLine": "文本生成",
+    "providerName": "Google",
+    "contextLength": 128000
+  },
+  {
+    "id": "br--openai--gpt-oss-120b",
+    "product": "bedrock",
+    "capability": "text",
+    "developer": "aws",
+    "badges": [],
+    "price": "輸入 $0.15／百萬 tokens · 輸出 $0.62／百萬 tokens · 雪梨",
+    "title": {
+      "zh-TW": "gpt-oss-120b",
+      "zh-CN": "gpt-oss-120b",
+      "en": "gpt-oss-120b",
+      "ja": "gpt-oss-120b",
+      "ko": "gpt-oss-120b"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（OpenAI）｜文本生成｜120B 開源通用模型",
+      "zh-CN": "AWS Bedrock（OpenAI）｜文本生成｜120B 開源通用模型",
+      "en": "OpenAI on AWS Bedrock — Text generation. 120B 開源通用模型",
+      "ja": "AWS Bedrock（OpenAI）— Text generation. 120B 開源通用模型",
+      "ko": "AWS Bedrock(OpenAI) — Text generation. 120B 開源通用模型"
+    },
+    "modalitiesLine": "文本生成",
+    "providerName": "OpenAI",
+    "contextLength": 128000
+  },
+  {
+    "id": "br--openai--gpt-oss-20b",
+    "product": "bedrock",
+    "capability": "text",
+    "developer": "aws",
+    "badges": [],
+    "price": "輸入 $0.07／百萬 tokens · 輸出 $0.31／百萬 tokens · 雪梨",
+    "title": {
+      "zh-TW": "gpt-oss-20b",
+      "zh-CN": "gpt-oss-20b",
+      "en": "gpt-oss-20b",
+      "ja": "gpt-oss-20b",
+      "ko": "gpt-oss-20b"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（OpenAI）｜文本生成｜20B 開源，高效低成本",
+      "zh-CN": "AWS Bedrock（OpenAI）｜文本生成｜20B 開源，高效低成本",
+      "en": "OpenAI on AWS Bedrock — Text generation. 20B 開源，高效低成本",
+      "ja": "AWS Bedrock（OpenAI）— Text generation. 20B 開源，高效低成本",
+      "ko": "AWS Bedrock(OpenAI) — Text generation. 20B 開源，高效低成本"
+    },
+    "modalitiesLine": "文本生成",
+    "providerName": "OpenAI",
+    "contextLength": 128000
+  },
+  {
+    "id": "br--openai--gpt-oss-safeguard-120b",
+    "product": "bedrock",
+    "capability": "text",
+    "developer": "aws",
+    "badges": [],
+    "price": "輸入 $0.15／百萬 tokens · 輸出 $0.6／百萬 tokens · 美東",
+    "title": {
+      "zh-TW": "GPT OSS Safeguard 120b",
+      "zh-CN": "GPT OSS Safeguard 120b",
+      "en": "GPT OSS Safeguard 120b",
+      "ja": "GPT OSS Safeguard 120b",
+      "ko": "GPT OSS Safeguard 120b"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（OpenAI）｜安全護欄｜120B 內容審核/安全護欄",
+      "zh-CN": "AWS Bedrock（OpenAI）｜安全護欄｜120B 內容審核/安全護欄",
+      "en": "OpenAI on AWS Bedrock — Safety guardrails. 120B 內容審核/安全護欄",
+      "ja": "AWS Bedrock（OpenAI）— Safety guardrails. 120B 內容審核/安全護欄",
+      "ko": "AWS Bedrock(OpenAI) — Safety guardrails. 120B 內容審核/安全護欄"
+    },
+    "modalitiesLine": "安全護欄",
+    "providerName": "OpenAI",
+    "contextLength": 128000
+  },
+  {
+    "id": "br--openai--gpt-oss-safeguard-20b",
+    "product": "bedrock",
+    "capability": "text",
+    "developer": "aws",
+    "badges": [],
+    "price": "輸入 $0.07／百萬 tokens · 輸出 $0.2／百萬 tokens · 美東",
+    "title": {
+      "zh-TW": "GPT OSS Safeguard 20b",
+      "zh-CN": "GPT OSS Safeguard 20b",
+      "en": "GPT OSS Safeguard 20b",
+      "ja": "GPT OSS Safeguard 20b",
+      "ko": "GPT OSS Safeguard 20b"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（OpenAI）｜安全護欄｜20B 輕量安全護欄",
+      "zh-CN": "AWS Bedrock（OpenAI）｜安全護欄｜20B 輕量安全護欄",
+      "en": "OpenAI on AWS Bedrock — Safety guardrails. 20B 輕量安全護欄",
+      "ja": "AWS Bedrock（OpenAI）— Safety guardrails. 20B 輕量安全護欄",
+      "ko": "AWS Bedrock(OpenAI) — Safety guardrails. 20B 輕量安全護欄"
+    },
+    "modalitiesLine": "安全護欄",
+    "providerName": "OpenAI",
+    "contextLength": 128000
+  },
+  {
+    "id": "br--qwen--qwen3-coder-next",
+    "product": "bedrock",
+    "capability": "text",
+    "developer": "aws",
+    "badges": [],
+    "price": "輸入 $0.5／百萬 tokens · 輸出 $1.2／百萬 tokens · 美東",
+    "title": {
+      "zh-TW": "Qwen3 Coder Next",
+      "zh-CN": "Qwen3 Coder Next",
+      "en": "Qwen3 Coder Next",
+      "ja": "Qwen3 Coder Next",
+      "ko": "Qwen3 Coder Next"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（Qwen）｜編碼｜編碼專用，改進代碼生成/調試",
+      "zh-CN": "AWS Bedrock（Qwen）｜編碼｜編碼專用，改進代碼生成/調試",
+      "en": "Qwen on AWS Bedrock — Code. 編碼專用，改進代碼生成/調試",
+      "ja": "AWS Bedrock（Qwen）— Code. 編碼專用，改進代碼生成/調試",
+      "ko": "AWS Bedrock(Qwen) — Code. 編碼專用，改進代碼生成/調試"
+    },
+    "modalitiesLine": "編碼",
+    "providerName": "Qwen",
+    "contextLength": 128000
+  },
+  {
+    "id": "br--qwen--qwen3-vl-235b-a22b",
+    "product": "bedrock",
+    "capability": "multimodal",
+    "developer": "aws",
+    "badges": [],
+    "price": "輸入 $0.53／百萬 tokens · 輸出 $2.66／百萬 tokens",
+    "title": {
+      "zh-TW": "Qwen3 VL 235B A22B",
+      "zh-CN": "Qwen3 VL 235B A22B",
+      "en": "Qwen3 VL 235B A22B",
+      "ja": "Qwen3 VL 235B A22B",
+      "ko": "Qwen3 VL 235B A22B"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（Qwen）｜多模態｜235B 視覺-語言 MoE",
+      "zh-CN": "AWS Bedrock（Qwen）｜多模態｜235B 視覺-語言 MoE",
+      "en": "Qwen on AWS Bedrock — Multimodal. 235B 視覺-語言 MoE",
+      "ja": "AWS Bedrock（Qwen）— Multimodal. 235B 視覺-語言 MoE",
+      "ko": "AWS Bedrock(Qwen) — Multimodal. 235B 視覺-語言 MoE"
+    },
+    "modalitiesLine": "多模態",
+    "providerName": "Qwen",
+    "contextLength": 128000
+  },
+  {
+    "id": "br--qwen--qwen3-next-80b-a3b",
+    "product": "bedrock",
+    "capability": "text",
+    "developer": "aws",
+    "badges": [],
+    "price": "輸入 $0.15／百萬 tokens · 輸出 $1.2／百萬 tokens",
+    "title": {
+      "zh-TW": "Qwen3 Next 80B A3B",
+      "zh-CN": "Qwen3 Next 80B A3B",
+      "en": "Qwen3 Next 80B A3B",
+      "ja": "Qwen3 Next 80B A3B",
+      "ko": "Qwen3 Next 80B A3B"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（Qwen）｜文本生成｜80B/3B 活躍 MoE，高效低成本",
+      "zh-CN": "AWS Bedrock（Qwen）｜文本生成｜80B/3B 活躍 MoE，高效低成本",
+      "en": "Qwen on AWS Bedrock — Text generation. 80B/3B 活躍 MoE，高效低成本",
+      "ja": "AWS Bedrock（Qwen）— Text generation. 80B/3B 活躍 MoE，高效低成本",
+      "ko": "AWS Bedrock(Qwen) — Text generation. 80B/3B 活躍 MoE，高效低成本"
+    },
+    "modalitiesLine": "文本生成",
+    "providerName": "Qwen",
+    "contextLength": 128000
+  },
+  {
+    "id": "br--qwen--qwen3-coder-30b-a3b",
+    "product": "bedrock",
+    "capability": "text",
+    "developer": "aws",
+    "badges": [],
+    "price": "輸入 $0.15／百萬 tokens · 輸出 $0.62／百萬 tokens · 雪梨",
+    "title": {
+      "zh-TW": "Qwen3 Coder 30B A3B",
+      "zh-CN": "Qwen3 Coder 30B A3B",
+      "en": "Qwen3 Coder 30B A3B",
+      "ja": "Qwen3 Coder 30B A3B",
+      "ko": "Qwen3 Coder 30B A3B"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（Qwen）｜編碼｜緊湊編碼 MoE",
+      "zh-CN": "AWS Bedrock（Qwen）｜編碼｜緊湊編碼 MoE",
+      "en": "Qwen on AWS Bedrock — Code. 緊湊編碼 MoE",
+      "ja": "AWS Bedrock（Qwen）— Code. 緊湊編碼 MoE",
+      "ko": "AWS Bedrock(Qwen) — Code. 緊湊編碼 MoE"
+    },
+    "modalitiesLine": "編碼",
+    "providerName": "Qwen",
+    "contextLength": 128000
+  },
+  {
+    "id": "br--qwen--qwen3-coder-480b-a35b",
+    "product": "bedrock",
+    "capability": "text",
+    "developer": "aws",
+    "badges": [],
+    "price": "輸入 $0.5／百萬 tokens · 輸出 $1.2／百萬 tokens",
+    "title": {
+      "zh-TW": "Qwen3 Coder 480B A35B",
+      "zh-CN": "Qwen3 Coder 480B A35B",
+      "en": "Qwen3 Coder 480B A35B",
+      "ja": "Qwen3 Coder 480B A35B",
+      "ko": "Qwen3 Coder 480B A35B"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（Qwen）｜編碼｜最大編碼 MoE（480B/35B 活躍）",
+      "zh-CN": "AWS Bedrock（Qwen）｜編碼｜最大編碼 MoE（480B/35B 活躍）",
+      "en": "Qwen on AWS Bedrock — Code. 最大編碼 MoE（480B/35B 活躍）",
+      "ja": "AWS Bedrock（Qwen）— Code. 最大編碼 MoE（480B/35B 活躍）",
+      "ko": "AWS Bedrock(Qwen) — Code. 最大編碼 MoE（480B/35B 活躍）"
+    },
+    "modalitiesLine": "編碼",
+    "providerName": "Qwen",
+    "contextLength": 128000
+  },
+  {
+    "id": "br--qwen--qwen3-32b",
+    "product": "bedrock",
+    "capability": "text",
+    "developer": "aws",
+    "badges": [],
+    "price": "輸入 $0.15／百萬 tokens · 輸出 $0.62／百萬 tokens · 雪梨",
+    "title": {
+      "zh-TW": "Qwen3 32B",
+      "zh-CN": "Qwen3 32B",
+      "en": "Qwen3 32B",
+      "ja": "Qwen3 32B",
+      "ko": "Qwen3 32B"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（Qwen）｜文本生成｜32B 密集，混合思考模式",
+      "zh-CN": "AWS Bedrock（Qwen）｜文本生成｜32B 密集，混合思考模式",
+      "en": "Qwen on AWS Bedrock — Text generation. 32B 密集，混合思考模式",
+      "ja": "AWS Bedrock（Qwen）— Text generation. 32B 密集，混合思考模式",
+      "ko": "AWS Bedrock(Qwen) — Text generation. 32B 密集，混合思考模式"
+    },
+    "modalitiesLine": "文本生成",
+    "providerName": "Qwen",
+    "contextLength": 128000
+  },
+  {
+    "id": "br--qwen--qwen3-235b-a22b-2507",
+    "product": "bedrock",
+    "capability": "text",
+    "developer": "aws",
+    "badges": [],
+    "price": "輸入 $0.23／百萬 tokens · 輸出 $0.91／百萬 tokens · 雪梨",
+    "title": {
+      "zh-TW": "Qwen3 235B A22B 2507",
+      "zh-CN": "Qwen3 235B A22B 2507",
+      "en": "Qwen3 235B A22B 2507",
+      "ja": "Qwen3 235B A22B 2507",
+      "ko": "Qwen3 235B A22B 2507"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（Qwen）｜文本生成｜235B/22B MoE",
+      "zh-CN": "AWS Bedrock（Qwen）｜文本生成｜235B/22B MoE",
+      "en": "Qwen on AWS Bedrock — Text generation. 235B/22B MoE",
+      "ja": "AWS Bedrock（Qwen）— Text generation. 235B/22B MoE",
+      "ko": "AWS Bedrock(Qwen) — Text generation. 235B/22B MoE"
+    },
+    "modalitiesLine": "文本生成",
+    "providerName": "Qwen",
+    "contextLength": 128000
+  },
+  {
+    "id": "br--stability-ai--stable-image-remove-background",
+    "product": "bedrock",
+    "capability": "image",
+    "developer": "aws",
+    "badges": [],
+    "price": "每張 $0.07",
+    "title": {
+      "zh-TW": "Stable Image Remove Background",
+      "zh-CN": "Stable Image Remove Background",
+      "en": "Stable Image Remove Background",
+      "ja": "Stable Image Remove Background",
+      "ko": "Stable Image Remove Background"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（Stability AI）｜圖像編輯｜移除背景",
+      "zh-CN": "AWS Bedrock（Stability AI）｜圖像編輯｜移除背景",
+      "en": "Stability AI on AWS Bedrock — Image editing. 移除背景",
+      "ja": "AWS Bedrock（Stability AI）— Image editing. 移除背景",
+      "ko": "AWS Bedrock(Stability AI) — Image editing. 移除背景"
+    },
+    "modalitiesLine": "圖像編輯",
+    "providerName": "Stability AI"
+  },
+  {
+    "id": "br--stability-ai--stable-image-search-and-replace",
+    "product": "bedrock",
+    "capability": "image",
+    "developer": "aws",
+    "badges": [],
+    "price": "每張 $0.07",
+    "title": {
+      "zh-TW": "Stable Image Search and Replace",
+      "zh-CN": "Stable Image Search and Replace",
+      "en": "Stable Image Search and Replace",
+      "ja": "Stable Image Search and Replace",
+      "ko": "Stable Image Search and Replace"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（Stability AI）｜圖像編輯｜物件搜尋替換",
+      "zh-CN": "AWS Bedrock（Stability AI）｜圖像編輯｜物件搜尋替換",
+      "en": "Stability AI on AWS Bedrock — Image editing. 物件搜尋替換",
+      "ja": "AWS Bedrock（Stability AI）— Image editing. 物件搜尋替換",
+      "ko": "AWS Bedrock(Stability AI) — Image editing. 物件搜尋替換"
+    },
+    "modalitiesLine": "圖像編輯",
+    "providerName": "Stability AI"
+  },
+  {
+    "id": "br--stability-ai--stable-image-style-guide",
+    "product": "bedrock",
+    "capability": "image",
+    "developer": "aws",
+    "badges": [],
+    "price": "每張 $0.07",
+    "title": {
+      "zh-TW": "Stable Image Style Guide",
+      "zh-CN": "Stable Image Style Guide",
+      "en": "Stable Image Style Guide",
+      "ja": "Stable Image Style Guide",
+      "ko": "Stable Image Style Guide"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（Stability AI）｜圖像生成｜參考風格生成",
+      "zh-CN": "AWS Bedrock（Stability AI）｜圖像生成｜參考風格生成",
+      "en": "Stability AI on AWS Bedrock — Image generation. 參考風格生成",
+      "ja": "AWS Bedrock（Stability AI）— Image generation. 參考風格生成",
+      "ko": "AWS Bedrock(Stability AI) — Image generation. 參考風格生成"
+    },
+    "modalitiesLine": "圖像生成",
+    "providerName": "Stability AI"
+  },
+  {
+    "id": "br--stability-ai--stable-image-style-transfer",
+    "product": "bedrock",
+    "capability": "image",
+    "developer": "aws",
+    "badges": [],
+    "price": "每張 $0.08",
+    "title": {
+      "zh-TW": "Stable Image Style Transfer",
+      "zh-CN": "Stable Image Style Transfer",
+      "en": "Stable Image Style Transfer",
+      "ja": "Stable Image Style Transfer",
+      "ko": "Stable Image Style Transfer"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（Stability AI）｜圖像編輯｜風格遷移",
+      "zh-CN": "AWS Bedrock（Stability AI）｜圖像編輯｜風格遷移",
+      "en": "Stability AI on AWS Bedrock — Image editing. 風格遷移",
+      "ja": "AWS Bedrock（Stability AI）— Image editing. 風格遷移",
+      "ko": "AWS Bedrock(Stability AI) — Image editing. 風格遷移"
+    },
+    "modalitiesLine": "圖像編輯",
+    "providerName": "Stability AI"
+  },
+  {
+    "id": "br--stability-ai--stable-image-fast-upscale",
+    "product": "bedrock",
+    "capability": "image",
+    "developer": "aws",
+    "badges": [],
+    "price": "每張 $0.03",
+    "title": {
+      "zh-TW": "Stable Image Fast Upscale",
+      "zh-CN": "Stable Image Fast Upscale",
+      "en": "Stable Image Fast Upscale",
+      "ja": "Stable Image Fast Upscale",
+      "ko": "Stable Image Fast Upscale"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（Stability AI）｜圖像編輯｜快速超解析度",
+      "zh-CN": "AWS Bedrock（Stability AI）｜圖像編輯｜快速超解析度",
+      "en": "Stability AI on AWS Bedrock — Image editing. 快速超解析度",
+      "ja": "AWS Bedrock（Stability AI）— Image editing. 快速超解析度",
+      "ko": "AWS Bedrock(Stability AI) — Image editing. 快速超解析度"
+    },
+    "modalitiesLine": "圖像編輯",
+    "providerName": "Stability AI"
+  },
+  {
+    "id": "br--stability-ai--stable-image-search-and-recolor",
+    "product": "bedrock",
+    "capability": "image",
+    "developer": "aws",
+    "badges": [],
+    "price": "每張 $0.07",
+    "title": {
+      "zh-TW": "Stable Image Search and Recolor",
+      "zh-CN": "Stable Image Search and Recolor",
+      "en": "Stable Image Search and Recolor",
+      "ja": "Stable Image Search and Recolor",
+      "ko": "Stable Image Search and Recolor"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（Stability AI）｜圖像編輯｜物件重新上色",
+      "zh-CN": "AWS Bedrock（Stability AI）｜圖像編輯｜物件重新上色",
+      "en": "Stability AI on AWS Bedrock — Image editing. 物件重新上色",
+      "ja": "AWS Bedrock（Stability AI）— Image editing. 物件重新上色",
+      "ko": "AWS Bedrock(Stability AI) — Image editing. 物件重新上色"
+    },
+    "modalitiesLine": "圖像編輯",
+    "providerName": "Stability AI"
+  },
+  {
+    "id": "br--stability-ai--stable-image-conservative-upscale",
+    "product": "bedrock",
+    "capability": "image",
+    "developer": "aws",
+    "badges": [],
+    "price": "每張 $0.40",
+    "title": {
+      "zh-TW": "Stable Image Conservative Upscale",
+      "zh-CN": "Stable Image Conservative Upscale",
+      "en": "Stable Image Conservative Upscale",
+      "ja": "Stable Image Conservative Upscale",
+      "ko": "Stable Image Conservative Upscale"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（Stability AI）｜圖像編輯｜保守超解析度",
+      "zh-CN": "AWS Bedrock（Stability AI）｜圖像編輯｜保守超解析度",
+      "en": "Stability AI on AWS Bedrock — Image editing. 保守超解析度",
+      "ja": "AWS Bedrock（Stability AI）— Image editing. 保守超解析度",
+      "ko": "AWS Bedrock(Stability AI) — Image editing. 保守超解析度"
+    },
+    "modalitiesLine": "圖像編輯",
+    "providerName": "Stability AI"
+  },
+  {
+    "id": "br--stability-ai--stable-image-erase-object",
+    "product": "bedrock",
+    "capability": "image",
+    "developer": "aws",
+    "badges": [],
+    "price": "每張 $0.07",
+    "title": {
+      "zh-TW": "Stable Image Erase Object",
+      "zh-CN": "Stable Image Erase Object",
+      "en": "Stable Image Erase Object",
+      "ja": "Stable Image Erase Object",
+      "ko": "Stable Image Erase Object"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（Stability AI）｜圖像編輯｜擦除物件",
+      "zh-CN": "AWS Bedrock（Stability AI）｜圖像編輯｜擦除物件",
+      "en": "Stability AI on AWS Bedrock — Image editing. 擦除物件",
+      "ja": "AWS Bedrock（Stability AI）— Image editing. 擦除物件",
+      "ko": "AWS Bedrock(Stability AI) — Image editing. 擦除物件"
+    },
+    "modalitiesLine": "圖像編輯",
+    "providerName": "Stability AI"
+  },
+  {
+    "id": "br--stability-ai--stable-image-control-structure",
+    "product": "bedrock",
+    "capability": "image",
+    "developer": "aws",
+    "badges": [],
+    "price": "每張 $0.07",
+    "title": {
+      "zh-TW": "Stable Image Control Structure",
+      "zh-CN": "Stable Image Control Structure",
+      "en": "Stable Image Control Structure",
+      "ja": "Stable Image Control Structure",
+      "ko": "Stable Image Control Structure"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（Stability AI）｜圖像生成｜結構引導生成",
+      "zh-CN": "AWS Bedrock（Stability AI）｜圖像生成｜結構引導生成",
+      "en": "Stability AI on AWS Bedrock — Image generation. 結構引導生成",
+      "ja": "AWS Bedrock（Stability AI）— Image generation. 結構引導生成",
+      "ko": "AWS Bedrock(Stability AI) — Image generation. 結構引導生成"
+    },
+    "modalitiesLine": "圖像生成",
+    "providerName": "Stability AI"
+  },
+  {
+    "id": "br--stability-ai--stable-image-creative-upscale",
+    "product": "bedrock",
+    "capability": "image",
+    "developer": "aws",
+    "badges": [],
+    "price": "每張 $0.60",
+    "title": {
+      "zh-TW": "Stable Image Creative Upscale",
+      "zh-CN": "Stable Image Creative Upscale",
+      "en": "Stable Image Creative Upscale",
+      "ja": "Stable Image Creative Upscale",
+      "ko": "Stable Image Creative Upscale"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（Stability AI）｜圖像編輯｜創意超解析度",
+      "zh-CN": "AWS Bedrock（Stability AI）｜圖像編輯｜創意超解析度",
+      "en": "Stability AI on AWS Bedrock — Image editing. 創意超解析度",
+      "ja": "AWS Bedrock（Stability AI）— Image editing. 創意超解析度",
+      "ko": "AWS Bedrock(Stability AI) — Image editing. 創意超解析度"
+    },
+    "modalitiesLine": "圖像編輯",
+    "providerName": "Stability AI"
+  },
+  {
+    "id": "br--stability-ai--stable-image-control-sketch",
+    "product": "bedrock",
+    "capability": "image",
+    "developer": "aws",
+    "badges": [],
+    "price": "每張 $0.07",
+    "title": {
+      "zh-TW": "Stable Image Control Sketch",
+      "zh-CN": "Stable Image Control Sketch",
+      "en": "Stable Image Control Sketch",
+      "ja": "Stable Image Control Sketch",
+      "ko": "Stable Image Control Sketch"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（Stability AI）｜圖像生成｜草圖引導生成",
+      "zh-CN": "AWS Bedrock（Stability AI）｜圖像生成｜草圖引導生成",
+      "en": "Stability AI on AWS Bedrock — Image generation. 草圖引導生成",
+      "ja": "AWS Bedrock（Stability AI）— Image generation. 草圖引導生成",
+      "ko": "AWS Bedrock(Stability AI) — Image generation. 草圖引導生成"
+    },
+    "modalitiesLine": "圖像生成",
+    "providerName": "Stability AI"
+  },
+  {
+    "id": "br--stability-ai--stable-image-outpaint",
+    "product": "bedrock",
+    "capability": "image",
+    "developer": "aws",
+    "badges": [],
+    "price": "每張 $0.06",
+    "title": {
+      "zh-TW": "Stable Image Outpaint",
+      "zh-CN": "Stable Image Outpaint",
+      "en": "Stable Image Outpaint",
+      "ja": "Stable Image Outpaint",
+      "ko": "Stable Image Outpaint"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（Stability AI）｜圖像編輯｜圖像外擴",
+      "zh-CN": "AWS Bedrock（Stability AI）｜圖像編輯｜圖像外擴",
+      "en": "Stability AI on AWS Bedrock — Image editing. 圖像外擴",
+      "ja": "AWS Bedrock（Stability AI）— Image editing. 圖像外擴",
+      "ko": "AWS Bedrock(Stability AI) — Image editing. 圖像外擴"
+    },
+    "modalitiesLine": "圖像編輯",
+    "providerName": "Stability AI"
+  },
+  {
+    "id": "br--stability-ai--stable-image-inpaint",
+    "product": "bedrock",
+    "capability": "image",
+    "developer": "aws",
+    "badges": [],
+    "price": "每張 $0.07",
+    "title": {
+      "zh-TW": "Stable Image Inpaint",
+      "zh-CN": "Stable Image Inpaint",
+      "en": "Stable Image Inpaint",
+      "ja": "Stable Image Inpaint",
+      "ko": "Stable Image Inpaint"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（Stability AI）｜圖像編輯｜圖像修補",
+      "zh-CN": "AWS Bedrock（Stability AI）｜圖像編輯｜圖像修補",
+      "en": "Stability AI on AWS Bedrock — Image editing. 圖像修補",
+      "ja": "AWS Bedrock（Stability AI）— Image editing. 圖像修補",
+      "ko": "AWS Bedrock(Stability AI) — Image editing. 圖像修補"
+    },
+    "modalitiesLine": "圖像編輯",
+    "providerName": "Stability AI"
+  },
+  {
+    "id": "br--nvidia--nemotron-nano-9b-v2",
+    "product": "bedrock",
+    "capability": "text",
+    "developer": "aws",
+    "badges": [],
+    "price": "輸入 $0.06／百萬 tokens · 輸出 $0.23／百萬 tokens · 美東",
+    "title": {
+      "zh-TW": "Nemotron Nano 9B v2",
+      "zh-CN": "Nemotron Nano 9B v2",
+      "en": "Nemotron Nano 9B v2",
+      "ja": "Nemotron Nano 9B v2",
+      "ko": "Nemotron Nano 9B v2"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（NVIDIA）｜文本生成｜9B 文本生成/推理/編碼",
+      "zh-CN": "AWS Bedrock（NVIDIA）｜文本生成｜9B 文本生成/推理/編碼",
+      "en": "NVIDIA on AWS Bedrock — Text generation. 9B 文本生成/推理/編碼",
+      "ja": "AWS Bedrock（NVIDIA）— Text generation. 9B 文本生成/推理/編碼",
+      "ko": "AWS Bedrock(NVIDIA) — Text generation. 9B 文本生成/推理/編碼"
+    },
+    "modalitiesLine": "文本生成",
+    "providerName": "NVIDIA",
+    "contextLength": 128000
+  },
+  {
+    "id": "br--nvidia--nemotron-nano-12b-v2-vl",
+    "product": "bedrock",
+    "capability": "multimodal",
+    "developer": "aws",
+    "badges": [],
+    "price": "輸入 $0.2／百萬 tokens · 輸出 $0.6／百萬 tokens",
+    "title": {
+      "zh-TW": "Nemotron Nano 12B v2 VL",
+      "zh-CN": "Nemotron Nano 12B v2 VL",
+      "en": "Nemotron Nano 12B v2 VL",
+      "ja": "Nemotron Nano 12B v2 VL",
+      "ko": "Nemotron Nano 12B v2 VL"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（NVIDIA）｜多模態｜12B 視覺-語言多模態",
+      "zh-CN": "AWS Bedrock（NVIDIA）｜多模態｜12B 視覺-語言多模態",
+      "en": "NVIDIA on AWS Bedrock — Multimodal. 12B 視覺-語言多模態",
+      "ja": "AWS Bedrock（NVIDIA）— Multimodal. 12B 視覺-語言多模態",
+      "ko": "AWS Bedrock(NVIDIA) — Multimodal. 12B 視覺-語言多模態"
+    },
+    "modalitiesLine": "多模態",
+    "providerName": "NVIDIA",
+    "contextLength": 128000
+  },
+  {
+    "id": "br--nvidia--nemotron-nano-3-30b",
+    "product": "bedrock",
+    "capability": "text",
+    "developer": "aws",
+    "badges": [],
+    "price": "輸入 $0.06／百萬 tokens · 輸出 $0.24／百萬 tokens",
+    "title": {
+      "zh-TW": "Nemotron Nano 3 30B",
+      "zh-CN": "Nemotron Nano 3 30B",
+      "en": "Nemotron Nano 3 30B",
+      "ja": "Nemotron Nano 3 30B",
+      "ko": "Nemotron Nano 3 30B"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（NVIDIA）｜文本生成｜30B 強推理編碼",
+      "zh-CN": "AWS Bedrock（NVIDIA）｜文本生成｜30B 強推理編碼",
+      "en": "NVIDIA on AWS Bedrock — Text generation. 30B 強推理編碼",
+      "ja": "AWS Bedrock（NVIDIA）— Text generation. 30B 強推理編碼",
+      "ko": "AWS Bedrock(NVIDIA) — Text generation. 30B 強推理編碼"
+    },
+    "modalitiesLine": "文本生成",
+    "providerName": "NVIDIA",
+    "contextLength": 128000
+  },
+  {
+    "id": "br--nvidia--nemotron-3-super-120b",
+    "product": "bedrock",
+    "capability": "text",
+    "developer": "aws",
+    "badges": [],
+    "price": "輸入 $0.15／百萬 tokens · 輸出 $0.65／百萬 tokens",
+    "title": {
+      "zh-TW": "Nemotron 3 Super 120B",
+      "zh-CN": "Nemotron 3 Super 120B",
+      "en": "Nemotron 3 Super 120B",
+      "ja": "Nemotron 3 Super 120B",
+      "ko": "Nemotron 3 Super 120B"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（NVIDIA）｜文本生成｜120B/12B 活躍 MoE",
+      "zh-CN": "AWS Bedrock（NVIDIA）｜文本生成｜120B/12B 活躍 MoE",
+      "en": "NVIDIA on AWS Bedrock — Text generation. 120B/12B 活躍 MoE",
+      "ja": "AWS Bedrock（NVIDIA）— Text generation. 120B/12B 活躍 MoE",
+      "ko": "AWS Bedrock(NVIDIA) — Text generation. 120B/12B 活躍 MoE"
+    },
+    "modalitiesLine": "文本生成",
+    "providerName": "NVIDIA",
+    "contextLength": 1000000
+  },
+  {
+    "id": "br--minimax--minimax-m2",
+    "product": "bedrock",
+    "capability": "text",
+    "developer": "aws",
+    "badges": [],
+    "price": "輸入 $0.3／百萬 tokens · 輸出 $1.2／百萬 tokens · 美東",
+    "title": {
+      "zh-TW": "MiniMax M2",
+      "zh-CN": "MiniMax M2",
+      "en": "MiniMax M2",
+      "ja": "MiniMax M2",
+      "ko": "MiniMax M2"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（MiniMax）｜文本生成｜多語言，推理編碼基準表現好",
+      "zh-CN": "AWS Bedrock（MiniMax）｜文本生成｜多語言，推理編碼基準表現好",
+      "en": "MiniMax on AWS Bedrock — Text generation. 多語言，推理編碼基準表現好",
+      "ja": "AWS Bedrock（MiniMax）— Text generation. 多語言，推理編碼基準表現好",
+      "ko": "AWS Bedrock(MiniMax) — Text generation. 多語言，推理編碼基準表現好"
+    },
+    "modalitiesLine": "文本生成",
+    "providerName": "MiniMax",
+    "contextLength": 128000
+  },
+  {
+    "id": "br--minimax--minimax-m2-1",
+    "product": "bedrock",
+    "capability": "text",
+    "developer": "aws",
+    "badges": [],
+    "price": "輸入 $0.3／百萬 tokens · 輸出 $1.2／百萬 tokens",
+    "title": {
+      "zh-TW": "MiniMax M2.1",
+      "zh-CN": "MiniMax M2.1",
+      "en": "MiniMax M2.1",
+      "ja": "MiniMax M2.1",
+      "ko": "MiniMax M2.1"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（MiniMax）｜文本生成｜M2 升級版",
+      "zh-CN": "AWS Bedrock（MiniMax）｜文本生成｜M2 升級版",
+      "en": "MiniMax on AWS Bedrock — Text generation. M2 升級版",
+      "ja": "AWS Bedrock（MiniMax）— Text generation. M2 升級版",
+      "ko": "AWS Bedrock(MiniMax) — Text generation. M2 升級版"
+    },
+    "modalitiesLine": "文本生成",
+    "providerName": "MiniMax",
+    "contextLength": 128000
+  },
+  {
+    "id": "br--minimax--minimax-m2-5",
+    "product": "bedrock",
+    "capability": "text",
+    "developer": "aws",
+    "badges": [],
+    "price": "輸入 $0.3／百萬 tokens · 輸出 $1.2／百萬 tokens",
+    "title": {
+      "zh-TW": "MiniMax M2.5",
+      "zh-CN": "MiniMax M2.5",
+      "en": "MiniMax M2.5",
+      "ja": "MiniMax M2.5",
+      "ko": "MiniMax M2.5"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（MiniMax）｜文本生成｜Agent 原生前沿模型",
+      "zh-CN": "AWS Bedrock（MiniMax）｜文本生成｜Agent 原生前沿模型",
+      "en": "MiniMax on AWS Bedrock — Text generation. Agent 原生前沿模型",
+      "ja": "AWS Bedrock（MiniMax）— Text generation. Agent 原生前沿模型",
+      "ko": "AWS Bedrock(MiniMax) — Text generation. Agent 原生前沿模型"
+    },
+    "modalitiesLine": "文本生成",
+    "providerName": "MiniMax",
+    "contextLength": 128000
+  },
+  {
+    "id": "br--writer--palmyra-vision-7b",
+    "product": "bedrock",
+    "capability": "multimodal",
+    "developer": "aws",
+    "badges": [],
+    "price": "輸入 $0.15／百萬 tokens · 輸出 $0.6／百萬 tokens",
+    "title": {
+      "zh-TW": "Palmyra Vision 7B",
+      "zh-CN": "Palmyra Vision 7B",
+      "en": "Palmyra Vision 7B",
+      "ja": "Palmyra Vision 7B",
+      "ko": "Palmyra Vision 7B"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（Writer）｜多模態｜7B 多模態，圖像理解/手寫識別/圖表",
+      "zh-CN": "AWS Bedrock（Writer）｜多模態｜7B 多模態，圖像理解/手寫識別/圖表",
+      "en": "Writer on AWS Bedrock — Multimodal. 7B 多模態，圖像理解/手寫識別/圖表",
+      "ja": "AWS Bedrock（Writer）— Multimodal. 7B 多模態，圖像理解/手寫識別/圖表",
+      "ko": "AWS Bedrock(Writer) — Multimodal. 7B 多模態，圖像理解/手寫識別/圖表"
+    },
+    "modalitiesLine": "多模態",
+    "providerName": "Writer",
+    "contextLength": 128000
+  },
+  {
+    "id": "br--writer--palmyra-x5",
+    "product": "bedrock",
+    "capability": "text",
+    "developer": "aws",
+    "badges": [],
+    "price": "輸入 $0.6／百萬 tokens · 輸出 $6／百萬 tokens",
+    "title": {
+      "zh-TW": "Palmyra X5",
+      "zh-CN": "Palmyra X5",
+      "en": "Palmyra X5",
+      "ja": "Palmyra X5",
+      "ko": "Palmyra X5"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（Writer）｜文本生成｜企業級，推理/編碼/Agent",
+      "zh-CN": "AWS Bedrock（Writer）｜文本生成｜企業級，推理/編碼/Agent",
+      "en": "Writer on AWS Bedrock — Text generation. 企業級，推理/編碼/Agent",
+      "ja": "AWS Bedrock（Writer）— Text generation. 企業級，推理/編碼/Agent",
+      "ko": "AWS Bedrock(Writer) — Text generation. 企業級，推理/編碼/Agent"
+    },
+    "modalitiesLine": "文本生成",
+    "providerName": "Writer",
+    "contextLength": 128000
+  },
+  {
+    "id": "br--writer--palmyra-x4",
+    "product": "bedrock",
+    "capability": "text",
+    "developer": "aws",
+    "badges": [],
+    "price": "輸入 $2.5／百萬 tokens · 輸出 $10／百萬 tokens",
+    "title": {
+      "zh-TW": "Palmyra X4",
+      "zh-CN": "Palmyra X4",
+      "en": "Palmyra X4",
+      "ja": "Palmyra X4",
+      "ko": "Palmyra X4"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（Writer）｜文本生成｜企業 LLM，商業寫作/知識工作",
+      "zh-CN": "AWS Bedrock（Writer）｜文本生成｜企業 LLM，商業寫作/知識工作",
+      "en": "Writer on AWS Bedrock — Text generation. 企業 LLM，商業寫作/知識工作",
+      "ja": "AWS Bedrock（Writer）— Text generation. 企業 LLM，商業寫作/知識工作",
+      "ko": "AWS Bedrock(Writer) — Text generation. 企業 LLM，商業寫作/知識工作"
+    },
+    "modalitiesLine": "文本生成",
+    "providerName": "Writer",
+    "contextLength": 128000
+  },
+  {
+    "id": "br--twelvelabs--marengo-embed-3-0",
+    "product": "bedrock",
+    "capability": "video",
+    "developer": "aws",
+    "badges": [],
+    "price": "每分鐘影片 · 依影片時長計費",
+    "title": {
+      "zh-TW": "Marengo Embed 3.0",
+      "zh-CN": "Marengo Embed 3.0",
+      "en": "Marengo Embed 3.0",
+      "ja": "Marengo Embed 3.0",
+      "ko": "Marengo Embed 3.0"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（TwelveLabs）｜視頻嵌入｜視頻嵌入向量，搜索/檢索",
+      "zh-CN": "AWS Bedrock（TwelveLabs）｜視頻嵌入｜視頻嵌入向量，搜索/檢索",
+      "en": "TwelveLabs on AWS Bedrock — Video embeddings. 視頻嵌入向量，搜索/檢索",
+      "ja": "AWS Bedrock（TwelveLabs）— Video embeddings. 視頻嵌入向量，搜索/檢索",
+      "ko": "AWS Bedrock(TwelveLabs) — Video embeddings. 視頻嵌入向量，搜索/檢索"
+    },
+    "modalitiesLine": "視頻嵌入",
+    "providerName": "TwelveLabs"
+  },
+  {
+    "id": "br--twelvelabs--pegasus-v1-2",
+    "product": "bedrock",
+    "capability": "video",
+    "developer": "aws",
+    "badges": [],
+    "price": "每分鐘影片 · 依影片時長計費",
+    "title": {
+      "zh-TW": "Pegasus v1.2",
+      "zh-CN": "Pegasus v1.2",
+      "en": "Pegasus v1.2",
+      "ja": "Pegasus v1.2",
+      "ko": "Pegasus v1.2"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（TwelveLabs）｜視頻理解｜視頻轉文本，描述/摘要/問答",
+      "zh-CN": "AWS Bedrock（TwelveLabs）｜視頻理解｜視頻轉文本，描述/摘要/問答",
+      "en": "TwelveLabs on AWS Bedrock — Video understanding. 視頻轉文本，描述/摘要/問答",
+      "ja": "AWS Bedrock（TwelveLabs）— Video understanding. 視頻轉文本，描述/摘要/問答",
+      "ko": "AWS Bedrock(TwelveLabs) — Video understanding. 視頻轉文本，描述/摘要/問答"
+    },
+    "modalitiesLine": "視頻理解",
+    "providerName": "TwelveLabs"
+  },
+  {
+    "id": "br--twelvelabs--marengo-embed-v2-7",
+    "product": "bedrock",
+    "capability": "video",
+    "developer": "aws",
+    "badges": [],
+    "price": "每分鐘影片 · 依影片時長計費",
+    "title": {
+      "zh-TW": "Marengo Embed v2.7",
+      "zh-CN": "Marengo Embed v2.7",
+      "en": "Marengo Embed v2.7",
+      "ja": "Marengo Embed v2.7",
+      "ko": "Marengo Embed v2.7"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（TwelveLabs）｜視頻嵌入｜多模態視頻理解/搜索/分類",
+      "zh-CN": "AWS Bedrock（TwelveLabs）｜視頻嵌入｜多模態視頻理解/搜索/分類",
+      "en": "TwelveLabs on AWS Bedrock — Video embeddings. 多模態視頻理解/搜索/分類",
+      "ja": "AWS Bedrock（TwelveLabs）— Video embeddings. 多模態視頻理解/搜索/分類",
+      "ko": "AWS Bedrock(TwelveLabs) — Video embeddings. 多模態視頻理解/搜索/分類"
+    },
+    "modalitiesLine": "視頻嵌入",
+    "providerName": "TwelveLabs"
+  },
+  {
+    "id": "br--moonshot-ai--kimi-k2-5",
+    "product": "bedrock",
+    "capability": "multimodal",
+    "developer": "aws",
+    "badges": [],
+    "price": "輸入 $0.6／百萬 tokens · 輸出 $3／百萬 tokens · 美東",
+    "title": {
+      "zh-TW": "Kimi K2.5",
+      "zh-CN": "Kimi K2.5",
+      "en": "Kimi K2.5",
+      "ja": "Kimi K2.5",
+      "ko": "Kimi K2.5"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（Moonshot AI）｜多模態｜多模態，改進推理/編碼/多語言",
+      "zh-CN": "AWS Bedrock（Moonshot AI）｜多模態｜多模態，改進推理/編碼/多語言",
+      "en": "Moonshot AI on AWS Bedrock — Multimodal. 多模態，改進推理/編碼/多語言",
+      "ja": "AWS Bedrock（Moonshot AI）— Multimodal. 多模態，改進推理/編碼/多語言",
+      "ko": "AWS Bedrock(Moonshot AI) — Multimodal. 多模態，改進推理/編碼/多語言"
+    },
+    "modalitiesLine": "多模態",
+    "providerName": "Moonshot AI",
+    "contextLength": 128000
+  },
+  {
+    "id": "br--moonshot-ai--kimi-k2-thinking",
+    "product": "bedrock",
+    "capability": "text",
+    "developer": "aws",
+    "badges": [],
+    "price": "輸入 $0.6／百萬 tokens · 輸出 $2.5／百萬 tokens",
+    "title": {
+      "zh-TW": "Kimi K2 Thinking",
+      "zh-CN": "Kimi K2 Thinking",
+      "en": "Kimi K2 Thinking",
+      "ja": "Kimi K2 Thinking",
+      "ko": "Kimi K2 Thinking"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（Moonshot AI）｜推理｜推理模型（CoT），數學/編碼/邏輯",
+      "zh-CN": "AWS Bedrock（Moonshot AI）｜推理｜推理模型（CoT），數學/編碼/邏輯",
+      "en": "Moonshot AI on AWS Bedrock — Inference. 推理模型（CoT），數學/編碼/邏輯",
+      "ja": "AWS Bedrock（Moonshot AI）— Inference. 推理模型（CoT），數學/編碼/邏輯",
+      "ko": "AWS Bedrock(Moonshot AI) — Inference. 推理模型（CoT），數學/編碼/邏輯"
+    },
+    "modalitiesLine": "推理",
+    "providerName": "Moonshot AI",
+    "contextLength": 128000
+  },
+  {
+    "id": "br--z-ai--glm-4-7",
+    "product": "bedrock",
+    "capability": "text",
+    "developer": "aws",
+    "badges": [],
+    "price": "輸入 $0.6／百萬 tokens · 輸出 $2.2／百萬 tokens · 美東",
+    "title": {
+      "zh-TW": "GLM 4.7",
+      "zh-CN": "GLM 4.7",
+      "en": "GLM 4.7",
+      "ja": "GLM 4.7",
+      "ko": "GLM 4.7"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（Z.AI）｜文本生成｜多語言，強推理/編碼/知識",
+      "zh-CN": "AWS Bedrock（Z.AI）｜文本生成｜多語言，強推理/編碼/知識",
+      "en": "Z.AI on AWS Bedrock — Text generation. 多語言，強推理/編碼/知識",
+      "ja": "AWS Bedrock（Z.AI）— Text generation. 多語言，強推理/編碼/知識",
+      "ko": "AWS Bedrock(Z.AI) — Text generation. 多語言，強推理/編碼/知識"
+    },
+    "modalitiesLine": "文本生成",
+    "providerName": "Z.AI",
+    "contextLength": 128000
+  },
+  {
+    "id": "br--z-ai--glm-4-7-flash",
+    "product": "bedrock",
+    "capability": "text",
+    "developer": "aws",
+    "badges": [],
+    "price": "輸入 $0.07／百萬 tokens · 輸出 $0.4／百萬 tokens",
+    "title": {
+      "zh-TW": "GLM 4.7 Flash",
+      "zh-CN": "GLM 4.7 Flash",
+      "en": "GLM 4.7 Flash",
+      "ja": "GLM 4.7 Flash",
+      "ko": "GLM 4.7 Flash"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（Z.AI）｜文本生成｜輕量快速推理",
+      "zh-CN": "AWS Bedrock（Z.AI）｜文本生成｜輕量快速推理",
+      "en": "Z.AI on AWS Bedrock — Text generation. 輕量快速推理",
+      "ja": "AWS Bedrock（Z.AI）— Text generation. 輕量快速推理",
+      "ko": "AWS Bedrock(Z.AI) — Text generation. 輕量快速推理"
+    },
+    "modalitiesLine": "文本生成",
+    "providerName": "Z.AI",
+    "contextLength": 128000
+  },
+  {
+    "id": "br--z-ai--glm-5",
+    "product": "bedrock",
+    "capability": "text",
+    "developer": "aws",
+    "badges": [],
+    "price": "輸入 $1／百萬 tokens · 輸出 $3.2／百萬 tokens",
+    "title": {
+      "zh-TW": "GLM 5",
+      "zh-CN": "GLM 5",
+      "en": "GLM 5",
+      "ja": "GLM 5",
+      "ko": "GLM 5"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（Z.AI）｜文本生成｜744B/40B 活躍 MoE，系統工程/Agent",
+      "zh-CN": "AWS Bedrock（Z.AI）｜文本生成｜744B/40B 活躍 MoE，系統工程/Agent",
+      "en": "Z.AI on AWS Bedrock — Text generation. 744B/40B 活躍 MoE，系統工程/Agent",
+      "ja": "AWS Bedrock（Z.AI）— Text generation. 744B/40B 活躍 MoE，系統工程/Agent",
+      "ko": "AWS Bedrock(Z.AI) — Text generation. 744B/40B 活躍 MoE，系統工程/Agent"
+    },
+    "modalitiesLine": "文本生成",
+    "providerName": "Z.AI",
+    "contextLength": 128000
+  }
+]

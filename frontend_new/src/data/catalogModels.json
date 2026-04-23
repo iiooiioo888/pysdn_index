@@ -1,0 +1,222 @@
+[
+  {
+    "id": "seedance-2",
+    "product": "seedance",
+    "capability": "video",
+    "developer": "bytedance",
+    "badges": ["new"],
+    "price": "",
+    "title": {
+      "zh-TW": "Seedance 2.0",
+      "zh-CN": "Seedance 2.0",
+      "en": "Seedance 2.0",
+      "ja": "Seedance 2.0",
+      "ko": "Seedance 2.0"
+    },
+    "desc": {
+      "zh-TW": "導演級多模態影片生成：支援文生影片、圖生影片與原生音畫同步、參考控制與編輯友善流程。",
+      "zh-CN": "导演级多模态视频生成：支持文生视频、图生视频与原生音画同步、参考控制与编辑友好流程。",
+      "en": "Director-grade multimodal video: text-to-video and image-to-video, native A/V sync, reference control, and editing-friendly workflows.",
+      "ja": "監督品質のマルチモーダル動画：テキスト／画像からの生成、ネイティブ音画同期、参照制御、編集向けワークフロー。",
+      "ko": "감독급 멀티모달 영상: 텍스트·이미지 기반 생성, 네이티브 음영 동기, 참조 제어, 편집 친화 워크플로."
+    }
+  },
+  {
+    "id": "seedream-5-lite",
+    "product": "seedream",
+    "capability": "image",
+    "developer": "bytedance",
+    "badges": ["new"],
+    "price": "",
+    "title": {
+      "zh-TW": "Seedream 5.0 Lite",
+      "zh-CN": "Seedream 5.0 Lite",
+      "en": "Seedream 5.0 Lite",
+      "ja": "Seedream 5.0 Lite",
+      "ko": "Seedream 5.0 Lite"
+    },
+    "desc": {
+      "zh-TW": "高理解力圖像生成：強調版面落位、指令遵循、深度推理與即時檢索增強的創作體驗。",
+      "zh-CN": "高理解力图像生成：强调版面落位、指令遵循、深度推理与实时检索增强的创作体验。",
+      "en": "High-reasoning image generation: layout placement, instruction following, deep reasoning, and retrieval-enhanced creativity.",
+      "ja": "高い理解力の画像生成：レイアウト配置、指示追従、深い推論、検索強化による創作。",
+      "ko": "고이해 이미지 생성: 레이아웃 배치, 지시 따르기, 심층 추론, 검색 강화 창작."
+    }
+  },
+  {
+    "id": "qwen-wan-t2v",
+    "product": "qwencloud",
+    "capability": "video",
+    "developer": "qwencloud",
+    "badges": ["hot"],
+    "price": "",
+    "title": {
+      "zh-TW": "Wan2.6-T2V",
+      "zh-CN": "Wan2.6-T2V",
+      "en": "Wan2.6-T2V",
+      "ja": "Wan2.6-T2V",
+      "ko": "Wan2.6-T2V"
+    },
+    "desc": {
+      "zh-TW": "Wan2.6 文生影片：多鏡頭敘事與主體／場景一致性，最長約 15 秒級短片，強調指令遵循與畫面細節。",
+      "zh-CN": "Wan2.6 文生视频：多镜头叙事与主体／场景一致性，最长约 15 秒级短片，强调指令遵循与画面细节。",
+      "en": "Wan2.6 text-to-video: multi-shot storytelling with subject and scene consistency, up to ~15s clips, strong instruction following.",
+      "ja": "Wan2.6 テキスト動画：マルチショットの一貫性と最大約15秒級、指示追従とディテールに強み。",
+      "ko": "Wan2.6 T2V: 멀티샷 서사·피사체·장면 일관성, 최대 약 15초 클립, 지시 따르기·디테일."
+    }
+  },
+  {
+    "id": "qwen-3-6-plus",
+    "product": "qwencloud",
+    "capability": "multimodal",
+    "developer": "qwencloud",
+    "badges": ["hot"],
+    "price": "",
+    "title": {
+      "zh-TW": "Qwen3.6-Plus",
+      "zh-CN": "Qwen3.6-Plus",
+      "en": "Qwen3.6-Plus",
+      "ja": "Qwen3.6-Plus",
+      "ko": "Qwen3.6-Plus"
+    },
+    "desc": {
+      "zh-TW": "原生視覺語言 Plus 系列：長上下文、強推理與 Agentic 編程／前端實作能力，並強化 OCR、物件辨識與定位等多模態理解。",
+      "zh-CN": "原生视觉语言 Plus 系列：长上下文、强推理与智能体编程／前端能力，并强化 OCR、物体识别与定位等多模态理解。",
+      "en": "Native vision-language Plus: long context, strong reasoning, agentic coding and front-end tasks, plus OCR, recognition, and grounding.",
+      "ja": "ネイティブVLM Plus：長いコンテキスト、推論、エージェント的コーディング／フロント対応に加え、OCRや物体認識・位置付けを強化。",
+      "ko": "네이티브 VLM Plus: 긴 컨텍스트·추론·에이전트형 코딩·프런트 작업과 OCR·인식·그라운딩 강화."
+    }
+  },
+  {
+    "id": "qwen-3-5-open",
+    "product": "qwencloud",
+    "capability": "text",
+    "developer": "qwencloud",
+    "badges": ["new"],
+    "price": "",
+    "title": {
+      "zh-TW": "Qwen3.5-Open-Source",
+      "zh-CN": "Qwen3.5-Open-Source",
+      "en": "Qwen3.5-Open-Source",
+      "ja": "Qwen3.5-Open-Source",
+      "ko": "Qwen3.5-Open-Source"
+    },
+    "desc": {
+      "zh-TW": "開源視覺語言系列：混合架構結合線性注意力與稀疏 MoE，在維持多模態能力的同時提升推論效率。",
+      "zh-CN": "开源视觉语言系列：混合架构结合线性注意力与稀疏 MoE，在保持多模态能力的同时提升推理效率。",
+      "en": "Open vision-language weights: hybrid linear attention and sparse MoE for efficient multimodal inference.",
+      "ja": "オープンウェイトVLM：線形アテンションとスパースMoEのハイブリッドで、マルチモーダル推論の効率を向上。",
+      "ko": "오픈소스 VLM: 선형 어텐션·희소 MoE 하이브리드로 멀티모달 추론 효율 향상."
+    }
+  },
+  {
+    "id": "qwen-cosyvoice",
+    "product": "qwencloud",
+    "capability": "audio",
+    "developer": "qwencloud",
+    "badges": ["new"],
+    "price": "",
+    "title": {
+      "zh-TW": "CosyVoice v3 Plus",
+      "zh-CN": "CosyVoice v3 Plus",
+      "en": "CosyVoice v3 Plus",
+      "ja": "CosyVoice v3 Plus",
+      "ko": "CosyVoice v3 Plus"
+    },
+    "desc": {
+      "zh-TW": "通義實驗室語音克隆／合成：約 5–20 秒參考音即可快速生成相近音色，支援即時與串流 TTS。",
+      "zh-CN": "通义实验室语音克隆／合成：约 5–20 秒参考音频即可快速生成相近音色，支持实时与流式 TTS。",
+      "en": "Tongyi Lab voice cloning and TTS: 5–20s reference audio for similar timbre; realtime and streaming synthesis.",
+      "ja": "通義の音声クローン／TTS。5〜20秒の参照音声で音色に近い合成、リアルタイム・ストリーミング対応。",
+      "ko": "통의 음성 클론·TTS. 5~20초 참조 오디오로 유사 음색, 실시간·스트리밍 합성."
+    }
+  },
+  {
+    "id": "qwen-3-omni-flash",
+    "product": "qwencloud",
+    "capability": "multimodal",
+    "developer": "qwencloud",
+    "badges": ["hot"],
+    "price": "",
+    "title": {
+      "zh-TW": "Qwen3-Omni-Flash",
+      "zh-CN": "Qwen3-Omni-Flash",
+      "en": "Qwen3-Omni-Flash",
+      "ja": "Qwen3-Omni-Flash",
+      "ko": "Qwen3-Omni-Flash"
+    },
+    "desc": {
+      "zh-TW": "Thinker–Talker 混合專家架構的全模態模型：高效理解文字、圖像、音訊與影片，並支援多語言文本與語音互動。",
+      "zh-CN": "Thinker–Talker 混合专家架构的全模态模型：高效理解文本、图像、音频与视频，并支持多语文本与语音交互。",
+      "en": "Thinker–Talker MoE omni model: efficient text, image, audio, and video understanding with multilingual chat and speech.",
+      "ja": "Thinker–Talker MoE オムニ：テキスト・画像・音声・動画の理解と多言語テキスト／音声対話に対応。",
+      "ko": "Thinker–Talker MoE 옴니: 텍스트·이미지·오디오·비디오 이해와 다국어 텍스트·음성 상호작용."
+    }
+  },
+  {
+    "id": "qwen-3-5-plus",
+    "product": "qwencloud",
+    "capability": "text",
+    "developer": "qwencloud",
+    "badges": ["hot"],
+    "price": "",
+    "title": {
+      "zh-TW": "Qwen3.5-Plus",
+      "zh-CN": "Qwen3.5-Plus",
+      "en": "Qwen3.5-Plus",
+      "ja": "Qwen3.5-Plus",
+      "ko": "Qwen3.5-Plus"
+    },
+    "desc": {
+      "zh-TW": "進階語言推理：面向企業與 Agent 工作流調校，適合長鏈推理、工具編排與複雜指令遵循。",
+      "zh-CN": "进阶语言推理：面向企业与智能体工作流调校，适合长链推理、工具编排与复杂指令遵循。",
+      "en": "Advanced language reasoning tuned for enterprise and agent workflows: long chains, tool orchestration, complex instructions.",
+      "ja": "高度な言語推論：エンタープライズとエージェント向け。長い推論連鎖、ツール連携、複雑な指示追従。",
+      "ko": "고급 언어 추론: 엔터프라이즈·에이전트 워크플로용. 긴 추론, 도구 오케스트레이션, 복잡한 지시."
+    }
+  },
+  {
+    "id": "qwen-wan-image-edit",
+    "product": "qwencloud",
+    "capability": "image",
+    "developer": "qwencloud",
+    "badges": ["new"],
+    "price": "",
+    "title": {
+      "zh-TW": "Wan 圖像編輯",
+      "zh-CN": "Wan 图像编辑",
+      "en": "Wan Image Edit",
+      "ja": "Wan 画像編集",
+      "ko": "Wan 이미지 편집"
+    },
+    "desc": {
+      "zh-TW": "Wan2.7 級圖像：文生圖、圖生連圖、圖像編輯、多圖參考生成與互動式編輯；強化文字渲染與主體一致性。",
+      "zh-CN": "Wan2.7 级图像：文生图、图生连图、图像编辑、多图参考生成与交互式编辑；强化文字渲染与主体一致性。",
+      "en": "Wan2.7-class image: T2I, image-to-sequence, editing, multi-reference and interactive edits; stronger text rendering and subject consistency.",
+      "ja": "Wan2.7 系画像：T2I、連続画像、編集、マルチ参照、インタラクティブ編集。テキスト描画と被写体一貫性。",
+      "ko": "Wan2.7급 이미지: T2I, 연속 이미지, 편집, 다중 참조, 대화형 편집. 텍스트 렌더링·피사체 일관성."
+    }
+  },
+  {
+    "id": "qwen-image-2",
+    "product": "qwencloud",
+    "capability": "image",
+    "developer": "qwencloud",
+    "badges": ["new"],
+    "price": "",
+    "title": {
+      "zh-TW": "Qwen-Image-2.0",
+      "zh-CN": "Qwen-Image-2.0",
+      "en": "Qwen-Image-2.0",
+      "ja": "Qwen-Image-2.0",
+      "ko": "Qwen-Image-2.0"
+    },
+    "desc": {
+      "zh-TW": "高保真圖像生成與編輯引擎，適合產品視覺、行銷素材與媒體製作管線。",
+      "zh-CN": "高保真图像生成与编辑引擎，适合产品视觉、营销素材与媒体制作管线。",
+      "en": "High-fidelity image generation and editing for product visuals, marketing assets, and media pipelines.",
+      "ja": "高忠実度の画像生成・編集。プロダクトビジュアル、マーケ素材、メディア制作向け。",
+      "ko": "고충실도 이미지 생성·편집. 제품 비주얼, 마케팅 에셋, 미디어 파이프라인."
+    }
+  }
+]
