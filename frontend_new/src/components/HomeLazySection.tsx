@@ -2,6 +2,9 @@ import { Suspense, type CSSProperties, type ReactNode } from 'react'
 import { prefersReducedMotion } from '../lib/motionPreference'
 import { useInView } from '../hooks/useAnimations'
 
+/** 與 useInView 共用 IO bucket 的穩定選項（避免每 render 新物件） */
+const HOME_LAZY_IO: IntersectionObserverInit = { rootMargin: '180px 0px 100px 0px', threshold: 0 }
+
 type HomeLazySectionProps = {
   children: ReactNode
   /** 進入視窗前佔位高度，減少版面跳動（px） */
@@ -14,7 +17,7 @@ type HomeLazySectionProps = {
  */
 export function HomeLazySection({ children, minHeight = 280 }: HomeLazySectionProps) {
   const reduceMotion = prefersReducedMotion()
-  const { ref, inView } = useInView({ rootMargin: '180px 0px 100px 0px', threshold: 0 })
+  const { ref, inView } = useInView(HOME_LAZY_IO)
   const show = reduceMotion || inView
   const skelStyle = { '--home-lazy-min': `${minHeight}px` } as CSSProperties
 

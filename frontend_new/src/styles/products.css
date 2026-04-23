@@ -381,6 +381,13 @@
 .mockup-dots span:last-child { background: rgba(34,197,94,0.5); }
 .mockup-body { padding: 24px; }
 
+/* 捲離 products 區後暫停閃電裝飾動畫 */
+.products--fx-rest .lightning-bolt,
+.products--fx-rest .lightning-orb,
+.products--fx-rest .lightning-pulse {
+  animation-play-state: paused;
+}
+
 /* Lightning Stage */
 .lightning-stage {
   position: absolute;
@@ -401,7 +408,7 @@
   position: absolute;
   border-radius: 50%;
   filter: blur(50px);
-  animation: orbFloat 8s ease-in-out infinite;
+  animation: none;
 }
 .lightning-orb--a {
   width: var(--lt-orb-a-size, 200px);
@@ -416,15 +423,14 @@
   background: var(--lt-b, rgba(139,92,246,0.08));
   bottom: var(--lt-orb-b-bottom, -30px);
   right: var(--lt-orb-b-right, -20px);
-  animation-duration: 9s;
 }
 .lightning-bolt {
   position: absolute;
   height: var(--bolt-line-height);
   background: var(--bolt-gradient);
   border-radius: var(--bolt-border-radius);
-  opacity: 0;
-  animation: boltFlash var(--bolt-duration) var(--bolt-ease) infinite;
+  opacity: 0.38;
+  animation: none;
 }
 .lightning-bolt--1 {
   width: 120px;
@@ -456,7 +462,8 @@
   transform: translate(-50%, -50%);
   border-radius: 50%;
   background: radial-gradient(circle, rgba(6,182,212,0.06), transparent 70%);
-  animation: pulse 3s ease-in-out infinite;
+  animation: none;
+  opacity: 0.85;
 }
 
 /* Video Preview */
@@ -480,8 +487,8 @@
   color: #fff;
   font-weight: 700;
   letter-spacing: 0.02em;
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: var(--glass-backdrop-soft);
+  -webkit-backdrop-filter: var(--glass-backdrop-soft);
 }
 .video-preview-head {
   display: flex;
@@ -497,7 +504,8 @@
   width: 6px; height: 6px;
   border-radius: 50%;
   background: #ef4444;
-  animation: pulse 1.5s infinite;
+  animation: none;
+  opacity: 0.9;
 }
 .video-preview-screen {
   width: 100%;
@@ -548,7 +556,8 @@
   height: 100%;
   border-radius: 2px;
   background: linear-gradient(90deg, #06b6d4, #8b5cf6);
-  animation: progressPulse 2s ease-in-out infinite;
+  animation: none;
+  opacity: 0.95;
 }
 .progress-fill--78 { width: 78%; }
 .mockup-progress span {
@@ -628,7 +637,7 @@
   border-radius: 50%;
   background: #ef4444;
   box-shadow: 0 0 10px rgba(239, 68, 68, 0.85);
-  animation: pulse 1.8s ease-in-out infinite;
+  animation: none;
 }
 .drama-monitor-bezel .drama-main-screen {
   border-radius: 8px;
@@ -885,7 +894,7 @@ button.drama-episode-item {
   position: absolute;
   border-radius: 50%;
   filter: blur(30px);
-  animation: orbFloat 8s ease-in-out infinite;
+  animation: none;
 }
 .image-lightning-orb--a { width: 100px; height: 100px; top: -20px; left: -20px; }
 .image-lightning-orb--b {
@@ -893,15 +902,14 @@ button.drama-episode-item {
   height: 90px;
   bottom: -20px;
   right: -20px;
-  animation-delay: -4s;
 }
 .image-lightning-bolt {
   position: absolute;
   height: var(--bolt-line-height);
   background: var(--bolt-gradient);
   border-radius: var(--bolt-border-radius);
-  opacity: 0;
-  animation: boltFlash var(--bolt-duration) var(--bolt-ease) infinite;
+  opacity: 0.36;
+  animation: none;
 }
 .image-lightning-bolt--1 {
   width: 100px;
@@ -925,7 +933,8 @@ button.drama-episode-item {
   font-weight: 700;
   color: #fff;
   background: rgba(0,0,0,0.5);
-  backdrop-filter: blur(8px);
+  backdrop-filter: var(--glass-backdrop-soft);
+  -webkit-backdrop-filter: var(--glass-backdrop-soft);
   border-radius: 6px;
   margin-bottom: 4px;
 }

@@ -12,6 +12,7 @@
 - **Axios** - HTTP 請求庫
 - **React Router** - 單頁應用路由、程式碼分割（`React.lazy` + `Suspense`）
 - **Zustand** - 輕量全域狀態（API 基底 URL 等）
+- **Mermaid** - 文件頁圖表（`devDependencies`；`DocMermaid` 動態 `import`，正式 bundle 仍會打包）
 
 前端 **React 實作要點**（入口層次、`useDocBundle` 文件 i18n、StrictMode 與 ErrorBoundary、新增頁面流程）已寫在 [`frontend_new/DEVELOPER_HANDOFF.md`](frontend_new/DEVELOPER_HANDOFF.md) **§2.1**。
 
@@ -125,15 +126,21 @@ pysdn_index/
 
 確保後端服務運行在 `http://localhost:8000`，前端會通過代理自動轉發 API 請求。
 
-主要 API 端點：
-- `GET /api/health` - 健康檢查
-- `POST /api/generate/video` - 生成影片
-- `POST /api/generate/drama` - 創作短劇
-- `POST /api/generate/image` - 圖片生成
+主要 API 端點（與 `frontend_new/src/lib/api.ts` 一致）：
+- `GET /api/health` — 健康檢查
+- `POST /api/video/generate` — 生成影片
+- `GET /api/video/status/:taskId` — 影片任務狀態
+- `GET /api/video/list` — 影片列表（分頁）
+- `POST /api/drama/create` — 建立短劇
+- `GET /api/drama/list` — 短劇列表（分頁）
+- `POST /api/image/generate` — 圖片生成
+- `GET /api/image/list` — 圖片列表（分頁）
+- `POST /api/modules/supertune`、`/api/modules/supertrack`、`/api/modules/superforge` — 擴充模組
+- `POST /api/contact` — 聯絡表單
 
 ## 📝 注意事項
 
-- 確保 Node.js 版本 >= 18
+- 確保 Node.js 版本 **>= 20**（與 `frontend_new/package.json` 的 `engines`、`frontend_new/.nvmrc` 一致）
 - 首次運行需執行 `npm install`
 - 開發模式下熱重載自動生效
 - 生產構建會自動優化代碼和資源
@@ -184,7 +191,7 @@ pysdn_index/
 ## 🔧 開發指南
 
 ### 環境要求
-- Node.js 18+ 
+- Node.js **20+**
 - Python 3.9+
 - npm 或 pnpm
 
@@ -201,12 +208,14 @@ pysdn_index/
    npm run dev
    ```
 
-3. **配置 API 端點**
+3. **配置 API 基底 URL**
    
-   修改 `src/lib/api.ts` 中的 `API_BASE_URL`：
-   ```typescript
-   const API_BASE_URL = 'http://localhost:8000';
+   在 `frontend_new/` 建立或編輯 `.env`（或 `.env.local`）：
+   ```bash
+   VITE_API_URL=http://localhost:8000
    ```
+   
+   執行時也可透過 Zustand `useApiStore` 的 `setBaseUrl` 覆寫（見 `frontend_new/src/lib/store.ts`）。開發模式下若未設定，預設為 `http://localhost:8000`；並搭配 `vite.config.ts` 將 `/api` 代理到後端。
 
 4. **添加新組件**
    
@@ -285,7 +294,7 @@ gunicorn backend.main:app -w 4 -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:8
 
 創建 `Dockerfile`：
 ```dockerfile
-FROM node:18-alpine AS frontend-build
+FROM node:20-alpine AS frontend-build
 WORKDIR /app
 COPY frontend_new/package*.json ./
 RUN npm ci
@@ -353,7 +362,7 @@ python serve.py
 
 ### Q: 前端無法連接後端 API？
 
-A: 確保後端伺服器已啟動，並檢查 `src/lib/api.ts` 中的 `API_BASE_URL` 配置是否正確。
+A: 確保後端伺服器已啟動；檢查 `frontend_new/.env` 的 **`VITE_API_URL`**（或執行時 `useApiStore` 的 `baseUrl`）是否指向正確後端，以及開發代理是否與 `vite.config.ts` 一致。
 
 ### Q: 開發伺服器端口被佔用？
 

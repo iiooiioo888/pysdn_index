@@ -1,4 +1,5 @@
 import type { MouseEvent } from 'react'
+import { prefersReducedMotion } from '../lib/motionPreference'
 
 /** 捲到首頁區塊；成功則為 true（供重試邏輯使用）。 */
 export function scrollToElementByHash(hash: string): boolean {
@@ -6,7 +7,8 @@ export function scrollToElementByHash(hash: string): boolean {
   if (!id) return false
   const el = document.getElementById(id)
   if (!el) return false
-  el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  const behavior = prefersReducedMotion() ? ('auto' as const) : ('smooth' as const)
+  el.scrollIntoView({ behavior, block: 'start' })
   return true
 }
 

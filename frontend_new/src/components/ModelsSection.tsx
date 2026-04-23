@@ -511,7 +511,10 @@ export function ModelsSection() {
                       to={{ pathname: pathToModelDetail(m.id), search: langSearch }}
                     >
                       <div className="models-atlas-card-inner">
-                        <div className={`models-atlas-thumb ${thumbHueClassForModelId(m.id)}`}>
+                        <div
+                          className={`models-atlas-thumb ${thumbHueClassForModelId(m.id)}`}
+                          data-developer={m.developer}
+                        >
                           <span className="models-atlas-thumb-shine" aria-hidden="true" />
                           <ModelDeveloperIcon
                             developer={m.developer}

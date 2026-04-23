@@ -10,6 +10,16 @@
   --text-muted: #7d8fa3;
   --radius: 14px;
   --radius-lg: 22px;
+  /* 與 src/styles/visual-system.css 毛玻璃 token 對齊（此檔獨立載入時需自帶） */
+  --glass-blur-soft: 10px;
+  --glass-blur: 14px;
+  --glass-blur-strong: 20px;
+  --glass-sat-soft: 1.05;
+  --glass-sat: 1.1;
+  --glass-sat-strong: 1.15;
+  --glass-backdrop-soft: blur(var(--glass-blur-soft)) saturate(var(--glass-sat-soft));
+  --glass-backdrop: blur(var(--glass-blur)) saturate(var(--glass-sat));
+  --glass-backdrop-strong: blur(var(--glass-blur-strong)) saturate(var(--glass-sat-strong));
 }
 
 .doc-page {
@@ -86,8 +96,8 @@ html {
   right: 0;
   z-index: 100;
   background: rgba(6, 6, 10, 0.82);
-  backdrop-filter: blur(16px) saturate(1.2);
-  -webkit-backdrop-filter: blur(16px) saturate(1.2);
+  backdrop-filter: var(--glass-backdrop-strong);
+  -webkit-backdrop-filter: var(--glass-backdrop-strong);
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
 }

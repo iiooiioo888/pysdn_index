@@ -86,10 +86,15 @@ export function useRevealPageScan() {
     const t1 = window.setTimeout(scan, 120)
     const t2 = window.setTimeout(scan, 520)
     const root = document.getElementById('root')
+    let moRaf = 0
     const mo =
       root &&
       new MutationObserver(() => {
-        queueMicrotask(scan)
+        if (moRaf) return
+        moRaf = requestAnimationFrame(() => {
+          moRaf = 0
+          scan()
+        })
       })
     if (root && mo) {
       mo.observe(root, { childList: true, subtree: true })
@@ -97,14 +102,15 @@ export function useRevealPageScan() {
     return () => {
       window.clearTimeout(t1)
       window.clearTimeout(t2)
+      if (moRaf) cancelAnimationFrame(moRaf)
       mo?.disconnect()
     }
   }, [])
 }
 
 export function useTypingAnimation(tiersInput: TypingTierPhrase[][]) {
-  const [displayText, setDisplayText] = useState('');
-  const [emoji, setEmoji] = useState('');
+  const textRef = useRef<HTMLSpanElement>(null)
+  const emojiRef = useRef<HTMLSpanElement>(null)
   const stateRef = useRef({
     tierIndex: 0,
     wordIndex: 0,
@@ -112,7 +118,7 @@ export function useTypingAnimation(tiersInput: TypingTierPhrase[][]) {
     isDeleting: false,
     lastTick: 0,
     pausedUntil: 0,
-  });
+  })
 
   useEffect(() => {
     const tiers = normalizeTypingTiers(tiersInput)
@@ -125,13 +131,13 @@ export function useTypingAnimation(tiersInput: TypingTierPhrase[][]) {
       lastTick: 0,
       pausedUntil: 0,
     }
-    setDisplayText('')
-    setEmoji('')
+    if (textRef.current) textRef.current.textContent = ''
+    if (emojiRef.current) emojiRef.current.textContent = ''
 
     if (prefersReducedMotion()) {
       const item = tiers[0][0]
-      setDisplayText(item.text)
-      setEmoji(item.emoji ?? '')
+      if (textRef.current) textRef.current.textContent = item.text
+      if (emojiRef.current) emojiRef.current.textContent = item.emoji ?? ''
       return
     }
 
@@ -145,91 +151,105 @@ export function useTypingAnimation(tiersInput: TypingTierPhrase[][]) {
     s.lastTick = performance.now() + 900
 
     const tick = (now: number) => {
-      rafId = requestAnimationFrame(tick);
+      rafId = requestAnimationFrame(tick)
 
-      // paused period (after word completes or between words)
-      if (now < s.pausedUntil) return;
+      if (now < s.pausedUntil) return
 
-      const speed = s.isDeleting ? DELETE_SPEED : TYPE_SPEED;
-      if (now - s.lastTick < speed) return;
-      s.lastTick = now;
+      const speed = s.isDeleting ? DELETE_SPEED : TYPE_SPEED
+      if (now - s.lastTick < speed) return
+      s.lastTick = now
 
-      const tier = tiers[s.tierIndex % tiers.length];
-      const item = tier[s.wordIndex % tier.length];
-      const currentWord = item.text;
+      const tier = tiers[s.tierIndex % tiers.length]
+      const item = tier[s.wordIndex % tier.length]
+      const currentWord = item.text
+      const em = item.emoji ?? ''
 
       if (!s.isDeleting) {
-        s.charIndex++;
-        setDisplayText(currentWord.substring(0, s.charIndex));
-        setEmoji(item.emoji ?? '');
+        s.charIndex++
+        const slice = currentWord.substring(0, s.charIndex)
+        if (textRef.current) textRef.current.textContent = slice
+        if (emojiRef.current) emojiRef.current.textContent = em
         if (s.charIndex >= currentWord.length) {
-          s.pausedUntil = now + PAUSE_END;
-          s.isDeleting = true;
+          s.pausedUntil = now + PAUSE_END
+          s.isDeleting = true
         }
       } else {
-        s.charIndex--;
-        setDisplayText(currentWord.substring(0, s.charIndex));
+        s.charIndex--
+        const slice = currentWord.substring(0, s.charIndex)
+        if (textRef.current) textRef.current.textContent = slice
+        if (emojiRef.current) emojiRef.current.textContent = em
         if (s.charIndex <= 0) {
-          s.isDeleting = false;
-          s.wordIndex++;
+          s.isDeleting = false
+          s.wordIndex++
           if (s.wordIndex >= tier.length) {
-            s.wordIndex = 0;
-            s.tierIndex = (s.tierIndex + 1) % tiers.length;
+            s.wordIndex = 0
+            s.tierIndex = (s.tierIndex + 1) % tiers.length
           }
-          s.pausedUntil = now + PAUSE_BETWEEN;
+          s.pausedUntil = now + PAUSE_BETWEEN
         }
       }
-    };
+    }
 
     rafId = requestAnimationFrame(tick)
     return () => cancelAnimationFrame(rafId)
   }, [tiersInput])
 
-  return { displayText, emoji };
+  return { textRef, emojiRef }
 }
 
 export function useCountUp(target: number, trigger: boolean) {
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(0)
 
   useEffect(() => {
-    if (!trigger) return;
-    const duration = 1500;
-    const start = performance.now();
+    if (!trigger) return
+    if (prefersReducedMotion()) {
+      setCount(target)
+      return
+    }
+    const duration = 1500
+    const start = performance.now()
 
     const tick = (now: number) => {
-      const progress = Math.min((now - start) / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      setCount(Math.round(target * eased));
-      if (progress < 1) requestAnimationFrame(tick);
-    };
+      const progress = Math.min((now - start) / duration, 1)
+      const eased = 1 - Math.pow(1 - progress, 3)
+      setCount(Math.round(target * eased))
+      if (progress < 1) requestAnimationFrame(tick)
+    }
 
-    requestAnimationFrame(tick);
-  }, [trigger, target]);
+    requestAnimationFrame(tick)
+  }, [trigger, target])
 
-  return count;
+  return count
 }
 
 export function useInView(options?: IntersectionObserverInit) {
-  const [inView, setInView] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
+  const [inView, setInView] = useState(false)
+  const ref = useRef<HTMLDivElement>(null)
+  const optsRef = useRef(options)
+  optsRef.current = options
 
   useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
+    const el = ref.current
+    if (!el) return
+    if (typeof IntersectionObserver === 'undefined') {
+      setInView(true)
+      return
+    }
 
+    const merged: IntersectionObserverInit = { threshold: 0.1, ...optsRef.current }
     const obs = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setInView(true);
-          obs.disconnect();
+        if (entry?.isIntersecting) {
+          setInView(true)
+          obs.disconnect()
         }
       },
-      { threshold: 0.1, ...options }
-    );
+      merged,
+    )
 
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, []);
+    obs.observe(el)
+    return () => obs.disconnect()
+  }, [])
 
-  return { ref, inView };
+  return { ref, inView }
 }

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useLangQuery } from '../hooks/useLangQuery'
@@ -13,6 +13,8 @@ const MODULE_CHEATSHEET = [
 export function Products() {
   const { t } = useTranslation()
   const langSearch = useLangQuery()
+  const sectionRef = useRef<HTMLElement>(null)
+  const [fxInView, setFxInView] = useState(true)
   const [activeTab, setActiveTab] = useState('video')
   const [needsGesture, setNeedsGesture] = useState(false)
   /** 短劇分頁：主畫面監看目前播放的集數（EP1→EP3 連續輪播，可點選切換） */
@@ -40,6 +42,17 @@ export function Products() {
       dramasTotal: 2,
       imagesTotal: 15,
     })
+  }, [])
+
+  useEffect(() => {
+    const el = sectionRef.current
+    if (!el) return
+    const io = new IntersectionObserver(([e]) => setFxInView(e.isIntersecting), {
+      threshold: 0,
+      rootMargin: '48px 0px',
+    })
+    io.observe(el)
+    return () => io.disconnect()
   }, [])
 
   const tryPlayWithRetry = (v: HTMLVideoElement, retries = 4) => {
@@ -96,7 +109,11 @@ export function Products() {
   }, [activeTab])
 
   return (
-    <section id="products" className="section products">
+    <section
+      ref={sectionRef}
+      id="products"
+      className={`section products${fxInView ? '' : ' products--fx-rest'}`}
+    >
       <div className="container">
         <div className="products-intro reveal">
           <div className="products-intro-inner">

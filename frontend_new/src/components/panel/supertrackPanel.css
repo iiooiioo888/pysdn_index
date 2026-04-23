@@ -174,7 +174,8 @@
 }
 
 .st-panel__dot--pulse {
-  animation: st-panel-dot-pulse 1s ease-in-out infinite;
+  animation: none;
+  opacity: 0.9;
 }
 
 .st-panel__btn-ghost {

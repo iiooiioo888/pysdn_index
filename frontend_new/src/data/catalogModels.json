@@ -49,7 +49,7 @@
     "capability": "video",
     "developer": "qwencloud",
     "badges": ["hot"],
-    "price": "",
+    "price": "每影片秒 $0.10",
     "title": {
       "zh-TW": "Wan2.6-T2V",
       "zh-CN": "Wan2.6-T2V",
@@ -71,7 +71,7 @@
     "capability": "multimodal",
     "developer": "qwencloud",
     "badges": ["hot"],
-    "price": "",
+    "price": "輸入 $0.50／百萬 tokens · 輸出 $3.00／百萬 tokens（≤256K；256K–1M 階梯見官網）",
     "title": {
       "zh-TW": "Qwen3.6-Plus",
       "zh-CN": "Qwen3.6-Plus",
@@ -93,7 +93,7 @@
     "capability": "text",
     "developer": "qwencloud",
     "badges": ["new"],
-    "price": "",
+    "price": "依官網 Model Marketplace 即時費率（開源系列；與帳單一致）",
     "title": {
       "zh-TW": "Qwen3.5-Open-Source",
       "zh-CN": "Qwen3.5-Open-Source",
@@ -115,7 +115,7 @@
     "capability": "audio",
     "developer": "qwencloud",
     "badges": ["new"],
-    "price": "",
+    "price": "每 1 萬字 $0.26（TTS · cosyvoice-v3-plus）",
     "title": {
       "zh-TW": "CosyVoice v3 Plus",
       "zh-CN": "CosyVoice v3 Plus",
@@ -137,7 +137,7 @@
     "capability": "multimodal",
     "developer": "qwencloud",
     "badges": ["hot"],
-    "price": "",
+    "price": "輸入 $0.40／百萬 tokens · 輸出 $2.20／百萬 tokens（文字／圖像／影片；音訊模態另計）",
     "title": {
       "zh-TW": "Qwen3-Omni-Flash",
       "zh-CN": "Qwen3-Omni-Flash",
@@ -159,7 +159,7 @@
     "capability": "text",
     "developer": "qwencloud",
     "badges": ["hot"],
-    "price": "",
+    "price": "輸入 $0.40／百萬 tokens · 輸出 $2.40／百萬 tokens（≤256K；256K–1M 階梯見官網）",
     "title": {
       "zh-TW": "Qwen3.5-Plus",
       "zh-CN": "Qwen3.5-Plus",
@@ -181,7 +181,7 @@
     "capability": "image",
     "developer": "qwencloud",
     "badges": ["new"],
-    "price": "",
+    "price": "每張 $0.045（圖像編輯）",
     "title": {
       "zh-TW": "Wan 圖像編輯",
       "zh-CN": "Wan 图像编辑",
@@ -203,7 +203,7 @@
     "capability": "image",
     "developer": "qwencloud",
     "badges": ["new"],
-    "price": "",
+    "price": "每張 $0.035（qwen-image-2.0）",
     "title": {
       "zh-TW": "Qwen-Image-2.0",
       "zh-CN": "Qwen-Image-2.0",

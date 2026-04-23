@@ -8,18 +8,18 @@
   padding-top: var(--nav-safe-top);
   padding-left: var(--nav-safe-left);
   padding-right: var(--nav-safe-right);
-  transition: background 0.35s, backdrop-filter 0.35s, box-shadow 0.35s, border-color 0.35s;
+  transition: background 0.2s, backdrop-filter 0.2s, box-shadow 0.2s, border-color 0.2s;
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
   /* 未捲動時也保留可讀性（首頁 Hero 頂部） */
   background: linear-gradient(180deg, rgba(6, 6, 10, 0.78) 0%, rgba(6, 6, 10, 0.42) 65%, rgba(6, 6, 10, 0.12) 100%);
-  backdrop-filter: blur(12px) saturate(1.05);
-  -webkit-backdrop-filter: blur(12px) saturate(1.05);
+  backdrop-filter: var(--glass-backdrop);
+  -webkit-backdrop-filter: var(--glass-backdrop);
   box-shadow: 0 1px 0 rgba(255, 255, 255, 0.04);
 }
 .nav.scrolled {
   background: rgba(6, 6, 10, 0.88);
-  backdrop-filter: blur(18px) saturate(1.2);
-  -webkit-backdrop-filter: blur(18px) saturate(1.2);
+  backdrop-filter: var(--glass-backdrop-strong);
+  -webkit-backdrop-filter: var(--glass-backdrop-strong);
   border-bottom-color: rgba(255, 255, 255, 0.08);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.28);
 }
@@ -112,7 +112,7 @@
   height: 2px;
   background: var(--text);
   border-radius: 2px;
-  transition: transform 0.3s, opacity 0.3s;
+  transition: transform 0.2s, opacity 0.2s;
 }
 .nav-toggle.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
 .nav-toggle.open span:nth-child(2) { opacity: 0; }
@@ -143,7 +143,8 @@
   right: 0;
   min-width: 160px;
   background: rgba(12, 12, 22, 0.96);
-  backdrop-filter: blur(12px);
+  backdrop-filter: var(--glass-backdrop);
+  -webkit-backdrop-filter: var(--glass-backdrop);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 14px;
   padding: 6px;
@@ -183,7 +184,8 @@
   padding-right: var(--nav-safe-right);
   padding-bottom: max(24px, env(safe-area-inset-bottom, 0px));
   background: rgba(10,10,15,0.98);
-  backdrop-filter: blur(20px);
+  backdrop-filter: var(--glass-backdrop-strong);
+  -webkit-backdrop-filter: var(--glass-backdrop-strong);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -193,7 +195,7 @@
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transition: opacity 0.3s, visibility 0.3s;
+  transition: opacity 0.2s, visibility 0.2s;
 }
 .mobile-menu.open {
   opacity: 1;

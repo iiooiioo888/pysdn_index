@@ -11,18 +11,18 @@
   padding-top: var(--nav-safe-top);
   padding-left: var(--nav-safe-left);
   padding-right: var(--nav-safe-right);
-  transition: background 0.35s, backdrop-filter 0.35s, box-shadow 0.35s, border-color 0.35s;
+  transition: background 0.2s, backdrop-filter 0.2s, box-shadow 0.2s, border-color 0.2s;
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
   /* 未捲動時也保留可讀性（首頁 Hero 頂部） */
   background: linear-gradient(180deg, rgba(6, 6, 10, 0.78) 0%, rgba(6, 6, 10, 0.42) 65%, rgba(6, 6, 10, 0.12) 100%);
-  backdrop-filter: blur(12px) saturate(1.05);
-  -webkit-backdrop-filter: blur(12px) saturate(1.05);
+  backdrop-filter: var(--glass-backdrop);
+  -webkit-backdrop-filter: var(--glass-backdrop);
   box-shadow: 0 1px 0 rgba(255, 255, 255, 0.04);
 }
 .nav.scrolled {
   background: rgba(6, 6, 10, 0.88);
-  backdrop-filter: blur(18px) saturate(1.2);
-  -webkit-backdrop-filter: blur(18px) saturate(1.2);
+  backdrop-filter: var(--glass-backdrop-strong);
+  -webkit-backdrop-filter: var(--glass-backdrop-strong);
   border-bottom-color: rgba(255, 255, 255, 0.08);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.28);
 }
@@ -115,7 +115,7 @@
   height: 2px;
   background: var(--text);
   border-radius: 2px;
-  transition: transform 0.3s, opacity 0.3s;
+  transition: transform 0.2s, opacity 0.2s;
 }
 .nav-toggle.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
 .nav-toggle.open span:nth-child(2) { opacity: 0; }
@@ -146,7 +146,8 @@
   right: 0;
   min-width: 160px;
   background: rgba(12, 12, 22, 0.96);
-  backdrop-filter: blur(12px);
+  backdrop-filter: var(--glass-backdrop);
+  -webkit-backdrop-filter: var(--glass-backdrop);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 14px;
   padding: 6px;
@@ -186,7 +187,8 @@
   padding-right: var(--nav-safe-right);
   padding-bottom: max(24px, env(safe-area-inset-bottom, 0px));
   background: rgba(10,10,15,0.98);
-  backdrop-filter: blur(20px);
+  backdrop-filter: var(--glass-backdrop-strong);
+  -webkit-backdrop-filter: var(--glass-backdrop-strong);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -196,7 +198,7 @@
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transition: opacity 0.3s, visibility 0.3s;
+  transition: opacity 0.2s, visibility 0.2s;
 }
 .mobile-menu.open {
   opacity: 1;
@@ -255,6 +257,27 @@
 }
 
 /* ========== hero.css ========== */
+/* 供 .badge-dot、products lightning-pulse 等共用 */
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.45;
+  }
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
 /* ===== Hero Section ===== */
 .hero {
   position: relative;
@@ -306,7 +329,7 @@
   background: var(--bolt-gradient);
   border-radius: var(--bolt-border-radius);
   opacity: 0;
-  animation: boltFlash var(--bolt-duration) var(--bolt-ease) infinite;
+  animation: none;
 }
 .hero-intro-bolt--1 { top: 20%; left: 10%; animation-delay: 0s; }
 .hero-intro-bolt--2 { top: 60%; right: 5%; animation-delay: var(--bolt-delay-step); }
@@ -315,7 +338,7 @@
   position: absolute;
   border-radius: 50%;
   filter: blur(40px);
-  animation: orbFloat 8s ease-in-out infinite;
+  animation: none;
 }
 .hero-intro-orb--1 {
   width: 180px; height: 180px;
@@ -326,13 +349,19 @@
   width: 160px; height: 160px;
   background: rgba(139,92,246,0.08);
   bottom: -40px; right: -20px;
-  animation-delay: -4s;
 }
-.lightning-active .hero-intro-bolt { opacity: 1; }
+.lightning-active .hero-intro-bolt {
+  opacity: 0.52;
+}
 .lightning-active .hero-intro-grid {
   background-image:
     linear-gradient(var(--bolt-grid-line-strong) 1px, transparent 1px),
     linear-gradient(90deg, var(--bolt-grid-line-strong) 1px, transparent 1px);
+}
+
+.hero-intro--at-rest .hero-intro-bolt,
+.hero-intro--at-rest .hero-intro-orb {
+  animation-play-state: paused;
 }
 
 .intro-badge {
@@ -352,7 +381,8 @@
   width: 6px; height: 6px;
   border-radius: 50%;
   background: #06b6d4;
-  animation: pulse 2s infinite;
+  animation: none;
+  opacity: 0.92;
 }
 .intro-headline {
   font-size: clamp(1.5rem, 4.2vw, 2.05rem);
@@ -388,7 +418,8 @@
 .typing-stack { min-height: 1.2em; }
 .typing-cursor {
   display: inline-block;
-  animation: blink 1s step-end infinite;
+  animation: none;
+  opacity: 0.88;
   color: #06b6d4;
   font-weight: 300;
 }
@@ -461,8 +492,8 @@
     0 0 0 1px rgba(6, 182, 212, 0.06),
     0 28px 56px rgba(0, 0, 0, 0.38),
     inset 0 1px 0 rgba(255, 255, 255, 0.07);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: var(--glass-backdrop);
+  -webkit-backdrop-filter: var(--glass-backdrop);
   overflow: hidden;
 }
 .hero-module-docs-panel::before {
@@ -505,10 +536,12 @@
     border-color 0.22s ease,
     box-shadow 0.22s ease;
 }
-.hero-module-card:hover {
-  transform: translateY(-2px);
-  border-color: rgba(255, 255, 255, 0.2);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+@media (hover: hover) and (pointer: fine) {
+  .hero-module-card:hover {
+    transform: translateY(-2px);
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+  }
 }
 .hero-module-card-shine {
   position: absolute;
@@ -521,21 +554,25 @@
   border-color: rgba(6, 182, 212, 0.28);
   box-shadow: inset 0 1px 0 rgba(6, 182, 212, 0.12);
 }
-.hero-module-card--modules:hover {
-  border-color: rgba(6, 182, 212, 0.5);
-  box-shadow:
-    0 16px 44px rgba(0, 0, 0, 0.35),
-    inset 0 1px 0 rgba(6, 182, 212, 0.18);
+@media (hover: hover) and (pointer: fine) {
+  .hero-module-card--modules:hover {
+    border-color: rgba(6, 182, 212, 0.5);
+    box-shadow:
+      0 16px 44px rgba(0, 0, 0, 0.35),
+      inset 0 1px 0 rgba(6, 182, 212, 0.18);
+  }
 }
 .hero-module-card--models {
   border-color: rgba(139, 92, 246, 0.32);
   box-shadow: inset 0 1px 0 rgba(139, 92, 246, 0.12);
 }
-.hero-module-card--models:hover {
-  border-color: rgba(167, 139, 250, 0.55);
-  box-shadow:
-    0 16px 44px rgba(0, 0, 0, 0.35),
-    inset 0 1px 0 rgba(139, 92, 246, 0.2);
+@media (hover: hover) and (pointer: fine) {
+  .hero-module-card--models:hover {
+    border-color: rgba(167, 139, 250, 0.55);
+    box-shadow:
+      0 16px 44px rgba(0, 0, 0, 0.35),
+      inset 0 1px 0 rgba(139, 92, 246, 0.2);
+  }
 }
 
 .hero-module-card-icon {
@@ -587,9 +624,11 @@
   color: rgba(148, 163, 184, 0.55);
   transition: transform 0.2s ease, color 0.2s ease;
 }
-.hero-module-card:hover .hero-module-card-arrow {
-  transform: translateX(4px);
-  color: rgba(226, 232, 240, 0.9);
+@media (hover: hover) and (pointer: fine) {
+  .hero-module-card:hover .hero-module-card-arrow {
+    transform: translateX(4px);
+    color: rgba(226, 232, 240, 0.9);
+  }
 }
 
 .hero-intro-play-glyph {
@@ -656,8 +695,10 @@
   background: rgba(8, 10, 18, 0.55);
   transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background 0.2s ease;
 }
-.hero-model-pill:hover {
-  transform: translateY(-2px);
+@media (hover: hover) and (pointer: fine) {
+  .hero-model-pill:hover {
+    transform: translateY(-2px);
+  }
 }
 
 .hero-model-pill--seedance {
@@ -665,10 +706,12 @@
   color: #f0f9ff;
   box-shadow: inset 0 1px 0 rgba(6, 182, 212, 0.14);
 }
-.hero-model-pill--seedance:hover {
-  border-color: rgba(6, 182, 212, 0.65);
-  background: rgba(6, 182, 212, 0.12);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(6, 182, 212, 0.2);
+@media (hover: hover) and (pointer: fine) {
+  .hero-model-pill--seedance:hover {
+    border-color: rgba(6, 182, 212, 0.65);
+    background: rgba(6, 182, 212, 0.12);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(6, 182, 212, 0.2);
+  }
 }
 
 .hero-model-pill--seedream {
@@ -676,10 +719,12 @@
   color: #f5f3ff;
   box-shadow: inset 0 1px 0 rgba(139, 92, 246, 0.14);
 }
-.hero-model-pill--seedream:hover {
-  border-color: rgba(167, 139, 250, 0.58);
-  background: rgba(139, 92, 246, 0.12);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(139, 92, 246, 0.2);
+@media (hover: hover) and (pointer: fine) {
+  .hero-model-pill--seedream:hover {
+    border-color: rgba(167, 139, 250, 0.58);
+    background: rgba(139, 92, 246, 0.12);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(139, 92, 246, 0.2);
+  }
 }
 
 .hero-model-pill--volcano {
@@ -694,14 +739,16 @@
     rgba(139, 92, 246, 0.08) 100%
   );
 }
-.hero-model-pill--volcano:hover {
-  border-color: rgba(124, 168, 255, 0.55);
-  background: linear-gradient(
-    135deg,
-    rgba(6, 182, 212, 0.16) 0%,
-    rgba(139, 92, 246, 0.14) 100%
-  );
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+@media (hover: hover) and (pointer: fine) {
+  .hero-model-pill--volcano:hover {
+    border-color: rgba(124, 168, 255, 0.55);
+    background: linear-gradient(
+      135deg,
+      rgba(6, 182, 212, 0.16) 0%,
+      rgba(139, 92, 246, 0.14) 100%
+    );
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  }
 }
 
 .hero-model-pill--qwencloud {
@@ -709,10 +756,12 @@
   color: #fde68a;
   box-shadow: inset 0 1px 0 rgba(245, 158, 11, 0.14);
 }
-.hero-model-pill--qwencloud:hover {
-  border-color: rgba(251, 191, 36, 0.62);
-  background: rgba(245, 158, 11, 0.1);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(245, 158, 11, 0.22);
+@media (hover: hover) and (pointer: fine) {
+  .hero-model-pill--qwencloud:hover {
+    border-color: rgba(251, 191, 36, 0.62);
+    background: rgba(245, 158, 11, 0.1);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(245, 158, 11, 0.22);
+  }
 }
 
 .hero-model-pill-tag {
@@ -919,7 +968,8 @@
   height: 8px;
   background: #06b6d4;
   border-radius: 2px;
-  animation: scrollBounce 2s ease-in-out infinite;
+  animation: none;
+  top: 10px;
 }
 
 @media (max-width: 768px) {
@@ -928,8 +978,8 @@
 
 /* 首頁：標題漸層與引導區更「科幻介面」感（僅 .home-main--sf 頁面） */
 .home-main--sf .hero .gradient-text {
-  background-size: 200% 220%;
-  animation: heroTitleSfShimmer 8s ease-in-out infinite;
+  background-size: 100% 100%;
+  animation: none;
 }
 @keyframes heroTitleSfShimmer {
   0%,
@@ -962,19 +1012,11 @@
 }
 .home-main--sf .hero-intro-orb--1,
 .home-main--sf .hero-intro-orb--2 {
-  filter: blur(36px) saturate(1.25);
-  animation: orbFloat 10s ease-in-out infinite, heroOrbTint 14s ease-in-out infinite alternate;
+  filter: blur(36px) saturate(1.22);
+  animation: none;
 }
 .home-main--sf .hero-intro-orb--2 {
-  animation-delay: -5s, -2s;
-}
-@keyframes heroOrbTint {
-  0% {
-    filter: blur(36px) saturate(1.1) hue-rotate(0deg);
-  }
-  100% {
-    filter: blur(40px) saturate(1.35) hue-rotate(12deg);
-  }
+  animation-delay: 0;
 }
 @media (prefers-reduced-motion: reduce) {
   .home-main--sf .hero-intro-orb--1,
@@ -984,7 +1026,7 @@
 }
 
 /* ========== home-sf.css ========== */
-/* 首頁：高科幻疊層（HUD、色差、掃描、邊界）＋ 宇宙 Canvas（與 :root --app-scale 對齊 +20%） */
+/* 首頁背景：僅 Canvas 星空（無 DOM 疊層動畫） */
 
 .home-sf {
   position: fixed;
@@ -1001,348 +1043,6 @@
   width: 100%;
   height: 100%;
   display: block;
-}
-
-/* 全幅 HUD：極向細線 + 圓心定位感（粗間距減負担） */
-.home-sf__hud {
-  position: absolute;
-  inset: -5%;
-  background:
-    repeating-conic-gradient(
-      from 0deg at 50% 45%,
-      rgba(0, 255, 255, 0.06) 0deg 0.4deg,
-      transparent 0.4deg 2.2deg
-    ),
-    radial-gradient(ellipse 90% 85% at 50% 42%, rgba(0, 40, 60, 0.15) 0%, transparent 55%);
-  opacity: 0.5;
-  mix-blend-mode: screen;
-  mask-image: radial-gradient(ellipse 100% 100% at 50% 40%, #000 0%, transparent 72%);
-  animation: homeSfHudDrift 64s linear infinite;
-}
-
-@keyframes homeSfHudDrift {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-/* 戰術角標 */
-.home-sf__corner {
-  position: absolute;
-  width: min(18vw, calc(140px * var(--app-scale)));
-  height: min(18vw, calc(140px * var(--app-scale)));
-  border: 1px solid rgba(0, 255, 255, 0.18);
-  pointer-events: none;
-  box-shadow: 0 0 calc(20px * var(--app-scale)) rgba(0, 255, 200, 0.06) inset;
-}
-.home-sf__corner--tl {
-  top: max(calc(8px * var(--app-scale)), env(safe-area-inset-top, 0px));
-  left: max(calc(8px * var(--app-scale)), env(safe-area-inset-left, 0px));
-  border-right: none;
-  border-bottom: none;
-  border-top-left-radius: calc(4px * var(--app-scale));
-}
-.home-sf__corner--tr {
-  top: max(calc(8px * var(--app-scale)), env(safe-area-inset-top, 0px));
-  right: max(calc(8px * var(--app-scale)), env(safe-area-inset-right, 0px));
-  border-left: none;
-  border-bottom: none;
-  border-top-right-radius: 4px;
-}
-
-/* 輕量 RGB 色差（科幻艙內顯示感） */
-.home-sf__chroma {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(125deg, rgba(255, 0, 100, 0.03) 0%, transparent 40%, rgba(0, 255, 255, 0.04) 100%);
-  mix-blend-mode: screen;
-  opacity: 0.85;
-  animation: homeSfChroma 14s ease-in-out infinite alternate;
-}
-
-@keyframes homeSfChroma {
-  0% {
-    transform: translateX(-0.1%) translateY(0.05%);
-    opacity: 0.7;
-  }
-  100% {
-    transform: translateX(0.1%) translateY(-0.05%);
-    opacity: 1;
-  }
-}
-
-/* 掃描線：更明顯的「顯示器」節奏 */
-.home-sf__scan {
-  position: absolute;
-  inset: 0;
-  background: repeating-linear-gradient(
-    0deg,
-    transparent 0px,
-    transparent 2px,
-    rgba(0, 255, 255, 0.045) 2px,
-    rgba(0, 255, 255, 0.045) 3px
-  );
-  background-size: 100% 4px;
-  opacity: 0.55;
-  animation: homeSfScanDrift 10s linear infinite;
-  mix-blend-mode: screen;
-}
-
-@keyframes homeSfScanDrift {
-  from {
-    transform: translateY(0);
-  }
-  to {
-    transform: translateY(4px);
-  }
-}
-
-/* 遠景座標點陣：略帶飄移的星圖感 */
-.home-sf__mesh {
-  position: absolute;
-  inset: 0;
-  opacity: 0.38;
-  background-image:
-    radial-gradient(circle at 1.5px 1.5px, rgba(0, 200, 255, 0.11) 1px, transparent 0),
-    radial-gradient(circle at 1.5px 1.5px, rgba(180, 100, 255, 0.08) 1px, transparent 0);
-  background-size: 48px 48px, 68px 68px;
-  background-position: 0 0, 26px 18px;
-  mix-blend-mode: screen;
-  mask-image: radial-gradient(ellipse 100% 90% at 50% 40%, #000 0%, transparent 72%);
-  animation: homeSfMesh 88s linear infinite;
-}
-
-@keyframes homeSfMesh {
-  to {
-    background-position: 48px 0, 92px 44px;
-  }
-}
-
-/* 艦橋風格斜格 */
-.home-sf__hex {
-  position: absolute;
-  inset: -8%;
-  background-image:
-    repeating-linear-gradient(105deg, rgba(0, 255, 200, 0.07) 0px, rgba(0, 255, 200, 0.07) 1px, transparent 1px, transparent 24px),
-    repeating-linear-gradient(-105deg, rgba(180, 100, 255, 0.05) 0px, rgba(180, 100, 255, 0.05) 1px, transparent 1px, transparent 24px);
-  opacity: 0.38;
-  mask-image: radial-gradient(ellipse 78% 68% at 50% 36%, #000 6%, transparent 76%);
-  animation: homeSfHexPulse 20s ease-in-out infinite alternate;
-}
-
-@keyframes homeSfHexPulse {
-  from {
-    opacity: 0.28;
-  }
-  to {
-    opacity: 0.5;
-  }
-}
-
-.home-sf__noise {
-  position: absolute;
-  inset: 0;
-  opacity: 0.05;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  mix-blend-mode: overlay;
-  animation: homeSfNoiseShift 0.1s steps(2) infinite;
-}
-
-@keyframes homeSfNoiseShift {
-  0%,
-  100% {
-    transform: translate(0, 0);
-  }
-  50% {
-    transform: translate(-1px, 1px);
-  }
-}
-
-/* 掃光：折射感 */
-.home-sf__sheen {
-  position: absolute;
-  inset: -30% -40%;
-  background: linear-gradient(
-    120deg,
-    transparent 32%,
-    rgba(0, 255, 200, 0.1) 48%,
-    rgba(200, 100, 255, 0.1) 53%,
-    transparent 66%
-  );
-  animation: homeSfSheen 12s ease-in-out infinite;
-  mix-blend-mode: screen;
-}
-
-@keyframes homeSfSheen {
-  0%,
-  100% {
-    transform: translateX(-4%) translateY(4%) rotate(0deg);
-    opacity: 0.55;
-  }
-  50% {
-    transform: translateX(6%) translateY(-3%) rotate(0.4deg);
-    opacity: 0.95;
-  }
-}
-
-/* 邊界旋轉光錐：深空觀測艙邊光 */
-.home-sf__orbit {
-  position: absolute;
-  inset: -4%;
-  border-radius: 50%;
-  background: conic-gradient(
-    from 0deg,
-    transparent 0deg 32deg,
-    rgba(0, 255, 200, 0.06) 58deg,
-    transparent 100deg 160deg,
-    rgba(200, 120, 255, 0.05) 188deg,
-    transparent 250deg 320deg,
-    rgba(0, 200, 255, 0.04) 345deg,
-    transparent 360deg
-  );
-  mix-blend-mode: screen;
-  opacity: 0.55;
-  filter: blur(0.5px);
-  mask-image: radial-gradient(ellipse 100% 100% at 50% 50%, transparent 50%, #000 72%, #000 100%);
-  animation: homeSfOrbit 32s linear infinite;
-}
-
-@keyframes homeSfOrbit {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-/* 第二層掃描：反向節拍、品紅系 */
-.home-sf__scan2 {
-  position: absolute;
-  inset: 0;
-  background: repeating-linear-gradient(
-    0deg,
-    transparent 0px,
-    transparent 3px,
-    rgba(255, 80, 200, 0.035) 3px,
-    rgba(255, 80, 200, 0.035) 4px
-  );
-  background-size: 100% 5px;
-  opacity: 0.4;
-  mix-blend-mode: screen;
-  animation: homeSfScan2Drift 7.5s linear infinite reverse;
-}
-
-@keyframes homeSfScan2Drift {
-  from {
-    transform: translateY(0);
-  }
-  to {
-    transform: translateY(5px);
-  }
-}
-
-/* 底緣資料流帶 */
-.home-sf__ticker {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 3px;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(0, 200, 255, 0.2) 22%,
-    rgba(0, 255, 200, 0.28) 50%,
-    rgba(200, 100, 255, 0.16) 78%,
-    transparent 100%
-  );
-  background-size: 220% 100%;
-  animation: homeSfTicker 9s linear infinite;
-  mix-blend-mode: screen;
-  opacity: 0.75;
-}
-
-@keyframes homeSfTicker {
-  from {
-    background-position: 0% 0;
-  }
-  to {
-    background-position: 220% 0;
-  }
-}
-
-/* 微閃爍：顯示器不穩定感 */
-.home-sf__flick {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, rgba(0, 255, 200, 0.03) 0%, transparent 40%);
-  mix-blend-mode: overlay;
-  pointer-events: none;
-  animation: homeSfFlick 4.1s steps(1, end) infinite;
-  opacity: 0;
-}
-
-@keyframes homeSfFlick {
-  0%,
-  88%,
-  100% {
-    opacity: 0;
-  }
-  90% {
-    opacity: 0.25;
-  }
-  91% {
-    opacity: 0.04;
-  }
-  92% {
-    opacity: 0.18;
-  }
-}
-
-.home-sf__vignette {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(ellipse 90% 80% at 50% 38%, transparent 12%, rgba(0, 0, 8, 0.75) 100%);
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .home-sf__hud,
-  .home-sf__chroma,
-  .home-sf__scan,
-  .home-sf__scan2,
-  .home-sf__hex,
-  .home-sf__mesh,
-  .home-sf__noise,
-  .home-sf__sheen,
-  .home-sf__orbit,
-  .home-sf__ticker,
-  .home-sf__flick {
-    animation: none !important;
-  }
-  .home-sf__hud {
-    opacity: 0.2;
-  }
-  .home-sf__chroma {
-    opacity: 0.35;
-  }
-  .home-sf__scan,
-  .home-sf__scan2 {
-    opacity: 0.2;
-  }
-  .home-sf__noise {
-    display: none;
-  }
-  .home-sf__orbit {
-    opacity: 0.2;
-  }
-  .home-sf__ticker {
-    opacity: 0.3;
-  }
-  .home-sf__flick {
-    opacity: 0 !important;
-  }
-  .home-sf__mesh {
-    opacity: 0.15;
-  }
 }
 
 /* ========== about.css ========== */
@@ -1887,6 +1587,13 @@
 .mockup-dots span:last-child { background: rgba(34,197,94,0.5); }
 .mockup-body { padding: 24px; }
 
+/* 捲離 products 區後暫停閃電裝飾動畫 */
+.products--fx-rest .lightning-bolt,
+.products--fx-rest .lightning-orb,
+.products--fx-rest .lightning-pulse {
+  animation-play-state: paused;
+}
+
 /* Lightning Stage */
 .lightning-stage {
   position: absolute;
@@ -1907,7 +1614,7 @@
   position: absolute;
   border-radius: 50%;
   filter: blur(50px);
-  animation: orbFloat 8s ease-in-out infinite;
+  animation: none;
 }
 .lightning-orb--a {
   width: var(--lt-orb-a-size, 200px);
@@ -1922,15 +1629,14 @@
   background: var(--lt-b, rgba(139,92,246,0.08));
   bottom: var(--lt-orb-b-bottom, -30px);
   right: var(--lt-orb-b-right, -20px);
-  animation-duration: 9s;
 }
 .lightning-bolt {
   position: absolute;
   height: var(--bolt-line-height);
   background: var(--bolt-gradient);
   border-radius: var(--bolt-border-radius);
-  opacity: 0;
-  animation: boltFlash var(--bolt-duration) var(--bolt-ease) infinite;
+  opacity: 0.38;
+  animation: none;
 }
 .lightning-bolt--1 {
   width: 120px;
@@ -1962,7 +1668,8 @@
   transform: translate(-50%, -50%);
   border-radius: 50%;
   background: radial-gradient(circle, rgba(6,182,212,0.06), transparent 70%);
-  animation: pulse 3s ease-in-out infinite;
+  animation: none;
+  opacity: 0.85;
 }
 
 /* Video Preview */
@@ -1986,8 +1693,8 @@
   color: #fff;
   font-weight: 700;
   letter-spacing: 0.02em;
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: var(--glass-backdrop-soft);
+  -webkit-backdrop-filter: var(--glass-backdrop-soft);
 }
 .video-preview-head {
   display: flex;
@@ -2003,7 +1710,8 @@
   width: 6px; height: 6px;
   border-radius: 50%;
   background: #ef4444;
-  animation: pulse 1.5s infinite;
+  animation: none;
+  opacity: 0.9;
 }
 .video-preview-screen {
   width: 100%;
@@ -2054,7 +1762,8 @@
   height: 100%;
   border-radius: 2px;
   background: linear-gradient(90deg, #06b6d4, #8b5cf6);
-  animation: progressPulse 2s ease-in-out infinite;
+  animation: none;
+  opacity: 0.95;
 }
 .progress-fill--78 { width: 78%; }
 .mockup-progress span {
@@ -2134,7 +1843,7 @@
   border-radius: 50%;
   background: #ef4444;
   box-shadow: 0 0 10px rgba(239, 68, 68, 0.85);
-  animation: pulse 1.8s ease-in-out infinite;
+  animation: none;
 }
 .drama-monitor-bezel .drama-main-screen {
   border-radius: 8px;
@@ -2391,7 +2100,7 @@ button.drama-episode-item {
   position: absolute;
   border-radius: 50%;
   filter: blur(30px);
-  animation: orbFloat 8s ease-in-out infinite;
+  animation: none;
 }
 .image-lightning-orb--a { width: 100px; height: 100px; top: -20px; left: -20px; }
 .image-lightning-orb--b {
@@ -2399,15 +2108,14 @@ button.drama-episode-item {
   height: 90px;
   bottom: -20px;
   right: -20px;
-  animation-delay: -4s;
 }
 .image-lightning-bolt {
   position: absolute;
   height: var(--bolt-line-height);
   background: var(--bolt-gradient);
   border-radius: var(--bolt-border-radius);
-  opacity: 0;
-  animation: boltFlash var(--bolt-duration) var(--bolt-ease) infinite;
+  opacity: 0.36;
+  animation: none;
 }
 .image-lightning-bolt--1 {
   width: 100px;
@@ -2431,7 +2139,8 @@ button.drama-episode-item {
   font-weight: 700;
   color: #fff;
   background: rgba(0,0,0,0.5);
-  backdrop-filter: blur(8px);
+  backdrop-filter: var(--glass-backdrop-soft);
+  -webkit-backdrop-filter: var(--glass-backdrop-soft);
   border-radius: 6px;
   margin-bottom: 4px;
 }
@@ -3455,7 +3164,7 @@ button.drama-episode-item {
     0 0 0 1px color-mix(in srgb, var(--wf-accent) 32%, transparent),
     0 20px 48px rgba(0, 0, 0, 0.32),
     0 0 56px -14px var(--wf-glow);
-  animation: workflow-card-pulse 2.8s ease-in-out infinite;
+  animation: none;
 }
 .workflow-step--active::before {
   opacity: 1;
@@ -3511,7 +3220,7 @@ button.drama-episode-item {
   box-shadow:
     inset 0 1px 0 color-mix(in srgb, var(--wf-accent-bright) 40%, transparent),
     0 0 24px color-mix(in srgb, var(--wf-accent) 45%, transparent);
-  animation: workflow-badge-pop 0.5s cubic-bezier(0.34, 1.4, 0.64, 1);
+  animation: none;
 }
 @keyframes workflow-badge-pop {
   0% {
@@ -3593,16 +3302,9 @@ button.drama-episode-item {
   transform: scale(1.15);
 }
 .workflow-step--active .workflow-step-bullets li {
-  animation: workflow-bullet-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-.workflow-step--active .workflow-step-bullets li:nth-child(1) {
-  animation-delay: 0.04s;
-}
-.workflow-step--active .workflow-step-bullets li:nth-child(2) {
-  animation-delay: 0.1s;
-}
-.workflow-step--active .workflow-step-bullets li:nth-child(3) {
-  animation-delay: 0.16s;
+  animation: none;
+  opacity: 1;
+  transform: none;
 }
 @keyframes workflow-bullet-in {
   from {
@@ -3924,8 +3626,8 @@ main.models-page-main {
   border-radius: calc(var(--radius) + 2px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   background: linear-gradient(165deg, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0.025) 48%, rgba(6, 182, 212, 0.04) 100%);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: var(--glass-backdrop);
+  -webkit-backdrop-filter: var(--glass-backdrop);
   box-shadow:
     0 0 0 1px rgba(6, 182, 212, 0.06) inset,
     0 12px 40px rgba(0, 0, 0, 0.18);
@@ -4132,8 +3834,8 @@ main.models-page-main {
   border-radius: calc(var(--radius) + 4px);
   border: 1px solid rgba(255, 255, 255, 0.09);
   background: linear-gradient(160deg, rgba(255, 255, 255, 0.055) 0%, rgba(255, 255, 255, 0.02) 55%, rgba(124, 58, 237, 0.04) 100%);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: var(--glass-backdrop);
+  -webkit-backdrop-filter: var(--glass-backdrop);
   box-shadow:
     0 0 0 1px rgba(6, 182, 212, 0.05) inset,
     0 10px 36px rgba(0, 0, 0, 0.14);
@@ -4349,7 +4051,11 @@ main.models-page-main {
 .models-atlas-thumb {
   --thumb-hue: 198;
   position: relative;
-  height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  height: clamp(188px, 26vw, 232px);
   flex-shrink: 0;
   overflow: hidden;
   background:
@@ -4359,6 +4065,48 @@ main.models-page-main {
       hsla(var(--thumb-hue), 48%, 44%, 0.42) 0%,
       hsla(calc(var(--thumb-hue) + 18), 52%, 22%, 0.55) 100%
     );
+}
+
+/* 置中放大：覆寫右下角絕對定位，避免各品牌圖示在寬幅上顯得過小或偏移 */
+.models-atlas-thumb .models-atlas-dev-icon {
+  position: relative;
+  inset: auto;
+  right: auto;
+  bottom: auto;
+  width: clamp(52px, 12vw, 72px);
+  height: clamp(52px, 12vw, 72px);
+  padding: clamp(8px, 2vw, 12px);
+  flex-shrink: 0;
+}
+
+.models-atlas-thumb .models-atlas-dev-icon-svg {
+  overflow: visible;
+}
+
+/* Simple Icons 路徑在 24×24 內視覺輕重不一，微調縮放使置中後更接近一致 */
+.models-atlas-thumb[data-developer='bytedance'] .models-atlas-dev-icon-svg {
+  transform: scale(1.06);
+  transform-origin: center;
+}
+
+.models-atlas-thumb[data-developer='alibaba'] .models-atlas-dev-icon-svg {
+  transform: scale(1.04);
+  transform-origin: center;
+}
+
+.models-atlas-thumb[data-developer='qwencloud'] .models-atlas-dev-icon-svg {
+  transform: scale(1.12);
+  transform-origin: center;
+}
+
+.models-atlas-thumb[data-developer='openrouter'] .models-atlas-dev-icon-svg {
+  transform: scale(0.92);
+  transform-origin: center;
+}
+
+.models-atlas-thumb[data-developer='aws'] .models-atlas-dev-icon-svg {
+  transform: scale(1.1);
+  transform-origin: center;
 }
 
 .models-atlas-thumb::after {
@@ -4412,9 +4160,9 @@ main.models-page-main {
   color: rgba(255, 255, 255, 0.96);
   background: rgba(0, 0, 0, 0.24);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-  backdrop-filter: blur(8px);
+  backdrop-filter: var(--glass-backdrop-soft);
   pointer-events: none;
-  -webkit-backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: var(--glass-backdrop-soft);
 }
 
 .models-atlas-dev-icon-svg {

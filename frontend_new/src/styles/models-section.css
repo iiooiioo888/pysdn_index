@@ -67,8 +67,8 @@ main.models-page-main {
   border-radius: calc(var(--radius) + 2px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   background: linear-gradient(165deg, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0.025) 48%, rgba(6, 182, 212, 0.04) 100%);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: var(--glass-backdrop);
+  -webkit-backdrop-filter: var(--glass-backdrop);
   box-shadow:
     0 0 0 1px rgba(6, 182, 212, 0.06) inset,
     0 12px 40px rgba(0, 0, 0, 0.18);
@@ -275,8 +275,8 @@ main.models-page-main {
   border-radius: calc(var(--radius) + 4px);
   border: 1px solid rgba(255, 255, 255, 0.09);
   background: linear-gradient(160deg, rgba(255, 255, 255, 0.055) 0%, rgba(255, 255, 255, 0.02) 55%, rgba(124, 58, 237, 0.04) 100%);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: var(--glass-backdrop);
+  -webkit-backdrop-filter: var(--glass-backdrop);
   box-shadow:
     0 0 0 1px rgba(6, 182, 212, 0.05) inset,
     0 10px 36px rgba(0, 0, 0, 0.14);
@@ -492,7 +492,11 @@ main.models-page-main {
 .models-atlas-thumb {
   --thumb-hue: 198;
   position: relative;
-  height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  height: clamp(188px, 26vw, 232px);
   flex-shrink: 0;
   overflow: hidden;
   background:
@@ -502,6 +506,48 @@ main.models-page-main {
       hsla(var(--thumb-hue), 48%, 44%, 0.42) 0%,
       hsla(calc(var(--thumb-hue) + 18), 52%, 22%, 0.55) 100%
     );
+}
+
+/* 置中放大：覆寫右下角絕對定位，避免各品牌圖示在寬幅上顯得過小或偏移 */
+.models-atlas-thumb .models-atlas-dev-icon {
+  position: relative;
+  inset: auto;
+  right: auto;
+  bottom: auto;
+  width: clamp(52px, 12vw, 72px);
+  height: clamp(52px, 12vw, 72px);
+  padding: clamp(8px, 2vw, 12px);
+  flex-shrink: 0;
+}
+
+.models-atlas-thumb .models-atlas-dev-icon-svg {
+  overflow: visible;
+}
+
+/* Simple Icons 路徑在 24×24 內視覺輕重不一，微調縮放使置中後更接近一致 */
+.models-atlas-thumb[data-developer='bytedance'] .models-atlas-dev-icon-svg {
+  transform: scale(1.06);
+  transform-origin: center;
+}
+
+.models-atlas-thumb[data-developer='alibaba'] .models-atlas-dev-icon-svg {
+  transform: scale(1.04);
+  transform-origin: center;
+}
+
+.models-atlas-thumb[data-developer='qwencloud'] .models-atlas-dev-icon-svg {
+  transform: scale(1.12);
+  transform-origin: center;
+}
+
+.models-atlas-thumb[data-developer='openrouter'] .models-atlas-dev-icon-svg {
+  transform: scale(0.92);
+  transform-origin: center;
+}
+
+.models-atlas-thumb[data-developer='aws'] .models-atlas-dev-icon-svg {
+  transform: scale(1.1);
+  transform-origin: center;
 }
 
 .models-atlas-thumb::after {
@@ -555,9 +601,9 @@ main.models-page-main {
   color: rgba(255, 255, 255, 0.96);
   background: rgba(0, 0, 0, 0.24);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-  backdrop-filter: blur(8px);
+  backdrop-filter: var(--glass-backdrop-soft);
   pointer-events: none;
-  -webkit-backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: var(--glass-backdrop-soft);
 }
 
 .models-atlas-dev-icon-svg {

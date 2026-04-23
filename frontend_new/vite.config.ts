@@ -65,6 +65,7 @@ export default defineConfig({
     },
   },
   build: {
+    target: 'es2022',
     outDir: 'dist',
     /** 產物含 map 供 Sentry 等上傳，但不寫入 bundle 註解連結，避免對外暴露路徑 */
     sourcemap: 'hidden',

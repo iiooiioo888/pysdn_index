@@ -1,3 +1,24 @@
+/* 供 .badge-dot、products lightning-pulse 等共用 */
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.45;
+  }
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
 /* ===== Hero Section ===== */
 .hero {
   position: relative;
@@ -49,7 +70,7 @@
   background: var(--bolt-gradient);
   border-radius: var(--bolt-border-radius);
   opacity: 0;
-  animation: boltFlash var(--bolt-duration) var(--bolt-ease) infinite;
+  animation: none;
 }
 .hero-intro-bolt--1 { top: 20%; left: 10%; animation-delay: 0s; }
 .hero-intro-bolt--2 { top: 60%; right: 5%; animation-delay: var(--bolt-delay-step); }
@@ -58,7 +79,7 @@
   position: absolute;
   border-radius: 50%;
   filter: blur(40px);
-  animation: orbFloat 8s ease-in-out infinite;
+  animation: none;
 }
 .hero-intro-orb--1 {
   width: 180px; height: 180px;
@@ -69,13 +90,19 @@
   width: 160px; height: 160px;
   background: rgba(139,92,246,0.08);
   bottom: -40px; right: -20px;
-  animation-delay: -4s;
 }
-.lightning-active .hero-intro-bolt { opacity: 1; }
+.lightning-active .hero-intro-bolt {
+  opacity: 0.52;
+}
 .lightning-active .hero-intro-grid {
   background-image:
     linear-gradient(var(--bolt-grid-line-strong) 1px, transparent 1px),
     linear-gradient(90deg, var(--bolt-grid-line-strong) 1px, transparent 1px);
+}
+
+.hero-intro--at-rest .hero-intro-bolt,
+.hero-intro--at-rest .hero-intro-orb {
+  animation-play-state: paused;
 }
 
 .intro-badge {
@@ -95,7 +122,8 @@
   width: 6px; height: 6px;
   border-radius: 50%;
   background: #06b6d4;
-  animation: pulse 2s infinite;
+  animation: none;
+  opacity: 0.92;
 }
 .intro-headline {
   font-size: clamp(1.5rem, 4.2vw, 2.05rem);
@@ -131,7 +159,8 @@
 .typing-stack { min-height: 1.2em; }
 .typing-cursor {
   display: inline-block;
-  animation: blink 1s step-end infinite;
+  animation: none;
+  opacity: 0.88;
   color: #06b6d4;
   font-weight: 300;
 }
@@ -204,8 +233,8 @@
     0 0 0 1px rgba(6, 182, 212, 0.06),
     0 28px 56px rgba(0, 0, 0, 0.38),
     inset 0 1px 0 rgba(255, 255, 255, 0.07);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: var(--glass-backdrop);
+  -webkit-backdrop-filter: var(--glass-backdrop);
   overflow: hidden;
 }
 .hero-module-docs-panel::before {
@@ -248,10 +277,12 @@
     border-color 0.22s ease,
     box-shadow 0.22s ease;
 }
-.hero-module-card:hover {
-  transform: translateY(-2px);
-  border-color: rgba(255, 255, 255, 0.2);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+@media (hover: hover) and (pointer: fine) {
+  .hero-module-card:hover {
+    transform: translateY(-2px);
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+  }
 }
 .hero-module-card-shine {
   position: absolute;
@@ -264,21 +295,25 @@
   border-color: rgba(6, 182, 212, 0.28);
   box-shadow: inset 0 1px 0 rgba(6, 182, 212, 0.12);
 }
-.hero-module-card--modules:hover {
-  border-color: rgba(6, 182, 212, 0.5);
-  box-shadow:
-    0 16px 44px rgba(0, 0, 0, 0.35),
-    inset 0 1px 0 rgba(6, 182, 212, 0.18);
+@media (hover: hover) and (pointer: fine) {
+  .hero-module-card--modules:hover {
+    border-color: rgba(6, 182, 212, 0.5);
+    box-shadow:
+      0 16px 44px rgba(0, 0, 0, 0.35),
+      inset 0 1px 0 rgba(6, 182, 212, 0.18);
+  }
 }
 .hero-module-card--models {
   border-color: rgba(139, 92, 246, 0.32);
   box-shadow: inset 0 1px 0 rgba(139, 92, 246, 0.12);
 }
-.hero-module-card--models:hover {
-  border-color: rgba(167, 139, 250, 0.55);
-  box-shadow:
-    0 16px 44px rgba(0, 0, 0, 0.35),
-    inset 0 1px 0 rgba(139, 92, 246, 0.2);
+@media (hover: hover) and (pointer: fine) {
+  .hero-module-card--models:hover {
+    border-color: rgba(167, 139, 250, 0.55);
+    box-shadow:
+      0 16px 44px rgba(0, 0, 0, 0.35),
+      inset 0 1px 0 rgba(139, 92, 246, 0.2);
+  }
 }
 
 .hero-module-card-icon {
@@ -330,9 +365,11 @@
   color: rgba(148, 163, 184, 0.55);
   transition: transform 0.2s ease, color 0.2s ease;
 }
-.hero-module-card:hover .hero-module-card-arrow {
-  transform: translateX(4px);
-  color: rgba(226, 232, 240, 0.9);
+@media (hover: hover) and (pointer: fine) {
+  .hero-module-card:hover .hero-module-card-arrow {
+    transform: translateX(4px);
+    color: rgba(226, 232, 240, 0.9);
+  }
 }
 
 .hero-intro-play-glyph {
@@ -399,8 +436,10 @@
   background: rgba(8, 10, 18, 0.55);
   transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background 0.2s ease;
 }
-.hero-model-pill:hover {
-  transform: translateY(-2px);
+@media (hover: hover) and (pointer: fine) {
+  .hero-model-pill:hover {
+    transform: translateY(-2px);
+  }
 }
 
 .hero-model-pill--seedance {
@@ -408,10 +447,12 @@
   color: #f0f9ff;
   box-shadow: inset 0 1px 0 rgba(6, 182, 212, 0.14);
 }
-.hero-model-pill--seedance:hover {
-  border-color: rgba(6, 182, 212, 0.65);
-  background: rgba(6, 182, 212, 0.12);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(6, 182, 212, 0.2);
+@media (hover: hover) and (pointer: fine) {
+  .hero-model-pill--seedance:hover {
+    border-color: rgba(6, 182, 212, 0.65);
+    background: rgba(6, 182, 212, 0.12);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(6, 182, 212, 0.2);
+  }
 }
 
 .hero-model-pill--seedream {
@@ -419,10 +460,12 @@
   color: #f5f3ff;
   box-shadow: inset 0 1px 0 rgba(139, 92, 246, 0.14);
 }
-.hero-model-pill--seedream:hover {
-  border-color: rgba(167, 139, 250, 0.58);
-  background: rgba(139, 92, 246, 0.12);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(139, 92, 246, 0.2);
+@media (hover: hover) and (pointer: fine) {
+  .hero-model-pill--seedream:hover {
+    border-color: rgba(167, 139, 250, 0.58);
+    background: rgba(139, 92, 246, 0.12);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(139, 92, 246, 0.2);
+  }
 }
 
 .hero-model-pill--volcano {
@@ -437,14 +480,16 @@
     rgba(139, 92, 246, 0.08) 100%
   );
 }
-.hero-model-pill--volcano:hover {
-  border-color: rgba(124, 168, 255, 0.55);
-  background: linear-gradient(
-    135deg,
-    rgba(6, 182, 212, 0.16) 0%,
-    rgba(139, 92, 246, 0.14) 100%
-  );
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+@media (hover: hover) and (pointer: fine) {
+  .hero-model-pill--volcano:hover {
+    border-color: rgba(124, 168, 255, 0.55);
+    background: linear-gradient(
+      135deg,
+      rgba(6, 182, 212, 0.16) 0%,
+      rgba(139, 92, 246, 0.14) 100%
+    );
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  }
 }
 
 .hero-model-pill--qwencloud {
@@ -452,10 +497,12 @@
   color: #fde68a;
   box-shadow: inset 0 1px 0 rgba(245, 158, 11, 0.14);
 }
-.hero-model-pill--qwencloud:hover {
-  border-color: rgba(251, 191, 36, 0.62);
-  background: rgba(245, 158, 11, 0.1);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(245, 158, 11, 0.22);
+@media (hover: hover) and (pointer: fine) {
+  .hero-model-pill--qwencloud:hover {
+    border-color: rgba(251, 191, 36, 0.62);
+    background: rgba(245, 158, 11, 0.1);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(245, 158, 11, 0.22);
+  }
 }
 
 .hero-model-pill-tag {
@@ -662,7 +709,8 @@
   height: 8px;
   background: #06b6d4;
   border-radius: 2px;
-  animation: scrollBounce 2s ease-in-out infinite;
+  animation: none;
+  top: 10px;
 }
 
 @media (max-width: 768px) {
@@ -671,8 +719,8 @@
 
 /* 首頁：標題漸層與引導區更「科幻介面」感（僅 .home-main--sf 頁面） */
 .home-main--sf .hero .gradient-text {
-  background-size: 200% 220%;
-  animation: heroTitleSfShimmer 8s ease-in-out infinite;
+  background-size: 100% 100%;
+  animation: none;
 }
 @keyframes heroTitleSfShimmer {
   0%,
@@ -705,19 +753,11 @@
 }
 .home-main--sf .hero-intro-orb--1,
 .home-main--sf .hero-intro-orb--2 {
-  filter: blur(36px) saturate(1.25);
-  animation: orbFloat 10s ease-in-out infinite, heroOrbTint 14s ease-in-out infinite alternate;
+  filter: blur(36px) saturate(1.22);
+  animation: none;
 }
 .home-main--sf .hero-intro-orb--2 {
-  animation-delay: -5s, -2s;
-}
-@keyframes heroOrbTint {
-  0% {
-    filter: blur(36px) saturate(1.1) hue-rotate(0deg);
-  }
-  100% {
-    filter: blur(40px) saturate(1.35) hue-rotate(12deg);
-  }
+  animation-delay: 0;
 }
 @media (prefers-reduced-motion: reduce) {
   .home-main--sf .hero-intro-orb--1,

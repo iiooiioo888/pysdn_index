@@ -60,10 +60,10 @@ export const apiService = {
 
   optimizePrompt: (data: SuperTuneOptimizeRequest) =>
     api.post<unknown>('/api/modules/supertune', data),
-  getTrends: (data: SuperTrackTrendsRequest) => api.post<unknown>('/api/modules/supertrack', data),
 
   superforgeList: () =>
     api.post<PaginatedResponse<SuperForgeListItem>>('/api/modules/superforge', { action: 'list' }),
+  /** SuperTrack 趨勢／模組 API（與後端 `/api/modules/supertrack` 對應） */
   supertrackTrends: (data: SuperTrackTrendsRequest) =>
     api.post<unknown>('/api/modules/supertrack', data),
 

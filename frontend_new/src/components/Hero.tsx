@@ -13,6 +13,7 @@ import {
   type TypingTierPhrase,
 } from '../hooks/useAnimations'
 import { scrollToHash } from '../utils/scrollToHash'
+import { prefersReducedMotion } from '../lib/motionPreference'
 
 /** 首頁數據條：模型隊列 · 並行任務 · 可接入模型（非行銷型數字） */
 const HERO_STATS = {
@@ -24,6 +25,7 @@ const HERO_STATS = {
 export function Hero() {
   const { t, i18n } = useTranslation()
   const langSearch = useLangQuery()
+  /** 只跟語系變化；避免依賴 `t`／整個 `i18n` 參考導致 memo 失效、打字 effect 被反覆重置 */
   const typingTiers = useMemo((): TypingTierPhrase[][] => {
     const raw = i18n.t('hero_typing_tiers', { returnObjects: true }) as
       | Record<string, TypingTierPhrase[]>
@@ -33,9 +35,10 @@ export function Hero() {
     const rows = order.map((k) => (Array.isArray(raw[k]) ? raw[k] : []))
     if (rows.some((tier) => !tier.length)) return DEFAULT_TYPING_TIERS
     return rows
-  }, [i18n, i18n.language])
-  const { displayText, emoji } = useTypingAnimation(typingTiers)
+  }, [i18n.language])
+  const { textRef: typingTextRef, emojiRef: typingEmojiRef } = useTypingAnimation(typingTiers)
   const [lightningActive, setLightningActive] = useState(false)
+  const [introFxInView, setIntroFxInView] = useState(true)
   const introRef = useRef<HTMLDivElement>(null)
 
   // Stats counters（與 HERO_STATS 對齊）
@@ -46,31 +49,47 @@ export function Hero() {
   const countConcurrent = useCountUp(HERO_STATS.concurrentJobs, statsConcurrent.inView)
   const countModels = useCountUp(HERO_STATS.availableModels, statsModels.inView)
 
-  // Lightning effect on intro banner
   useEffect(() => {
-    let timer: ReturnType<typeof setTimeout>;
+    const el = introRef.current
+    if (!el) return
+    const io = new IntersectionObserver(([e]) => setIntroFxInView(e.isIntersecting), {
+      threshold: 0,
+      rootMargin: '0px',
+    })
+    io.observe(el)
+    return () => io.disconnect()
+  }, [])
+
+  // Lightning effect on intro banner（減少動態效果／捲離 intro 時不排程）
+  useEffect(() => {
+    if (prefersReducedMotion() || !introFxInView) return
+
+    let timer: ReturnType<typeof setTimeout>
     const queuePulse = () => {
-      const delay = 1800 + Math.random() * 2600;
+      const delay = 1800 + Math.random() * 2600
       timer = setTimeout(() => {
-        setLightningActive(true);
-        setTimeout(() => setLightningActive(false), 220);
+        setLightningActive(true)
+        setTimeout(() => setLightningActive(false), 220)
         if (Math.random() > 0.58) {
           setTimeout(() => {
-            setLightningActive(true);
-            setTimeout(() => setLightningActive(false), 140);
-          }, 120);
+            setLightningActive(true)
+            setTimeout(() => setLightningActive(false), 140)
+          }, 120)
         }
-        queuePulse();
-      }, delay);
-    };
-    queuePulse();
-    return () => clearTimeout(timer);
-  }, []);
+        queuePulse()
+      }, delay)
+    }
+    queuePulse()
+    return () => clearTimeout(timer)
+  }, [introFxInView])
 
   return (
     <section id="home" className="hero">
       {/* Intro Banner */}
-      <div ref={introRef} className={`hero-intro ${lightningActive ? 'lightning-active' : ''}`}>
+      <div
+        ref={introRef}
+        className={`hero-intro ${lightningActive ? 'lightning-active' : ''} ${introFxInView ? '' : 'hero-intro--at-rest'}`}
+      >
         <div className="hero-intro-fx" aria-hidden="true">
           <span className="hero-intro-grid" />
           <span className="hero-intro-bolt hero-intro-bolt--1" />
@@ -103,10 +122,10 @@ export function Hero() {
           <span className="title-line">{t('hero_line1')}</span>
           <span className="title-line gradient-text typing-stack">
             <span className="typing-main-line">
-              <span className="typing-text">{displayText}</span>
+              <span className="typing-text" ref={typingTextRef} />
               <span className="typing-cursor" aria-hidden="true">|</span>
             </span>
-            <span className="typing-emoji-line" aria-hidden="true">{emoji}</span>
+            <span className="typing-emoji-line" ref={typingEmojiRef} aria-hidden="true" />
           </span>
         </h1>
         <p className="hero-desc reveal" dangerouslySetInnerHTML={{ __html: t('hero_desc') }} />

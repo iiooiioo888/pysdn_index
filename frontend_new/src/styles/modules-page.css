@@ -234,7 +234,7 @@
   background: #06b6d4;
   top: -60px;
   left: 10%;
-  animation: modOrbFloat 8s ease-in-out infinite;
+  animation: none;
 }
 .modules-page .mod-hero-orb--2 {
   width: 250px;
@@ -242,7 +242,7 @@
   background: #8b5cf6;
   top: -40px;
   right: 10%;
-  animation: modOrbFloat 10s ease-in-out infinite reverse;
+  animation: none;
 }
 @keyframes modOrbFloat {
   0%,
@@ -272,7 +272,8 @@
   height: 6px;
   background: #06b6d4;
   border-radius: 50%;
-  animation: modPulse 2s ease-in-out infinite;
+  animation: none;
+  opacity: 0.92;
 }
 @keyframes modPulse {
   0%,

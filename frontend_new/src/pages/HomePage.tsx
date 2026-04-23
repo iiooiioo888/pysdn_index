@@ -1,10 +1,10 @@
-import { lazy } from 'react'
+import { lazy, Suspense } from 'react'
 import { HomeLazySection } from '../components/HomeLazySection'
 import { Navbar } from '../components/Navbar'
-import { Hero } from '../components/Hero'
 import { useCanvasBackground } from '../hooks/useCanvasBackground'
 import { useHomeHashScroll } from '../hooks/useHomeHashScroll'
 
+const Hero = lazy(() => import('../components/Hero').then((m) => ({ default: m.Hero })))
 const About = lazy(() => import('../components/About').then((m) => ({ default: m.About })))
 const Products = lazy(() => import('../components/Products').then((m) => ({ default: m.Products })))
 const ModulesPanel = lazy(() => import('../components/ModulesPanel').then((m) => ({ default: m.ModulesPanel })))
@@ -23,26 +23,14 @@ export function HomePage() {
     <>
       <div className="home-sf" aria-hidden="true">
         <canvas ref={canvasRef} id="bgCanvas" className="home-sf__cv" aria-hidden="true" />
-        <div className="home-sf__hud" />
-        <div className="home-sf__corner home-sf__corner--tl" />
-        <div className="home-sf__corner home-sf__corner--tr" />
-        <div className="home-sf__chroma" />
-        <div className="home-sf__scan" />
-        <div className="home-sf__hex" />
-        <div className="home-sf__mesh" />
-        <div className="home-sf__noise" />
-        <div className="home-sf__sheen" />
-        <div className="home-sf__orbit" />
-        <div className="home-sf__scan2" />
-        <div className="home-sf__ticker" />
-        <div className="home-sf__flick" />
-        <div className="home-sf__vignette" />
       </div>
 
       <div className="site-shell">
         <Navbar />
         <main className="home-main home-main--sf">
-          <Hero />
+          <Suspense fallback={<section className="hero" aria-busy="true" />}>
+            <Hero />
+          </Suspense>
           <HomeLazySection minHeight={220}>
             <About />
           </HomeLazySection>

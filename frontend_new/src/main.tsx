@@ -9,15 +9,46 @@ import './index.css'
 import { initI18n } from './lib/i18n.ts'
 import { createAppRouter } from './routes/appRouter'
 
+/**
+ * Vite `base` 為 `/pysdn_index/` 時，若瀏覽器位址列是 `http://host:port/`（pathname 為 `/`），
+ * React Router 的 basename 與實際 pathname 不一致會**沒有任何路由匹配** → 畫面空白。
+ * 在建立 router 前把 pathname 對齊到 base（不重載頁面）。
+ */
+function syncPathnameWithViteBase(): void {
+  if (typeof window === 'undefined') return
+  const base = (import.meta.env.BASE_URL || '/').replace(/\/$/, '') || '/'
+  if (base === '/') return
+
+  const { pathname, search, hash } = window.location
+  if (pathname === '/' || pathname === '') {
+    window.history.replaceState(null, '', `${base}/${search}${hash}`)
+    return
+  }
+  if (pathname === base) {
+    window.history.replaceState(null, '', `${base}/${search}${hash}`)
+  }
+}
+
+syncPathnameWithViteBase()
+
 const basename = import.meta.env.BASE_URL.replace(/\/$/, '') || '/'
 const router = createAppRouter(basename)
 
-void initI18n().then(() => {
-  createRoot(document.getElementById('root')!).render(
-    <StrictMode>
-      <ErrorBoundary>
-        <RouterProvider router={router} />
-      </ErrorBoundary>
-    </StrictMode>,
-  )
-})
+const rootEl = document.getElementById('root')
+if (!rootEl) {
+  console.error('[pysdn] 找不到 #root，無法掛載 React')
+} else {
+  void initI18n()
+    .catch((err) => {
+      console.error('[pysdn] initI18n 失敗', err)
+    })
+    .finally(() => {
+      createRoot(rootEl).render(
+        <StrictMode>
+          <ErrorBoundary>
+            <RouterProvider router={router} />
+          </ErrorBoundary>
+        </StrictMode>,
+      )
+    })
+}
