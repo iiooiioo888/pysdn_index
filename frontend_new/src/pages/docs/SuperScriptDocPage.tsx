@@ -9,6 +9,7 @@ import { SUPERSCRIPT_MINDMAP, SUPERSCRIPT_NARRATIVE_ARC } from '../../components
 import { useDocBundle } from '../../hooks/useDocBundle'
 import { PATHS } from '../../routes/paths'
 import { toLangSearch } from '../../routes/langQuery'
+import { sanitizeHtml } from '../../lib/sanitize'
 
 export function SuperScriptDocPage() {
   const { t, ready, loadError, lang } = useDocBundle('superscript')
@@ -96,7 +97,7 @@ export function SuperScriptDocPage() {
             </div>
 
             <h2>{t('h_char')}</h2>
-            <div dangerouslySetInnerHTML={{ __html: t('doc_ss_characters_html') }} />
+            <div dangerouslySetInnerHTML={{ __html: sanitizeHtml(t('doc_ss_characters_html')) }} />
 
             <h3>模組串接：一個生態系打通</h3>
             <p>SuperScript 不是孤島。SuperTrack 幫你抓熱門話題注入大綱——例如「短劇」最近在社群爆了，SuperTrack 會建議你在下一集加入短劇元素。SuperForge 把場景描述自動轉換成畫面提示詞——你寫了「雨夜的東京街頭」，它直接幫你生出 <code>rainy Tokyo street at night, neon reflections</code>，一鍵送進 Midjourney。SuperTune 進行 A/B 測試優化對白——同一場戲用兩種寫法，看哪個觀眾反應更好。</p>

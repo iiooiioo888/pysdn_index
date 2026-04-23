@@ -1,18 +1,35 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { apiService } from '../lib/api'
 
 export function Contact() {
   const { t } = useTranslation()
   const [formData, setFormData] = useState({ name: '', email: '', company: '', message: '' })
   const [submitted, setSubmitted] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    setSubmitted(true)
-    setTimeout(() => {
-      setSubmitted(false)
-      setFormData({ name: '', email: '', company: '', message: '' })
-    }, 2500)
+    setLoading(true)
+    setError(null)
+    try {
+      await apiService.submitContact({
+        name: formData.name,
+        email: formData.email,
+        company: formData.company,
+        message: formData.message,
+      })
+      setSubmitted(true)
+      setTimeout(() => {
+        setSubmitted(false)
+        setFormData({ name: '', email: '', company: '', message: '' })
+      }, 2500)
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Submission failed')
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -104,13 +121,16 @@ export function Contact() {
                 onChange={(e) => setFormData((p) => ({ ...p, message: e.target.value }))}
               />
             </div>
+            {error && <p className="form-error" style={{ color: '#ef4444', marginTop: '0.5rem' }}>{error}</p>}
             <button
               type="submit"
               className="btn btn-primary btn-lg btn-full"
+              disabled={loading}
               style={submitted ? { background: 'rgba(16,185,129,0.15)', border: '1px solid rgba(16,185,129,0.3)' } : {}}
             >
-              <span className="btn-label" style={submitted ? { display: 'none' } : {}}>{t('form_submit')}</span>
-              <span className="btn-success" style={submitted ? { display: 'inline' } : {}}>{t('form_success')}</span>
+              <span className="btn-label" style={submitted || loading ? { display: 'none' } : {}}>{t('form_submit')}</span>
+              <span className="btn-success" style={submitted ? { display: 'inline' } : { display: 'none' }}>{t('form_success')}</span>
+              {loading && <span style={{ display: 'inline' }}>Sending...</span>}
             </button>
           </form>
         </div>

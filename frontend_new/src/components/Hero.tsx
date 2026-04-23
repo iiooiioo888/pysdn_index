@@ -13,6 +13,7 @@ import {
   type TypingTierPhrase,
 } from '../hooks/useAnimations'
 import { scrollToHash } from '../utils/scrollToHash'
+import { sanitizeHtml } from '../lib/sanitize'
 import { prefersReducedMotion } from '../lib/motionPreference'
 import { CATALOG_MODELS } from '../data/modelsCatalog'
 import { BEDROCK_MODELS } from '../data/bedrockCatalog'
@@ -135,7 +136,7 @@ export function Hero() {
             <span className="typing-emoji-line" ref={typingEmojiRef} aria-hidden="true" />
           </span>
         </h1>
-        <p className="hero-desc reveal" dangerouslySetInnerHTML={{ __html: t('hero_desc') }} />
+        <p className="hero-desc reveal" dangerouslySetInnerHTML={{ __html: sanitizeHtml(t('hero_desc')) }} />
         <div className="hero-actions reveal">
           <a href="#products" className="btn btn-primary" onClick={(e) => scrollToHash('#products', e)}>
             <span>{t('hero_cta1')}</span>

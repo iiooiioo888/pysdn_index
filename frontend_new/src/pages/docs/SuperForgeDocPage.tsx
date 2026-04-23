@@ -9,6 +9,7 @@ import { SUPERFORGE_MINDMAP } from '../../components/docs/mermaidCharts'
 import { useDocBundle } from '../../hooks/useDocBundle'
 import { PATHS } from '../../routes/paths'
 import { toLangSearch } from '../../routes/langQuery'
+import { sanitizeHtml } from '../../lib/sanitize'
 
 export function SuperForgeDocPage() {
   const { t, ready, loadError, lang } = useDocBundle('superforge')
@@ -41,10 +42,10 @@ export function SuperForgeDocPage() {
           <article className="doc">
             <DocReadingSummary t={t} variant="superforge" />
             <h2>{t('h_feat')}</h2>
-            <div dangerouslySetInnerHTML={{ __html: t('doc_sf_body_html') }} />
+            <div dangerouslySetInnerHTML={{ __html: sanitizeHtml(t('doc_sf_body_html')) }} />
 
             <h2>{t('h_char')}</h2>
-            <div dangerouslySetInnerHTML={{ __html: t('doc_sf_characters_html') }} />
+            <div dangerouslySetInnerHTML={{ __html: sanitizeHtml(t('doc_sf_characters_html')) }} />
 
             <div className="doc-diagram-block">
               <h3>架構與能力（示意）</h3>
@@ -69,7 +70,7 @@ export function SuperForgeDocPage() {
             </ul>
 
             <h2>{t('h_adv')}</h2>
-            <div dangerouslySetInnerHTML={{ __html: t('doc_sf_adv_html') }} />
+            <div dangerouslySetInnerHTML={{ __html: sanitizeHtml(t('doc_sf_adv_html')) }} />
 
             <h2>{t('h_sec')}</h2>
             <ul>
