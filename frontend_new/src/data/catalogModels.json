@@ -14,11 +14,11 @@
       "ko": "Seedance 2.0"
     },
     "desc": {
-      "zh-TW": "導演向多模態影片：文／圖生影片、原生音畫同步，鏡頭參考與後製銜接順。",
-      "zh-CN": "导演向多模态视频：文／图生视频、原生音画同步，镜头参考与后期衔接顺。",
-      "en": "Director-style video: text & image-to-video, native A/V sync, reference control, post-friendly handoff.",
-      "ja": "演出寄りマルチモーダル動画：テキスト／画像から生成、ネイティブ音画同期、参照と編集引き継ぎ。",
-      "ko": "연출형 멀티모달 영상: 텍스트·이미지 기반 생성, 네이티브 음영 동기, 참조·후반 작업 연결."
+      "zh-TW": "即夢／火山體驗中心展示：多模態參考（圖／影／音）生影片，主體一致、物理更真，並可做定向編輯與延長。",
+      "zh-CN": "即梦／火山体验中心展示：多模态参考（图／视频／音频）生视频，主体一致、物理更真，并支持定向编辑与延长。",
+      "en": "Volcengine demo: multimodal reference video (image/video/audio), stable subjects, better physics, plus targeted edits and extensions.",
+      "ja": "体験中心のデモ：画像／動画／音声の参照から生成。主体一貫性と物理感が向上し、指示に沿った編集・延長も可能。",
+      "ko": "체험센터 데모: 이미지·비디오·오디오 참조로 생성, 주체 일관·물리감 향상, 구간 편집·연장 지원."
     }
   },
   {
