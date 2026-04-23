@@ -3,6 +3,7 @@ import { useDocBundle } from '../hooks/useDocBundle'
 import { ModulesNav } from '../components/modules/ModulesNav'
 import { ModulesPageSidebar } from '../components/modules/ModulesPageSidebar'
 import { ModulesVideoFlowSection } from '../components/modules/ModulesVideoFlowSection'
+import { ModulesCrossLoop } from '../components/modules/ModulesCrossLoop'
 import { PATHS } from '../routes/paths'
 import { prefetchSuperTrackPanel } from '../routes/routePrefetch'
 import { toLangSearch } from '../routes/langQuery'
@@ -194,24 +195,7 @@ export function ModulesPage() {
                 <p className="mod-section-desc">{t('mod_cross_desc')}</p>
               </div>
 
-              <div className="mod-grid">
-                <article className="mod-card mod-card--track mod-card--compact">
-                  <h2>{t('mod_x1_title')}</h2>
-                  <p className="mod-card-desc">{t('mod_x1_desc')}</p>
-                </article>
-                <article className="mod-card mod-card--script mod-card--compact">
-                  <h2>{t('mod_x2_title')}</h2>
-                  <p className="mod-card-desc">{t('mod_x2_desc')}</p>
-                </article>
-                <article className="mod-card mod-card--forge mod-card--compact">
-                  <h2>{t('mod_x3_title')}</h2>
-                  <p className="mod-card-desc">{t('mod_x3_desc')}</p>
-                </article>
-                <article className="mod-card mod-card--tune mod-card--compact">
-                  <h2>{t('mod_x4_title')}</h2>
-                  <p className="mod-card-desc">{t('mod_x4_desc')}</p>
-                </article>
-              </div>
+              <ModulesCrossLoop tm={t} />
             </div>
           </main>
 

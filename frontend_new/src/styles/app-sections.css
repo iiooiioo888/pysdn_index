@@ -1398,6 +1398,23 @@
   margin: 0;
 }
 
+.products-mini-cards {
+  margin-top: 16px;
+  max-width: 52ch;
+}
+
+.products-mini-cards .mod-mini-cards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+@media (max-width: 560px) {
+  .products-mini-cards .mod-mini-cards {
+    grid-template-columns: 1fr;
+  }
+}
+
 .products-mod {
   display: inline-flex;
   align-items: center;
@@ -2553,6 +2570,30 @@ button.drama-episode-item {
   background: var(--panel-dock-bg);
   border: var(--panel-dock-border);
   box-shadow: var(--panel-dock-inset);
+}
+
+.mp-mini-cards {
+  position: relative;
+  z-index: 1;
+  margin: 0 auto clamp(26px, 3vw, 34px);
+  max-width: 980px;
+}
+
+.mp-mini-cards .mod-mini-cards {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+@media (max-width: 880px) {
+  .mp-mini-cards .mod-mini-cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 560px) {
+  .mp-mini-cards .mod-mini-cards {
+    grid-template-columns: 1fr;
+  }
 }
 
 .mp-tabs {

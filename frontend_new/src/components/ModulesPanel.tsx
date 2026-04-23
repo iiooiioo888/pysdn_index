@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { useLangQuery } from '../hooks/useLangQuery'
 import { PATHS } from '../routes/paths'
 import { prefetchDocRoute, prefetchSuperTrackPanel } from '../routes/routePrefetch'
+import { ModuleMiniCards } from './ModuleMiniCards'
 
 export function ModulesPanel() {
   const { t } = useTranslation()
@@ -36,13 +37,17 @@ export function ModulesPanel() {
                   key={tab.id}
                   className={`mp-tab mp-tab--${tab.color} ${activeTab === tab.id ? 'active' : ''}`}
                   role="tab"
-                  aria-selected={activeTab === tab.id ? true : false}
+                  aria-selected={activeTab === tab.id}
                   onClick={() => setActiveTab(tab.id)}
                 >
                   {tab.label}
                 </button>
               ))}
             </div>
+          </div>
+
+          <div className="mp-mini-cards">
+            <ModuleMiniCards variant="modules-panel" />
           </div>
 
           {/* ===== SuperForge Panel ===== */}

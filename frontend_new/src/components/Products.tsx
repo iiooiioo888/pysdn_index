@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useLangQuery } from '../hooks/useLangQuery'
 import { PATHS } from '../routes/paths'
+import { ModuleMiniCards } from './ModuleMiniCards'
 const MODULE_CHEATSHEET = [
   { id: 'forge' as const, name: 'SuperForge', textKey: 'modules_split_cheat_forge' },
   { id: 'tune' as const, name: 'SuperTune', textKey: 'modules_split_cheat_tune' },
@@ -138,6 +139,9 @@ export function Products() {
                   <span className="products-mod products-mod--script">SuperScript</span>
                 </li>
               </ul>
+              <div className="products-mini-cards">
+                <ModuleMiniCards variant="products" />
+              </div>
             </div>
             <aside className="products-intro-rail" aria-hidden="true">
               <div className="products-rail-visual">
@@ -184,7 +188,7 @@ export function Products() {
               key={tab.id}
               className={`tab ${activeTab === tab.id ? 'active' : ''}`}
               role="tab"
-              aria-selected={activeTab === tab.id ? 'true' : 'false'}
+              aria-selected={activeTab === tab.id}
               onClick={() => setActiveTab(tab.id)}
             >
               {tab.label}
@@ -243,7 +247,14 @@ export function Products() {
                     <div className="prompt-btn">{t('mockup_video_btn')}</div>
                   </div>
                   <div className="mockup-progress">
-                    <div className="progress-track" role="progressbar" aria-valuenow={78} aria-valuemin={0} aria-valuemax={100}>
+                    <div
+                      className="progress-track"
+                      role="progressbar"
+                      aria-label={t('mockup_video_progress')}
+                      aria-valuenow={78}
+                      aria-valuemin={0}
+                      aria-valuemax={100}
+                    >
                       <div className="progress-fill progress-fill--78" />
                     </div>
                     <span>{t('mockup_video_progress')}</span>
