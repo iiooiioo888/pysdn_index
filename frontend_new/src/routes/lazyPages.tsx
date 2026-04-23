@@ -1,18 +1,24 @@
-import { lazy } from 'react'
+import { lazy, type ComponentType, type LazyExoticComponent } from 'react'
+import { HomePage as HomePageCmp } from '../pages/HomePage'
+import { ModulesPage as ModulesPageCmp } from '../pages/ModulesPage'
+import { ModelsPage as ModelsPageCmp } from '../pages/ModelsPage'
+import { ModelDetailPage as ModelDetailPageCmp } from '../pages/ModelDetailPage'
+import { FaqPage as FaqPageCmp } from '../pages/FaqPage'
 
-export const HomePage = lazy(() =>
-  import('../pages/HomePage').then((m) => ({ default: m.HomePage })),
-)
-export const ModulesPage = lazy(() =>
-  import('../pages/ModulesPage').then((m) => ({ default: m.ModulesPage })),
-)
-export const ModelsPage = lazy(() =>
-  import('../pages/ModelsPage').then((m) => ({ default: m.ModelsPage })),
-)
-export const ModelDetailPage = lazy(() =>
-  import('../pages/ModelDetailPage').then((m) => ({ default: m.ModelDetailPage })),
-)
-export const FaqPage = lazy(() => import('../pages/FaqPage').then((m) => ({ default: m.FaqPage })))
+/**
+ * 對齊 `registry` 的 `LazyExoticComponent` 型別，但實際為同步元件。
+ * 在 dev + `base` 非 `/` 時，`import()` 動態載入 `.tsx` 可能出現
+ * 「Failed to fetch dynamically imported module」；核心頁改靜態匯入可避開。
+ */
+function eagerPage(C: ComponentType<object>): LazyExoticComponent<ComponentType<object>> {
+  return C as unknown as LazyExoticComponent<ComponentType<object>>
+}
+
+export const HomePage = eagerPage(HomePageCmp)
+export const ModulesPage = eagerPage(ModulesPageCmp)
+export const ModelsPage = eagerPage(ModelsPageCmp)
+export const ModelDetailPage = eagerPage(ModelDetailPageCmp)
+export const FaqPage = eagerPage(FaqPageCmp)
 export const SuperForgeDocPage = lazy(() =>
   import('../pages/docs/SuperForgeDocPage').then((m) => ({ default: m.SuperForgeDocPage })),
 )
