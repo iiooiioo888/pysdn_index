@@ -23,6 +23,7 @@ export function DocumentLangFont() {
   const { i18n } = useTranslation()
 
   useEffect(() => {
+    if (!i18n.isInitialized || typeof i18n.on !== 'function') return
     const apply = () => {
       const code = toDocumentLang(i18n.resolvedLanguage ?? i18n.language)
       document.documentElement.lang = code === 'en' ? 'en' : code
@@ -32,10 +33,7 @@ export function DocumentLangFont() {
     return () => {
       i18n.off('languageChanged', apply)
     }
-  }, [i18n])
-
-  // i18n 尚未初始化時不渲染（避免 useTranslation 期間拿到 undefined language）
-  if (!i18n.isInitialized) return null
+  }, [i18n, i18n.isInitialized])
 
   return null
 }

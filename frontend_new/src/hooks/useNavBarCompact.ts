@@ -74,13 +74,13 @@ export function useNavBarCompact(linksSelector: string | null = '.nav-links') {
 
     window.addEventListener('resize', onResize)
     const onLang = () => releaseAndMeasure()
-    i18n.on('languageChanged', onLang)
+    if (typeof i18n.on === 'function') i18n.on('languageChanged', onLang)
 
     return () => {
       clearTimeout(widenDebounce)
       ro.disconnect()
       window.removeEventListener('resize', onResize)
-      i18n.off('languageChanged', onLang)
+      if (typeof i18n.off === 'function') i18n.off('languageChanged', onLang)
     }
   }, [applyMeasure, releaseAndMeasure, linksSelector])
 
