@@ -38,17 +38,16 @@ const rootEl = document.getElementById('root')
 if (!rootEl) {
   console.error('[pysdn] 找不到 #root，無法掛載 React')
 } else {
-  void initI18n()
-    .catch((err) => {
-      console.error('[pysdn] initI18n 失敗', err)
-    })
-    .finally(() => {
-      createRoot(rootEl).render(
-        <StrictMode>
-          <ErrorBoundary>
-            <RouterProvider router={router} />
-          </ErrorBoundary>
-        </StrictMode>,
-      )
-    })
+  // 先掛載 React，讓 app shell（導航、骨架）立即可見；i18n 翻譯在背景載入。
+  createRoot(rootEl).render(
+    <StrictMode>
+      <ErrorBoundary>
+        <RouterProvider router={router} />
+      </ErrorBoundary>
+    </StrictMode>,
+  )
+  // i18n 初始化不阻塞掛載；翻譯到位後 react-i18next 會自動 re-render。
+  void initI18n().catch((err) => {
+    console.error('[pysdn] initI18n 失敗', err)
+  })
 }

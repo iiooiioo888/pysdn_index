@@ -71,8 +71,19 @@ export default defineConfig({
     sourcemap: 'hidden',
     cssMinify: true,
     cssCodeSplit: true,
+    /** 使用 esbuild 壓縮（預設），比 terser 更快 */
+    minify: 'esbuild',
     rollupOptions: {
       output: {
+        /**
+         * 分 chunk 策略：
+         * - vendor: React 核心（長期穩定，瀏覽器快取命中率高）
+         * - router: react-router-dom（獨立更新）
+         * - i18n: 國際化（僅翻譯切換時需要）
+         * - mermaid: 僅文件頁 DocMermaid 用，延遲載入
+         * - http: axios（僅 API 呼叫時需要）
+         * - data-*: 大型 JSON 數據（openRouter 402KB、bedrock 103KB）
+         */
         manualChunks(id) {
           if (id.includes('node_modules/react-dom/')) return 'vendor'
           if (id.includes('node_modules/react/')) return 'vendor'
@@ -88,6 +99,10 @@ export default defineConfig({
           }
           if (id.includes('node_modules/axios')) {
             return 'http'
+          }
+          /* 大型數據 JSON 拆為獨立 chunk（Hero 不再拉入，僅 ModelsSection 延遲載入） */
+          if (id.includes('openRouterModelsSnapshot.json') || id.includes('bedrockCatalog.json')) {
+            return 'data-models'
           }
         },
       },

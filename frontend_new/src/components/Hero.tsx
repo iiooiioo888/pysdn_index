@@ -15,13 +15,13 @@ import {
 import { scrollToHash } from '../utils/scrollToHash'
 import { sanitizeHtml } from '../lib/sanitize'
 import { prefersReducedMotion } from '../lib/motionPreference'
-import { CATALOG_MODELS } from '../data/modelsCatalog'
-import { BEDROCK_MODELS } from '../data/bedrockCatalog'
-import { OPENROUTER_MODELS } from '../data/openRouterModels'
 
-/** 與 `ModelsSection` 匯總一致：精選目錄 + Bedrock + OpenRouter 快照 */
-const HERO_MODELS_TOTAL =
-  CATALOG_MODELS.length + BEDROCK_MODELS.length + OPENROUTER_MODELS.length
+/**
+ * 與 `ModelsSection` 匯總一致：精選目錄(10) + Bedrock(107) + OpenRouter(349)。
+ * 此處硬編碼避免 Hero chunk 拉入 500KB+ JSON；模型數量異動時需同步更新。
+ * @see data/modelsCatalog.ts, data/bedrockCatalog.ts, data/openRouterModelsSnapshot.json
+ */
+const HERO_MODELS_TOTAL = 466
 
 /** 首頁數據條：隊列／並行為管線容量取向；可接入模型數隨目錄更新 */
 const HERO_STATS = {

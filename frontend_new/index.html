@@ -43,13 +43,40 @@
     <!-- Favicon -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>" />
 
-    <!-- Fonts — async load to prevent render-blocking -->
+    <!-- Resource hints for faster connections -->
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Fonts — async load to prevent render-blocking -->
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" crossorigin onload="this.onload=null;this.rel='stylesheet'" />
     <noscript><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" crossorigin rel="stylesheet" /></noscript>
-    <!-- Critical inline styles to prevent FOUC -->
-    <style>body{margin:0;background:#0a0a0f;font-family:'Plus Jakarta Sans','Noto Sans SC','Noto Sans TC','PingFang SC','Microsoft YaHei',system-ui,sans-serif;-webkit-font-smoothing:antialiased}</style>
+    <!-- Critical inline styles to prevent FOUC + first-paint essentials -->
+    <style>
+      body{margin:0;background:#0a0a0f;font-family:'Plus Jakarta Sans','Noto Sans SC','Noto Sans TC','PingFang SC','Microsoft YaHei',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+      :root{--bg:#06060a;--text:#e8edf5;--text-dim:#b8c5d8;--text-muted:#7d8fa3;--accent:#06b6d4;--accent-2:#8b5cf6;--border:rgba(255,255,255,0.07);--border-hover:rgba(255,255,255,0.16);--app-scale:1.2;--font-sans:'Plus Jakarta Sans','Noto Sans TC','Noto Sans SC','PingFang TC','PingFang SC','Microsoft JhengHei','Microsoft YaHei','SimHei',sans-serif;--font-mono:'JetBrains Mono',ui-monospace,monospace;--layout-pad-x:clamp(18px,4.5vw,48px);--radius:calc(14px*var(--app-scale));--radius-lg:calc(22px*var(--app-scale));--text-body:1rem;--text-body-lg:clamp(1rem,0.35vw+0.94rem,1.125rem);--text-ui:0.875rem;--text-caption:0.8125rem;--reveal-dur:0.18s;--reveal-y:calc(5px*var(--app-scale));--page-top-offset:max(clamp(calc(96px*var(--app-scale)),13vh,calc(124px*var(--app-scale))),calc(calc(64px*var(--app-scale))+env(safe-area-inset-top,0px)+calc(24px*var(--app-scale))));--glass-backdrop:blur(14px) saturate(1.1);--panel-radius-lg:clamp(20px,2.8vw,26px);--panel-border:1px solid rgba(255,255,255,0.1);--panel-surface-bg-elevated:linear-gradient(165deg,rgba(255,255,255,0.07) 0%,rgba(255,255,255,0.02) 42%,rgba(6,182,212,0.04) 100%);--panel-shadow-elevated:0 28px 56px rgba(0,0,0,0.38);--panel-inset-top-soft:inset 0 1px 0 rgba(255,255,255,0.07);--panel-grid-line-subtle:rgba(255,255,255,0.03);--panel-grid-size-tight:22px;--panel-grid-fade-strong:0.45;--panel-grid-mask-tight:radial-gradient(ellipse 85% 70% at 50% 0%,#000 20%,transparent 75%);--panel-ring-cyan:rgba(6,182,212,0.06)}
+      html{font-size:1rem;-webkit-font-smoothing:antialiased;scroll-behavior:auto;overflow-x:hidden;scrollbar-width:none}
+      html::-webkit-scrollbar{display:none}
+      #bgCanvas{position:fixed;inset:0;z-index:0;pointer-events:none}
+      .site-shell{position:relative;z-index:1;isolation:isolate;min-height:100dvh;min-height:100svh}
+      .hero{position:relative;min-height:100vh;min-height:100dvh;min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding-top:var(--page-top-offset);padding-bottom:max(56px,env(safe-area-inset-bottom,0px));padding-left:max(var(--layout-pad-x),env(safe-area-inset-left,0px));padding-right:max(var(--layout-pad-x),env(safe-area-inset-right,0px));overflow:hidden}
+      .hero-content{text-align:center;width:100%;max-width:min(58rem,100%)}
+      .hero-title{font-size:clamp(2.35rem,5.8vw,4.2rem);font-weight:800;line-height:1.18;margin-bottom:24px;letter-spacing:-0.04em;font-feature-settings:'kern' 1,'liga' 1,'calt' 1}
+      .title-line{display:block;color:#fff}
+      .hero-desc{font-size:clamp(1.06rem,2.15vw,1.2rem);color:var(--text-dim);line-height:1.75;margin-bottom:36px;max-width:min(42rem,100%);margin-left:auto;margin-right:auto}
+      .hero-actions{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:28px}
+      .gradient-text{background:linear-gradient(135deg,#06b6d4,#8b5cf6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+      .reveal{opacity:0;transform:translateY(var(--reveal-y))}.reveal.visible{opacity:1;transform:translateY(0)}
+      .home-sf{position:relative}.home-sf__cv{position:fixed;inset:0;z-index:0;pointer-events:none}
+      .home-main{position:relative;z-index:1}
+      .container{width:100%;margin:0 auto;padding-left:max(var(--layout-pad-x),env(safe-area-inset-left,0px));padding-right:max(var(--layout-pad-x),env(safe-area-inset-right,0px));box-sizing:border-box}
+      .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 28px;font-weight:600;font-size:var(--text-body);border-radius:9999px;transition:all 0.25s cubic-bezier(0.4,0,0.2,1)}
+      .btn-primary{background:linear-gradient(135deg,#0891b2,#7c3aed);color:#fff;box-shadow:0 4px 24px rgba(6,182,212,0.22)}
+      .btn-ghost{border:1px solid rgba(255,255,255,0.14);color:var(--text-dim);background:rgba(255,255,255,0.04)}
+      .nav-bar{position:fixed;top:0;left:0;right:0;z-index:50;transition:all 0.25s cubic-bezier(0.4,0,0.2,1)}
+    </style>
+
 
     <!-- JSON-LD: SoftwareApplication -->
     <script type="application/ld+json">
