@@ -27,6 +27,7 @@ export function LanguageSwitcher() {
   const rootRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
+    if (!i18n.isInitialized) return
     const q = searchParams.get('lang')
     if (q && isAppLangCode(q) && i18n.language !== q) {
       void i18n.changeLanguage(q)
@@ -56,7 +57,7 @@ export function LanguageSwitcher() {
 
   const selectLang = useCallback(
     (code: (typeof languages)[number]['code']) => {
-      void i18n.changeLanguage(code)
+      if (i18n.isInitialized) void i18n.changeLanguage(code)
       setSearchParams(
         (prev) => {
           const next = new URLSearchParams(prev)
