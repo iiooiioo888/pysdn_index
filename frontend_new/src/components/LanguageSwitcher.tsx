@@ -11,8 +11,9 @@ const languages = [
   { code: 'ko', label: '한국어', flag: '🇰🇷' },
 ] as const
 
-function resolvePickerLang(i18n: { resolvedLanguage?: string; language: string }): string {
-  const raw = i18n.resolvedLanguage ?? i18n.language
+function resolvePickerLang(i18n: { resolvedLanguage?: string; language?: string }): string {
+  const raw = i18n.resolvedLanguage ?? i18n.language ?? ''
+  if (!raw) return 'zh-TW'
   if (isAppLangCode(raw)) return raw
   if (raw === 'zh') return 'zh-TW'
   const hit = languages.find((l) => raw === l.code || raw.startsWith(`${l.code}-`))

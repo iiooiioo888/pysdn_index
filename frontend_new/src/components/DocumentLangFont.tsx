@@ -3,8 +3,9 @@ import { useTranslation } from 'react-i18next'
 import { isAppLangCode, type AppLangCode } from '../routes/langQuery'
 
 /** 將 i18n 語系對應到 <html lang>，讓 `index.css` 的 `:lang()` 字體堆疊生效 */
-function toDocumentLang(i18nLang: string): AppLangCode | 'en' {
-  const raw = i18nLang
+function toDocumentLang(i18nLang: string | undefined): AppLangCode | 'en' {
+  const raw = i18nLang ?? ''
+  if (!raw) return 'zh-TW'
   if (isAppLangCode(raw)) return raw
   if (raw === 'zh') return 'zh-TW'
   if (raw.startsWith('zh-CN')) return 'zh-CN'
@@ -32,6 +33,9 @@ export function DocumentLangFont() {
       i18n.off('languageChanged', apply)
     }
   }, [i18n])
+
+  // i18n 尚未初始化時不渲染（避免 useTranslation 期間拿到 undefined language）
+  if (!i18n.isInitialized) return null
 
   return null
 }
