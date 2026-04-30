@@ -8,9 +8,21 @@ export function Contact() {
   const [submitted, setSubmitted] = useState(false)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [fieldErrors, setFieldErrors] = useState<{ name?: string; email?: string; message?: string }>({})
+
+  const validate = (): boolean => {
+    const errs: typeof fieldErrors = {}
+    if (!formData.name.trim()) errs.name = t('form_err_name', '請填寫姓名')
+    if (!formData.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email))
+      errs.email = t('form_err_email', '請填寫有效的電子信箱')
+    if (!formData.message.trim()) errs.message = t('form_err_message', '請填寫需求內容')
+    setFieldErrors(errs)
+    return Object.keys(errs).length === 0
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    if (!validate()) return
     setLoading(true)
     setError(null)
     try {
@@ -21,6 +33,7 @@ export function Contact() {
         message: formData.message,
       })
       setSubmitted(true)
+      setFieldErrors({})
       setTimeout(() => {
         setSubmitted(false)
         setFormData({ name: '', email: '', company: '', message: '' })
@@ -82,9 +95,12 @@ export function Contact() {
                   autoComplete="name"
                   placeholder={t('form_name_ph')}
                   required
+                  aria-invalid={!!fieldErrors.name}
+                  aria-describedby={fieldErrors.name ? 'name-error' : undefined}
                   value={formData.name}
-                  onChange={(e) => setFormData((p) => ({ ...p, name: e.target.value }))}
+                  onChange={(e) => { setFormData((p) => ({ ...p, name: e.target.value })); setFieldErrors((p) => ({ ...p, name: undefined })) }}
                 />
+                {fieldErrors.name && <p id="name-error" className="form-field-error" style={{ color: '#ef4444', fontSize: '0.8rem', marginTop: '0.25rem' }}>{fieldErrors.name}</p>}
               </div>
               <div className="form-group">
                 <label htmlFor="email">{t('form_email')}</label>
@@ -94,9 +110,12 @@ export function Contact() {
                   autoComplete="email"
                   placeholder={t('form_email_ph')}
                   required
+                  aria-invalid={!!fieldErrors.email}
+                  aria-describedby={fieldErrors.email ? 'email-error' : undefined}
                   value={formData.email}
-                  onChange={(e) => setFormData((p) => ({ ...p, email: e.target.value }))}
+                  onChange={(e) => { setFormData((p) => ({ ...p, email: e.target.value })); setFieldErrors((p) => ({ ...p, email: undefined })) }}
                 />
+                {fieldErrors.email && <p id="email-error" className="form-field-error" style={{ color: '#ef4444', fontSize: '0.8rem', marginTop: '0.25rem' }}>{fieldErrors.email}</p>}
               </div>
             </div>
             <div className="form-group">
@@ -117,9 +136,12 @@ export function Contact() {
                 rows={4}
                 placeholder={t('form_message_ph')}
                 required
+                aria-invalid={!!fieldErrors.message}
+                aria-describedby={fieldErrors.message ? 'message-error' : undefined}
                 value={formData.message}
-                onChange={(e) => setFormData((p) => ({ ...p, message: e.target.value }))}
+                onChange={(e) => { setFormData((p) => ({ ...p, message: e.target.value })); setFieldErrors((p) => ({ ...p, message: undefined })) }}
               />
+              {fieldErrors.message && <p id="message-error" className="form-field-error" style={{ color: '#ef4444', fontSize: '0.8rem', marginTop: '0.25rem' }}>{fieldErrors.message}</p>}
             </div>
             {error && <p className="form-error" style={{ color: '#ef4444', marginTop: '0.5rem' }}>{error}</p>}
             <button

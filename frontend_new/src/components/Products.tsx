@@ -6,9 +6,9 @@ import { PATHS } from '../routes/paths'
 import { ModuleMiniCards } from './ModuleMiniCards'
 const MODULE_CHEATSHEET = [
   { id: 'forge' as const, name: 'SuperForge', textKey: 'modules_split_cheat_forge' },
-  { id: 'tune' as const, name: 'SuperTune', textKey: 'modules_split_cheat_tune' },
-  { id: 'track' as const, name: 'SuperTrack', textKey: 'modules_split_cheat_track' },
   { id: 'script' as const, name: 'SuperScript', textKey: 'modules_split_cheat_script' },
+  { id: 'track' as const, name: 'SuperTrack', textKey: 'modules_split_cheat_track' },
+  { id: 'tune' as const, name: 'SuperTune', textKey: 'modules_split_cheat_tune' },
 ]
 
 export function Products() {

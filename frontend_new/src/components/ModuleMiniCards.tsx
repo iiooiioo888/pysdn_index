@@ -7,9 +7,9 @@ type Variant = 'products' | 'modules-panel'
 
 const CARDS = [
   { id: 'forge', name: 'SuperForge', descKey: 'modules_split_cheat_forge', to: (s: string) => ({ pathname: PATHS.docs.superforge, search: s }) },
-  { id: 'tune', name: 'SuperTune', descKey: 'modules_split_cheat_tune', to: (s: string) => ({ pathname: PATHS.docs.supertune, search: s }) },
-  { id: 'track', name: 'SuperTrack', descKey: 'modules_split_cheat_track', to: (s: string) => ({ pathname: PATHS.docs.supertrack, search: s }) },
   { id: 'script', name: 'SuperScript', descKey: 'modules_split_cheat_script', to: (s: string) => ({ pathname: PATHS.docs.superscript, search: s }) },
+  { id: 'track', name: 'SuperTrack', descKey: 'modules_split_cheat_track', to: (s: string) => ({ pathname: PATHS.docs.supertrack, search: s }) },
+  { id: 'tune', name: 'SuperTune', descKey: 'modules_split_cheat_tune', to: (s: string) => ({ pathname: PATHS.docs.supertune, search: s }) },
 ] as const
 
 export function ModuleMiniCards({ variant }: { variant: Variant }) {
