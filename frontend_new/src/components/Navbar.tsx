@@ -16,7 +16,7 @@ type NavLinkDef =
   | { type: 'route'; path: string; i18nKey: string }
 
 const NAV_LINKS: NavLinkDef[] = [
-  { type: 'homeHash', hash: '#home', i18nKey: 'nav_home' },
+  // 「首頁」省略——Logo 已經是回首頁的連結
   { type: 'homeHash', hash: '#products', i18nKey: 'nav_products' },
   { type: 'route', path: PATHS.models, i18nKey: 'nav_models' },
   { type: 'route', path: PATHS.modules, i18nKey: 'nav_module_docs' },

@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useLangQuery } from '../hooks/useLangQuery'
 import { PATHS } from '../routes/paths'
+import { LanguageSwitcher } from './LanguageSwitcher'
 
 export function Footer() {
   const { t } = useTranslation()
@@ -47,7 +48,10 @@ export function Footer() {
         </div>
         <div className="footer-bottom">
           <span>{t('footer_copy', { year: new Date().getFullYear() })}</span>
-          <span className="footer-badge" aria-hidden="true">SYS READY</span>
+          <div className="footer-bottom-right">
+            <LanguageSwitcher />
+            <span className="footer-badge" aria-hidden="true">SYS READY</span>
+          </div>
         </div>
       </div>
     </footer>

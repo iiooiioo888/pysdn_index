@@ -114,6 +114,11 @@
   font-size: var(--text-ui, 0.875rem);
   color: var(--text-muted);
 }
+.footer-bottom-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
 .footer-badge {
   padding: 5px 12px;
   font-family: 'JetBrains Mono', monospace;

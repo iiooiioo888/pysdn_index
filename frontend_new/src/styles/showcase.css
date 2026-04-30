@@ -31,6 +31,21 @@
 .card-visual--accent-violet { background: linear-gradient(135deg, rgba(139,92,246,0.1), rgba(139,92,246,0.02)); }
 .card-visual--accent-emerald { background: linear-gradient(135deg, rgba(16,185,129,0.1), rgba(16,185,129,0.02)); }
 .card-icon { font-size: 2.5rem; }
+/* Non-video cards: subtle hover overlay to signal "view example" */
+.card-visual:not(.media-card)::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.45) 100%);
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+@media (hover: hover) and (pointer: fine) {
+  .showcase-card:hover .card-visual:not(.media-card)::after {
+    opacity: 1;
+  }
+}
 .showcase-video-badge {
   position: absolute;
   top: 12px;

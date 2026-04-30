@@ -50,12 +50,32 @@ export function Hero() {
   const introRef = useRef<HTMLDivElement>(null)
 
   // Stats counters（與 HERO_STATS 對齊）
-  const statsQueue = useInView()
-  const statsConcurrent = useInView()
-  const statsModels = useInView()
-  const countQueue = useCountUp(HERO_STATS.modelQueue, statsQueue.inView)
-  const countConcurrent = useCountUp(HERO_STATS.concurrentJobs, statsConcurrent.inView)
-  const countModels = useCountUp(HERO_STATS.availableModels, statsModels.inView)
+  // 觀察整個 hero-content 容器而非個別 stat-pill，確保統計數字在首屏載入時即啟動計數
+  const heroContentRef = useRef<HTMLDivElement>(null)
+  const [statsInView, setStatsInView] = useState(false)
+  const countQueue = useCountUp(HERO_STATS.modelQueue, statsInView)
+  const countConcurrent = useCountUp(HERO_STATS.concurrentJobs, statsInView)
+  const countModels = useCountUp(HERO_STATS.availableModels, statsInView)
+
+  useEffect(() => {
+    const el = heroContentRef.current
+    if (!el) return
+    if (typeof IntersectionObserver === 'undefined') {
+      setStatsInView(true)
+      return
+    }
+    const obs = new IntersectionObserver(
+      ([entry]) => {
+        if (entry?.isIntersecting) {
+          setStatsInView(true)
+          obs.disconnect()
+        }
+      },
+      { threshold: 0.05 },
+    )
+    obs.observe(el)
+    return () => obs.disconnect()
+  }, [])
 
   useEffect(() => {
     const el = introRef.current
@@ -125,7 +145,7 @@ export function Hero() {
       </div>
 
       {/* Main Hero Content */}
-      <div className="hero-content">
+      <div className="hero-content" ref={heroContentRef}>
         <h1 className="hero-title reveal">
           <span className="title-line">{t('hero_line1')}</span>
           <span className="title-line gradient-text typing-stack">
@@ -256,20 +276,20 @@ export function Hero() {
           </div>
         </div>
         <div className="hero-stats reveal">
-          <div className="stat-pill" ref={statsQueue.ref}>
+          <div className="stat-pill">
             <div className="stat">
               <span className="stat-num">{countQueue}</span>
               <span className="stat-label">{t('stat_model_queue')}</span>
             </div>
           </div>
-          <div className="stat-pill" ref={statsConcurrent.ref}>
+          <div className="stat-pill">
             <div className="stat">
               <span className="stat-num">{countConcurrent}</span>
               <span className="stat-suffix">+</span>
               <span className="stat-label">{t('stat_concurrent_jobs')}</span>
             </div>
           </div>
-          <div className="stat-pill" ref={statsModels.ref}>
+          <div className="stat-pill">
             <div className="stat">
               <span className="stat-num">{countModels}</span>
               <span className="stat-suffix">+</span>
