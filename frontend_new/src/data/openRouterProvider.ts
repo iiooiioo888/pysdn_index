@@ -28,7 +28,7 @@ export function openRouterProviderName(modelId: string): string {
   const id = modelId.trim()
   const slash = id.indexOf('/')
   const org = slash >= 0 ? id.slice(0, slash) : id
-  let key = org.toLowerCase().replace(/^~+/, '')
+  const key = org.toLowerCase().replace(/^~+/, '')
   if (ORG_LABELS[key]) return ORG_LABELS[key]
   return titleCaseSlug(org)
 }

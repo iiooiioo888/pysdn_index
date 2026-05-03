@@ -76,37 +76,21 @@ export default defineConfig({
     rollupOptions: {
       output: {
         /**
-         * 分 chunk 策略：
-         * - vendor: React 核心（長期穩定，瀏覽器快取命中率高）
-         * - router: react-router-dom（獨立更新）
-         * - i18n: 國際化（僅翻譯切換時需要）
-         * - mermaid: 僅文件頁 DocMermaid 用，延遲載入
-         * - http: axios（僅 API 呼叫時需要）
-         * - data-*: 大型 JSON 數據（openRouter 402KB、bedrock 103KB）
+         * Chunk 分割策略（Vite 8 + Rolldown）：
+         * - vendor / router / i18n / http / purify: 框架核心，長期穩定可快取
+         * - Mermaid 及其子依賴（cytoscape、katex）由 Rolldown 自動按動態 import 邊界分割
+         * - 大型 JSON 數據隨對應頁面 lazy chunk 一起載入
          */
         manualChunks(id) {
           if (id.includes('node_modules/react-dom/')) return 'vendor'
           if (id.includes('node_modules/react/')) return 'vendor'
-          if (id.includes('node_modules/react-router')) {
-            return 'router'
-          }
-          if (id.includes('node_modules/react-i18next/') || id.includes('node_modules/i18next/')) {
-            return 'i18n'
-          }
-          /* 僅 `DocMermaid` 內 `import('mermaid')` 會觸發；獨立 chunk 利於快取 */
-          if (id.includes('node_modules/mermaid')) {
-            return 'mermaid'
-          }
-          if (id.includes('node_modules/axios')) {
-            return 'http'
-          }
-          /* 大型數據 JSON 拆為獨立 chunk（Hero 不再拉入，僅 ModelsSection 延遲載入） */
-          if (id.includes('openRouterModelsSnapshot.json') || id.includes('bedrockCatalog.json')) {
-            return 'data-models'
-          }
+          if (id.includes('node_modules/react-router')) return 'router'
+          if (id.includes('node_modules/react-i18next/') || id.includes('node_modules/i18next/')) return 'i18n'
+          if (id.includes('node_modules/axios')) return 'http'
+          if (id.includes('node_modules/dompurify')) return 'purify'
         },
       },
     },
-    chunkSizeWarningLimit: 600,
+    chunkSizeWarningLimit: 500,
   },
 })

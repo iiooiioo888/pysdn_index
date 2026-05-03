@@ -33,6 +33,7 @@ export function Hero() {
   const { t, i18n } = useTranslation()
   const langSearch = useLangQuery()
   /** 只跟語系變化；避免依賴 `t`／整個 `i18n` 參考導致 memo 失效、打字 effect 被反覆重置 */
+  /* eslint-disable react-hooks/exhaustive-deps */
   const typingTiers = useMemo((): TypingTierPhrase[][] => {
     const raw = i18n.t('hero_typing_tiers', { returnObjects: true }) as
       | Record<string, TypingTierPhrase[]>
@@ -43,6 +44,7 @@ export function Hero() {
     if (rows.some((tier) => !tier.length)) return DEFAULT_TYPING_TIERS
     return rows
   }, [i18n.language])
+  /* eslint-enable react-hooks/exhaustive-deps */
   const { textRef: typingTextRef, emojiRef: typingEmojiRef } = useTypingAnimation(typingTiers)
   const [lightningActive, setLightningActive] = useState(false)
   const [introFxInView, setIntroFxInView] = useState(true)
@@ -60,7 +62,8 @@ export function Hero() {
     const el = heroContentRef.current
     if (!el) return
     if (typeof IntersectionObserver === 'undefined') {
-      setStatsInView(true)
+      // Fallback: use microtask to avoid synchronous setState in effect
+      queueMicrotask(() => setStatsInView(true))
       return
     }
     const obs = new IntersectionObserver(

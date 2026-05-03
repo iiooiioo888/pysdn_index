@@ -47,6 +47,8 @@ export function useSocialCrawlerApi() {
   }, [root])
 
   useEffect(() => {
+    // Initial data fetch on mount
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     void refresh()
     return () => {
       abortRef.current?.abort()

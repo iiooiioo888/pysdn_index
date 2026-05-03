@@ -59,6 +59,8 @@ export function Navbar() {
   }, [])
 
   useEffect(() => {
+    // Close mobile menu when navbar stops being compact
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     if (!compact) setMenuOpen(false)
   }, [compact])
 

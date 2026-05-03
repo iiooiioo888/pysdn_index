@@ -13,6 +13,7 @@ export function DocMermaid({ chart, className = '' }: DocMermaidProps) {
 
   useEffect(() => {
     let cancelled = false
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setError(null)
     const el = hostRef.current
     if (!el) return

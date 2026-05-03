@@ -20,11 +20,6 @@ export function Products() {
   const [needsGesture, setNeedsGesture] = useState(false)
   /** 短劇分頁：主畫面監看目前播放的集數（EP1→EP3 連續輪播，可點選切換） */
   const [dramaMonitorEp, setDramaMonitorEp] = useState(1)
-  const [stats, setStats] = useState<{
-    videosTotal?: number
-    dramasTotal?: number
-    imagesTotal?: number
-  }>({})
   const tabs = useMemo(
     () => [
       { id: 'video', label: t('tab_video') },
@@ -36,14 +31,8 @@ export function Products() {
 
   const assetMp4 = (filename: string) => `${import.meta.env.BASE_URL}assets/${filename}`
 
-  // 靜態 demo：影片/短劇直接引用 public/assets 內的 mp4
-  useEffect(() => {
-    setStats({
-      videosTotal: 3,
-      dramasTotal: 2,
-      imagesTotal: 15,
-    })
-  }, [])
+  // Static demo stats (no backend needed)
+  const [stats] = useState({ videosTotal: 3, dramasTotal: 2, imagesTotal: 15 })
 
   useEffect(() => {
     const el = sectionRef.current
@@ -92,6 +81,7 @@ export function Products() {
   }
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     if (activeTab === 'drama') setDramaMonitorEp(1)
     const timer = window.setTimeout(() => {
       const videos = Array.from(document.querySelectorAll<HTMLVideoElement>('#products video'))
@@ -586,7 +576,7 @@ export function Products() {
 }
 
 function LightningStage({ type }: { type: string }) {
-  const colors = useMemo(() => {
+  const [colors] = useState(() => {
     const baseHues: Record<string, number> = { video: 198, drama: 314, image: 168 }
     const baseHue = baseHues[type] || 200
     const hsl = (h: number, s: number, l: number, a: number) =>
@@ -596,7 +586,7 @@ function LightningStage({ type }: { type: string }) {
       '--lt-b': hsl(baseHue + 38, 76, 66, 0.78),
       '--lt-c': hsl(baseHue + 5, 92, 76, 0.86),
     }
-  }, [type])
+  })
 
   return (
     <div className="lightning-stage" aria-hidden="true" style={colors as React.CSSProperties}>

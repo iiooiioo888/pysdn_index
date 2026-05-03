@@ -203,6 +203,7 @@ export function useCountUp(target: number, trigger: boolean) {
   useEffect(() => {
     if (!trigger) return
     if (prefersReducedMotion()) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setCount(target)
       return
     }
@@ -226,18 +227,16 @@ export function useCountUp(target: number, trigger: boolean) {
 export function useInView(options?: IntersectionObserverInit) {
   const [inView, setInView] = useState(false)
   const ref = useRef<HTMLDivElement>(null)
-  const optsRef = useRef(options)
-  optsRef.current = options
 
   useEffect(() => {
     const el = ref.current
     if (!el) return
     if (typeof IntersectionObserver === 'undefined') {
-      setInView(true)
+      queueMicrotask(() => setInView(true))
       return
     }
 
-    const merged: IntersectionObserverInit = { threshold: 0.1, ...optsRef.current }
+    const merged: IntersectionObserverInit = { threshold: 0.1, ...options }
     const obs = new IntersectionObserver(
       ([entry]) => {
         if (entry?.isIntersecting) {
@@ -250,6 +249,7 @@ export function useInView(options?: IntersectionObserverInit) {
 
     obs.observe(el)
     return () => obs.disconnect()
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- options stabilized by caller (HOME_LAZY_IO)
   }, [])
 
   return { ref, inView }

@@ -222,11 +222,10 @@ function formatIngestDisplay(ms: number | null): { absolute: string; relative: s
   const d = new Date(ms)
   const absolute = new Intl.DateTimeFormat('zh-TW', { dateStyle: 'medium', timeStyle: 'short' }).format(d)
   const diffMin = Math.round((Date.now() - ms) / 60_000)
-  let relative = ''
-  if (diffMin < 1) relative = '剛剛'
-  else if (diffMin < 60) relative = `${diffMin} 分鐘前`
-  else if (diffMin < 1440) relative = `${Math.floor(diffMin / 60)} 小時前`
-  else relative = `${Math.floor(diffMin / 1440)} 天前`
+  const relative = diffMin < 1 ? '剛剛'
+    : diffMin < 60 ? `${diffMin} 分鐘前`
+    : diffMin < 1440 ? `${Math.floor(diffMin / 60)} 小時前`
+    : `${Math.floor(diffMin / 1440)} 天前`
   return { absolute, relative }
 }
 
@@ -416,11 +415,13 @@ export function SuperTrackPanel({ lang }: SuperTrackPanelProps) {
 
   useEffect(() => {
     if (health !== 'ok') {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setTargetsItemsFetched(false)
     }
   }, [health])
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     if (tab === 'targets') void loadTargetsCrawl()
   }, [tab, loadTargetsCrawl])
 

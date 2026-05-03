@@ -49,6 +49,7 @@ export function useDocBundle(name: DocBundleName) {
   useEffect(() => {
     let cancelled = false
     if (i18n.hasResourceBundle('zh-TW', ns)) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- legitimate: sync i18n bundle availability
       setLoaded(true)
       setLoadError(false)
       return

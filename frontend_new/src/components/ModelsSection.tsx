@@ -104,6 +104,8 @@ export function ModelsSection() {
   const loadSentinelRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
+    // Sync brand filter from URL search params
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setBrandFilter(brandFromLocationSearch(search))
   }, [search])
 
@@ -176,6 +178,8 @@ export function ModelsSection() {
   }, [allModels, capFilter, brandFilter, devFilter, searchText, lang])
 
   useEffect(() => {
+    // Reset pagination when filters change
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setListLimit(MODELS_BATCH_SIZE)
   }, [capFilter, brandFilter, devFilter, searchText])
 
