@@ -8,7 +8,6 @@ import { withSearchParam } from '../routes/langQuery'
 import {
   useTypingAnimation,
   useCountUp,
-  useInView,
   DEFAULT_TYPING_TIERS,
   type TypingTierPhrase,
 } from '../hooks/useAnimations'

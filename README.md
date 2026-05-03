@@ -94,23 +94,34 @@ proxy: {
 
 ```text
 pysdn_index/
-├── frontend_new/          # React + TypeScript + Vite 前端
+├── frontend_new/              # React 19 + TypeScript + Vite 前端
 │   ├── src/
-│   │   ├── components/    # UI 組件
-│   │   ├── hooks/         # 自定義 Hooks
-│   │   ├── lib/           # 工具函數、API 客戶端、狀態管理
-│   │   ├── locales/       # 國際化資源
-│   │   ├── App.tsx        # 主應用組件
-│   │   └── main.tsx       # 應用入口
+│   │   ├── components/        # UI 組件
+│   │   ├── hooks/             # 自定義 Hooks
+│   │   ├── lib/               # 工具函數、API 客戶端、狀態管理
+│   │   ├── locales/           # 國際化資源（主站 + doc 命名空間）
+│   │   ├── pages/             # 頁面組件（HomePage、docs、labs、panel）
+│   │   ├── routes/            # 路由定義（appRouter、registry、paths）
+│   │   ├── styles/            # 各區塊樣式
+│   │   ├── data/              # 模型目錄等大型 JSON 數據
+│   │   └── main.tsx           # 應用入口
+│   ├── scripts/               # 構建輔助腳本
+│   ├── public/                # 靜態資源
 │   ├── index.html
 │   ├── vite.config.ts
 │   ├── tailwind.config.cjs
 │   └── package.json
-├── backend/               # FastAPI 後端服務
-│   ├── main.py            # API 主應用程式
-│   ├── requirements.txt   # Python 依賴
-│   └── API.md             # API 文檔
-├── frontend/              # 舊版靜態前端（保留參考）
+├── social-crawler/            # SuperTrack 爬蟲後端（FastAPI + 可插拔適配器）
+│   ├── social_crawler/
+│   │   ├── adapters/          # 平台適配器（demo、xhs、douyin、youtube 等）
+│   │   ├── api/               # FastAPI 應用
+│   │   ├── config/            # 設定載入（YAML + 環境變數）
+│   │   ├── models/            # 資料模型（ContentItem、CrawlTask 等）
+│   │   ├── scheduler/         # 任務調度器（優先級佇列 + 令牌桶限速）
+│   │   └── storage/           # 儲存層（SQLite + JSONL）
+│   └── requirements.txt
+├── legacy_old_frontend/       # 舊版靜態前端（保留參考）
+├── SuperTrack_Documentation.md
 └── README.md
 ```
 
@@ -239,11 +250,13 @@ pysdn_index/
    <h1>{t('hero.title')}</h1>
    ```
 
-### 後端開發流程
+### 後端開發流程（social-crawler）
+
+SocialCrawler 是 SuperTrack 的爬蟲後端，位於 `social-crawler/` 目錄。
 
 1. **設置虛擬環境（推薦）**
    ```bash
-   cd backend
+   cd social-crawler
    python -m venv venv
    source venv/bin/activate  # Windows: venv\Scripts\activate
    ```
@@ -255,17 +268,12 @@ pysdn_index/
 
 3. **啟動開發伺服器**
    ```bash
-   python main.py
+   python -m social_crawler
    ```
 
-4. **添加新 API 端點**
+4. **添加新適配器**
    
-   在 `backend/main.py` 中添加路由：
-   ```python
-   @app.post("/api/new-endpoint")
-   async def new_endpoint(data: Schema):
-       return {"result": "success"}
-   ```
+   在 `social_crawler/adapters/` 下繼承 `BaseAdapter` 並實作 `search` 方法，然後於 `registry.py` 註冊。
 
 ---
 
@@ -282,12 +290,13 @@ npm run build
 # 可部署至任何靜態託管服務（Vercel, Netlify, GitHub Pages 等）
 ```
 
-### 後端部署
+### 後端部署（social-crawler）
 
 ```bash
-# 使用 Gunicorn + Uvicorn workers
-pip install gunicorn
-gunicorn backend.main:app -w 4 -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:8000
+# 使用 Uvicorn（social-crawler 內建 FastAPI 應用）
+cd social-crawler
+pip install -r requirements.txt
+uvicorn social_crawler.api.app:create_app --factory --host 0.0.0.0 --port 8000
 ```
 
 ### Docker 部署（可選）
@@ -304,10 +313,10 @@ RUN npm run build
 FROM python:3.11-slim
 WORKDIR /app
 COPY --from=frontend-build /app/dist ./static
-COPY backend/requirements.txt .
+COPY social-crawler/requirements.txt .
 RUN pip install -r requirements.txt
-COPY backend/ .
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+COPY social-crawler/ .
+CMD ["uvicorn", "social_crawler.api.app:create_app", "--factory", "--host", "0.0.0.0", "--port", "8000"]
 ```
 
 ---
@@ -320,7 +329,7 @@ cd frontend_new
 npm test
 
 # 後端測試（待添加）
-cd backend
+cd social-crawler
 pytest
 ```
 
@@ -328,13 +337,13 @@ pytest
 
 ## 📝 舊版前端說明
 
-`frontend/` 目錄保留原始 Vanilla JS 版本供參考：
+`legacy_old_frontend/` 目錄保留原始 Vanilla JS 版本供參考：
 - 純 HTML/CSS/JavaScript 實現
 - 包含 `modules.html` 控制面板
 - 使用 PurgeCSS 優化樣式
 - 自研 i18n 系統
 
-如需使用舊版，請在 `frontend/` 目錄下執行：
+如需使用舊版，請在 `legacy_old_frontend/` 目錄下執行：
 ```bash
 python serve.py
 # 訪問 http://localhost:8080
