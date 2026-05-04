@@ -54,37 +54,6 @@ export function Contact() {
           <p className="section-desc reveal">{t('contact_desc')}</p>
         </div>
         <div className="contact-grid">
-          <div className="contact-info reveal">
-            <div className="info-card">
-              <span className="info-icon" aria-hidden="true">✉️</span>
-              <div>
-                <div className="info-label">{t('contact_email_label')}</div>
-                <a href={`mailto:${t('contact_email_value')}`}>{t('contact_email_value')}</a>
-              </div>
-            </div>
-            <div className="info-card">
-              <span className="info-icon" aria-hidden="true">📍</span>
-              <div>
-                <div className="info-label">{t('contact_addr_label')}</div>
-                <span>{t('contact_addr_value')}</span>
-              </div>
-            </div>
-            <div className="info-card">
-              <span className="info-icon" aria-hidden="true">⏱️</span>
-              <div>
-                <div className="info-label">{t('contact_response_label')}</div>
-                <span>{t('contact_response_value')}</span>
-              </div>
-            </div>
-            <div className="info-card">
-              <span className="info-icon" aria-hidden="true">🌐</span>
-              <div>
-                <div className="info-label">{t('contact_social_label')}</div>
-                <span>{t('contact_social_value')}</span>
-              </div>
-            </div>
-            <p className="contact-side-note reveal">{t('contact_side_note')}</p>
-          </div>
           <form className="contact-form-card reveal" onSubmit={handleSubmit} noValidate>
             <div className="form-row">
               <div className="form-group">
