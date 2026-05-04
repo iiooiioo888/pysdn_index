@@ -117,15 +117,6 @@ export function ModelSkeletonGrid({ count = 6 }: { count?: number }) {
   )
 }
 
-export export function ModelSkeletonGrid({ count = 6 }: { count?: number }) {
-  return (
-    <div className="models-skeleton-grid">
-      {Array.from({ length: count }, (_, i) => (
-        <ModelCardSkeleton key={i} />
-      ))}
-    </div>
-  )
-}
 
 export function ModelsSection() {
   const { t, i18n } = useTranslation()
