@@ -91,6 +91,42 @@ function matchesFilters(
   }
 }
 
+
+/** 骨架屏：模型卡片載入佔位 */
+function ModelCardSkeleton() {
+  return (
+    <div className="models-skeleton-card" aria-hidden="true">
+      <div className="models-skeleton-thumb" />
+      <div className="models-skeleton-body">
+        <div className="models-skeleton-line models-skeleton-line--title" />
+        <div className="models-skeleton-line models-skeleton-line--desc" />
+        <div className="models-skeleton-line models-skeleton-line--desc2" />
+        <div className="models-skeleton-line models-skeleton-line--price" />
+      </div>
+    </div>
+  )
+}
+
+export function ModelSkeletonGrid({ count = 6 }: { count?: number }) {
+  return (
+    <div className="models-skeleton-grid">
+      {Array.from({ length: count }, (_, i) => (
+        <ModelCardSkeleton key={i} />
+      ))}
+    </div>
+  )
+}
+
+export export function ModelSkeletonGrid({ count = 6 }: { count?: number }) {
+  return (
+    <div className="models-skeleton-grid">
+      {Array.from({ length: count }, (_, i) => (
+        <ModelCardSkeleton key={i} />
+      ))}
+    </div>
+  )
+}
+
 export function ModelsSection() {
   const { t, i18n } = useTranslation()
   const { search } = useLocation()
@@ -115,42 +151,30 @@ export function ModelsSection() {
   )
 
   const counts = useMemo(() => {
-    const total = allModels.length
-    const video = allModels.filter((m) => m.capability === 'video').length
-    const image = allModels.filter((m) => m.capability === 'image').length
-    const text = allModels.filter((m) => m.capability === 'text').length
-    const audio = allModels.filter((m) => m.capability === 'audio').length
-    const multimodal = allModels.filter((m) => m.capability === 'multimodal').length
-    const seedance = allModels.filter((m) => m.product === 'seedance').length
-    const seedream = allModels.filter((m) => m.product === 'seedream').length
-    const qwencloud = allModels.filter((m) => m.product === 'qwencloud').length
-    const openrouter = allModels.filter((m) => m.product === 'openrouter').length
-    const bedrock = allModels.filter((m) => m.product === 'bedrock').length
-    const bytedance = allModels.filter((m) => m.developer === 'bytedance').length
-    const alibaba = allModels.filter((m) => m.developer === 'alibaba').length
-    const qwencloudDev = allModels.filter((m) => m.developer === 'qwencloud').length
-    const openrouterDev = allModels.filter((m) => m.developer === 'openrouter').length
-    const awsDev = allModels.filter((m) => m.developer === 'aws').length
-    const volcano = seedance + seedream
-    return {
-      total,
-      video,
-      image,
-      text,
-      audio,
-      multimodal,
-      seedance,
-      seedream,
-      volcano,
-      qwencloud,
-      openrouter,
-      bedrock,
-      bytedance,
-      alibaba,
-      qwencloudDev,
-      openrouterDev,
-      awsDev,
+    const c = {
+      total: 0, video: 0, image: 0, text: 0, audio: 0, multimodal: 0,
+      seedance: 0, seedream: 0, volcano: 0, qwencloud: 0, openrouter: 0, bedrock: 0,
+      bytedance: 0, alibaba: 0, qwencloudDev: 0, openrouterDev: 0, awsDev: 0,
     }
+    for (const m of allModels) {
+      c.total++
+      if (m.capability === 'video') c.video++
+      else if (m.capability === 'image') c.image++
+      else if (m.capability === 'text') c.text++
+      else if (m.capability === 'audio') c.audio++
+      else if (m.capability === 'multimodal') c.multimodal++
+      if (m.product === 'seedance') { c.seedance++; c.volcano++ }
+      else if (m.product === 'seedream') { c.seedream++; c.volcano++ }
+      else if (m.product === 'qwencloud') c.qwencloud++
+      else if (m.product === 'openrouter') c.openrouter++
+      else if (m.product === 'bedrock') c.bedrock++
+      if (m.developer === 'bytedance') c.bytedance++
+      else if (m.developer === 'alibaba') c.alibaba++
+      else if (m.developer === 'qwencloud') c.qwencloudDev++
+      else if (m.developer === 'openrouter') c.openrouterDev++
+      else if (m.developer === 'aws') c.awsDev++
+    }
+    return c
   }, [allModels])
 
   const visible = useMemo(() => {
@@ -535,6 +559,11 @@ export function ModelsSection() {
                             {m.badges.includes('hot') && (
                               <span className="models-atlas-pill models-atlas-pill--hot">
                                 {t('models_badge_hot')}
+                              </span>
+                            )}
+                            {m.badges.includes('legacy') && (
+                              <span className="models-atlas-pill models-atlas-pill--legacy">
+                                {t('models_badge_legacy')}
                               </span>
                             )}
                             <div className="models-atlas-meta-tags">

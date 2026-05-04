@@ -22,7 +22,7 @@ export interface CatalogModel {
   product: ModelProduct
   capability: ModelCapability
   developer: ModelDeveloper
-  badges: ('new' | 'hot')[]
+  badges: ('new' | 'hot' | 'legacy')[]
   /** 單價／計價說明；空字串則不顯示價格列 */
   price: string
   title: Record<UiLang, string>
