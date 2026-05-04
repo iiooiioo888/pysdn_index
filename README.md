@@ -51,7 +51,6 @@ pysdn_index/
 │   ├── tsconfig.json
 │   ├── .nvmrc                     # Node.js 20
 │   └── package.json
-├── legacy_old_frontend/           # 舊版靜態前端（Vanilla JS，保留參考）
 ├── .github/workflows/             # GitHub Actions → GitHub Pages
 └── LICENSE                        # ISC
 ```
@@ -278,10 +277,11 @@ export function NewComponent() {
 
 ### 前端無法連接後端 API？
 
-確保後端已啟動。檢查：
-- `frontend_new/.env` 的 `VITE_API_URL` 是否正確
-- `vite.config.ts` 的 proxy 設定是否指向後端
+確保 SuperTrack 後端已啟動。檢查：
+- `frontend_new/.env` 的 `VITE_SUPERTRACK_API_URL` 是否指向正確的後端位址
+- `vite.config.ts` 的 proxy 設定是否正確（預設 `http://localhost:8000`）
 - Zustand `useApiStore` 的 `baseUrl` 是否被覆寫
+- 後端詳見 [SuperTrack 倉庫](https://github.com/iiooiioo888/SuperTrack)
 
 ### Vite 端口被佔用？
 

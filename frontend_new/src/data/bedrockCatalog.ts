@@ -1,5 +1,5 @@
 /**
- * AWS Bedrock 模型目錄 — 由 `scripts/gen_bedrock_catalog.py` 自 `bedrock_models_raw.json` 產生至 `bedrockCatalog.json`。
+ * AWS Bedrock 模型目錄 — 由 `scripts/gen_bedrock_catalog.py` 自 `scripts/bedrock_models_raw.json` 產生至 `bedrockCatalog.json`。
  * 更新來源表後請重跑：`python scripts/gen_bedrock_catalog.py`
  */
 

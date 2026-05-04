@@ -30,7 +30,7 @@ export function SuperTrackLabPage() {
           </header>
 
           <p className="doc-hero-lead">
-            工程架構、開源工具與 SocialCrawler 後端說明請見{' '}
+            工程架構、開源工具與 SuperTrack 後端說明請見{' '}
             <Link to={{ pathname: PATHS.docs.supertrack, search: toLangSearch(lang), hash: '#engineering' }}>
               SuperTrack 文件 → 工程章節
             </Link>

@@ -27,7 +27,7 @@ export function SuperTrackEngineeringSection() {
     <section className="doc-engineering" id="engineering" aria-labelledby="engineering-title">
       <h2 id="engineering-title">工程架構與調研參考</h2>
       <p className="doc-diagram-lead">
-        以下為產品工程視角之<strong>統一調度層</strong>、<strong>開源工具選型</strong>與倉庫內 <strong>SocialCrawler</strong> 後端說明（僅供技術規劃，不代表已整合第三方專案）。
+        以下為產品工程視角之<strong>統一調度層</strong>、<strong>開源工具選型</strong>與 <strong>SuperTrack</strong> 後端說明（僅供技術規劃，不代表已整合第三方專案）。
       </p>
 
       <h3>統一調度層與資料架構（概念）</h3>
@@ -316,42 +316,20 @@ export function SuperTrackEngineeringSection() {
         </table>
       </div>
 
-      <h3 id="social-crawler-backend">SocialCrawler 參考後端（倉庫內）</h3>
+      <h3 id="social-crawler-backend">SuperTrack 獨立後端</h3>
       <p>
-        路徑：<code>social-crawler/</code> — Python 套件 <code>social_crawler</code>，提供 CLI（<code>init</code>／<code>crawl</code>／<code>list</code>／
-        <code>serve</code>）、FastAPI（預設 <code>:8000</code>，與前端 Vite <code>/api</code> 代理對齊）、SQLite／JSONL、調度器（令牌桶、優先級佇列、指數退避）。
+        社群爬蟲後端已遷移至獨立倉庫 👉{' '}
+        <a href="https://github.com/iiooiioo888/SuperTrack" target="_blank" rel="noopener noreferrer">
+          iiooiioo888/SuperTrack
+        </a>
       </p>
       <p>
-        <strong>demo</strong> 適配器可無外網驗證管線；其餘平台已註冊骨架類別，待填入 <code>search</code> 實作。詳見該目錄 <code>README.md</code>。
+        後端提供 CLI（<code>init</code>／<code>crawl</code>／<code>list</code>／<code>serve</code>）、FastAPI（預設 <code>:8000</code>）、SQLite／JSONL、調度器（令牌桶、優先級佇列、指數退避）。
+        <strong>demo</strong> 適配器可無外網驗證管線；其餘平台已註冊骨架類別，待填入 <code>search</code> 實作。
       </p>
-      <div className="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>項目</th>
-              <th>狀態（快照）</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>FastAPI <code>/api/health</code>、<code>/api/crawl</code> 等</td>
-              <td>已提供</td>
-            </tr>
-            <tr>
-              <td>調度器重試</td>
-              <td>已提供（骨架錯誤不重試）</td>
-            </tr>
-            <tr>
-              <td>各平台擷取邏輯</td>
-              <td>多數為骨架，待實作</td>
-            </tr>
-            <tr>
-              <td>WebUI</td>
-              <td>未提供</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+      <p>
+        前端面板透過環境變數 <code>VITE_SUPERTRACK_API_URL</code> 連接後端；詳見該倉庫 <code>README.md</code>。
+      </p>
     </section>
   )
 }

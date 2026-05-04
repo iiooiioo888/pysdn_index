@@ -88,7 +88,7 @@ export function SuperTrackDocPage() {
             </section>
 
             <p className="doc-diagram-lead" style={{ marginTop: '1rem' }}>
-              上文為精簡產品說明；<strong>統一調度層</strong>、<strong>開源工具選型</strong>與 <strong>SocialCrawler 後端</strong>等工程內容於本頁下方〈工程架構與調研參考〉維護（錨點 <code>#engineering</code>）；靜態頁 <code>supertrack.html</code> 亦載有對應段落。
+              上文為精簡產品說明；<strong>統一調度層</strong>、<strong>開源工具選型</strong>與 <strong>SuperTrack 後端</strong>等工程內容於本頁下方〈工程架構與調研參考〉維護（錨點 <code>#engineering</code>）。
             </p>
 
             <h2>{t('h_components')}</h2>

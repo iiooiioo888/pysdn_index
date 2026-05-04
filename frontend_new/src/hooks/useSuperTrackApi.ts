@@ -1,16 +1,23 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { api } from '../lib/api'
 
-export type SocialCrawlerHealth = 'loading' | 'ok' | 'error'
+export type SuperTrackBackendHealth = 'loading' | 'ok' | 'error'
 
-function viteBaseRoot(): string {
-  const b = import.meta.env.BASE_URL
-  return b.endsWith('/') ? b.slice(0, -1) : b
-}
+/**
+ * SuperTrack 後端 API hook。
+ *
+ * 後端已遷移至獨立倉庫：https://github.com/iiooiioo888/SuperTrack
+ * 透過環境變數 `VITE_SUPERTRACK_API_URL` 指向後端位址（預設為同源 `/`）。
+ */
+export function useSuperTrackApi() {
+  const root = useMemo(() => {
+    const envUrl = import.meta.env.VITE_SUPERTRACK_API_URL as string | undefined
+    if (envUrl) return envUrl.replace(/\/$/, '')
+    const b = import.meta.env.BASE_URL
+    return b.endsWith('/') ? b.slice(0, -1) : b
+  }, [])
 
-export function useSocialCrawlerApi() {
-  const root = useMemo(() => viteBaseRoot(), [])
-  const [health, setHealth] = useState<SocialCrawlerHealth>('loading')
+  const [health, setHealth] = useState<SuperTrackBackendHealth>('loading')
   const [healthBody, setHealthBody] = useState<Record<string, string> | null>(null)
   const [platforms, setPlatforms] = useState<string[]>([])
   const [lastError, setLastError] = useState<string | null>(null)
@@ -47,8 +54,6 @@ export function useSocialCrawlerApi() {
   }, [root])
 
   useEffect(() => {
-    // Initial data fetch on mount
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     void refresh()
     return () => {
       abortRef.current?.abort()
@@ -57,10 +62,11 @@ export function useSocialCrawlerApi() {
 
   const runCrawl = useCallback(
     async (platform: string, query: string) => {
-      const { data } = await api.post(
-        `${root}/api/crawl`,
-        { platform, query, append_jsonl: false },
-      )
+      const { data } = await api.post(`${root}/api/crawl`, {
+        platform,
+        query,
+        append_jsonl: false,
+      })
       return data
     },
     [root],

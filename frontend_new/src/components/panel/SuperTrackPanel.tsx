@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { SuperTrackLabPanel } from '../labs/SuperTrackLabPanel'
-import { useSocialCrawlerApi } from '../../hooks/useSocialCrawlerApi'
+import { useSuperTrackApi } from '../../hooks/useSuperTrackApi'
 import { useSuperTrackPanelEditMode } from '../../hooks/useSuperTrackPanelEditMode'
 import { PATHS } from '../../routes/paths'
 import { toLangSearch } from '../../routes/langQuery'
@@ -14,7 +14,7 @@ export type SubjectKind = 'person' | 'brand' | 'topic' | 'other'
 
 export type ProbeStatus = 'online' | 'offline' | 'maintenance'
 
-/** 面板「平台」顯示名稱 → SocialCrawler API `platform` 鍵（與 content_items 一致） */
+/** 面板「平台」顯示名稱 → SuperTrack API `platform` 鍵（與 content_items 一致） */
 const PANEL_PLATFORM_TO_API: Record<string, string> = {
   小紅書: 'xhs',
   抖音: 'douyin',
@@ -343,7 +343,7 @@ export type SuperTrackPanelProps = {
 export function SuperTrackPanel({ lang }: SuperTrackPanelProps) {
   const langSearch = toLangSearch(lang)
   const canEdit = useSuperTrackPanelEditMode()
-  const { health, healthBody, platforms, lastError, refresh, runCrawl, fetchItems } = useSocialCrawlerApi()
+  const { health, healthBody, platforms, lastError, refresh, runCrawl, fetchItems } = useSuperTrackApi()
   const [tab, setTab] = useState<PanelTab>('dashboard')
   const [probes, setProbes] = useState<Probe[]>(() => [...INITIAL_PROBES])
   const [targets, setTargets] = useState<TrackTarget[]>(() => [...INITIAL_TARGETS])
@@ -430,7 +430,7 @@ export function SuperTrackPanel({ lang }: SuperTrackPanelProps) {
       return (
         <span className="st-panel__pill st-panel__pill--load">
           <span className="st-panel__dot st-panel__dot--pulse" />
-          SocialCrawler 連線中…
+          SuperTrack 後端連線中…
         </span>
       )
     }
@@ -570,8 +570,7 @@ export function SuperTrackPanel({ lang }: SuperTrackPanelProps) {
         <div className="st-panel__title-block">
           <h1>SuperTrack 控制台</h1>
           <p className="st-panel__subtitle">
-            追蹤目標、警報與擷取管線的前端操作台（儀表區仍為示範數據）。啟動{' '}
-            <code>social-crawler serve</code> 後可連線實際 <code>/api</code>。
+            追蹤目標、警報與擷取管線的前端操作台（儀表區仍為示範數據）。設定環境變數 <code>VITE_SUPERTRACK_API_URL</code> 指向 SuperTrack 後端位址後可連線實際 <code>/api</code>。
           </p>
           <p className="st-panel__subtitle st-panel__subtitle--tight">
             <Link to={{ pathname: PATHS.docs.supertrack, search: langSearch, hash: '#engineering' }}>工程說明</Link>
@@ -778,7 +777,7 @@ export function SuperTrackPanel({ lang }: SuperTrackPanelProps) {
                   const nextRunDisp = formatIngestDisplay(snap.nextRunAt ? Date.parse(snap.nextRunAt) : null)
                   const sourceLabel =
                     health === 'loading'
-                      ? 'SocialCrawler 連線檢查中…'
+                      ? 'SuperTrack 後端連線檢查中…'
                       : useLive
                         ? `即時 · API ${apiPlat} · 視窗最多 200 筆 · payload 解析`
                         : health === 'ok' && targetsItemsLoading
@@ -1020,7 +1019,7 @@ export function SuperTrackPanel({ lang }: SuperTrackPanelProps) {
 
       {tab === 'crawl' && (
         <div className="st-panel__panel st-panel__panel--tab st-panel__panel--tab-crawl">
-          <h2>擷取測試（SocialCrawler API）</h2>
+          <h2>擷取測試（SuperTrack API）</h2>
           <p className="st-panel__hint">
             POST <code>/api/crawl</code>；預設請使用 <code>demo</code> 平台。可從「人物」下拉選示範帳號帶入 <code>query</code>，或手動改寫。
           </p>
@@ -1077,7 +1076,7 @@ export function SuperTrackPanel({ lang }: SuperTrackPanelProps) {
             </button>
           </div>
           {health !== 'ok' && (
-            <p className="st-panel__hint">後端未連線時無法呼叫 API；請於專案目錄執行 <code>python -m social_crawler serve</code>。</p>
+            <p className="st-panel__hint">後端未連線時無法呼叫 API；請先啟動 SuperTrack 後端。</p>
           )}
           {crawlError && <p className="st-panel__hint st-panel__error-text">{crawlError}</p>}
           {crawlResult && (

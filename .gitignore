@@ -48,3 +48,7 @@ Desktop.ini
 *.swp
 *.swo
 *~
+
+# Vite compiled config (source is vite.config.ts)
+frontend_new/vite.config.js
+frontend_new/vite.config.d.ts

@@ -1,5 +1,5 @@
 /**
- * 將 `src/locales/doc/*.json` 複製到 `public/i18n/`，供靜態 HTML（superforge.html 等）與舊路徑對齊。
+ * 將 `src/locales/doc/*.json` 複製到 `public/i18n/`，供舊路徑對齊（靜態 HTML 已移除）。
  * 單一真相來源：`src/locales/doc/`；React 透過 Vite 直接 import，不依賴此目錄。
  * 會由 `predev` 與 `postbuild` 自動執行。
  */

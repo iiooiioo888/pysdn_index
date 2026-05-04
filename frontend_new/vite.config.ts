@@ -59,7 +59,7 @@ export default defineConfig({
     open: true,
     proxy: {
       '/api': {
-        target: 'http://localhost:8000',
+        target: process.env.VITE_SUPERTRACK_API_URL ?? 'http://localhost:8000',
         changeOrigin: true,
       },
     },
