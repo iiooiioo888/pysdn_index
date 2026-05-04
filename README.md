@@ -2,7 +2,9 @@
 
 **AI 影片生成 × 社群信號追蹤平台**
 
-React 19 + Vite 8 前端 · FastAPI 社群爬蟲後端 · 四大 AI 模組（SuperForge / SuperTune / SuperTrack / SuperScript）
+React 19 + Vite 8 前端 · 四大 AI 模組（SuperForge / SuperTune / SuperTrack / SuperScript）
+
+> **注意**：社群爬蟲後端（SocialCrawler）已遷移至獨立倉庫 👉 [iiooiioo888/SuperTrack](https://github.com/iiooiioo888/SuperTrack)
 
 ---
 
@@ -15,7 +17,6 @@ React 19 + Vite 8 前端 · FastAPI 社群爬蟲後端 · 四大 AI 模組（Sup
 - [路由一覽](#-路由一覽)
 - [API 端點](#-api-端點)
 - [前端架構](#-前端架構)
-- [SocialCrawler 架構](#-socialcrawler-架構)
 - [部署](#-部署)
 - [開發指南](#-開發指南)
 - [常見問題](#-常見問題)
@@ -50,18 +51,8 @@ pysdn_index/
 │   ├── tsconfig.json
 │   ├── .nvmrc                     # Node.js 20
 │   └── package.json
-├── social-crawler/                # FastAPI 社群爬蟲後端
-│   └── social_crawler/
-│       ├── adapters/              # 18 個平台適配器（可插拔）
-│       ├── api/                   # FastAPI 應用
-│       ├── config/                # 設定（YAML + 環境變數）
-│       ├── models/                # 資料模型
-│       ├── scheduler/             # 任務調度（優先級佇列 + 令牌桶）
-│       ├── storage/               # SQLite + JSONL 儲存
-│       └── __main__.py            # CLI
 ├── legacy_old_frontend/           # 舊版靜態前端（Vanilla JS，保留參考）
 ├── .github/workflows/             # GitHub Actions → GitHub Pages
-├── SuperTrack_Documentation.md
 └── LICENSE                        # ISC
 ```
 
@@ -83,16 +74,9 @@ pysdn_index/
 | 安全 | DOMPurify（XSS 消毒） | 3.x |
 | 圖表 | Mermaid（動態 import） | 11.14 |
 
-### 後端（social-crawler）
+### 後端（SuperTrack）
 
-| 類別 | 技術 |
-|------|------|
-| 框架 | FastAPI + Uvicorn |
-| 資料模型 | Pydantic 2 + dataclasses |
-| 設定 | Pydantic-Settings + YAML + 環境變數（`SC_` 前綴） |
-| 儲存 | SQLite（去重）+ JSONL（匯出） |
-| 調度 | 非同步優先級佇列 + 令牌桶限速 + 指數退避重試 |
-| 適配器 | 18 個平台，可插拔架構 |
+社群爬蟲後端已獨立為 **SuperTrack** 專案，詳見 [SuperTrack 倉庫](https://github.com/iiooiioo888/SuperTrack)。
 
 ---
 
@@ -101,7 +85,6 @@ pysdn_index/
 ### 環境需求
 
 - **Node.js ≥ 20**（`frontend_new/.nvmrc`）
-- **Python ≥ 3.9**
 - npm
 
 ### 前端開發
@@ -112,19 +95,6 @@ npm install
 npm run dev
 # → http://localhost:3000/pysdn_index/
 ```
-
-### 後端開發
-
-```bash
-cd social-crawler
-python -m venv venv
-source venv/bin/activate              # Windows: venv\Scripts\activate
-pip install -r requirements.txt
-python -m social_crawler init         # 產生 config.yaml + 初始化 SQLite
-python -m social_crawler serve        # → http://localhost:8000
-```
-
-前端 `vite.config.ts` 已配置 `/api` 代理到 `http://localhost:8000`，開發時自動轉發。
 
 ---
 
@@ -138,15 +108,6 @@ python -m social_crawler serve        # → http://localhost:8000
 | `npm run build` | 生產構建：`tsc` → CSS 合併 → Vite build → 404 複製 → postbuild |
 | `npm run preview` | 預覽生產構建 |
 | `npm run merge:sections-css` | 手動合併區塊 CSS |
-
-### 後端（social-crawler CLI）
-
-| 指令 | 說明 |
-|------|------|
-| `python -m social_crawler init` | 產生 `config.yaml` 範本 + 初始化 SQLite |
-| `python -m social_crawler crawl --platform demo --query "test"` | 單次擷取 |
-| `python -m social_crawler list --limit 20` | 列出 SQLite 內容 |
-| `python -m social_crawler serve --host 0.0.0.0 --port 8000` | 啟動 FastAPI |
 
 ---
 
@@ -195,15 +156,6 @@ SPA 路由定義於 `frontend_new/src/routes/registry.ts`，使用 `createBrowse
 | POST | `/api/modules/supertrack` | SuperTrack 趨勢 |
 | POST | `/api/modules/superforge` | SuperForge 操作 |
 | POST | `/api/contact` | 聯絡表單 |
-
-### SocialCrawler 內建 API
-
-| 方法 | 路徑 | 說明 |
-|------|------|------|
-| GET | `/api/health` | 爬蟲服務健康檢查 |
-| GET | `/api/platforms` | 已註冊平台列表 |
-| GET | `/api/items` | 內容列表（SQLite，limit 200） |
-| POST | `/api/crawl` | 執行爬取任務（body: `platform`, `query`, `priority`） |
 
 ---
 
@@ -270,56 +222,6 @@ main.tsx
 
 ---
 
-## 🕷️ SocialCrawler 架構
-
-```
-POST /api/crawl { platform, query }
-        ↓
-   CrawlScheduler
-   ├── 令牌桶限速（每平台獨立）
-   ├── 優先級佇列
-   └── 指數退避重試（max 3 次）
-        ↓
-   get_adapter(platform) → BaseAdapter.search()
-        ↓
-   ContentItem[]
-   ├── SQLiteStore.upsert_items()   # (platform, source_id) 去重
-   └── JsonlStore.append()          # 可選匯出
-```
-
-### 已註冊平台（18 個）
-
-| 平台 | 狀態 | 備註 |
-|------|------|------|
-| `demo` | ✅ 完整 | 無需外網，管線測試用 |
-| `xhs` 小紅書 | 骨架 | 需實作 |
-| `douyin` / `tiktok` | 骨架 | 需實作 |
-| `bilibili` | 骨架 | 需實作 |
-| `kuaishou` | 骨架 | 需實作 |
-| `youtube` | 骨架 | 需實作 |
-| `instagram` | 骨架 | 需實作 |
-| `x_twitter` / `reddit` / `telegram` / `facebook` / `weibo` | 骨架 | snscrape 或對應方案 |
-| `wechat_channels` / `wechat_mp` / `threads` / `linkedin` / `rss` | 缺口 | NotImplementedError，需自行評估合規 |
-
-### 新增適配器
-
-```python
-# social_crawler/adapters/my_platform.py
-from social_crawler.adapters.base import BaseAdapter
-from social_crawler.models.schema import ContentItem, CrawlTask, Platform
-
-class MyPlatformAdapter(BaseAdapter):
-    platform = Platform.MY_PLATFORM  # 需先在 schema.py 加入枚舉值
-
-    async def search(self, task: CrawlTask) -> list[ContentItem]:
-        # 實作擷取邏輯
-        return [ContentItem(...)]
-```
-
-然後在 `registry.py` 的 `_REGISTRY` 註冊。
-
----
-
 ## 🚀 部署
 
 ### GitHub Pages（自動）
@@ -336,33 +238,6 @@ class MyPlatformAdapter(BaseAdapter):
 cd frontend_new
 npm run build
 # 產出在 dist/，部署至 Vercel / Netlify / Cloudflare Pages 等
-```
-
-### 部署後端
-
-```bash
-cd social-crawler
-pip install -r requirements.txt
-uvicorn social_crawler.api.app:create_app --factory --host 0.0.0.0 --port 8000
-```
-
-### Docker
-
-```dockerfile
-FROM node:20-alpine AS frontend-build
-WORKDIR /app
-COPY frontend_new/package*.json ./
-RUN npm ci
-COPY frontend_new/ .
-RUN npm run build
-
-FROM python:3.11-slim
-WORKDIR /app
-COPY --from=frontend-build /app/dist ./static
-COPY social-crawler/requirements.txt .
-RUN pip install -r requirements.txt
-COPY social-crawler/ .
-CMD ["uvicorn", "social_crawler.api.app:create_app", "--factory", "--host", "0.0.0.0", "--port", "8000"]
 ```
 
 ---
@@ -396,22 +271,6 @@ export function NewComponent() {
   return <div>Content</div>
 }
 ```
-
-### 後端配置
-
-SocialCrawler 支援三層配置（優先序由高到低）：
-
-1. **環境變數** — 前綴 `SC_`（如 `SC_DB_PATH=data/custom.db`）
-2. **YAML** — `config.yaml`（由 `init` 指令產生）
-3. **預設值** — 見 `social_crawler/config/settings.py`
-
-| 設定 | 預設值 | 說明 |
-|------|--------|------|
-| `db_path` | `data/social_crawler.db` | SQLite 資料庫路徑 |
-| `jsonl_path` | `data/export.jsonl` | JSONL 匯出路徑 |
-| `cors_origins` | `localhost:3000/5173` | CORS 允許來源 |
-| `max_concurrent` | `4` | 最大並行爬取數 |
-| `max_retries` | `3` | 失敗重試次數 |
 
 ---
 
@@ -458,7 +317,6 @@ content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"]
 - 前端 `base` 為 `/pysdn_index/`（GitHub Pages 子路徑部署）
 - `dangerouslySetInnerHTML` 均經 DOMPurify 消毒
 - Mermaid 使用 `securityLevel: 'strict'`
-- SocialCrawler 適配器多為骨架，需依平台實作 `search` 方法
 
 ---
 
