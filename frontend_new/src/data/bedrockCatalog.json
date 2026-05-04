@@ -104,7 +104,9 @@
     "product": "bedrock",
     "capability": "text",
     "developer": "aws",
-    "badges": [],
+    "badges": [
+      "legacy"
+    ],
     "price": "輸入 $5／百萬 tokens · 輸出 $25／百萬 tokens",
     "title": {
       "zh-TW": "Claude Opus 4.5",
@@ -154,7 +156,9 @@
     "product": "bedrock",
     "capability": "text",
     "developer": "aws",
-    "badges": [],
+    "badges": [
+      "legacy"
+    ],
     "price": "輸入 $3／百萬 tokens · 輸出 $15／百萬 tokens",
     "title": {
       "zh-TW": "Claude Sonnet 4.5",
@@ -179,7 +183,9 @@
     "product": "bedrock",
     "capability": "text",
     "developer": "aws",
-    "badges": [],
+    "badges": [
+      "legacy"
+    ],
     "price": "輸入 $5／百萬 tokens · 輸出 $25／百萬 tokens",
     "title": {
       "zh-TW": "Claude Opus 4.1",
@@ -204,7 +210,9 @@
     "product": "bedrock",
     "capability": "text",
     "developer": "aws",
-    "badges": [],
+    "badges": [
+      "legacy"
+    ],
     "price": "輸入 $3／百萬 tokens · 輸出 $15／百萬 tokens",
     "title": {
       "zh-TW": "Claude Sonnet 4",
@@ -229,7 +237,9 @@
     "product": "bedrock",
     "capability": "text",
     "developer": "aws",
-    "badges": [],
+    "badges": [
+      "legacy"
+    ],
     "price": "輸入 $0.8／百萬 tokens · 輸出 $4／百萬 tokens",
     "title": {
       "zh-TW": "Claude 3.5 Haiku",
@@ -254,7 +264,9 @@
     "product": "bedrock",
     "capability": "text",
     "developer": "aws",
-    "badges": [],
+    "badges": [
+      "legacy"
+    ],
     "price": "輸入 $0.25／百萬 tokens · 輸出 $1.25／百萬 tokens",
     "title": {
       "zh-TW": "Claude 3 Haiku",
@@ -377,7 +389,9 @@
     "product": "bedrock",
     "capability": "multimodal",
     "developer": "aws",
-    "badges": [],
+    "badges": [
+      "legacy"
+    ],
     "price": "輸入 $0.06／百萬 tokens · 輸出 $0.24／百萬 tokens · 全球跨區",
     "title": {
       "zh-TW": "Nova Lite",
@@ -402,7 +416,9 @@
     "product": "bedrock",
     "capability": "text",
     "developer": "aws",
-    "badges": [],
+    "badges": [
+      "legacy"
+    ],
     "price": "輸入 $0.035／百萬 tokens · 輸出 $0.14／百萬 tokens · 全球跨區",
     "title": {
       "zh-TW": "Nova Micro",
@@ -500,7 +516,9 @@
     "product": "bedrock",
     "capability": "text",
     "developer": "aws",
-    "badges": [],
+    "badges": [
+      "legacy"
+    ],
     "price": "輸入 $0.8／百萬 tokens · 輸出 $1.6／百萬 tokens",
     "title": {
       "zh-TW": "Titan Text Large",
@@ -525,7 +543,9 @@
     "product": "bedrock",
     "capability": "text",
     "developer": "aws",
-    "badges": [],
+    "badges": [
+      "legacy"
+    ],
     "price": "輸入 $0.02／百萬 tokens · 輸出：不適用（嵌入）",
     "title": {
       "zh-TW": "Titan Text Embeddings V2",
@@ -550,7 +570,9 @@
     "product": "bedrock",
     "capability": "image",
     "developer": "aws",
-    "badges": [],
+    "badges": [
+      "legacy"
+    ],
     "price": "每張 $0.04（1024×1024 標準）",
     "title": {
       "zh-TW": "Titan Image Generator G1 v2",
@@ -574,7 +596,9 @@
     "product": "bedrock",
     "capability": "text",
     "developer": "aws",
-    "badges": [],
+    "badges": [
+      "legacy"
+    ],
     "price": "輸入 $0.8／百萬 tokens · 圖像每張＋$0.00006",
     "title": {
       "zh-TW": "Titan Multimodal Embeddings G1",
@@ -598,7 +622,9 @@
     "product": "bedrock",
     "capability": "text",
     "developer": "aws",
-    "badges": [],
+    "badges": [
+      "legacy"
+    ],
     "price": "輸入 $0.1／百萬 tokens · 輸出：不適用（嵌入）",
     "title": {
       "zh-TW": "Titan Embeddings G1 - Text",
@@ -623,7 +649,9 @@
     "product": "bedrock",
     "capability": "text",
     "developer": "aws",
-    "badges": [],
+    "badges": [
+      "legacy"
+    ],
     "price": "輸入 $0.02／百萬 tokens",
     "title": {
       "zh-TW": "Titan Text Embeddings v2",
@@ -698,7 +726,9 @@
     "product": "bedrock",
     "capability": "text",
     "developer": "aws",
-    "badges": [],
+    "badges": [
+      "legacy"
+    ],
     "price": "輸入 $0.72／百萬 tokens · 輸出 $0.72／百萬 tokens",
     "title": {
       "zh-TW": "Llama 3.3 70B Instruct",
@@ -723,7 +753,9 @@
     "product": "bedrock",
     "capability": "multimodal",
     "developer": "aws",
-    "badges": [],
+    "badges": [
+      "legacy"
+    ],
     "price": "輸入 $0.72／百萬 tokens · 輸出 $0.72／百萬 tokens",
     "title": {
       "zh-TW": "Llama 3.2 90B Instruct",
@@ -748,7 +780,9 @@
     "product": "bedrock",
     "capability": "multimodal",
     "developer": "aws",
-    "badges": [],
+    "badges": [
+      "legacy"
+    ],
     "price": "輸入 $0.16／百萬 tokens · 輸出 $0.16／百萬 tokens",
     "title": {
       "zh-TW": "Llama 3.2 11B Instruct",
@@ -773,7 +807,9 @@
     "product": "bedrock",
     "capability": "text",
     "developer": "aws",
-    "badges": [],
+    "badges": [
+      "legacy"
+    ],
     "price": "輸入 $0.15／百萬 tokens · 輸出 $0.15／百萬 tokens",
     "title": {
       "zh-TW": "Llama 3.2 3B Instruct",
@@ -798,7 +834,9 @@
     "product": "bedrock",
     "capability": "text",
     "developer": "aws",
-    "badges": [],
+    "badges": [
+      "legacy"
+    ],
     "price": "輸入 $0.1／百萬 tokens · 輸出 $0.1／百萬 tokens",
     "title": {
       "zh-TW": "Llama 3.2 1B Instruct",
@@ -823,7 +861,9 @@
     "product": "bedrock",
     "capability": "text",
     "developer": "aws",
-    "badges": [],
+    "badges": [
+      "legacy"
+    ],
     "price": "輸入 $5.32／百萬 tokens · 輸出 $16／百萬 tokens",
     "title": {
       "zh-TW": "Llama 3.1 405B Instruct",
@@ -848,7 +888,9 @@
     "product": "bedrock",
     "capability": "text",
     "developer": "aws",
-    "badges": [],
+    "badges": [
+      "legacy"
+    ],
     "price": "輸入 $0.72／百萬 tokens · 輸出 $0.72／百萬 tokens",
     "title": {
       "zh-TW": "Llama 3.1 70B Instruct",
@@ -873,7 +915,9 @@
     "product": "bedrock",
     "capability": "text",
     "developer": "aws",
-    "badges": [],
+    "badges": [
+      "legacy"
+    ],
     "price": "輸入 $0.22／百萬 tokens · 輸出 $0.22／百萬 tokens",
     "title": {
       "zh-TW": "Llama 3.1 8B Instruct",
@@ -898,7 +942,9 @@
     "product": "bedrock",
     "capability": "text",
     "developer": "aws",
-    "badges": [],
+    "badges": [
+      "legacy"
+    ],
     "price": "輸入 $2.56／百萬 tokens · 輸出 $3.4／百萬 tokens",
     "title": {
       "zh-TW": "Llama 3 70B Instruct",
@@ -923,7 +969,9 @@
     "product": "bedrock",
     "capability": "text",
     "developer": "aws",
-    "badges": [],
+    "badges": [
+      "legacy"
+    ],
     "price": "輸入 $0.4／百萬 tokens · 輸出 $0.6／百萬 tokens",
     "title": {
       "zh-TW": "Llama 3 8B Instruct",
@@ -973,7 +1021,9 @@
     "product": "bedrock",
     "capability": "text",
     "developer": "aws",
-    "badges": [],
+    "badges": [
+      "legacy"
+    ],
     "price": "輸入 $4／百萬 tokens · 輸出 $12／百萬 tokens",
     "title": {
       "zh-TW": "Mistral Large",
@@ -998,7 +1048,9 @@
     "product": "bedrock",
     "capability": "text",
     "developer": "aws",
-    "badges": [],
+    "badges": [
+      "legacy"
+    ],
     "price": "輸入 $0.2／百萬 tokens · 輸出 $0.6／百萬 tokens",
     "title": {
       "zh-TW": "Mistral Small",
@@ -1048,7 +1100,9 @@
     "product": "bedrock",
     "capability": "text",
     "developer": "aws",
-    "badges": [],
+    "badges": [
+      "legacy"
+    ],
     "price": "輸入 $0.15／百萬 tokens · 輸出 $0.15／百萬 tokens",
     "title": {
       "zh-TW": "Ministral 3 8B",
@@ -1073,7 +1127,9 @@
     "product": "bedrock",
     "capability": "text",
     "developer": "aws",
-    "badges": [],
+    "badges": [
+      "legacy"
+    ],
     "price": "輸入 $0.1／百萬 tokens · 輸出 $0.1／百萬 tokens",
     "title": {
       "zh-TW": "Ministral 3B",
@@ -1221,7 +1277,9 @@
     "product": "bedrock",
     "capability": "text",
     "developer": "aws",
-    "badges": [],
+    "badges": [
+      "legacy"
+    ],
     "price": "輸入 $0.45／百萬 tokens · 輸出 $0.7／百萬 tokens",
     "title": {
       "zh-TW": "Mixtral 8x7B Instruct",
@@ -1246,7 +1304,9 @@
     "product": "bedrock",
     "capability": "text",
     "developer": "aws",
-    "badges": [],
+    "badges": [
+      "legacy"
+    ],
     "price": "輸入 $0.2／百萬 tokens · 輸出 $0.2／百萬 tokens",
     "title": {
       "zh-TW": "Mistral 7B Instruct",
@@ -1369,7 +1429,9 @@
     "product": "bedrock",
     "capability": "text",
     "developer": "aws",
-    "badges": [],
+    "badges": [
+      "legacy"
+    ],
     "price": "輸入 $0.15／百萬 tokens · 輸出 $0.6／百萬 tokens",
     "title": {
       "zh-TW": "Command R",
@@ -1419,7 +1481,9 @@
     "product": "bedrock",
     "capability": "text",
     "developer": "aws",
-    "badges": [],
+    "badges": [
+      "legacy"
+    ],
     "price": "輸入 $0.1／百萬 tokens · 輸出：不適用",
     "title": {
       "zh-TW": "Embed English",
@@ -1443,7 +1507,9 @@
     "product": "bedrock",
     "capability": "text",
     "developer": "aws",
-    "badges": [],
+    "badges": [
+      "legacy"
+    ],
     "price": "輸入 $0.1／百萬 tokens · 輸出：不適用",
     "title": {
       "zh-TW": "Embed Multilingual",
@@ -2645,5 +2711,275 @@
     "modalitiesLine": "文本生成",
     "providerName": "Z.AI",
     "contextLength": 128000
+  },
+  {
+    "id": "br--anthropic--claude-sonnet-4-7",
+    "product": "bedrock",
+    "capability": "multimodal",
+    "developer": "aws",
+    "badges": [
+      "new"
+    ],
+    "price": "輸入 $3／百萬 tokens · 輸出 $15／百萬 tokens · 快取讀取 9 折、批次 5 折",
+    "title": {
+      "zh-TW": "Claude Sonnet 4.7",
+      "zh-CN": "Claude Sonnet 4.7",
+      "en": "Claude Sonnet 4.7",
+      "ja": "Claude Sonnet 4.7",
+      "ko": "Claude Sonnet 4.7"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（Anthropic）｜多模態｜最新中階旗艦，改進編碼/Agent/電腦使用",
+      "zh-CN": "AWS Bedrock（Anthropic）｜多模态｜最新中阶旗舰，改进编码/Agent/电脑使用",
+      "en": "Anthropic on AWS Bedrock — Multimodal. Latest mid-tier flagship, improved coding/Agent/computer use",
+      "ja": "AWS Bedrock（Anthropic）— Multimodal. 最新ミッドティア旗艦、コーディング/Agent/PC使用が向上",
+      "ko": "AWS Bedrock(Anthropic) — Multimodal. 최신 미드티어 플래그십, 코딩/Agent/PC 사용 향상"
+    },
+    "modalitiesLine": "多模態",
+    "providerName": "Anthropic",
+    "contextLength": 1000000
+  },
+  {
+    "id": "br--anthropic--claude-haiku-4-7",
+    "product": "bedrock",
+    "capability": "text",
+    "developer": "aws",
+    "badges": [
+      "new"
+    ],
+    "price": "輸入 $1／百萬 tokens · 輸出 $5／百萬 tokens · Claude 系列中速度最快",
+    "title": {
+      "zh-TW": "Claude Haiku 4.7",
+      "zh-CN": "Claude Haiku 4.7",
+      "en": "Claude Haiku 4.7",
+      "ja": "Claude Haiku 4.7",
+      "ko": "Claude Haiku 4.7"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（Anthropic）｜文本生成｜最新輕量快速模型，強編碼和 Agent",
+      "zh-CN": "AWS Bedrock（Anthropic）｜文本生成｜最新轻量快速模型，强编码和 Agent",
+      "en": "Anthropic on AWS Bedrock — Text generation. Latest fast model, strong coding and Agent",
+      "ja": "AWS Bedrock（Anthropic）— Text generation. 最新高速モデル、コーディングとAgentに強い",
+      "ko": "AWS Bedrock(Anthropic) — Text generation. 최신 고속 모델, 코딩·Agent 강세"
+    },
+    "modalitiesLine": "文本生成",
+    "providerName": "Anthropic",
+    "contextLength": 200000
+  },
+  {
+    "id": "br--openai--gpt-5",
+    "product": "bedrock",
+    "capability": "text",
+    "developer": "aws",
+    "badges": [
+      "new"
+    ],
+    "price": "輸入 $1.25／百萬 tokens · 輸出 $10／百萬 tokens",
+    "title": {
+      "zh-TW": "GPT-5",
+      "zh-CN": "GPT-5",
+      "en": "GPT-5",
+      "ja": "GPT-5",
+      "ko": "GPT-5"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（OpenAI）｜文本生成｜最新旗艦模型，推理/編碼/體驗全面升級",
+      "zh-CN": "AWS Bedrock（OpenAI）｜文本生成｜最新旗舰模型，推理/编码/体验全面升级",
+      "en": "OpenAI on AWS Bedrock — Text generation. Latest flagship, major upgrades in reasoning/coding/UX",
+      "ja": "AWS Bedrock（OpenAI）— Text generation. 最新旗艦、推論/コーディング/UXが大幅向上",
+      "ko": "AWS Bedrock(OpenAI) — Text generation. 최신 플래그십, 추론/코딩/UX 대폭 향상"
+    },
+    "modalitiesLine": "文本生成",
+    "providerName": "OpenAI",
+    "contextLength": 400000
+  },
+  {
+    "id": "br--openai--gpt-5-mini",
+    "product": "bedrock",
+    "capability": "text",
+    "developer": "aws",
+    "badges": [
+      "new"
+    ],
+    "price": "輸入 $0.25／百萬 tokens · 輸出 $2／百萬 tokens",
+    "title": {
+      "zh-TW": "GPT-5 Mini",
+      "zh-CN": "GPT-5 Mini",
+      "en": "GPT-5 Mini",
+      "ja": "GPT-5 Mini",
+      "ko": "GPT-5 Mini"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（OpenAI）｜文本生成｜GPT-5 輕量版，低延遲低成本推理",
+      "zh-CN": "AWS Bedrock（OpenAI）｜文本生成｜GPT-5 轻量版，低延迟低成本推理",
+      "en": "OpenAI on AWS Bedrock — Text generation. GPT-5 compact, low latency and cost",
+      "ja": "AWS Bedrock（OpenAI）— Text generation. GPT-5 コンパクト版、低遅延・低コスト",
+      "ko": "AWS Bedrock(OpenAI) — Text generation. GPT-5 경량판, 저지연·저비용"
+    },
+    "modalitiesLine": "文本生成",
+    "providerName": "OpenAI",
+    "contextLength": 400000
+  },
+  {
+    "id": "br--google--gemini-2-5-pro",
+    "product": "bedrock",
+    "capability": "multimodal",
+    "developer": "aws",
+    "badges": [
+      "new"
+    ],
+    "price": "輸入 $1.25／百萬 tokens · 輸出 $10／百萬 tokens",
+    "title": {
+      "zh-TW": "Gemini 2.5 Pro",
+      "zh-CN": "Gemini 2.5 Pro",
+      "en": "Gemini 2.5 Pro",
+      "ja": "Gemini 2.5 Pro",
+      "ko": "Gemini 2.5 Pro"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（Google）｜多模態｜最新旗艦，推理/編碼/科學任務領先",
+      "zh-CN": "AWS Bedrock（Google）｜多模态｜最新旗舰，推理/编码/科学任务领先",
+      "en": "Google on AWS Bedrock — Multimodal. Latest flagship, leading in reasoning/coding/science",
+      "ja": "AWS Bedrock（Google）— Multimodal. 最新旗艦、推論/コーディング/科学で最先端",
+      "ko": "AWS Bedrock(Google) — Multimodal. 최신 플래그십, 추론/코딩/과학 최前沿"
+    },
+    "modalitiesLine": "多模態",
+    "providerName": "Google",
+    "contextLength": 1048576
+  },
+  {
+    "id": "br--google--gemini-2-5-flash",
+    "product": "bedrock",
+    "capability": "multimodal",
+    "developer": "aws",
+    "badges": [
+      "new"
+    ],
+    "price": "輸入 $0.3／百萬 tokens · 輸出 $2.5／百萬 tokens",
+    "title": {
+      "zh-TW": "Gemini 2.5 Flash",
+      "zh-CN": "Gemini 2.5 Flash",
+      "en": "Gemini 2.5 Flash",
+      "ja": "Gemini 2.5 Flash",
+      "ko": "Gemini 2.5 Flash"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（Google）｜多模態｜高效推理模型，內建思考能力",
+      "zh-CN": "AWS Bedrock（Google）｜多模态｜高效推理模型，内建思考能力",
+      "en": "Google on AWS Bedrock — Multimodal. Workhorse reasoning model with built-in thinking",
+      "ja": "AWS Bedrock（Google）— Multimodal. 思考機能搭載の高性能推論モデル",
+      "ko": "AWS Bedrock(Google) — Multimodal. 사고 기능 내장 고성능 추론 모델"
+    },
+    "modalitiesLine": "多模態",
+    "providerName": "Google",
+    "contextLength": 1048576
+  },
+  {
+    "id": "br--x-ai--grok-4",
+    "product": "bedrock",
+    "capability": "text",
+    "developer": "aws",
+    "badges": [
+      "new"
+    ],
+    "price": "輸入 $3／百萬 tokens · 輸出 $15／百萬 tokens",
+    "title": {
+      "zh-TW": "Grok 4",
+      "zh-CN": "Grok 4",
+      "en": "Grok 4",
+      "ja": "Grok 4",
+      "ko": "Grok 4"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（xAI）｜文本生成｜最新旗艦推理模型，256K 上下文",
+      "zh-CN": "AWS Bedrock（xAI）｜文本生成｜最新旗舰推理模型，256K 上下文",
+      "en": "xAI on AWS Bedrock — Text generation. Latest flagship reasoning model, 256K context",
+      "ja": "AWS Bedrock（xAI）— Text generation. 最新旗艦推論モデル、256Kコンテキスト",
+      "ko": "AWS Bedrock(xAI) — Text generation. 최신 플래그십 추론 모델, 256K 컨텍스트"
+    },
+    "modalitiesLine": "文本生成",
+    "providerName": "xAI",
+    "contextLength": 256000
+  },
+  {
+    "id": "br--deepseek--deepseek-r1-0528",
+    "product": "bedrock",
+    "capability": "text",
+    "developer": "aws",
+    "badges": [
+      "new"
+    ],
+    "price": "輸入 $0.5／百萬 tokens · 輸出 $2.15／百萬 tokens",
+    "title": {
+      "zh-TW": "DeepSeek R1 0528",
+      "zh-CN": "DeepSeek R1 0528",
+      "en": "DeepSeek R1 0528",
+      "ja": "DeepSeek R1 0528",
+      "ko": "DeepSeek R1 0528"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（DeepSeek）｜推理｜R1 最新更新版，推理能力提升",
+      "zh-CN": "AWS Bedrock（DeepSeek）｜推理｜R1 最新更新版，推理能力提升",
+      "en": "DeepSeek on AWS Bedrock — Inference. Latest R1 update with improved reasoning",
+      "ja": "AWS Bedrock（DeepSeek）— Inference. R1最新アップデート、推論能力が向上",
+      "ko": "AWS Bedrock(DeepSeek) — Inference. R1 최신 업데이트, 추론 능력 향상"
+    },
+    "modalitiesLine": "推理",
+    "providerName": "DeepSeek",
+    "contextLength": 163840
+  },
+  {
+    "id": "br--mistral-ai--magistral-medium-2509",
+    "product": "bedrock",
+    "capability": "text",
+    "developer": "aws",
+    "badges": [
+      "new"
+    ],
+    "price": "輸入 $2／百萬 tokens · 輸出 $6／百萬 tokens",
+    "title": {
+      "zh-TW": "Magistral Medium 2509",
+      "zh-CN": "Magistral Medium 2509",
+      "en": "Magistral Medium 2509",
+      "ja": "Magistral Medium 2509",
+      "ko": "Magistral Medium 2509"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（Mistral AI）｜推理｜中階推理模型（CoT），數學/編碼/邏輯",
+      "zh-CN": "AWS Bedrock（Mistral AI）｜推理｜中阶推理模型（CoT），数学/编码/逻辑",
+      "en": "Mistral AI on AWS Bedrock — Inference. Mid-tier reasoning (CoT), math/coding/logic",
+      "ja": "AWS Bedrock（Mistral AI）— Inference. ミッドティア推論（CoT）、数学/コーディング/論理",
+      "ko": "AWS Bedrock(Mistral AI) — Inference. 미드티어 추론(CoT), 수학/코딩/논리"
+    },
+    "modalitiesLine": "推理",
+    "providerName": "Mistral AI",
+    "contextLength": 128000
+  },
+  {
+    "id": "br--meta--llama-4-maverick-17b-128e",
+    "product": "bedrock",
+    "capability": "multimodal",
+    "developer": "aws",
+    "badges": [
+      "new"
+    ],
+    "price": "輸入 $0.15／百萬 tokens · 輸出 $0.6／百萬 tokens",
+    "title": {
+      "zh-TW": "Llama 4 Maverick 17B (128E)",
+      "zh-CN": "Llama 4 Maverick 17B (128E)",
+      "en": "Llama 4 Maverick 17B (128E)",
+      "ja": "Llama 4 Maverick 17B (128E)",
+      "ko": "Llama 4 Maverick 17B (128E)"
+    },
+    "desc": {
+      "zh-TW": "AWS Bedrock（Meta）｜多模態｜Llama 4 最新 MoE，128 專家，1M 上下文",
+      "zh-CN": "AWS Bedrock（Meta）｜多模态｜Llama 4 最新 MoE，128 专家，1M 上下文",
+      "en": "Meta on AWS Bedrock — Multimodal. Latest Llama 4 MoE, 128 experts, 1M context",
+      "ja": "AWS Bedrock（Meta）— Multimodal. 最新Llama 4 MoE、128エキスパート、1Mコンテキスト",
+      "ko": "AWS Bedrock(Meta) — Multimodal. 최신 Llama 4 MoE, 128 전문가, 1M 컨텍스트"
+    },
+    "modalitiesLine": "多模態",
+    "providerName": "Meta",
+    "contextLength": 1048576
   }
 ]

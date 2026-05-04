@@ -4,7 +4,9 @@
     "product": "seedance",
     "capability": "video",
     "developer": "bytedance",
-    "badges": ["new"],
+    "badges": [
+      "new"
+    ],
     "price": "",
     "title": {
       "zh-TW": "Seedance 2.0",
@@ -26,7 +28,9 @@
     "product": "seedream",
     "capability": "image",
     "developer": "bytedance",
-    "badges": ["new"],
+    "badges": [
+      "new"
+    ],
     "price": "",
     "title": {
       "zh-TW": "Seedream 5.0 Lite",
@@ -48,7 +52,9 @@
     "product": "qwencloud",
     "capability": "video",
     "developer": "qwencloud",
-    "badges": ["hot"],
+    "badges": [
+      "hot"
+    ],
     "price": "每影片秒 $0.10",
     "title": {
       "zh-TW": "Wan2.6-T2V",
@@ -70,7 +76,9 @@
     "product": "qwencloud",
     "capability": "multimodal",
     "developer": "qwencloud",
-    "badges": ["hot"],
+    "badges": [
+      "hot"
+    ],
     "price": "輸入 $0.50／百萬 tokens · 輸出 $3.00／百萬 tokens（≤256K；256K–1M 階梯見官網）",
     "title": {
       "zh-TW": "Qwen3.6-Plus",
@@ -92,7 +100,9 @@
     "product": "qwencloud",
     "capability": "multimodal",
     "developer": "qwencloud",
-    "badges": ["new"],
+    "badges": [
+      "new"
+    ],
     "price": "依官網 Model Marketplace 即時費率（開源系列；與帳單一致）",
     "title": {
       "zh-TW": "Qwen3.5-Open-Source",
@@ -114,7 +124,9 @@
     "product": "qwencloud",
     "capability": "audio",
     "developer": "qwencloud",
-    "badges": ["new"],
+    "badges": [
+      "new"
+    ],
     "price": "每 1 萬字 $0.26（TTS · cosyvoice-v3-plus）",
     "title": {
       "zh-TW": "CosyVoice v3 Plus",
@@ -136,7 +148,9 @@
     "product": "qwencloud",
     "capability": "multimodal",
     "developer": "qwencloud",
-    "badges": ["hot"],
+    "badges": [
+      "hot"
+    ],
     "price": "輸入 $0.40／百萬 tokens · 輸出 $2.20／百萬 tokens（文字／圖像／影片；音訊模態另計）",
     "title": {
       "zh-TW": "Qwen3-Omni-Flash",
@@ -158,7 +172,9 @@
     "product": "qwencloud",
     "capability": "text",
     "developer": "qwencloud",
-    "badges": ["hot"],
+    "badges": [
+      "hot"
+    ],
     "price": "輸入 $0.40／百萬 tokens · 輸出 $2.40／百萬 tokens（≤256K；256K–1M 階梯見官網）",
     "title": {
       "zh-TW": "Qwen3.5-Plus",
@@ -180,7 +196,9 @@
     "product": "qwencloud",
     "capability": "image",
     "developer": "qwencloud",
-    "badges": ["new"],
+    "badges": [
+      "new"
+    ],
     "price": "每張 $0.045（圖像編輯）",
     "title": {
       "zh-TW": "Wan 圖像編輯",
@@ -202,7 +220,9 @@
     "product": "qwencloud",
     "capability": "image",
     "developer": "qwencloud",
-    "badges": ["new"],
+    "badges": [
+      "new"
+    ],
     "price": "每張 $0.035（qwen-image-2.0）",
     "title": {
       "zh-TW": "Qwen-Image-2.0",
@@ -217,6 +237,102 @@
       "en": "Hi-fi generate and edit: hero product shots, campaign assets, and media pipelines end-to-end.",
       "ja": "高忠実度の生成・編集：プロダクトキービジュアル、配信素材、メディア制作を一気通貫。",
       "ko": "고충실도 생성·편집: 제품 히어로 비주얼, 캠페인 에셋, 미디어 파이프라인까지 일관."
+    }
+  },
+  {
+    "id": "gemini-2-5-pro",
+    "product": "google",
+    "capability": "multimodal",
+    "developer": "google",
+    "badges": [
+      "new"
+    ],
+    "price": "輸入 $1.25／百萬 tokens · 輸出 $10／百萬 tokens（含思考 tokens）",
+    "title": {
+      "zh-TW": "Gemini 2.5 Pro",
+      "zh-CN": "Gemini 2.5 Pro",
+      "en": "Gemini 2.5 Pro",
+      "ja": "Gemini 2.5 Pro",
+      "ko": "Gemini 2.5 Pro"
+    },
+    "desc": {
+      "zh-TW": "Google 最新旗艦：原生多模態（文字／圖像／音訊／影片），百萬級上下文，推理與編碼領先。",
+      "zh-CN": "Google 最新旗舰：原生多模态（文本／图像／音频／视频），百万级上下文，推理与编码领先。",
+      "en": "Google's latest flagship: native multimodal (text/image/audio/video), 1M context, leading reasoning and coding.",
+      "ja": "Google最新旗艦：ネイティブマルチモーダル（テキスト/画像/音声/動画）、100万コンテキスト、推論とコーディングの最先端。",
+      "ko": "Google 최신 플래그십: 네이티브 멀티모달(텍스트/이미지/오디오/비디오), 100만 컨텍스트, 추론·코딩 최前沿."
+    }
+  },
+  {
+    "id": "grok-4",
+    "product": "xai",
+    "capability": "text",
+    "developer": "xai",
+    "badges": [
+      "new"
+    ],
+    "price": "輸入 $3／百萬 tokens · 輸出 $15／百萬 tokens",
+    "title": {
+      "zh-TW": "Grok 4",
+      "zh-CN": "Grok 4",
+      "en": "Grok 4",
+      "ja": "Grok 4",
+      "ko": "Grok 4"
+    },
+    "desc": {
+      "zh-TW": "xAI 最新旗艦推理模型：256K 上下文，支援圖像輸入、並行工具調用與結構化輸出。",
+      "zh-CN": "xAI 最新旗舰推理模型：256K 上下文，支持图像输入、并行工具调用与结构化输出。",
+      "en": "xAI's latest flagship reasoning model: 256K context, image input, parallel tool calling and structured outputs.",
+      "ja": "xAI最新旗艦推論モデル：256Kコンテキスト、画像入力、並行ツール呼び出し、構造化出力に対応。",
+      "ko": "xAI 최신 플래그십 추론 모델: 256K 컨텍스트, 이미지 입력, 병렬 도구 호출, 구조화 출력 지원."
+    }
+  },
+  {
+    "id": "gpt-5",
+    "product": "openai",
+    "capability": "text",
+    "developer": "openai",
+    "badges": [
+      "new"
+    ],
+    "price": "輸入 $1.25／百萬 tokens · 輸出 $10／百萬 tokens",
+    "title": {
+      "zh-TW": "GPT-5",
+      "zh-CN": "GPT-5",
+      "en": "GPT-5",
+      "ja": "GPT-5",
+      "ko": "GPT-5"
+    },
+    "desc": {
+      "zh-TW": "OpenAI 最新旗艦：推理、編碼與使用者體驗全面升級，400K 上下文。",
+      "zh-CN": "OpenAI 最新旗舰：推理、编码与用户体验全面升级，400K 上下文。",
+      "en": "OpenAI's latest flagship: major upgrades in reasoning, coding and UX, 400K context.",
+      "ja": "OpenAI最新旗艦：推論、コーディング、UXが全面的に向上、400Kコンテキスト。",
+      "ko": "OpenAI 최신 플래그십: 추론, 코딩, UX 전면 향상, 400K 컨텍스트."
+    }
+  },
+  {
+    "id": "claude-opus-4-7",
+    "product": "anthropic",
+    "capability": "text",
+    "developer": "anthropic",
+    "badges": [
+      "new"
+    ],
+    "price": "輸入 $5／百萬 tokens · 輸出 $25／百萬 tokens",
+    "title": {
+      "zh-TW": "Claude Opus 4.7",
+      "zh-CN": "Claude Opus 4.7",
+      "en": "Claude Opus 4.7",
+      "ja": "Claude Opus 4.7",
+      "ko": "Claude Opus 4.7"
+    },
+    "desc": {
+      "zh-TW": "Anthropic 最強通用模型：編碼、企業與 Agent 領先，百萬級上下文。",
+      "zh-CN": "Anthropic 最强通用模型：编码、企业与 Agent 领先，百万级上下文。",
+      "en": "Anthropic's strongest general model: leading in coding, enterprise and Agent, 1M context.",
+      "ja": "Anthropic最強汎用モデル：コーディング、エンタープライズ、Agentで最先端、100万コンテキスト。",
+      "ko": "Anthropic 최강 범용 모델: 코딩, 엔터프라이즈, Agent 최前沿, 100만 컨텍스트."
     }
   }
 ]

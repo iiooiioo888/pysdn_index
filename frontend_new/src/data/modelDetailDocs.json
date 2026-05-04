@@ -1736,5 +1736,537 @@
         }
       ]
     }
+  },
+  "gemini-2-5-pro": {
+    "highlights": {
+      "en": [
+        "Google's most capable model with built-in thinking capabilities.",
+        "Native multimodal: text, image, audio, video, and file inputs.",
+        "1M token context window with leading reasoning and coding benchmarks."
+      ],
+      "zh-TW": [
+        "Google 最強模型，內建思考能力。",
+        "原生多模態：文字、圖像、音訊、影片與檔案輸入。",
+        "百萬級上下文，推理與編碼基準領先。"
+      ],
+      "zh-CN": [
+        "Google 最强模型，内建思考能力。",
+        "原生多模态：文本、图像、音频、视频与文件输入。",
+        "百万级上下文，推理与编码基准领先。"
+      ],
+      "ja": [
+        "Google最強モデル、思考機能を内蔵。",
+        "ネイティブマルチモーダル：テキスト、画像、音声、動画、ファイル入力。",
+        "100万トークンコンテキスト、推論とコーディングのベンチマークで最先端。"
+      ],
+      "ko": [
+        "Google 최강 모델, 사고 기능 내장.",
+        "네이티브 멀티모달: 텍스트, 이미지, 오디오, 비디오, 파일 입력.",
+        "100만 토큰 컨텍스트, 추론·코딩 벤치마크 최前沿."
+      ]
+    },
+    "specs": {
+      "en": [
+        {
+          "label": "Capability",
+          "value": "Multimodal reasoning"
+        },
+        {
+          "label": "Provider",
+          "value": "Google"
+        },
+        {
+          "label": "Context",
+          "value": "1,048,576 tokens"
+        }
+      ],
+      "zh-TW": [
+        {
+          "label": "能力",
+          "value": "多模態推理"
+        },
+        {
+          "label": "供應方",
+          "value": "Google"
+        },
+        {
+          "label": "上下文",
+          "value": "1,048,576 tokens"
+        }
+      ],
+      "zh-CN": [
+        {
+          "label": "能力",
+          "value": "多模态推理"
+        },
+        {
+          "label": "供应方",
+          "value": "Google"
+        },
+        {
+          "label": "上下文",
+          "value": "1,048,576 tokens"
+        }
+      ],
+      "ja": [
+        {
+          "label": "Capability",
+          "value": "Multimodal reasoning"
+        },
+        {
+          "label": "Provider",
+          "value": "Google"
+        },
+        {
+          "label": "Context",
+          "value": "1,048,576 tokens"
+        }
+      ],
+      "ko": [
+        {
+          "label": "Capability",
+          "value": "Multimodal reasoning"
+        },
+        {
+          "label": "Provider",
+          "value": "Google"
+        },
+        {
+          "label": "Context",
+          "value": "1,048,576 tokens"
+        }
+      ]
+    },
+    "sections": {
+      "en": [
+        {
+          "heading": "When to choose",
+          "body": "Use for complex reasoning, multimodal understanding, and long-context tasks where accuracy matters most."
+        }
+      ],
+      "zh-TW": [
+        {
+          "heading": "適用時機",
+          "value": "需要複雜推理、多模態理解與長上下文任務，且準確度為首要考量時使用。"
+        }
+      ],
+      "zh-CN": [
+        {
+          "heading": "适用时机",
+          "body": "需要复杂推理、多模态理解与长上下文任务，且准确度为首要考量时使用。"
+        }
+      ],
+      "ja": [
+        {
+          "heading": "When to choose",
+          "body": "Use for complex reasoning, multimodal understanding, and long-context tasks where accuracy matters most."
+        }
+      ],
+      "ko": [
+        {
+          "heading": "When to choose",
+          "body": "Use for complex reasoning, multimodal understanding, and long-context tasks where accuracy matters most."
+        }
+      ]
+    }
+  },
+  "grok-4": {
+    "highlights": {
+      "en": [
+        "xAI's latest flagship reasoning model with 256K context.",
+        "Supports image input, parallel tool calling, and structured outputs.",
+        "Strong at enterprise tasks: data extraction, coding, and summarization."
+      ],
+      "zh-TW": [
+        "xAI 最新旗艦推理模型，256K 上下文。",
+        "支援圖像輸入、並行工具調用與結構化輸出。",
+        "擅長企業任務：資料提取、編碼與摘要。"
+      ],
+      "zh-CN": [
+        "xAI 最新旗舰推理模型，256K 上下文。",
+        "支持图像输入、并行工具调用与结构化输出。",
+        "擅长企业任务：数据提取、编码与摘要。"
+      ],
+      "ja": [
+        "xAI最新旗艦推論モデル、256Kコンテキスト。",
+        "画像入力、並行ツール呼び出し、構造化出力に対応。",
+        "エンタープライズ向け：データ抽出、コーディング、要約に強い。"
+      ],
+      "ko": [
+        "xAI 최신 플래그십 추론 모델, 256K 컨텍스트.",
+        "이미지 입력, 병렬 도구 호출, 구조화 출력 지원.",
+        "엔터프라이즈 특화: 데이터 추출, 코딩, 요약에 강세."
+      ]
+    },
+    "specs": {
+      "en": [
+        {
+          "label": "Capability",
+          "value": "Text reasoning"
+        },
+        {
+          "label": "Provider",
+          "value": "xAI"
+        },
+        {
+          "label": "Context",
+          "value": "256,000 tokens"
+        }
+      ],
+      "zh-TW": [
+        {
+          "label": "能力",
+          "value": "文字推理"
+        },
+        {
+          "label": "供應方",
+          "value": "xAI"
+        },
+        {
+          "label": "上下文",
+          "value": "256,000 tokens"
+        }
+      ],
+      "zh-CN": [
+        {
+          "label": "能力",
+          "value": "文本推理"
+        },
+        {
+          "label": "供应方",
+          "value": "xAI"
+        },
+        {
+          "label": "上下文",
+          "value": "256,000 tokens"
+        }
+      ],
+      "ja": [
+        {
+          "label": "Capability",
+          "value": "Text reasoning"
+        },
+        {
+          "label": "Provider",
+          "value": "xAI"
+        },
+        {
+          "label": "Context",
+          "value": "256,000 tokens"
+        }
+      ],
+      "ko": [
+        {
+          "label": "Capability",
+          "value": "Text reasoning"
+        },
+        {
+          "label": "Provider",
+          "value": "xAI"
+        },
+        {
+          "label": "Context",
+          "value": "256,000 tokens"
+        }
+      ]
+    },
+    "sections": {
+      "en": [
+        {
+          "heading": "When to choose",
+          "body": "Use for complex reasoning, enterprise data tasks, and when you need xAI's unique perspective on problems."
+        }
+      ],
+      "zh-TW": [
+        {
+          "heading": "適用時機",
+          "body": "需要複雜推理、企業資料處理，或需要 xAI 獨特視角時使用。"
+        }
+      ],
+      "zh-CN": [
+        {
+          "heading": "适用时机",
+          "body": "需要复杂推理、企业数据处理，或需要 xAI 独特视角时使用。"
+        }
+      ],
+      "ja": [
+        {
+          "heading": "When to choose",
+          "body": "Use for complex reasoning, enterprise data tasks, and when you need xAI's unique perspective on problems."
+        }
+      ],
+      "ko": [
+        {
+          "heading": "When to choose",
+          "body": "Use for complex reasoning, enterprise data tasks, and when you need xAI's unique perspective on problems."
+        }
+      ]
+    }
+  },
+  "gpt-5": {
+    "highlights": {
+      "en": [
+        "OpenAI's most advanced model with major improvements in reasoning, code quality, and UX.",
+        "400K context window with image and file input support.",
+        "Optimized for complex tasks requiring step-by-step reasoning and instruction following."
+      ],
+      "zh-TW": [
+        "OpenAI 最先進模型，推理、編碼品質與使用者體驗大幅提升。",
+        "400K 上下文，支援圖像與檔案輸入。",
+        "針對需要逐步推理與指令遵循的複雜任務優化。"
+      ],
+      "zh-CN": [
+        "OpenAI 最先进模型，推理、编码品质与用户体验大幅提升。",
+        "400K 上下文，支持图像与文件输入。",
+        "针对需要逐步推理与指令遵循的复杂任务优化。"
+      ],
+      "ja": [
+        "OpenAI最先進モデル、推論、コーディング品質、UXが大幅に向上。",
+        "400Kコンテキスト、画像・ファイル入力に対応。",
+        "段階的な推論と指示追従が必要な複雑なタスクに最適化。"
+      ],
+      "ko": [
+        "OpenAI 가장 진보된 모델, 추론, 코딩 품질, UX 대폭 향상.",
+        "400K 컨텍스트, 이미지·파일 입력 지원.",
+        "단계적 추론과 지시 준수가 필요한 복잡한 작업에 최적화."
+      ]
+    },
+    "specs": {
+      "en": [
+        {
+          "label": "Capability",
+          "value": "Text + multimodal"
+        },
+        {
+          "label": "Provider",
+          "value": "OpenAI"
+        },
+        {
+          "label": "Context",
+          "value": "400,000 tokens"
+        }
+      ],
+      "zh-TW": [
+        {
+          "label": "能力",
+          "value": "文字＋多模態"
+        },
+        {
+          "label": "供應方",
+          "value": "OpenAI"
+        },
+        {
+          "label": "上下文",
+          "value": "400,000 tokens"
+        }
+      ],
+      "zh-CN": [
+        {
+          "label": "能力",
+          "value": "文本＋多模态"
+        },
+        {
+          "label": "供应方",
+          "value": "OpenAI"
+        },
+        {
+          "label": "上下文",
+          "value": "400,000 tokens"
+        }
+      ],
+      "ja": [
+        {
+          "label": "Capability",
+          "value": "Text + multimodal"
+        },
+        {
+          "label": "Provider",
+          "value": "OpenAI"
+        },
+        {
+          "label": "Context",
+          "value": "400,000 tokens"
+        }
+      ],
+      "ko": [
+        {
+          "label": "Capability",
+          "value": "Text + multimodal"
+        },
+        {
+          "label": "Provider",
+          "value": "OpenAI"
+        },
+        {
+          "label": "Context",
+          "value": "400,000 tokens"
+        }
+      ]
+    },
+    "sections": {
+      "en": [
+        {
+          "heading": "When to choose",
+          "body": "Use for the most demanding tasks where you need OpenAI's best reasoning and instruction following."
+        }
+      ],
+      "zh-TW": [
+        {
+          "heading": "適用時機",
+          "body": "需要 OpenAI 最佳推理與指令遵循能力的高要求任務時使用。"
+        }
+      ],
+      "zh-CN": [
+        {
+          "heading": "适用时机",
+          "body": "需要 OpenAI 最佳推理与指令遵循能力的高要求任务时使用。"
+        }
+      ],
+      "ja": [
+        {
+          "heading": "When to choose",
+          "body": "Use for the most demanding tasks where you need OpenAI's best reasoning and instruction following."
+        }
+      ],
+      "ko": [
+        {
+          "heading": "When to choose",
+          "body": "Use for the most demanding tasks where you need OpenAI's best reasoning and instruction following."
+        }
+      ]
+    }
+  },
+  "claude-opus-4-7": {
+    "highlights": {
+      "en": [
+        "Anthropic's strongest general-purpose model, leading in coding and enterprise tasks.",
+        "1M context window with improved Agent capabilities.",
+        "Benchmark-leading performance on SWE-bench and complex reasoning."
+      ],
+      "zh-TW": [
+        "Anthropic 最強通用模型，編碼與企業任務領先。",
+        "百萬級上下文，Agent 能力提升。",
+        "在 SWE-bench 與複雜推理基準上表現領先。"
+      ],
+      "zh-CN": [
+        "Anthropic 最强通用模型，编码与企业任务领先。",
+        "百万级上下文，Agent 能力提升。",
+        "在 SWE-bench 与复杂推理基准上表现领先。"
+      ],
+      "ja": [
+        "Anthropic最強汎用モデル、コーディングとエンタープライズで最先端。",
+        "100万コンテキスト、Agent機能が向上。",
+        "SWE-benchと複雑な推論ベンチマークでリード。"
+      ],
+      "ko": [
+        "Anthropic 최강 범용 모델, 코딩·엔터프라이즈 최前沿.",
+        "100만 컨텍스트, Agent 기능 향상.",
+        "SWE-bench·복잡한 추론 벤치마크에서 선두."
+      ]
+    },
+    "specs": {
+      "en": [
+        {
+          "label": "Capability",
+          "value": "Text generation"
+        },
+        {
+          "label": "Provider",
+          "value": "Anthropic"
+        },
+        {
+          "label": "Context",
+          "value": "1,000,000 tokens"
+        }
+      ],
+      "zh-TW": [
+        {
+          "label": "能力",
+          "value": "文字生成"
+        },
+        {
+          "label": "供應方",
+          "value": "Anthropic"
+        },
+        {
+          "label": "上下文",
+          "value": "1,000,000 tokens"
+        }
+      ],
+      "zh-CN": [
+        {
+          "label": "能力",
+          "value": "文本生成"
+        },
+        {
+          "label": "供应方",
+          "value": "Anthropic"
+        },
+        {
+          "label": "上下文",
+          "value": "1,000,000 tokens"
+        }
+      ],
+      "ja": [
+        {
+          "label": "Capability",
+          "value": "Text generation"
+        },
+        {
+          "label": "Provider",
+          "value": "Anthropic"
+        },
+        {
+          "label": "Context",
+          "value": "1,000,000 tokens"
+        }
+      ],
+      "ko": [
+        {
+          "label": "Capability",
+          "value": "Text generation"
+        },
+        {
+          "label": "Provider",
+          "value": "Anthropic"
+        },
+        {
+          "label": "Context",
+          "value": "1,000,000 tokens"
+        }
+      ]
+    },
+    "sections": {
+      "en": [
+        {
+          "heading": "When to choose",
+          "body": "Use for the most complex coding, enterprise, and agent tasks where sustained performance on long-running workflows is critical."
+        }
+      ],
+      "zh-TW": [
+        {
+          "heading": "適用時機",
+          "body": "最複雜的編碼、企業與 Agent 任務，且需要長時間工作流穩定表現時使用。"
+        }
+      ],
+      "zh-CN": [
+        {
+          "heading": "适用时机",
+          "body": "最复杂的编码、企业与 Agent 任务，且需要长时间工作流稳定表现时使用。"
+        }
+      ],
+      "ja": [
+        {
+          "heading": "When to choose",
+          "body": "Use for the most complex coding, enterprise, and agent tasks where sustained performance on long-running workflows is critical."
+        }
+      ],
+      "ko": [
+        {
+          "heading": "When to choose",
+          "body": "Use for the most complex coding, enterprise, and agent tasks where sustained performance on long-running workflows is critical."
+        }
+      ]
+    }
   }
 }
