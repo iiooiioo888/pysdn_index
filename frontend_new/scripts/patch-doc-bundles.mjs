@@ -1,7 +1,7 @@
 /**
  * One-off merge: 優化模組總覽與各模組 `src/locales/doc/*.json` 文案（閱讀導覽、摘要、首屏描述）。
  * Run: node scripts/patch-doc-bundles.mjs
- * 完成後請執行 `node scripts/sync-doc-i18n.mjs` 或 `npm run dev`（predev 會同步 public）。
+ * 完成後請執行 `npm run dev` 或 `npm run build`。
  */
 import fs from 'node:fs'
 import path from 'node:path'

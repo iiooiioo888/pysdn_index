@@ -7,7 +7,7 @@
     "node": ">=20.0.0"
   },
   "scripts": {
-    "predev": "node scripts/sync-doc-i18n.mjs && node scripts/merge-app-sections-css.mjs",
+    "predev": "node scripts/merge-app-sections-css.mjs",
     "merge:sections-css": "node scripts/merge-app-sections-css.mjs",
     "dev": "vite",
     "build": "tsc && node scripts/merge-app-sections-css.mjs && vite build && node scripts/copy-404.mjs && node scripts/postbuild.mjs",

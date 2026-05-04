@@ -1,5 +1,5 @@
 /**
- * SuperTrack 工程／調研內容（維護於本元件與 public/supertrack.html，不再依賴 SuperTrack_Documentation.md）。
+ * SuperTrack 工程／調研內容（維護於本元件）。
  */
 const ARCHITECTURE_TREE = `統一排程層（自研）
 │

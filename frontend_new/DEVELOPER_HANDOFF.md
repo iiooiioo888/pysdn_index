@@ -20,8 +20,8 @@
 | `npm run build` | `tsc` → `vite build` → `scripts/copy-404.mjs` → `scripts/postbuild.mjs` |
 | `npm run preview` | 預覽 production build |
 
-- **環境變數**：複製 `.env.example`；`VITE_API_URL` 為後端 base URL（預設見 `src/lib/store.ts`）。
-- **Dev proxy**：`vite.config.ts` 將 `/api` 轉到 `http://localhost:8000`。
+- **環境變數**：複製 `.env.example`；`VITE_API_URL` 為後端 base URL，`VITE_SUPERTRACK_API_URL` 為 SuperTrack 後端位址。
+- **Dev proxy**：`vite.config.ts` 將 `/api` 轉到 `VITE_SUPERTRACK_API_URL`（預設 `http://localhost:8000`）。
 
 ---
 
@@ -48,7 +48,7 @@
 - 仍以 **zh-TW 為底、當前語覆蓋** 合併後寫入各語 resource（行為與舊版 `dict` 合併一致）。
 - 提供 `t(key)`（等同 `useTranslation('doc_*')`）、`ready`、`loadError`、`lang`、`dict`（相容舊呼叫）。
 - 副作用：同步 `document.title`、`meta description`。
-- `npm run dev` 的 **predev** 與 **postbuild** 會跑 `scripts/sync-doc-i18n.mjs`，把 `src/locales/doc/*.json` 複製到 `public/i18n/`，供 `public/*.html` 靜態頁 `fetch` 使用。
+- 文件翻譯集中於 `src/locales/doc/*.json`，由 Vite 直接 import，不再需要同步至 `public/`。
 - 頁面內以 `ready` 閘門顯示載入/錯誤；HTML 字串仍以 **`dangerouslySetInnerHTML`** 渲染，僅上可信內容。
 
 ### 2.1.4 主站 UI 的 `react-i18next`
@@ -63,12 +63,12 @@
 
 ### 2.1.6 圖表與非 React 內容
 
-- 模組文件中的 **Mermaid** 由 `components/docs/DocMermaid.tsx` 等封裝；靜態 HTML 參考 `public/js/doc-diagrams.json`，兩邊圖定義宜 **語意一致**（已於思維導圖同步時留意）。
+- 模組文件中的 **Mermaid** 由 `components/docs/DocMermaid.tsx` 等封裝；圖定義集中於 `components/docs/mermaidCharts.ts`。
 
 ### 2.1.7 新開發者檢核（React 向）
 
 1. 新頁面：`paths.ts` → `AppRoutes` → `lazyPages.tsx` 懶匯出（與 §10 同）。
-2. 需要多語長文且含 HTML：放 `src/locales/doc/*.json` + `useDocBundle`（並依需要跑 `sync-doc-i18n`）；短 UI 字串用 `src/locales` + `t()`。
+2. 需要多語長文且含 HTML：放 `src/locales/doc/*.json` + `useDocBundle`；短 UI 字串用 `src/locales` + `t()`。
 3. 不直接在元件內寫死 **絕對路徑** 去 fetch 靜態資源；用 `` `${import.meta.env.BASE_URL}...` ``。
 4. 在 StrictMode 下，開發期 **useEffect 可能執行兩次**；若寫了訂閱或 fetch，務必帶 **cleanup**（`useDocBundle` 已用 `cancelled` 範式）。
 
@@ -80,7 +80,7 @@
 - **React Router**：`src/main.tsx` 使用 `BrowserRouter basename={import.meta.env.BASE_URL 去尾斜線}`，所有 **in-app 路徑** 必須相對於此 basename（見 `src/routes/paths.ts`）。
 - **Dev 行為**：自訂 plugin `devRewriteRootToBase` 把 `/` 與 `/pysdn_index` 改寫到帶 base 的 URL，避免多餘 redirect。
 - **GitHub Pages SPA**：`scripts/copy-404.mjs` 把 `dist/index.html` 複製為 `dist/404.html`，讓子路徑重新整理仍可回 SPA。
-- **Postbuild**：`scripts/postbuild.mjs` 將 hashed CSS 複製為 `dist/assets/styles.css` 與 `dist/styles.css`；並執行 `sync-doc-i18n.mjs` 更新 `dist` 建置前之 `public/i18n`（供靜態 HTML）。
+- **Postbuild**：`scripts/postbuild.mjs` 將 hashed CSS 複製為 `dist/assets/styles.css` 與 `dist/styles.css`。
 
 改部署網址或子路徑時，需同步：`vite.config.ts` 的 `base`、`index.html` 內 canonical／OG／JSON-LD 網址（若仍用該站）。
 
@@ -97,7 +97,7 @@ frontend_new/
 ├── tsconfig.json
 ├── public/                 # 靜態資源（build 時拷貝到 dist）
 │   ├── i18n/*.json         # 由 src/locales/doc 同步而來（靜態 HTML fetch）；單一真相在 src
-│   ├── *.html              # 部分舊式／獨立 HTML（如 superforge.html）
+│   ├── 404.html            # GitHub Pages SPA fallback
 │   ├── css/, js/           # 文件頁輔助樣式與腳本
 │   └── sitemap.xml, robots.txt
 ├── scripts/                # 建置後處理、文件 HTML 合併、語系同步等 *.mjs
@@ -157,7 +157,7 @@ frontend_new/
 
 - `useDocBundle(name)`：動態 `import()` 對應 JSON，以命名空間 **`doc_<name>`** 註冊；合併規則仍為 zh-TW 底 + 當前語覆蓋。
 - 會同步：補上 query `lang`、必要時觸發 `i18n.changeLanguage`、更新 `document.title` / `meta description`。
-- **`public/i18n/*.json`** 僅為靜態 HTML 相容副本，由 `scripts/sync-doc-i18n.mjs` 從 `src/locales/doc` 複製，**勿當作編輯主檔**。
+- **`src/locales/doc/*.json`** 為文件翻譯主檔，由 Vite 直接 import。
 - 文件頁大量內容為 **HTML 字串** key，修改時同步五語 JSON。
 
 ---
@@ -186,8 +186,8 @@ frontend_new/
 | 腳本 | 用途（依檔名與 repo 慣例） |
 |------|---------------------------|
 | `copy-404.mjs` | SPA 404 fallback |
-| `postbuild.mjs` | 複製 hashed CSS 為 `styles.css`；執行 `sync-doc-i18n.mjs` |
-| `sync-doc-i18n.mjs` | `src/locales/doc` → `public/i18n`（靜態頁） |
+| `postbuild.mjs` | 複製 hashed CSS 為 `styles.css` |
+
 | `merge-app-sections-css.mjs` | 合併首頁 13 區塊 CSS → `app-sections.css` |
 | `syncLocalesFromZhTw.mjs` | 語系同步 |
 | `gen-modules-i18n.mjs` | 模組 i18n 生成 |
@@ -202,7 +202,7 @@ frontend_new/
 
 1. **新增頁面**：在 `paths.ts` 加常數 → `AppRoutes.tsx` 加 `Route` → 新增 page 元件並在 `lazyPages.tsx` lazy 匯出。
 2. **導覽連結**：使用 `PATHS` + `Link`；若需語系，搭配 `toLangSearch` / `useLangQuery`（與現有 Navbar 一致）。
-3. **新字串**：主站用 `src/locales/*.json`；文件長文用 `src/locales/doc/*.json` + `useDocBundle`（必要時跑 `sync-doc-i18n`）。
+3. **新字串**：主站用 `src/locales/*.json`；文件長文用 `src/locales/doc/*.json` + `useDocBundle`。
 4. **絕對 URL**：任何 `fetch` 靜態資源請用 `` `${import.meta.env.BASE_URL}...` ``，避免 base path 錯誤。
 5. **後端契約**：只改 `lib/api.ts` 的 path／payload 時，需與 repo 內後端或 API 規格對齊。
 

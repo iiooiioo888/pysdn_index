@@ -1,5 +1,5 @@
 /**
- * One-off generator for src/locales/doc/modules.json（模組總覽）；會由 predev/postbuild 同步至 public/i18n。
+ * One-off generator for src/locales/doc/modules.json（模組總覽）。
  * Run: node scripts/gen-modules-i18n.mjs
  */
 import fs from 'fs'
