@@ -407,14 +407,14 @@
   max-width: min(58rem, 100%);
 }
 .hero-title {
-  font-size: clamp(2.35rem, 5.8vw, 4.2rem);
+  font-size: clamp(1.6rem, 5.8vw, 4.2rem);
   font-weight: 800;
   line-height: 1.18;
   margin-bottom: 24px;
   letter-spacing: -0.04em;
   font-feature-settings: 'kern' 1, 'liga' 1, 'calt' 1;
 }
-.title-line { display: block; color: #fff; }
+.title-line { display: block; color: #fff; white-space: nowrap; }
 .typing-stack { min-height: 1.2em; }
 .typing-cursor {
   display: inline-block;
