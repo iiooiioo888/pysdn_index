@@ -72,7 +72,7 @@ export default defineConfig({
     cssMinify: true,
     cssCodeSplit: true,
     /** 使用 esbuild 壓縮（預設），比 terser 更快 */
-    minify: 'esbuild',
+    minify: 'oxc',
     rollupOptions: {
       output: {
         /**
