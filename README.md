@@ -1,14 +1,34 @@
-# PySDN
+<p align="center">
+  <img src="https://img.shields.io/badge/React-19.2-61DAFB?style=flat-square&logo=react&logoColor=white" alt="React 19.2" />
+  <img src="https://img.shields.io/badge/Vite-8.0-646CFF?style=flat-square&logo=vite&logoColor=white" alt="Vite 8.0" />
+  <img src="https://img.shields.io/badge/TypeScript-5.9-3178C6?style=flat-square&logo=typescript&logoColor=white" alt="TypeScript 5.9" />
+  <img src="https://img.shields.io/badge/Tailwind-3.4-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white" alt="Tailwind 3.4" />
+  <img src="https://img.shields.io/badge/License-ISC-blue?style=flat-square" alt="License: ISC" />
+  <img src="https://img.shields.io/badge/Node-%3E%3D20-339933?style=flat-square&logo=node.js&logoColor=white" alt="Node.js ≥ 20" />
+  <a href="https://iiooiioo888.github.io/pysdn_index/">
+    <img src="https://img.shields.io/badge/Live_Demo-⚡_SuperCool-06B6D4?style=flat-square" alt="Live Demo" />
+  </a>
+</p>
 
-**AI 影片生成 × 社群信號追蹤平台**
+<h1 align="center">⚡ PySDN SuperCool</h1>
+<p align="center"><strong>AI 影片生成 × 社群信號追蹤平台</strong></p>
+<p align="center">
+  React 19 + Vite 8 前端 · 四大 AI 擴展模組<br/>
+  <code>SuperForge</code> · <code>SuperTune</code> · <code>SuperTrack</code> · <code>SuperScript</code>
+</p>
 
-React 19 + Vite 8 前端 · 四大 AI 模組（SuperForge / SuperTune / SuperTrack / SuperScript）
-
-> **注意**：社群爬蟲後端（SocialCrawler）已遷移至獨立倉庫 👉 [iiooiioo888/SuperTrack](https://github.com/iiooiioo888/SuperTrack)
+<p align="center">
+  <a href="https://iiooiioo888.github.io/pysdn_index/">🔗 Live Demo</a> ·
+  <a href="#-快速開始">🚀 Quick Start</a> ·
+  <a href="#-路由一覽">🗺 Routes</a> ·
+  <a href="#-api-端點">📡 API</a>
+</p>
 
 ---
 
-## 目錄
+> **注意**：社群爬蟲後端（SocialCrawler）已遷移至獨立倉庫 👉 [iiooiioo888/SuperTrack](https://github.com/iiooiioo888/SuperTrack)
+
+## 📖 目錄
 
 - [倉庫結構](#-倉庫結構)
 - [技術棧](#-技術棧)
@@ -59,8 +79,6 @@ pysdn_index/
 
 ## 🚀 技術棧
 
-### 前端
-
 | 類別 | 技術 | 版本 |
 |------|------|------|
 | 框架 | React + TypeScript | 19.2 / 5.9 |
@@ -73,24 +91,23 @@ pysdn_index/
 | 安全 | DOMPurify（XSS 消毒） | 3.x |
 | 圖表 | Mermaid（動態 import） | 11.14 |
 
-### 後端（SuperTrack）
-
-社群爬蟲後端已獨立為 **SuperTrack** 專案，詳見 [SuperTrack 倉庫](https://github.com/iiooiioo888/SuperTrack)。
+> 後端（SuperTrack）已獨立為 **SuperTrack** 專案 → [GitHub](https://github.com/iiooiioo888/SuperTrack)
 
 ---
 
 ## ⚡ 快速開始
 
-### 環境需求
-
-- **Node.js ≥ 20**（`frontend_new/.nvmrc`）
-- npm
-
-### 前端開發
+**環境需求**：Node.js ≥ 20 · npm
 
 ```bash
-cd frontend_new
+# 1. 克隆倉庫
+git clone https://github.com/iiooiioo888/pysdn_index.git
+cd pysdn_index/frontend_new
+
+# 2. 安裝依賴
 npm install
+
+# 3. 啟動開發伺服器
 npm run dev
 # → http://localhost:3000/pysdn_index/
 ```
@@ -98,8 +115,6 @@ npm run dev
 ---
 
 ## 🛠️ 可用指令
-
-### 前端
 
 | 指令 | 說明 |
 |------|------|
@@ -137,24 +152,22 @@ SPA 路由定義於 `frontend_new/src/routes/registry.ts`，使用 `createBrowse
 
 ## 🌐 API 端點
 
-### 前端代理的後端 API
-
 對應 `frontend_new/src/lib/api.ts`：
 
 | 方法 | 路徑 | 說明 |
 |------|------|------|
-| GET | `/api/health` | 健康檢查 |
-| POST | `/api/video/generate` | 生成影片 |
-| GET | `/api/video/status/:taskId` | 影片任務狀態 |
-| GET | `/api/video/list` | 影片列表（分頁） |
-| POST | `/api/drama/create` | 建立短劇 |
-| GET | `/api/drama/list` | 短劇列表（分頁） |
-| POST | `/api/image/generate` | 圖片生成 |
-| GET | `/api/image/list` | 圖片列表（分頁） |
-| POST | `/api/modules/supertune` | SuperTune 優化 |
-| POST | `/api/modules/supertrack` | SuperTrack 趨勢 |
-| POST | `/api/modules/superforge` | SuperForge 操作 |
-| POST | `/api/contact` | 聯絡表單 |
+| `GET` | `/api/health` | 健康檢查 |
+| `POST` | `/api/video/generate` | 生成影片 |
+| `GET` | `/api/video/status/:taskId` | 影片任務狀態 |
+| `GET` | `/api/video/list` | 影片列表（分頁） |
+| `POST` | `/api/drama/create` | 建立短劇 |
+| `GET` | `/api/drama/list` | 短劇列表（分頁） |
+| `POST` | `/api/image/generate` | 圖片生成 |
+| `GET` | `/api/image/list` | 圖片列表（分頁） |
+| `POST` | `/api/modules/supertune` | SuperTune 優化 |
+| `POST` | `/api/modules/supertrack` | SuperTrack 趨勢 |
+| `POST` | `/api/modules/superforge` | SuperForge 操作 |
+| `POST` | `/api/contact` | 聯絡表單 |
 
 ---
 
@@ -188,36 +201,23 @@ main.tsx
 | 組件 | 說明 |
 |------|------|
 | `Hero` | 品牌主視覺、打字機動畫、計數器動效 |
-| `About` | 關於區塊 |
+| `About` | 關於區塊（痛點 vs 方案對比 + 特性卡片） |
 | `Products` | 影片 / 短劇 / 圖片分頁切換，含自動播放影片 mockup |
 | `ModulesPanel` | 四大模組卡片 + MiniCards |
 | `Showcase` | 案例展示輪播 |
-| `WorkflowSection` | 工作流程說明 |
+| `WorkflowSection` | 四步驟工作流程說明（定錨 → 快打 → 沉澱 → 上架） |
 | `Contact` | 聯絡表單（含前端驗證） |
 | `Footer` | 頁腳 |
 
 首頁使用 `HomeLazySection`（IntersectionObserver）延遲載入各區塊，觸發 React.lazy 分塊。
 
-### 文件系統
-
-- 每個模組獨立文件頁，使用 `useDocBundle(name)` 按需載入翻譯 JSON
-- 翻譯資源：`src/locales/doc/{superforge,superscript,supertrack,supertune,modules}.json`
-- Mermaid 圖表：動態 import，`securityLevel: 'strict'`
-- 文件導覽列 + 語言切換藥丸 + GitHub 連結區塊
-
 ### 設計系統
 
-- **主題**：暗色科技風格，CSS 變數驅動（`--bg-card`、`--radius`、`--text-muted`…）
+- **主題**：暗色科技風格，CSS 變數驅動
 - **響應式**：移動端優先，`env(safe-area-inset-*)` 適配瀏海 / 手勢條
 - **動畫**：`IntersectionObserver` 共用單例 + `MutationObserver` 掃描
 - **減動效**：`prefers-reduced-motion: reduce` 時自動跳過
 - **安全**：所有 `dangerouslySetInnerHTML` 經 DOMPurify 消毒
-
-### 狀態管理
-
-- `useApiStore`（Zustand）：全域 API base URL
-- `useDocBundle`：文件頁 i18n 狀態
-- `useSuperTrackPanelEditMode`：面板編輯模式（`VITE_SUPERTRACK_PANEL_EDIT=true` 或 dev 環境）
 
 ---
 
@@ -231,7 +231,7 @@ main.tsx
 2. 上傳 `dist/` 為 Pages artifact
 3. 部署到 GitHub Pages
 
-### 手動部署前端
+### 手動部署
 
 ```bash
 cd frontend_new
@@ -252,15 +252,13 @@ npm run build
 
 ### 國際化
 
-**主站翻譯**（5 語系）：
-- `src/locales/zh-TW.json`、`zh-CN.json`、`en.json`、`ja.json`、`ko.json`
+**主站翻譯**（5 語系）：`src/locales/{zh-TW,zh-CN,en,ja,ko}.json`
 - 使用 `useTranslation()` → `t('key')`
 
-**文件翻譯**（按需載入）：
-- `src/locales/doc/{superforge,superscript,supertrack,supertune,modules}.json`
+**文件翻譯**（按需載入）：`src/locales/doc/{superforge,superscript,supertrack,supertune,modules}.json`
 - 使用 `useDocBundle('supertrack')` → `t('key')`
 
-新增語系：在 `src/locales/` 建立 JSON，在 `src/lib/i18n.ts` 的 `loaders` 註冊。
+新增語系：在 `src/locales/` 建立 JSON → 在 `src/lib/i18n.ts` 的 `loaders` 註冊 → 在 `src/routes/langQuery.ts` 的 `APP_LANG_CODES` 加入代碼。
 
 ### 添加新組件
 
@@ -275,39 +273,47 @@ export function NewComponent() {
 
 ## 🆘 常見問題
 
-### 前端無法連接後端 API？
+<details>
+<summary><strong>前端無法連接後端 API？</strong></summary>
 
 確保 SuperTrack 後端已啟動。檢查：
 - `frontend_new/.env` 的 `VITE_SUPERTRACK_API_URL` 是否指向正確的後端位址
 - `vite.config.ts` 的 proxy 設定是否正確（預設 `http://localhost:8000`）
 - Zustand `useApiStore` 的 `baseUrl` 是否被覆寫
 - 後端詳見 [SuperTrack 倉庫](https://github.com/iiooiioo888/SuperTrack)
+</details>
 
-### Vite 端口被佔用？
+<details>
+<summary><strong>Vite 端口被佔用？</strong></summary>
 
 Vite 會自動嘗試下一個可用端口。也可在 `vite.config.ts` 指定：
-
 ```ts
 server: { port: 3000 }
 ```
+</details>
 
-### 如何新增語言？
+<details>
+<summary><strong>如何新增語言？</strong></summary>
 
 1. 在 `src/locales/` 建立 `{lang-code}.json`
 2. 在 `src/lib/i18n.ts` 的 `loaders` 加入對應匯入
 3. 在 `src/routes/langQuery.ts` 的 `APP_LANG_CODES` 加入代碼
+</details>
 
-### Tailwind 樣式不生效？
+<details>
+<summary><strong>Tailwind 樣式不生效？</strong></summary>
 
 確認 `tailwind.config.cjs` 的 `content` 包含你的檔案路徑：
-
 ```js
 content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"]
 ```
+</details>
 
-### npm audit 有漏洞？
+<details>
+<summary><strong>npm audit 有漏洞？</strong></summary>
 
-`mermaid` 的傳遞依賴 `uuid` < 14.0.0 有 2 個中等漏洞。`npm audit fix --force` 會降級 mermaid 到 9.x（破壞性變更），建議等待上游更新。
+`mermaid` 的傳遞依賴 `uuid` &lt; 14.0.0 有 2 個中等漏洞。`npm audit fix --force` 會降級 mermaid 到 9.x（破壞性變更），建議等待上游更新。
+</details>
 
 ---
 
@@ -322,6 +328,4 @@ content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"]
 
 ## 📄 授權
 
-[ISC License](LICENSE)
-
-© 2026 PySDN / project contributors
+[ISC License](LICENSE) · © 2026 PySDN / project contributors
