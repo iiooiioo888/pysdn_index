@@ -6,6 +6,7 @@ import {
   ModelsPage,
   ModelDetailPage,
   FaqPage,
+  ThreeRealmsPage,
   SuperForgeDocPage,
   SuperScriptDocPage,
   SuperTrackDocPage,
@@ -38,6 +39,7 @@ export const APP_ROUTE_ENTRIES: AppRouteEntry[] = [
   { path: PATHS.models, group: 'core', Page: ModelsPage },
   { path: PATHS.modelsDetailPattern, group: 'core', Page: ModelDetailPage },
   { path: PATHS.faq, group: 'core', Page: FaqPage },
+  { path: PATHS.realms, group: 'core', Page: ThreeRealmsPage },
 
   { path: PATHS.docs.superforge, group: 'docs', Page: SuperForgeDocPage },
   { path: PATHS.docs.superscript, group: 'docs', Page: SuperScriptDocPage },

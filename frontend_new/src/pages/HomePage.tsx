@@ -6,6 +6,9 @@ import { useHomeHashScroll } from '../hooks/useHomeHashScroll'
 
 const Hero = lazy(() => import('../components/Hero').then((m) => ({ default: m.Hero })))
 const About = lazy(() => import('../components/About').then((m) => ({ default: m.About })))
+const ThreeRealmsSection = lazy(() =>
+  import('../components/ThreeRealmsSection').then((m) => ({ default: m.ThreeRealmsSection })),
+)
 const Products = lazy(() => import('../components/Products').then((m) => ({ default: m.Products })))
 const ModulesPanel = lazy(() => import('../components/ModulesPanel').then((m) => ({ default: m.ModulesPanel })))
 const Showcase = lazy(() => import('../components/Showcase').then((m) => ({ default: m.Showcase })))
@@ -33,6 +36,9 @@ export function HomePage() {
           </Suspense>
           <HomeLazySection minHeight={220}>
             <About />
+          </HomeLazySection>
+          <HomeLazySection minHeight={300}>
+            <ThreeRealmsSection />
           </HomeLazySection>
           <HomeLazySection minHeight={320}>
             <Products />

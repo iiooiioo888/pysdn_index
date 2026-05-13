@@ -32,6 +32,7 @@ export function Footer() {
               <Link to={{ pathname: PATHS.home, hash: '#showcase', search: langSearch }}>{t('nav_showcase')}</Link>
               <Link to={{ pathname: PATHS.home, hash: '#workflow', search: langSearch }}>{t('nav_workflow')}</Link>
               <Link to={{ pathname: PATHS.faq, search: langSearch }}>{t('nav_faq')}</Link>
+              <Link to={{ pathname: PATHS.realms, search: langSearch }}>{t('nav_realms')}</Link>
               <Link to={{ pathname: PATHS.home, hash: '#contact', search: langSearch }}>{t('nav_contact')}</Link>
             </nav>
             <nav className="footer-docs" aria-label="Modules and documentation">

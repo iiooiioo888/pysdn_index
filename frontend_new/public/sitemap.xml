@@ -20,6 +20,18 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://iiooiioo888.github.io/pysdn_index/realms</loc>
+    <xhtml:link rel="alternate" hreflang="zh-TW" href="https://iiooiioo888.github.io/pysdn_index/realms?lang=zh-TW" />
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://iiooiioo888.github.io/pysdn_index/realms?lang=zh-CN" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://iiooiioo888.github.io/pysdn_index/realms?lang=en" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://iiooiioo888.github.io/pysdn_index/realms?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://iiooiioo888.github.io/pysdn_index/realms?lang=ko" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://iiooiioo888.github.io/pysdn_index/realms" />
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.65</priority>
+  </url>
+  <url>
     <loc>https://iiooiioo888.github.io/pysdn_index/docs/superscript</loc>
     <lastmod>2026-05-04</lastmod>
     <changefreq>monthly</changefreq>

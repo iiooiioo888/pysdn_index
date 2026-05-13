@@ -5,6 +5,7 @@
   "nav_showcase": "案例與示範",
   "nav_workflow": "生成流程",
   "nav_faq": "常見問題",
+  "nav_realms": "三界資訊",
   "nav_contact": "聯絡與合作",
   "nav_models": "模型選型",
   "nav_module_docs": "模組與文件",
@@ -680,5 +681,45 @@
   "faq_7_a": "免費方案可體驗基本功能；進階功能與商用授權的計價方式正在規劃中，敬請期待。",
   "faq_8_q": "生成的影片和圖片版權歸誰？",
   "faq_8_a": "你使用 SuperCool 生成的內容，權利歸你所有。具體商用授權條款依方案而異，詳情請留意後續公告。",
+  "realms_label": "開源知識庫",
+  "realms_title": "Note 三界：天域、神域、鏡界",
+  "realms_desc": "來自 GitHub「Note」Obsidian 知識庫的三個領域，在同一條敘事裡銜接：任務執行與知識沉澱、多 AI 協作的自理架構設計，以及面向工程師的輔助開發視角。",
+  "realms_flow": "天域：執行與驗證 → 神域：註冊與協作治理 → 鏡界：開發者側的生成與診斷",
+  "realms_tianyu_title": "天域",
+  "realms_tianyu_sub": "TITMS · 四重 LLM 協同",
+  "realms_tianyu_desc": "主／次／助／總四個輕量模型分工：求解、驗證、知識歸檔與任務協調；閉環重試、TODO 自動修正與結果輸出條件控制，讓任務不發散、決策有依據。",
+  "realms_shenyu_title": "神域",
+  "realms_shenyu_sub": "AI 自理協作平台（架構文檔）",
+  "realms_shenyu_desc": "以標準化 API 讓各 AI 系統註冊能力、共享知識並互相監督品質：註冊中心、知識共享、驗證評估、信任管理與協作工作流等模組，描繪可自我演化的生態藍圖。",
+  "realms_jingjie_title": "鏡界",
+  "realms_jingjie_sub": "AI 輔助開發系統",
+  "realms_jingjie_desc": "面向爬蟲與資料工程的自然語言助手：需求解析、程式碼生成、錯誤診斷與學習路徑推薦，搭配領域知識庫與模板，把反爬與實務經驗鏡像到開發流程裡。",
+  "realms_github_cta": "在 GitHub 瀏覽完整 Note 倉庫",
+  "realms_github_aria": "開啟 iiooiioo888／Note 的 GitHub 頁面（新分頁）",
+  "realms_page_title": "Note 三界 · 互動式資訊頁",
+  "realms_page_lead": "切換下方境界即可檢視摘要與重點提要；網址可帶參數 ?realm=tianyu、shenyu、jingjie 直接定位。",
+  "realms_ix_flow_aria": "三界互動切換：天域、神域、鏡界",
+  "realms_ix_step": "第 {{n}} 境",
+  "realms_ix_prev": "上一境界",
+  "realms_ix_next": "下一境界",
+  "realms_ix_highlights": "重點提要",
+  "realms_ix_keyboard": "在境界列按 Tab 選取後，可用 ← →、Home、End 切換，或使用兩側箭頭。",
+  "realms_ix_full_page": "完整資訊頁（獨立版面）",
+  "realms_ix_repo": "GitHub 上的 Note 原始筆記",
+  "realms_tianyu_points": [
+    "四重 LLM：Solver、Verifier、Archivist、Coordinator 分工與閉環",
+    "TODO 自動修正、任務協調與結果輸出條件，抑制任務發散",
+    "知識驅動決策：執行與驗證過程沉澱回知識庫"
+  ],
+  "realms_shenyu_points": [
+    "AI 註冊中心：能力、版本與介面標準化接入",
+    "知識共享與互相監督，形成可演化的自理協作藍圖",
+    "模組化設計：驗證評估、信任管理、協作工作流等"
+  ],
+  "realms_jingjie_points": [
+    "自然語言驅動：爬蟲／資料處理程式碼生成與註解",
+    "錯誤與反爬情境診斷（例如 403）並給出修復方向",
+    "領域知識庫、模板庫與多模型路由支援"
+  ],
   "models_badge_legacy": "舊版"
 }

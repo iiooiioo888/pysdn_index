@@ -5,6 +5,7 @@
   "nav_showcase": "事例",
   "nav_workflow": "生成フロー",
   "nav_faq": "FAQ",
+  "nav_realms": "三界ガイド（Note）",
   "nav_contact": "お問い合わせ",
   "nav_models": "モデルマップ",
   "nav_module_docs": "モジュール・資料",
@@ -680,5 +681,45 @@
   "faq_7_a": "無料プランで基本機能をお試しいただけます。上級機能と商用料金は準備中です。",
   "faq_8_q": "生成した動画や画像の著作権は？",
   "faq_8_a": "SuperCool で生成したコンテンツの権利はあなたに帰属します。商用ライセンス条件はプランにより異なります。詳細は後日お知らせします。",
+  "realms_label": "オープン知識ベース",
+  "realms_title": "Note の三界：天域・神域・鏡界",
+  "realms_desc": "GitHub の Note（Obsidian）リポジトリにある三領域を一つの流れで紹介します。タスク実行と知識の蓄積、複数 AI の自律協調アーキテクチャ、そしてエンジニア向けの開発支援という視点です。",
+  "realms_flow": "天域：実行と検証 → 神域：登録と協調ガバナンス → 鏡界：開発者側の生成と診断",
+  "realms_tianyu_title": "天域",
+  "realms_tianyu_sub": "TITMS · 4 LLM 協調",
+  "realms_tianyu_desc": "Solver／Verifier／Archivist／Coordinator の四役で、実行・二重検証・知識記録・TODO 調整を分担。再試行や TODO 自動修正、出力条件によりタスクの発散を抑えます。",
+  "realms_shenyu_title": "神域",
+  "realms_shenyu_sub": "AI 自律協調プラットフォーム（設計ドキュメント）",
+  "realms_shenyu_desc": "標準 API で能力登録・知識共有・相互品質監視を想定。AI レジストリ、知識共有、検証・評価、トラスト、協調ワークフローなどのモジュールで自己進化型エコシステムを描きます。",
+  "realms_jingjie_title": "鏡界",
+  "realms_jingjie_sub": "AI 支援開発システム",
+  "realms_jingjie_desc": "クローラー／データエンジニア向けの自然言語アシスト。要件解析、コード生成、障害診断、学習パス推薦とドメイン知識ベースで、実務の反クロール知見を開発フローに反映します。",
+  "realms_github_cta": "GitHub で Note リポジトリを見る",
+  "realms_github_aria": "iiooiioo888／Note の GitHub ページを新しいタブで開く",
+  "realms_page_title": "Note の三界 · インタラクティブガイド",
+  "realms_page_lead": "下のタブで各境界の概要と要点を表示。URL パラメータ ?realm=tianyu / shenyu / jingjie で直接開けます。",
+  "realms_ix_flow_aria": "三界の切り替え：天域・神域・鏡界",
+  "realms_ix_step": "境界 {{n}}",
+  "realms_ix_prev": "前の境界",
+  "realms_ix_next": "次の境界",
+  "realms_ix_highlights": "ハイライト",
+  "realms_ix_keyboard": "ヒント：境界行に Tab でフォーカス後、← →・Home・End で切替、または左右の矢印ボタン。",
+  "realms_ix_full_page": "フル情報ページ",
+  "realms_ix_repo": "GitHub の Note リポジトリ",
+  "realms_tianyu_points": [
+    "4 つの LLM 役割（Solver／Verifier／Archivist／Coordinator）のループ",
+    "TODO 自動修正・調整・出力条件でタスクの発散を抑制",
+    "知識ベースに基づく意思決定と実行ログの蓄積"
+  ],
+  "realms_shenyu_points": [
+    "AI レジストリ：能力・バージョンの標準 API 登録",
+    "知識共有と相互監査による自律協調エコシステムの設計",
+    "検証・信頼・ワークフローなどモジュール化された青写真"
+  ],
+  "realms_jingjie_points": [
+    "自然言語でクローラー／データ処理コードを生成・解説",
+    "403 など障害とボット対策の切り分けと修正の方向性",
+    "ドメイン知識・テンプレート・マルチモデルルーティング"
+  ],
   "models_badge_legacy": "旧版"
 }
