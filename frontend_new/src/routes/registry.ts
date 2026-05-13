@@ -7,6 +7,7 @@ import {
   ModelDetailPage,
   FaqPage,
   ThreeRealmsPage,
+  RealmIntegrationPage,
   RealmPage,
   RealmFeaturePage,
   SuperForgeDocPage,
@@ -42,6 +43,7 @@ export const APP_ROUTE_ENTRIES: AppRouteEntry[] = [
   { path: PATHS.modelsDetailPattern, group: 'core', Page: ModelDetailPage },
   { path: PATHS.faq, group: 'core', Page: FaqPage },
   { path: PATHS.realmsIndex, group: 'core', Page: ThreeRealmsPage },
+  { path: PATHS.realmsIntegration, group: 'core', Page: RealmIntegrationPage },
   { path: PATHS.realmsFeaturePattern, group: 'core', Page: RealmFeaturePage },
   { path: PATHS.realmsRealmPattern, group: 'core', Page: RealmPage },
 

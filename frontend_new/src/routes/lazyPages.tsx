@@ -5,6 +5,7 @@ import { ModelsPage as ModelsPageCmp } from '../pages/ModelsPage'
 import { ModelDetailPage as ModelDetailPageCmp } from '../pages/ModelDetailPage'
 import { FaqPage as FaqPageCmp } from '../pages/FaqPage'
 import { ThreeRealmsPage as ThreeRealmsPageCmp } from '../pages/ThreeRealmsPage'
+import { RealmIntegrationPage as RealmIntegrationPageCmp } from '../pages/realms/RealmIntegrationPage'
 import { RealmPage as RealmPageCmp } from '../pages/realms/RealmPage'
 import { RealmFeaturePage as RealmFeaturePageCmp } from '../pages/realms/RealmFeaturePage'
 
@@ -23,6 +24,7 @@ export const ModelsPage = eagerPage(ModelsPageCmp)
 export const ModelDetailPage = eagerPage(ModelDetailPageCmp)
 export const FaqPage = eagerPage(FaqPageCmp)
 export const ThreeRealmsPage = eagerPage(ThreeRealmsPageCmp)
+export const RealmIntegrationPage = eagerPage(RealmIntegrationPageCmp)
 export const RealmPage = eagerPage(RealmPageCmp)
 export const RealmFeaturePage = eagerPage(RealmFeaturePageCmp)
 export const SuperForgeDocPage = lazy(() =>

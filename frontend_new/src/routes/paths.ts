@@ -12,6 +12,7 @@ export const PATHS = {
   /** Note 倉庫三界：互動式資訊導覽 */
   realms: '/realms',
   realmsIndex: '/realms',
+  realmsIntegration: '/realms/integration',
   realmsRealmPattern: '/realms/:realmId',
   realmsFeaturePattern: '/realms/:realmId/:featureSlug',
   docs: {

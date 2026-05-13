@@ -1195,3 +1195,54 @@ main.realms-page-main {
 .realms-tianyu-virtual-cluster {
   margin: 0 0 6px;
 }
+
+/* 三界整合頁（天域 ↔ 鏡界） */
+.realms-integration-entry {
+  padding-top: 16px;
+  position: relative;
+  z-index: 2;
+}
+
+.realms-index-iframe {
+  width: 100%;
+  height: 100vh;
+  border: none;
+  display: block;
+  position: relative;
+  z-index: 1;
+}
+
+.realms-integration-panel {
+  width: 100%;
+}
+
+.realms-integration-grid {
+  display: grid;
+  gap: 12px;
+}
+
+.realms-integration-textarea,
+.realms-integration-input {
+  width: 100%;
+  margin-top: 6px;
+}
+
+.realms-integration-demo-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.realms-integration-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.realms-integration-error {
+  color: #ff6b6b;
+}
+
+.realms-integration-output {
+  white-space: pre-wrap;
+  margin: 0;
+}

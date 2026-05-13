@@ -122,3 +122,54 @@ export type HealthResponse = {
   status?: string
   ok?: boolean
 }
+
+export type TianyuTaskCreateRequest = {
+  userInput: string
+  requireExternalData: boolean
+  dataIntent?: string
+}
+
+export type TianyuTaskCreateResponse = {
+  taskId: string
+  status: string
+  nextAction?: string
+}
+
+export type JingjieCrawlStartRequest = {
+  taskId: string
+  query: string
+  sources?: string[]
+}
+
+export type JingjieCrawlStartResponse = {
+  crawlId: string
+  status: string
+}
+
+export type JingjieCrawlStatusResponse = {
+  crawlId: string
+  status: 'queued' | 'running' | 'done' | 'failed' | string
+  progress?: number
+  resultId?: string
+  message?: string
+}
+
+export type JingjieDataResultResponse = {
+  resultId: string
+  summary: string
+  records: number
+  highlights?: string[]
+}
+
+export type TianyuTaskFinalizeRequest = {
+  taskId: string
+  crawlResultId: string
+  summary?: string
+}
+
+export type TianyuTaskFinalizeResponse = {
+  taskId: string
+  status: string
+  output?: string
+  knowledgeRefs?: string[]
+}

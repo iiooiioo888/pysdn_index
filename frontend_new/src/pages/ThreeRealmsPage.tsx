@@ -1,8 +1,8 @@
 import { useTranslation } from 'react-i18next'
-import { Navigate, useSearchParams } from 'react-router-dom'
+import { Link, Navigate, useSearchParams } from 'react-router-dom'
 import { isRealmId } from '../data/threeRealmsMeta'
 import { useI18nRerender } from '../hooks/useI18nRerender'
-import { pathToRealm } from '../routes/paths'
+import { PATHS, pathToRealm } from '../routes/paths'
 import { RealmsPageShell } from './realms/RealmsPageShell'
 
 export function ThreeRealmsPage() {
@@ -21,17 +21,16 @@ export function ThreeRealmsPage() {
 
   return (
     <RealmsPageShell>
+      <div className="container realms-integration-entry">
+        <Link className="realms-ix-link realms-ix-link--primary" to={PATHS.realmsIntegration}>
+          天域 ↔ 鏡界整合流程 Demo
+          <span className="ui-chevron-right" aria-hidden="true" />
+        </Link>
+      </div>
       <iframe
         src={base + 'three-realms.html'}
         title={t('realms_index_title')}
-        style={{
-          width: '100%',
-          height: '100vh',
-          border: 'none',
-          display: 'block',
-          position: 'relative',
-          zIndex: 1,
-        }}
+        className="realms-index-iframe"
       />
     </RealmsPageShell>
   )
