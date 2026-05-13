@@ -1,11 +1,9 @@
 import { useTranslation } from 'react-i18next'
-import { Link, Navigate, useSearchParams } from 'react-router-dom'
-import { REALM_META, REALM_ORDER, isRealmId } from '../data/threeRealmsMeta'
-import { REALMS_FEATURE_COUNTS } from '../data/threeRealmsFeatures'
+import { Navigate, useSearchParams } from 'react-router-dom'
+import { isRealmId } from '../data/threeRealmsMeta'
 import { useI18nRerender } from '../hooks/useI18nRerender'
 import { pathToRealm } from '../routes/paths'
 import { RealmsPageShell } from './realms/RealmsPageShell'
-import { useMemo } from 'react'
 
 export function ThreeRealmsPage() {
   const { t } = useTranslation()
@@ -19,17 +17,12 @@ export function ThreeRealmsPage() {
     return <Navigate to={{ pathname: pathToRealm(legacyRealm), search: nextParams.toString() }} replace />
   }
 
-  const base = useMemo(() => {
-    const meta = document.querySelector('base')
-    return meta?.getAttribute('href') ?? import.meta.env.BASE_URL ?? '/'
-  }, [])
-
-  const iframeSrc = base + 'three-realms.html'
+  const base = import.meta.env.BASE_URL ?? '/'
 
   return (
     <RealmsPageShell>
       <iframe
-        src={iframeSrc}
+        src={base + 'three-realms.html'}
         title={t('realms_index_title')}
         style={{
           width: '100%',
