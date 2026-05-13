@@ -18,5 +18,5 @@ export type RealmId = 'tianyu' | 'shenyu' | 'jingjie'
 export const REALMS_FEATURE_COUNTS: Record<RealmId, number> = {
   tianyu: 205,
   shenyu: 30,
-  jingjie: 207,
+  jingjie: 206,
 }
