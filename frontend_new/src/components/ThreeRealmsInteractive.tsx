@@ -1,14 +1,14 @@
-import { useCallback, useEffect, useId, useState, type KeyboardEvent } from 'react'
+import { useCallback, useEffect, useId, useMemo, useState, type KeyboardEvent } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, useSearchParams } from 'react-router-dom'
+import { REALMS_FEATURES, type RealmFeatureCard, type RealmId } from '../data/threeRealmsFeatures'
 import { useLangQuery } from '../hooks/useLangQuery'
 import { PATHS } from '../routes/paths'
 import { prefersReducedMotion } from '../lib/motionPreference'
 
 const NOTE_REPO = 'https://github.com/iiooiioo888/Note'
 
-const REALM_ORDER = ['tianyu', 'shenyu', 'jingjie'] as const
-export type RealmId = (typeof REALM_ORDER)[number]
+const REALM_ORDER: readonly RealmId[] = ['tianyu', 'shenyu', 'jingjie'] as const
 
 const REALM_META: Record<
   RealmId,
@@ -51,6 +51,9 @@ const REALM_META: Record<
   },
 }
 
+/** How many cards to show in embedded (homepage) mode */
+const EMBEDDED_CARD_LIMIT = 4
+
 type Layout = 'embedded' | 'standalone'
 
 export type ThreeRealmsInteractiveProps = {
@@ -64,6 +67,42 @@ function readPoints(t: (key: string, opts?: { returnObjects?: boolean }) => unkn
   return Array.isArray(raw) ? raw.filter((x): x is string => typeof x === 'string') : []
 }
 
+/* ── Feature card component ────────────────────────────── */
+
+function FeatureCard({ card, accent }: { card: RealmFeatureCard; accent: 'cyan' | 'violet' | 'emerald' }) {
+  return (
+    <article className={`realms-fc realms-fc--${accent}`}>
+      <h5 className="realms-fc-title">{card.title}</h5>
+      <p className="realms-fc-summary">{card.summary}</p>
+      {card.bullets.length > 0 ? (
+        <ul className="realms-fc-bullets">
+          {card.bullets.map((b) => (
+            <li key={b}>{b}</li>
+          ))}
+        </ul>
+      ) : null}
+      {card.tags.length > 0 ? (
+        <div className="realms-fc-tags">
+          {card.tags.map((tag) => (
+            <span key={tag} className="realms-fc-tag">{tag}</span>
+          ))}
+        </div>
+      ) : null}
+      <a
+        className="realms-fc-source"
+        href={card.sourceUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {card.sourcePath}
+        <span className="ui-chevron-right" aria-hidden="true" />
+      </a>
+    </article>
+  )
+}
+
+/* ── Main component ────────────────────────────────────── */
+
 export function ThreeRealmsInteractive({ layout, showFullPageLink }: ThreeRealmsInteractiveProps) {
   const { t } = useTranslation()
   const langSearch = useLangQuery()
@@ -74,6 +113,10 @@ export function ThreeRealmsInteractive({ layout, showFullPageLink }: ThreeRealms
   const [idx, setIdx] = useState(0)
   const realmId = REALM_ORDER[idx]
   const meta = REALM_META[realmId]
+
+  const allCards = useMemo(() => REALMS_FEATURES[realmId] ?? [], [realmId])
+  const visibleCards = layout === 'embedded' ? allCards.slice(0, EMBEDDED_CARD_LIMIT) : allCards
+  const hasMore = layout === 'embedded' && allCards.length > EMBEDDED_CARD_LIMIT
 
   useEffect(() => {
     if (layout !== 'standalone') return
@@ -150,14 +193,10 @@ export function ThreeRealmsInteractive({ layout, showFullPageLink }: ThreeRealms
 
         <div className="realms-ix-nav">
           <button type="button" className="realms-ix-arrow" onClick={() => selectRealm(idx - 1)} aria-label={t('realms_ix_prev')}>
-            <span className="realms-ix-arrow-inner" aria-hidden="true">
-              ‹
-            </span>
+            <span className="realms-ix-arrow-inner" aria-hidden="true">‹</span>
           </button>
           <button type="button" className="realms-ix-arrow" onClick={() => selectRealm(idx + 1)} aria-label={t('realms_ix_next')}>
-            <span className="realms-ix-arrow-inner" aria-hidden="true">
-              ›
-            </span>
+            <span className="realms-ix-arrow-inner" aria-hidden="true">›</span>
           </button>
         </div>
       </div>
@@ -185,19 +224,36 @@ export function ThreeRealmsInteractive({ layout, showFullPageLink }: ThreeRealms
           </ul>
         </div>
 
+        {/* ── Feature cards ── */}
+        {visibleCards.length > 0 ? (
+          <div className="realms-fc-section">
+            <h4 className="realms-fc-heading">{t('realms_fc_heading')}</h4>
+            <div className="realms-fc-grid">
+              {visibleCards.map((card) => (
+                <FeatureCard key={card.sourcePath} card={card} accent={meta.accent} />
+              ))}
+            </div>
+            {hasMore ? (
+              <Link className="realms-fc-more" to={{ pathname: PATHS.realms, search: `${langSearch}${langSearch ? '&' : '?'}realm=${realmId}` }}>
+                {t('realms_fc_more', { count: allCards.length })}
+                <span className="ui-chevron-right" aria-hidden="true" />
+              </Link>
+            ) : null}
+          </div>
+        ) : (
+          <p className="realms-fc-empty">{t('realms_fc_empty')}</p>
+        )}
+
+        {/* ── Folder link ── */}
         <div className="realms-ix-actions">
-          <a
-            className="realms-ix-folder-link"
-            href={meta.folderTreeUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <a className="realms-ix-folder-link" href={meta.folderTreeUrl} target="_blank" rel="noopener noreferrer">
             <span className="realms-ix-folder-icon" aria-hidden="true">📂</span>
             {t(meta.folderLabelKey)}
           </a>
         </div>
       </div>
 
+      {/* ── Global CTAs ── */}
       <div className="realms-ix-actions">
         {showFullPageLink ? (
           <Link className="realms-ix-link realms-ix-link--primary" to={{ pathname: PATHS.realms, search: langSearch }}>

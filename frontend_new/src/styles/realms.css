@@ -375,12 +375,177 @@ main.realms-page-main {
   line-height: 1;
 }
 
-/* chevron helper */
-.ui-chevron-right::after {
-  content: '›';
-  font-weight: 400;
-  font-size: 1.1em;
-  opacity: 0.65;
+/* ---------- feature cards ---------- */
+.realms-fc-section {
+  margin-top: 28px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+}
+.realms-fc-heading {
+  font-size: var(--text-caption, 0.8125rem);
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin: 0 0 16px;
+}
+.realms-fc-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 14px;
+}
+.realms-fc {
+  padding: 18px 16px;
+  border: var(--panel-border-soft, 1px solid rgba(255, 255, 255, 0.09));
+  border-radius: var(--panel-radius-sm, 14px);
+  background: rgba(255, 255, 255, 0.025);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: border-color 0.22s, background 0.22s, transform 0.18s, box-shadow 0.22s;
+  overflow: hidden;
+}
+.realms-fc:hover {
+  background: rgba(255, 255, 255, 0.045);
+  transform: translateY(-2px);
+}
+.realms-fc--cyan:hover {
+  border-color: rgba(6, 182, 212, 0.30);
+  box-shadow: 0 8px 24px rgba(6, 182, 212, 0.06);
+}
+.realms-fc--violet:hover {
+  border-color: rgba(139, 92, 246, 0.30);
+  box-shadow: 0 8px 24px rgba(139, 92, 246, 0.06);
+}
+.realms-fc--emerald:hover {
+  border-color: rgba(16, 185, 129, 0.30);
+  box-shadow: 0 8px 24px rgba(16, 185, 129, 0.06);
+}
+.realms-fc-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 0;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+}
+.realms-fc-summary {
+  margin: 0;
+  font-size: var(--text-caption, 0.8125rem);
+  color: var(--text-dim);
+  line-height: 1.55;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.realms-fc-bullets {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+.realms-fc-bullets li {
+  position: relative;
+  padding-left: 1em;
+  margin-top: 5px;
+}
+.realms-fc-bullets li:first-child {
+  margin-top: 0;
+}
+.realms-fc-bullets li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.45em;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--text-muted);
+  opacity: 0.5;
+}
+.realms-fc--cyan .realms-fc-bullets li::before { background: #06b6d4; opacity: 0.7; }
+.realms-fc--violet .realms-fc-bullets li::before { background: #8b5cf6; opacity: 0.7; }
+.realms-fc--emerald .realms-fc-bullets li::before { background: #10b981; opacity: 0.7; }
+
+.realms-fc-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: auto;
+}
+.realms-fc-tag {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-muted);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+.realms-fc-source {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  text-decoration: none;
+  word-break: break-all;
+  transition: color 0.2s;
+  margin-top: 4px;
+}
+.realms-fc-source:hover {
+  color: var(--text);
+}
+.realms-fc-source:focus-visible {
+  outline: 2px solid rgba(6, 182, 212, 0.65);
+  outline-offset: 2px;
+}
+.realms-fc-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 16px;
+  padding: 8px 16px;
+  border-radius: 10px;
+  font-size: var(--text-ui, 0.875rem);
+  font-weight: 600;
+  color: var(--text-dim);
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border);
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+.realms-fc-more:hover {
+  color: var(--text);
+  border-color: rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.07);
+}
+.realms-fc-more:focus-visible {
+  outline: 2px solid rgba(6, 182, 212, 0.65);
+  outline-offset: 2px;
+}
+.realms-fc-empty {
+  margin: 16px 0 0;
+  font-size: var(--text-ui, 0.875rem);
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+/* ---------- responsive (feature cards) ---------- */
+@media (max-width: 640px) {
+  .realms-fc-grid {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 480px) {
+  .realms-fc {
+    padding: 14px 12px;
+  }
 }
 
 /* ---------- responsive ---------- */

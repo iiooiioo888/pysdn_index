@@ -724,5 +724,8 @@
   "realms_tianyu_folder": "在 GitHub 打开天域目录",
   "realms_shenyu_folder": "在 GitHub 打开神域目录",
   "realms_jingjie_folder": "在 GitHub 打开镜界目录",
+  "realms_fc_heading": "功能清单",
+  "realms_fc_more": "查看全部 {{count}} 项功能",
+  "realms_fc_empty": "暂无功能资料",
   "models_badge_legacy": "旧版"
 }

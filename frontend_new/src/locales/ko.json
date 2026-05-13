@@ -724,5 +724,8 @@
   "realms_tianyu_folder": "GitHub에서 천역 폴더 열기",
   "realms_shenyu_folder": "GitHub에서 신역 폴더 열기",
   "realms_jingjie_folder": "GitHub에서 경계 폴더 열기",
+  "realms_fc_heading": "기능 목록",
+  "realms_fc_more": "전체 {{count}}개 기능 보기",
+  "realms_fc_empty": "기능 데이터가 아직 없습니다",
   "models_badge_legacy": "구버전"
 }
