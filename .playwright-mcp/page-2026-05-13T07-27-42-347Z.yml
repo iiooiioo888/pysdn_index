@@ -1,0 +1,11 @@
+- generic [ref=e2]:
+  - heading "Unexpected Application Error!" [level=2] [ref=e3]
+  - heading "e.on is not a function" [level=3] [ref=e4]
+  - generic [ref=e5]: "TypeError: e.on is not a function at http://127.0.0.1:4173/pysdn_index/assets/ThreeRealmsInteractive-DldFzT4r.js:3:486 at Kc (http://127.0.0.1:4173/pysdn_index/assets/vendor-DnfxWYBo.js:8:91672) at Al (http://127.0.0.1:4173/pysdn_index/assets/vendor-DnfxWYBo.js:8:107701) at Al (http://127.0.0.1:4173/pysdn_index/assets/vendor-DnfxWYBo.js:8:107949) at Al (http://127.0.0.1:4173/pysdn_index/assets/vendor-DnfxWYBo.js:8:107687) at Al (http://127.0.0.1:4173/pysdn_index/assets/vendor-DnfxWYBo.js:8:107949) at Al (http://127.0.0.1:4173/pysdn_index/assets/vendor-DnfxWYBo.js:8:107687) at kl (http://127.0.0.1:4173/pysdn_index/assets/vendor-DnfxWYBo.js:8:107364) at Ol (http://127.0.0.1:4173/pysdn_index/assets/vendor-DnfxWYBo.js:8:106645) at kl (http://127.0.0.1:4173/pysdn_index/assets/vendor-DnfxWYBo.js:8:107227)"
+  - paragraph [ref=e6]: 💿 Hey developer 👋
+  - paragraph [ref=e7]:
+    - text: You can provide a way better UX than this when your app throws errors by providing your own
+    - code [ref=e8]: ErrorBoundary
+    - text: or
+    - code [ref=e9]: errorElement
+    - text: prop on your route.

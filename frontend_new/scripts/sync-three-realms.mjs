@@ -49,6 +49,27 @@ function sourceTreeUrl(path) {
   return `https://github.com/${REPO}/tree/main/${encodeRepoPath(path)}`
 }
 
+function hashString(input) {
+  let hash = 5381
+  for (let i = 0; i < input.length; i += 1) {
+    hash = (hash * 33) ^ input.charCodeAt(i)
+  }
+  return (hash >>> 0).toString(36)
+}
+
+function slugFromSourcePath(sourcePath) {
+  const withoutExt = sourcePath.replace(/\.[^.]+$/, '')
+  const ascii = withoutExt
+    .normalize('NFKD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+    .slice(0, 72)
+
+  return `${ascii || 'feature'}-${hashString(sourcePath).slice(0, 6)}`
+}
+
 function localPath(path) {
   return join(LOCAL_SOURCE, ...path.split('/'))
 }
@@ -193,7 +214,12 @@ function inferDocTags(name) {
 }
 
 function featureCard(realmId, card) {
-  return { realmId, ...card }
+  return {
+    realmId,
+    slug: slugFromSourcePath(card.sourcePath),
+    bodyMarkdown: card.bodyMarkdown,
+    ...card,
+  }
 }
 
 /* realm processors */
@@ -219,6 +245,7 @@ async function processTianyu() {
       title,
       summary: summary || `天域文檔：${title}`,
       bullets,
+      bodyMarkdown: raw,
       sourcePath: path,
       sourceUrl: sourceUrl(path),
       tags: inferDocTags(f.name),
@@ -263,6 +290,7 @@ async function processShenyu() {
       title: title.replace(/^\s*\d+[\.\-]\s*/, ''),
       summary: summary || `神域模組：${title}`,
       bullets,
+      bodyMarkdown: raw,
       sourcePath: path,
       sourceUrl: sourceUrl(path),
       tags: [`ch${chNum}`, 'module'],
@@ -279,6 +307,7 @@ async function processShenyu() {
       title,
       summary: summary || `神域文檔：${title}`,
       bullets: extractBullets(raw),
+      bodyMarkdown: raw,
       sourcePath: path,
       sourceUrl: sourceUrl(path),
       tags: inferDocTags(f.name),
@@ -318,6 +347,7 @@ async function processJingjie() {
       title: title.replace(/^\s*[\d\.\-]+\s*/, ''),
       summary: summary || `鏡界模組：${title}`,
       bullets,
+      bodyMarkdown: raw,
       sourcePath: path,
       sourceUrl: sourceUrl(path),
       tags: ['module'],
@@ -334,6 +364,7 @@ async function processJingjie() {
       title,
       summary: summary || `鏡界文檔：${title}`,
       bullets: extractBullets(raw),
+      bodyMarkdown: raw,
       sourcePath: path,
       sourceUrl: sourceUrl(path),
       tags: inferDocTags(f.name),
@@ -376,9 +407,11 @@ async function main() {
 
 export interface RealmFeatureCard {
   realmId: RealmId
+  slug: string
   title: string
   summary: string
   bullets: string[]
+  bodyMarkdown: string
   sourcePath: string
   sourceUrl: string
   tags: string[]

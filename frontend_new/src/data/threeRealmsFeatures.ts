@@ -3,9 +3,11 @@
 
 export interface RealmFeatureCard {
   realmId?: RealmId
+  slug?: string
   title: string
   summary: string
   bullets: string[]
+  bodyMarkdown?: string
   sourcePath: string
   sourceUrl: string
   tags: string[]

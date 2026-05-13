@@ -698,6 +698,13 @@
   "realms_github_aria": "Open iiooiioo888/Note on GitHub in a new tab",
   "realms_page_title": "Note: three realms — interactive guide",
   "realms_page_lead": "Pick a realm below for a concise brief and highlights. Deep-link with ?realm=tianyu, shenyu, or jingjie.",
+  "realms_index_title": "Note Three Realms Overview",
+  "realms_index_lead": "Each realm has its own page, and every feature opens a dedicated detail page for direct sharing and source reading.",
+  "realms_index_feature_count": "{{count}} features",
+  "realms_back_index": "Back to Three Realms",
+  "realms_back_realm": "Back to {{realm}}",
+  "realms_feature_summary": "Feature Summary",
+  "realms_feature_markdown": "Source Markdown",
   "realms_ix_flow_aria": "Switch realms: Tianyu, Shenyu, Jingjie",
   "realms_ix_step": "Realm {{n}}",
   "realms_ix_prev": "Previous realm",
@@ -727,6 +734,7 @@
   "realms_fc_heading": "Features",
   "realms_fc_more": "View all {{count}} features",
   "realms_fc_empty": "No feature data available yet",
+  "realms_fc_detail": "View feature",
   "realms_fc_source": "View source",
   "models_badge_legacy": "Legacy"
 }

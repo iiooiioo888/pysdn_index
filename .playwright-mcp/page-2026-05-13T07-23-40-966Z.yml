@@ -1,0 +1,152 @@
+- generic [ref=e3]:
+  - navigation "Main navigation" [ref=e4]:
+    - generic [ref=e5]:
+      - link "Pysdn home" [ref=e6] [cursor=pointer]:
+        - /url: /pysdn_index?lang=zh-TW#home
+        - generic [ref=e7]: ⚡
+        - generic [ref=e8]: Pysdn
+      - button "Toggle menu" [ref=e9] [cursor=pointer]
+  - main [ref=e13]:
+    - generic [ref=e14]:
+      - link "realms_back_index" [ref=e15] [cursor=pointer]:
+        - /url: /pysdn_index/realms
+        - text: realms_back_index
+      - paragraph [ref=e17]: realms_label
+      - heading "realms_tianyu_title" [level=1] [ref=e18]
+      - paragraph [ref=e19]: realms_tianyu_desc
+      - paragraph [ref=e20]: realms_tianyu_sub
+    - generic [ref=e23]:
+      - heading "realms_fc_heading" [level=2] [ref=e24]
+      - generic [ref=e25]:
+        - article [ref=e26]:
+          - heading "TITMS 快速開始指南" [level=5] [ref=e27]:
+            - link "TITMS 快速開始指南" [ref=e28] [cursor=pointer]:
+              - /url: /pysdn_index/realms/tianyu/quickstart-gsx5pa
+          - paragraph [ref=e29]: "```bash pip install -r requirements.txt ```"
+          - generic [ref=e31]: guide
+          - link "realms_fc_detail" [ref=e32] [cursor=pointer]:
+            - /url: /pysdn_index/realms/tianyu/quickstart-gsx5pa
+            - text: realms_fc_detail
+          - 'link "realms_fc_source: 天域/QUICKSTART.md" [ref=e34] [cursor=pointer]':
+            - /url: https://github.com/iiooiioo888/Note/blob/main/%E5%A4%A9%E5%9F%9F/QUICKSTART.md
+            - generic [ref=e35]: realms_fc_source
+            - generic [ref=e36]: 天域/QUICKSTART.md
+        - article [ref=e38]:
+          - heading "三重智能任務管理系統 (TITMS)" [level=5] [ref=e39]:
+            - link "三重智能任務管理系統 (TITMS)" [ref=e40] [cursor=pointer]:
+              - /url: /pysdn_index/realms/tianyu/readme-1yxw37
+          - paragraph [ref=e41]: "**Triple Intelligence Task Management System**"
+          - list [ref=e42]:
+            - listitem [ref=e43]: 四重LLM協同：主LLM（Solver）執行、次LLM（Verifier）驗證、助LLM（Archivist）記錄、總LLM（Coordinator）管理
+            - listitem [ref=e44]: 知識驅動決策：所有決策基於知識庫，而非孤立輸入
+            - listitem [ref=e45]: 動態上下文感知：任務自動關聯相關知識，提供完整決策背景
+            - listitem [ref=e46]: 閉環優化機制：驗證失敗自動觸發重新執行，持續優化方案
+          - generic [ref=e48]: overview
+          - link "realms_fc_detail" [ref=e49] [cursor=pointer]:
+            - /url: /pysdn_index/realms/tianyu/readme-1yxw37
+            - text: realms_fc_detail
+          - 'link "realms_fc_source: 天域/README.md" [ref=e51] [cursor=pointer]':
+            - /url: https://github.com/iiooiioo888/Note/blob/main/%E5%A4%A9%E5%9F%9F/README.md
+            - generic [ref=e52]: realms_fc_source
+            - generic [ref=e53]: 天域/README.md
+        - article [ref=e55]:
+          - heading "🗺️ TITMS 開發路線圖" [level=5] [ref=e56]:
+            - link "🗺️ TITMS 開發路線圖" [ref=e57] [cursor=pointer]:
+              - /url: /pysdn_index/realms/tianyu/roadmap-icqiu7
+          - paragraph [ref=e58]: "- [x] 四重LLM協同工作流 - [x] 知識庫管理（Markdown格式） - [x] 任務管理系統 - [x] 自動任務執行 - [x] TODO LIST 自動修正 - [x] Coordinator 任務管理協調 - [x] 迭代歷史追蹤 - [x] 結論文件生成 - [x] 錯誤處理增強"
+          - list [ref=e59]:
+            - listitem [ref=e60]: "[x] 四重LLM協同工作流"
+            - listitem [ref=e61]: "[x] 知識庫管理（Markdown格式）"
+            - listitem [ref=e62]: "[x] 任務管理系統"
+            - listitem [ref=e63]: "[x] 自動任務執行"
+          - generic [ref=e65]: roadmap
+          - link "realms_fc_detail" [ref=e66] [cursor=pointer]:
+            - /url: /pysdn_index/realms/tianyu/roadmap-icqiu7
+            - text: realms_fc_detail
+          - 'link "realms_fc_source: 天域/ROADMAP.md" [ref=e68] [cursor=pointer]':
+            - /url: https://github.com/iiooiioo888/Note/blob/main/%E5%A4%A9%E5%9F%9F/ROADMAP.md
+            - generic [ref=e69]: realms_fc_source
+            - generic [ref=e70]: 天域/ROADMAP.md
+        - article [ref=e72]:
+          - heading "📋 任務執行指南" [level=5] [ref=e73]:
+            - link "📋 任務執行指南" [ref=e74] [cursor=pointer]:
+              - /url: /pysdn_index/realms/tianyu/task-execution-guide-1x60kn
+          - paragraph [ref=e75]: 系統已經為您生成了任務並保存到數據庫中。以下是執行這些任務的幾種方式：
+          - list [ref=e76]:
+            - listitem [ref=e77]: 任務ID
+            - listitem [ref=e78]: 任務標題
+            - listitem [ref=e79]: 任務描述
+            - listitem [ref=e80]: 截止日期
+          - generic [ref=e82]: task
+          - link "realms_fc_detail" [ref=e83] [cursor=pointer]:
+            - /url: /pysdn_index/realms/tianyu/task-execution-guide-1x60kn
+            - text: realms_fc_detail
+          - 'link "realms_fc_source: 天域/TASK_EXECUTION_GUIDE.md" [ref=e85] [cursor=pointer]':
+            - /url: https://github.com/iiooiioo888/Note/blob/main/%E5%A4%A9%E5%9F%9F/TASK_EXECUTION_GUIDE.md
+            - generic [ref=e86]: realms_fc_source
+            - generic [ref=e87]: 天域/TASK_EXECUTION_GUIDE.md
+        - article [ref=e89]:
+          - heading "📋 任務數量控制指南" [level=5] [ref=e90]:
+            - link "📋 任務數量控制指南" [ref=e91] [cursor=pointer]:
+              - /url: /pysdn_index/realms/tianyu/task-management-guide-1qkimv
+          - paragraph [ref=e92]: 當系統執行任務時，每次都會生成新的子任務，如果沒有適當的控制機制，任務數量會不斷增長，導致任務列表過於龐大，難以管理。
+          - list [ref=e93]:
+            - listitem [ref=e94]: 更嚴格地檢查新任務與現有任務的相似度
+            - listitem [ref=e95]: 相似度超過0.75的任務會被自動跳過
+            - listitem [ref=e96]: 減少重複任務的創建
+            - listitem [ref=e97]: Coordinator 現在更積極地合併相似任務
+          - generic [ref=e99]: task
+          - link "realms_fc_detail" [ref=e100] [cursor=pointer]:
+            - /url: /pysdn_index/realms/tianyu/task-management-guide-1qkimv
+            - text: realms_fc_detail
+          - 'link "realms_fc_source: 天域/TASK_MANAGEMENT_GUIDE.md" [ref=e102] [cursor=pointer]':
+            - /url: https://github.com/iiooiioo888/Note/blob/main/%E5%A4%A9%E5%9F%9F/TASK_MANAGEMENT_GUIDE.md
+            - generic [ref=e103]: realms_fc_source
+            - generic [ref=e104]: 天域/TASK_MANAGEMENT_GUIDE.md
+  - contentinfo [ref=e106]:
+    - generic [ref=e107]:
+      - generic [ref=e108]:
+        - generic [ref=e109]:
+          - link "Pysdn home" [ref=e110] [cursor=pointer]:
+            - /url: /pysdn_index?lang=zh-TW#home
+            - generic [ref=e111]: ⚡
+            - generic [ref=e112]: Pysdn
+          - paragraph [ref=e113]: 先生成，再沉澱；先上線，再迭代。SuperCool 與擴展模組，讓一句話走得更遠。
+        - generic [ref=e114]:
+          - navigation "Footer navigation" [ref=e115]:
+            - link "首頁" [ref=e116] [cursor=pointer]:
+              - /url: /pysdn_index?lang=zh-TW#home
+            - link "為什麼是我們" [ref=e117] [cursor=pointer]:
+              - /url: /pysdn_index?lang=zh-TW#about
+            - link "產品與能力" [ref=e118] [cursor=pointer]:
+              - /url: /pysdn_index?lang=zh-TW#products
+            - link "案例與示範" [ref=e119] [cursor=pointer]:
+              - /url: /pysdn_index?lang=zh-TW#showcase
+            - link "生成流程" [ref=e120] [cursor=pointer]:
+              - /url: /pysdn_index?lang=zh-TW#workflow
+            - link "常見問題" [ref=e121] [cursor=pointer]:
+              - /url: /pysdn_index/faq?lang=zh-TW
+            - link "三界資訊" [ref=e122] [cursor=pointer]:
+              - /url: /pysdn_index/realms?lang=zh-TW
+            - link "聯絡與合作" [ref=e123] [cursor=pointer]:
+              - /url: /pysdn_index?lang=zh-TW#contact
+          - navigation "Modules and documentation" [ref=e124]:
+            - generic [ref=e125]: 接著走：擴展模組與開發者文件
+            - generic [ref=e126]:
+              - link "模組地圖（總覽）" [ref=e127] [cursor=pointer]:
+                - /url: /pysdn_index/modules?lang=zh-TW
+              - link "SuperForge" [ref=e128] [cursor=pointer]:
+                - /url: /pysdn_index/docs/superforge?lang=zh-TW
+              - link "SuperScript" [ref=e129] [cursor=pointer]:
+                - /url: /pysdn_index/docs/superscript?lang=zh-TW
+              - link "SuperTrack" [ref=e130] [cursor=pointer]:
+                - /url: /pysdn_index/docs/supertrack?lang=zh-TW
+              - link "SuperTune" [ref=e131] [cursor=pointer]:
+                - /url: /pysdn_index/docs/supertune?lang=zh-TW
+      - generic [ref=e132]:
+        - generic [ref=e133]: © 2024–2026 Pysdn. All rights reserved.
+        - generic [ref=e134]:
+          - button "Select language" [ref=e136] [cursor=pointer]:
+            - generic [ref=e137]: 🇹🇼
+            - generic [ref=e138]: 繁中
+          - generic [ref=e140]: SYS READY

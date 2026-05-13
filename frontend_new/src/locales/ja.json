@@ -698,6 +698,13 @@
   "realms_github_aria": "iiooiioo888／Note の GitHub ページを新しいタブで開く",
   "realms_page_title": "Note の三界 · インタラクティブガイド",
   "realms_page_lead": "下のタブで各境界の概要と要点を表示。URL パラメータ ?realm=tianyu / shenyu / jingjie で直接開けます。",
+  "realms_index_title": "Note 三界の概要",
+  "realms_index_lead": "各境界には個別ページがあり、各機能も専用の詳細ページで共有・参照できます。",
+  "realms_index_feature_count": "{{count}} 件の機能",
+  "realms_back_index": "三界の概要に戻る",
+  "realms_back_realm": "{{realm}}に戻る",
+  "realms_feature_summary": "機能概要",
+  "realms_feature_markdown": "ソース Markdown",
   "realms_ix_flow_aria": "三界の切り替え：天域・神域・鏡界",
   "realms_ix_step": "境界 {{n}}",
   "realms_ix_prev": "前の境界",
@@ -727,6 +734,7 @@
   "realms_fc_heading": "機能一覧",
   "realms_fc_more": "全 {{count}} 件の機能を見る",
   "realms_fc_empty": "機能データはまだありません",
+  "realms_fc_detail": "機能を見る",
   "realms_fc_source": "ソースを見る",
   "models_badge_legacy": "旧版"
 }

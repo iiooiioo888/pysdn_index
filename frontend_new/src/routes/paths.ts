@@ -11,6 +11,9 @@ export const PATHS = {
   faq: '/faq',
   /** Note 倉庫三界：互動式資訊導覽 */
   realms: '/realms',
+  realmsIndex: '/realms',
+  realmsRealmPattern: '/realms/:realmId',
+  realmsFeaturePattern: '/realms/:realmId/:featureSlug',
   docs: {
     superforge: '/docs/superforge',
     superscript: '/docs/superscript',
@@ -31,8 +34,17 @@ export const PATHS = {
 } as const
 
 export type DocSlug = keyof typeof PATHS.docs
+export type RealmPathId = 'tianyu' | 'shenyu' | 'jingjie'
 
 /** 模型詳情頁路徑（會編碼 id，與路由 `models/:modelId` 一致） */
 export function pathToModelDetail(modelId: string): string {
   return `${PATHS.models}/${encodeURIComponent(modelId)}`
+}
+
+export function pathToRealm(realmId: RealmPathId): string {
+  return `${PATHS.realmsIndex}/${encodeURIComponent(realmId)}`
+}
+
+export function pathToRealmFeature(realmId: RealmPathId, featureSlug: string): string {
+  return `${pathToRealm(realmId)}/${encodeURIComponent(featureSlug)}`
 }

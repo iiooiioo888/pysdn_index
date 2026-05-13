@@ -1,55 +1,15 @@
 import { useCallback, useEffect, useId, useMemo, useState, type KeyboardEvent } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, useSearchParams } from 'react-router-dom'
-import { REALMS_FEATURES, type RealmFeatureCard, type RealmId } from '../data/threeRealmsFeatures'
+import { resolveRealmFeatures, type ResolvedRealmFeatureCard } from '../data/threeRealmsFeatureUtils'
+import { REALM_META, REALM_ORDER, type RealmAccent } from '../data/threeRealmsMeta'
+import type { RealmId } from '../data/threeRealmsFeatures'
+import { useI18nRerender } from '../hooks/useI18nRerender'
 import { useLangQuery } from '../hooks/useLangQuery'
-import { PATHS } from '../routes/paths'
+import { PATHS, pathToRealm, pathToRealmFeature } from '../routes/paths'
 import { prefersReducedMotion } from '../lib/motionPreference'
 
 const NOTE_REPO = 'https://github.com/iiooiioo888/Note'
-
-const REALM_ORDER: readonly RealmId[] = ['tianyu', 'shenyu', 'jingjie'] as const
-
-const REALM_META: Record<
-  RealmId,
-  {
-    titleKey: string
-    subKey: string
-    descKey: string
-    pointsKey: string
-    folderTreeUrl: string
-    folderLabelKey: string
-    accent: 'cyan' | 'violet' | 'emerald'
-  }
-> = {
-  tianyu: {
-    titleKey: 'realms_tianyu_title',
-    subKey: 'realms_tianyu_sub',
-    descKey: 'realms_tianyu_desc',
-    pointsKey: 'realms_tianyu_points',
-    folderTreeUrl: 'https://github.com/iiooiioo888/Note/tree/main/%E5%A4%A9%E5%9F%9F',
-    folderLabelKey: 'realms_tianyu_folder',
-    accent: 'cyan',
-  },
-  shenyu: {
-    titleKey: 'realms_shenyu_title',
-    subKey: 'realms_shenyu_sub',
-    descKey: 'realms_shenyu_desc',
-    pointsKey: 'realms_shenyu_points',
-    folderTreeUrl: 'https://github.com/iiooiioo888/Note/tree/main/%E7%A5%9E%E5%9F%9F',
-    folderLabelKey: 'realms_shenyu_folder',
-    accent: 'violet',
-  },
-  jingjie: {
-    titleKey: 'realms_jingjie_title',
-    subKey: 'realms_jingjie_sub',
-    descKey: 'realms_jingjie_desc',
-    pointsKey: 'realms_jingjie_points',
-    folderTreeUrl: 'https://github.com/iiooiioo888/Note/tree/main/%E9%8F%A1%E7%95%8C',
-    folderLabelKey: 'realms_jingjie_folder',
-    accent: 'emerald',
-  },
-}
 
 /** How many cards to show in embedded (homepage) mode */
 const EMBEDDED_CARD_LIMIT = 4
@@ -67,18 +27,22 @@ function readPoints(t: (key: string, opts?: { returnObjects?: boolean }) => unkn
   return Array.isArray(raw) ? raw.filter((x): x is string => typeof x === 'string') : []
 }
 
-function FeatureCard({
+export function RealmFeatureCardLink({
   card,
   accent,
   sourceLabel,
+  detailLabel,
 }: {
-  card: RealmFeatureCard
-  accent: 'cyan' | 'violet' | 'emerald'
+  card: ResolvedRealmFeatureCard
+  accent: RealmAccent
   sourceLabel: string
+  detailLabel: string
 }) {
   return (
     <article className={`realms-fc realms-fc--${accent}`}>
-      <h5 className="realms-fc-title">{card.title}</h5>
+      <h5 className="realms-fc-title">
+        <Link to={pathToRealmFeature(card.realmId, card.slug)}>{card.title}</Link>
+      </h5>
       <p className="realms-fc-summary">{card.summary}</p>
       {card.bullets.length > 0 ? (
         <ul className="realms-fc-bullets">
@@ -94,6 +58,10 @@ function FeatureCard({
           ))}
         </div>
       ) : null}
+      <Link className="realms-fc-detail" to={pathToRealmFeature(card.realmId, card.slug)}>
+        {detailLabel}
+        <span className="ui-chevron-right" aria-hidden="true" />
+      </Link>
       <a
         className="realms-fc-source"
         href={card.sourceUrl}
@@ -111,6 +79,7 @@ function FeatureCard({
 
 export function ThreeRealmsInteractive({ layout, showFullPageLink }: ThreeRealmsInteractiveProps) {
   const { t } = useTranslation()
+  useI18nRerender()
   const langSearch = useLangQuery()
   const [searchParams, setSearchParams] = useSearchParams()
   const reduceMotion = prefersReducedMotion()
@@ -120,7 +89,7 @@ export function ThreeRealmsInteractive({ layout, showFullPageLink }: ThreeRealms
   const realmId = REALM_ORDER[idx]
   const meta = REALM_META[realmId]
 
-  const allCards = useMemo(() => REALMS_FEATURES[realmId] ?? [], [realmId])
+  const allCards = useMemo(() => resolveRealmFeatures(realmId), [realmId])
   const visibleCards = layout === 'embedded' ? allCards.slice(0, EMBEDDED_CARD_LIMIT) : allCards
   const hasMore = layout === 'embedded' && allCards.length > EMBEDDED_CARD_LIMIT
 
@@ -252,11 +221,17 @@ export function ThreeRealmsInteractive({ layout, showFullPageLink }: ThreeRealms
             <h4 className="realms-fc-heading">{t('realms_fc_heading')}</h4>
             <div className="realms-fc-grid">
               {visibleCards.map((card) => (
-                <FeatureCard key={card.sourcePath} card={card} accent={meta.accent} sourceLabel={t('realms_fc_source')} />
+                <RealmFeatureCardLink
+                  key={card.slug}
+                  card={card}
+                  accent={meta.accent}
+                  detailLabel={t('realms_fc_detail')}
+                  sourceLabel={t('realms_fc_source')}
+                />
               ))}
             </div>
             {hasMore ? (
-              <Link className="realms-fc-more" to={{ pathname: PATHS.realms, search: `${langSearch}${langSearch ? '&' : '?'}realm=${realmId}` }}>
+              <Link className="realms-fc-more" to={{ pathname: pathToRealm(realmId), search: langSearch }}>
                 {t('realms_fc_more', { count: allCards.length })}
                 <span className="ui-chevron-right" aria-hidden="true" />
               </Link>

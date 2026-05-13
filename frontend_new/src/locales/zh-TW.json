@@ -698,6 +698,13 @@
   "realms_github_aria": "開啟 iiooiioo888／Note 的 GitHub 頁面（新分頁）",
   "realms_page_title": "Note 三界 · 互動式資訊頁",
   "realms_page_lead": "切換下方境界即可檢視摘要與重點提要；網址可帶參數 ?realm=tianyu、shenyu、jingjie 直接定位。",
+  "realms_index_title": "Note 三界總覽",
+  "realms_index_lead": "每一界都有獨立頁面，每個功能也能進入專屬詳情頁，方便直接分享與查閱來源內容。",
+  "realms_index_feature_count": "{{count}} 項功能",
+  "realms_back_index": "返回三界總覽",
+  "realms_back_realm": "返回{{realm}}",
+  "realms_feature_summary": "功能摘要",
+  "realms_feature_markdown": "來源 Markdown",
   "realms_ix_flow_aria": "三界互動切換：天域、神域、鏡界",
   "realms_ix_step": "第 {{n}} 境",
   "realms_ix_prev": "上一境界",
@@ -727,6 +734,7 @@
   "realms_fc_heading": "功能清單",
   "realms_fc_more": "查看全部 {{count}} 項功能",
   "realms_fc_empty": "暫無功能資料",
+  "realms_fc_detail": "查看功能",
   "realms_fc_source": "查看來源",
   "models_badge_legacy": "舊版"
 }

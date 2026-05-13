@@ -5,6 +5,8 @@ import { ModelsPage as ModelsPageCmp } from '../pages/ModelsPage'
 import { ModelDetailPage as ModelDetailPageCmp } from '../pages/ModelDetailPage'
 import { FaqPage as FaqPageCmp } from '../pages/FaqPage'
 import { ThreeRealmsPage as ThreeRealmsPageCmp } from '../pages/ThreeRealmsPage'
+import { RealmPage as RealmPageCmp } from '../pages/realms/RealmPage'
+import { RealmFeaturePage as RealmFeaturePageCmp } from '../pages/realms/RealmFeaturePage'
 
 /**
  * 對齊 `registry` 的 `LazyExoticComponent` 型別，但實際為同步元件。
@@ -21,6 +23,8 @@ export const ModelsPage = eagerPage(ModelsPageCmp)
 export const ModelDetailPage = eagerPage(ModelDetailPageCmp)
 export const FaqPage = eagerPage(FaqPageCmp)
 export const ThreeRealmsPage = eagerPage(ThreeRealmsPageCmp)
+export const RealmPage = eagerPage(RealmPageCmp)
+export const RealmFeaturePage = eagerPage(RealmFeaturePageCmp)
 export const SuperForgeDocPage = lazy(() =>
   import('../pages/docs/SuperForgeDocPage').then((m) => ({ default: m.SuperForgeDocPage })),
 )

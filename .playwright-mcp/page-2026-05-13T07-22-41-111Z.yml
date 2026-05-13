@@ -1,0 +1,48 @@
+- generic [ref=e3]:
+  - navigation "Main navigation" [ref=e4]:
+    - generic [ref=e5]:
+      - link "Pysdn home" [ref=e6] [cursor=pointer]:
+        - /url: /pysdn_index?lang=zh-TW#home
+        - generic [ref=e7]: ⚡
+        - generic [ref=e8]: Pysdn
+      - generic [ref=e9]:
+        - link "產品與能力" [ref=e10] [cursor=pointer]:
+          - /url: /pysdn_index?lang=zh-TW#products
+        - link "模型選型" [ref=e11] [cursor=pointer]:
+          - /url: /pysdn_index/models?lang=zh-TW
+        - link "模組與文件" [ref=e12] [cursor=pointer]:
+          - /url: /pysdn_index/modules?lang=zh-TW
+        - link "常見問題" [ref=e13] [cursor=pointer]:
+          - /url: /pysdn_index/faq?lang=zh-TW
+        - link "三界資訊" [ref=e14] [cursor=pointer]:
+          - /url: /pysdn_index/realms?lang=zh-TW
+      - button "Select language" [ref=e16] [cursor=pointer]:
+        - generic [ref=e17]: 🇹🇼
+        - generic [ref=e18]: 繁中
+      - link "預約諮詢" [ref=e20] [cursor=pointer]:
+        - /url: /pysdn_index?lang=zh-TW#contact
+  - main [ref=e21]:
+    - generic [ref=e22]:
+      - paragraph [ref=e23]: realms_label
+      - heading "realms_index_title" [level=1] [ref=e24]
+      - paragraph [ref=e25]: realms_index_lead
+      - paragraph [ref=e26]: realms_flow
+    - generic [ref=e27]:
+      - link "realms_ix_step realms_tianyu_title realms_tianyu_desc realms_index_feature_count" [ref=e28] [cursor=pointer]:
+        - /url: /pysdn_index/realms/tianyu
+        - generic [ref=e29]: realms_ix_step
+        - heading "realms_tianyu_title" [level=2] [ref=e30]
+        - paragraph [ref=e31]: realms_tianyu_desc
+        - generic [ref=e32]: realms_index_feature_count
+      - link "realms_ix_step realms_shenyu_title realms_shenyu_desc realms_index_feature_count" [ref=e33] [cursor=pointer]:
+        - /url: /pysdn_index/realms/shenyu
+        - generic [ref=e34]: realms_ix_step
+        - heading "realms_shenyu_title" [level=2] [ref=e35]
+        - paragraph [ref=e36]: realms_shenyu_desc
+        - generic [ref=e37]: realms_index_feature_count
+      - link "realms_ix_step realms_jingjie_title realms_jingjie_desc realms_index_feature_count" [ref=e38] [cursor=pointer]:
+        - /url: /pysdn_index/realms/jingjie
+        - generic [ref=e39]: realms_ix_step
+        - heading "realms_jingjie_title" [level=2] [ref=e40]
+        - paragraph [ref=e41]: realms_jingjie_desc
+        - generic [ref=e42]: realms_index_feature_count
