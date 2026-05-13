@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>三界 — 天域 · 神域 · 鏡界</title>
+<style>
+/* ═══════════════════════════════════════════
+   RESET & VARIABLES
+   ═══════════════════════════════════════════ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0a0a0f;--bg2:#12121a;--bg3:#1a1a26;
+  --text:#e0e0e8;--text2:#8888a0;--text3:#55556a;
+  --cyan:#00d4ff;--violet:#a855f7;--emerald:#10b981;
+  --cyan-dim:#00d4ff22;--violet-dim:#a855f722;--emerald-dim:#10b98122;
+  --radius:12px;--radius-lg:20px;
+  --font:'Segoe UI',system-ui,-apple-system,sans-serif;
+  --mono:'JetBrains Mono','Fira Code','Cascadia Code',monospace;
+}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
+img{max-width:100%;display:block}
+
+/* ═══════════════════════════════════════════
+   ANIMATED BACKGROUND
+   ═══════════════════════════════════════════ */
+#bg-canvas{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.4}
+
+/* ═══════════════════════════════════════════
+   NAVIGATION
+   ═══════════════════════════════════════════ */
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;backdrop-filter:blur(20px);background:rgba(10,10,15,.7);border-bottom:1px solid rgba(255,255,255,.06);transition:transform .3s}
+.nav.hide{transform:translateY(-100%)}
+.nav-logo{font-size:1.25rem;font-weight:700;letter-spacing:.05em}
+.nav-logo span{background:linear-gradient(135deg,var(--cyan),var(--violet),var(--emerald));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.nav-links{display:flex;gap:2rem}
+.nav-links a{font-size:.85rem;color:var(--text2);transition:color .2s;position:relative}
+.nav-links a:hover,.nav-links a.active{color:var(--text)}
+.nav-links a.active::after{content:'';position:absolute;bottom:-4px;left:0;right:0;height:2px;border-radius:1px;background:var(--cyan)}
+
+/* ═══════════════════════════════════════════
+   HERO
+   ═══════════════════════════════════════════ */
+.hero{position:relative;z-index:1;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:6rem 2rem 4rem}
+.hero-badge{display:inline-flex;align-items:center;gap:.5rem;padding:.4rem 1rem;border-radius:99px;border:1px solid rgba(255,255,255,.1);font-size:.75rem;color:var(--text2);margin-bottom:2rem;backdrop-filter:blur(10px);background:rgba(255,255,255,.03)}
+.hero-badge .dot{width:6px;height:6px;border-radius:50%;background:var(--emerald);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.hero h1{font-size:clamp(2.5rem,7vw,5rem);font-weight:800;line-height:1.1;margin-bottom:1.5rem;letter-spacing:-.02em}
+.hero h1 .realm-name{display:inline-block;position:relative}
+.hero h1 .realm-name.tianyu{color:var(--cyan)}
+.hero h1 .realm-name.shenyu{color:var(--violet)}
+.hero h1 .realm-name.jingjie{color:var(--emerald)}
+.hero-sub{font-size:clamp(1rem,2.5vw,1.35rem);color:var(--text2);max-width:700px;margin:0 auto 3rem;line-height:1.7}
+.hero-cta{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center}
+.btn{padding:.75rem 2rem;border-radius:var(--radius);font-weight:600;font-size:.9rem;transition:all .25s}
+.btn-primary{background:linear-gradient(135deg,var(--cyan),#0088cc);color:#000;box-shadow:0 0 30px rgba(0,212,255,.2)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 0 50px rgba(0,212,255,.35)}
+.btn-ghost{border:1px solid rgba(255,255,255,.15);color:var(--text)}
+.btn-ghost:hover{border-color:rgba(255,255,255,.3);background:rgba(255,255,255,.05)}
+
+/* ═══════════════════════════════════════════
+   REALM SELECTOR (3 cards)
+   ═══════════════════════════════════════════ */
+.realm-select{position:relative;z-index:1;padding:6rem 2rem}
+.realm-select h2{text-align:center;font-size:2rem;margin-bottom:.5rem}
+.realm-select .section-desc{text-align:center;color:var(--text2);margin-bottom:3rem;max-width:600px;margin-left:auto;margin-right:auto}
+.realm-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1.5rem;max-width:1200px;margin:0 auto}
+.realm-card{position:relative;padding:2rem;border-radius:var(--radius-lg);border:1px solid rgba(255,255,255,.06);background:var(--bg2);cursor:pointer;transition:all .35s cubic-bezier(.4,0,.2,1);overflow:hidden}
+.realm-card::before{content:'';position:absolute;inset:0;border-radius:inherit;opacity:0;transition:opacity .35s}
+.realm-card:hover{transform:translateY(-6px)}
+.realm-card:hover::before{opacity:1}
+.realm-card[data-realm="tianyu"]::before{background:radial-gradient(ellipse at 30% 0%,var(--cyan-dim),transparent 70%)}
+.realm-card[data-realm="shenyu"]::before{background:radial-gradient(ellipse at 30% 0%,var(--violet-dim),transparent 70%)}
+.realm-card[data-realm="jingjie"]::before{background:radial-gradient(ellipse at 30% 0%,var(--emerald-dim),transparent 70%)}
+.realm-card .rc-step{font-size:.7rem;text-transform:uppercase;letter-spacing:.15em;color:var(--text3);margin-bottom:1rem}
+.realm-card .rc-icon{font-size:2.5rem;margin-bottom:1rem}
+.realm-card h3{font-size:1.4rem;font-weight:700;margin-bottom:.5rem}
+.realm-card[data-realm="tianyu"] h3{color:var(--cyan)}
+.realm-card[data-realm="shenyu"] h3{color:var(--violet)}
+.realm-card[data-realm="jingjie"] h3{color:var(--emerald)}
+.realm-card .rc-sub{font-size:.85rem;color:var(--text2);margin-bottom:1.5rem}
+.realm-card .rc-stats{display:flex;gap:1.5rem;margin-bottom:1.5rem}
+.realm-card .rc-stat{display:flex;flex-direction:column}
+.realm-card .rc-stat-val{font-size:1.5rem;font-weight:700;font-family:var(--mono)}
+.realm-card .rc-stat-label{font-size:.7rem;color:var(--text3);text-transform:uppercase;letter-spacing:.08em}
+.realm-card .rc-arrow{display:flex;align-items:center;gap:.5rem;font-size:.8rem;color:var(--text2);transition:gap .25s,color .25s}
+.realm-card:hover .rc-arrow{gap:.75rem;color:var(--text)}
+
+/* ═══════════════════════════════════════════
+   REALM DETAIL PANEL (expandable)
+   ═══════════════════════════════════════════ */
+.realm-detail{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:0 2rem 6rem}
+.realm-panel{display:none;animation:fadeUp .5s ease}
+.realm-panel.active{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.realm-panel-header{display:flex;align-items:center;gap:1rem;margin-bottom:2rem;padding-bottom:1.5rem;border-bottom:1px solid rgba(255,255,255,.06)}
+.realm-panel-header .rp-icon{font-size:2rem}
+.realm-panel-header h2{font-size:1.8rem;font-weight:700}
+.realm-panel-header .rp-badge{padding:.25rem .75rem;border-radius:99px;font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.1em}
+.rp-badge.tianyu{background:var(--cyan-dim);color:var(--cyan)}
+.rp-badge.shenyu{background:var(--violet-dim);color:var(--violet)}
+.rp-badge.jingjie{background:var(--emerald-dim);color:var(--emerald)}
+
+/* Module Grid */
+.mod-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem;margin-bottom:3rem}
+.mod-card{padding:1.25rem;border-radius:var(--radius);border:1px solid rgba(255,255,255,.06);background:var(--bg3);transition:all .3s;cursor:default}
+.mod-card:hover{border-color:rgba(255,255,255,.12);background:rgba(255,255,255,.03)}
+.mod-card .mc-head{display:flex;align-items:center;gap:.75rem;margin-bottom:.75rem}
+.mod-card .mc-num{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;font-family:var(--mono);flex-shrink:0}
+.tianyu .mc-num{background:var(--cyan-dim);color:var(--cyan)}
+.shenyu .mc-num{background:var(--violet-dim);color:var(--violet)}
+.jingjie .mc-num{background:var(--emerald-dim);color:var(--emerald)}
+.mod-card h4{font-size:.9rem;font-weight:600;line-height:1.3}
+.mod-card p{font-size:.8rem;color:var(--text2);line-height:1.5}
+.mod-card .mc-tags{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.75rem}
+.mod-card .mc-tag{padding:.15rem .5rem;border-radius:6px;font-size:.65rem;background:rgba(255,255,255,.04);color:var(--text3)}
+
+/* Architecture Diagram */
+.arch-section{margin-bottom:3rem}
+.arch-section h3{font-size:1.2rem;margin-bottom:1rem;display:flex;align-items:center;gap:.5rem}
+.arch-diagram{padding:2rem;border-radius:var(--radius-lg);background:var(--bg2);border:1px solid rgba(255,255,255,.06);overflow-x:auto}
+.arch-flow{display:flex;align-items:center;gap:0;flex-wrap:wrap;justify-content:center}
+.arch-node{padding:.75rem 1.25rem;border-radius:var(--radius);border:1px solid;font-size:.8rem;font-weight:600;text-align:center;min-width:120px;position:relative}
+.arch-node.cyan{border-color:var(--cyan);color:var(--cyan);background:var(--cyan-dim)}
+.arch-node.violet{border-color:var(--violet);color:var(--violet);background:var(--violet-dim)}
+.arch-node.emerald{border-color:var(--emerald);color:var(--emerald);background:var(--emerald-dim)}
+.arch-node .an-label{font-size:.65rem;font-weight:400;color:var(--text2);display:block;margin-top:.25rem}
+.arch-arrow{color:var(--text3);font-size:1.2rem;padding:0 .5rem}
+
+/* Feature List */
+.feat-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1rem;margin-bottom:3rem}
+.feat-item{display:flex;gap:.75rem;padding:1rem;border-radius:var(--radius);background:var(--bg2);border:1px solid rgba(255,255,255,.04)}
+.feat-icon{font-size:1.25rem;flex-shrink:0;margin-top:.1rem}
+.feat-item h4{font-size:.85rem;font-weight:600;margin-bottom:.25rem}
+.feat-item p{font-size:.78rem;color:var(--text2);line-height:1.5}
+
+/* Tech Stack */
+.tech-row{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:3rem}
+.tech-chip{padding:.4rem 1rem;border-radius:99px;font-size:.75rem;font-weight:500;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03);color:var(--text2);transition:all .2s}
+.tech-chip:hover{border-color:rgba(255,255,255,.2);color:var(--text)}
+
+/* ═══════════════════════════════════════════
+   COMPARISON TABLE
+   ═══════════════════════════════════════════ */
+.comparison{position:relative;z-index:1;padding:6rem 2rem;max-width:1200px;margin:0 auto}
+.comparison h2{text-align:center;font-size:2rem;margin-bottom:.5rem}
+.comparison .section-desc{text-align:center;color:var(--text2);margin-bottom:3rem}
+.cmp-table{width:100%;border-collapse:collapse;border-radius:var(--radius-lg);overflow:hidden;background:var(--bg2)}
+.cmp-table th,.cmp-table td{padding:1rem 1.25rem;text-align:left;border-bottom:1px solid rgba(255,255,255,.04)}
+.cmp-table thead th{background:var(--bg3);font-size:.75rem;text-transform:uppercase;letter-spacing:.1em;color:var(--text2)}
+.cmp-table tbody tr:hover{background:rgba(255,255,255,.02)}
+.cmp-table td:first-child{font-weight:600}
+.cmp-table .dot-tianyu{color:var(--cyan)}
+.cmp-table .dot-shenyu{color:var(--violet)}
+.cmp-table .dot-jingjie{color:var(--emerald)}
+
+/* ═══════════════════════════════════════════
+   FOOTER
+   ═══════════════════════════════════════════ */
+.footer{position:relative;z-index:1;padding:3rem 2rem;border-top:1px solid rgba(255,255,255,.06);text-align:center}
+.footer-links{display:flex;justify-content:center;gap:2rem;margin-bottom:1.5rem;flex-wrap:wrap}
+.footer-links a{font-size:.8rem;color:var(--text2);transition:color .2s}
+.footer-links a:hover{color:var(--text)}
+.footer p{font-size:.75rem;color:var(--text3)}
+
+/* ═══════════════════════════════════════════
+   SCROLL ANIMATIONS
+   ═══════════════════════════════════════════ */
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .6s ease,transform .6s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════ */
+@media(max-width:768px){
+  .nav-links{display:none}
+  .hero h1{font-size:2.2rem}
+  .realm-grid{grid-template-columns:1fr}
+  .mod-grid{grid-template-columns:1fr}
+  .feat-list{grid-template-columns:1fr}
+  .cmp-table{font-size:.8rem}
+  .cmp-table th,.cmp-table td{padding:.75rem .5rem}
+  .arch-flow{flex-direction:column}
+  .arch-arrow{transform:rotate(90deg)}
+}
+</style>
+</head>
+<body>
+
+<!-- Background Canvas -->
+<canvas id="bg-canvas"></canvas>
+
+<!-- Navigation -->
+<nav class="nav" id="nav">
+  <div class="nav-logo"><span>三界</span></div>
+  <div class="nav-links">
+    <a href="#hero" class="active">首頁</a>
+    <a href="#realms">三界總覽</a>
+    <a href="#detail">系統詳情</a>
+    <a href="#compare">比較</a>
+    <a href="https://github.com/iiooiioo888/Note" target="_blank">GitHub</a>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero" id="hero">
+  <div class="hero-badge"><span class="dot"></span> Open Source · v2.0</div>
+  <h1>
+    <span class="realm-name tianyu">天域</span> ·
+    <span class="realm-name shenyu">神域</span> ·
+    <span class="realm-name jingjie">鏡界</span>
+  </h1>
+  <p class="hero-sub">
+    三大開源系統，涵蓋智能任務管理、AI 協作平台、數據處理引擎。<br>
+    從 LLM 協同到分布式爬蟲，完整的技術基礎設施。
+  </p>
+  <div class="hero-cta">
+    <button class="btn btn-primary" onclick="document.getElementById('realms').scrollIntoView({behavior:'smooth'})">探索三界</button>
+    <a class="btn btn-ghost" href="https://github.com/iiooiioo888/Note" target="_blank">查看源碼</a>
+  </div>
+</section>
+
+<!-- Realm Selector -->
+<section class="realm-select" id="realms">
+  <h2 class="reveal">三界總覽</h2>
+  <p class="section-desc reveal">點擊任一界，深入了解系統架構、核心模組與技術細節</p>
+  <div class="realm-grid">
+    <div class="realm-card reveal" data-realm="tianyu" onclick="showRealm('tianyu')">
+      <div class="rc-step">Step 1 · 任務引擎</div>
+      <div class="rc-icon">⚡</div>
+      <h3>天域 · TITMS</h3>
+      <p class="rc-sub">三重智能任務管理系統 — 四個 LLM 協同執行、驗證、記錄、協調，閉環優化每一次決策。</p>
+      <div class="rc-stats">
+        <div class="rc-stat"><span class="rc-stat-val" style="color:var(--cyan)">4</span><span class="rc-stat-label">LLM 角色</span></div>
+        <div class="rc-stat"><span class="rc-stat-val" style="color:var(--cyan)">70%</span><span class="rc-stat-label">成本節省</span></div>
+        <div class="rc-stat"><span class="rc-stat-val" style="color:var(--cyan)">3x</span><span class="rc-stat-label">驗證閉環</span></div>
+      </div>
+      <span class="rc-arrow">進入天域 <span>→</span></span>
+    </div>
+    <div class="realm-card reveal" data-realm="shenyu" onclick="showRealm('shenyu')">
+      <div class="rc-step">Step 2 · 協作平台</div>
+      <div class="rc-icon">🌟</div>
+      <h3>神域 · Divine Domain</h3>
+      <p class="rc-sub">AI 自理發展與協作平台 — 7 大模組讓 AI 互相監督、共享知識、協同工作、自我進化。</p>
+      <div class="rc-stats">
+        <div class="rc-stat"><span class="rc-stat-val" style="color:var(--violet)">7</span><span class="rc-stat-label">核心模組</span></div>
+        <div class="rc-stat"><span class="rc-stat-val" style="color:var(--violet)">100%</span><span class="rc-stat-label">Ch1 完整</span></div>
+        <div class="rc-stat"><span class="rc-stat-val" style="color:var(--violet)">1000+</span><span class="rc-stat-label">AI 管理</span></div>
+      </div>
+      <span class="rc-arrow">進入神域 <span>→</span></span>
+    </div>
+    <div class="realm-card reveal" data-realm="jingjie" onclick="showRealm('jingjie')">
+      <div class="rc-step">Step 3 · 數據引擎</div>
+      <div class="rc-icon">🪞</div>
+      <h3>鏡界 · Mirror World</h3>
+      <p class="rc-sub">智能數據處理與爬蟲平台 — 12 大模組覆蓋從數據採集到質量管理的完整生命週期。</p>
+      <div class="rc-stats">
+        <div class="rc-stat"><span class="rc-stat-val" style="color:var(--emerald)">12</span><span class="rc-stat-label">核心模組</span></div>
+        <div class="rc-stat"><span class="rc-stat-val" style="color:var(--emerald)">200+</span><span class="rc-stat-label">文檔檔案</span></div>
+        <div class="rc-stat"><span class="rc-stat-val" style="color:var(--emerald)">100%</span><span class="rc-stat-label">文檔完成</span></div>
+      </div>
+      <span class="rc-arrow">進入鏡界 <span>→</span></span>
+    </div>
+  </div>
+</section>
+
+<!-- Realm Detail -->
+<section class="realm-detail" id="detail">
+
+  <!-- ====== 天域 ====== -->
+  <div class="realm-panel tianyu" id="panel-tianyu">
+    <div class="realm-panel-header">
+      <span class="rp-icon">⚡</span>
+      <h2>天域 · TITMS</h2>
+      <span class="rp-badge tianyu">任務引擎</span>
+    </div>
+
+    <div class="arch-section reveal">
+      <h3>🏗️ 四重 LLM 協同架構</h3>
+      <div class="arch-diagram">
+        <div class="arch-flow">
+          <div class="arch-node cyan">👤 用戶輸入<span class="an-label">任務 / 觸發事件</span></div>
+          <span class="arch-arrow">→</span>
+          <div class="arch-node cyan">🧠 Solver<span class="an-label">主 LLM · 執行任務</span></div>
+          <span class="arch-arrow">→</span>
+          <div class="arch-node cyan">✅ Verifier<span class="an-label">次 LLM · 驗證方案</span></div>
+          <span class="arch-arrow">→</span>
+          <div class="arch-node cyan">📚 Archivist<span class="an-label">助 LLM · 記錄知識</span></div>
+          <span class="arch-arrow">→</span>
+          <div class="arch-node cyan">🎯 Coordinator<span class="an-label">總 LLM · 管理協調</span></div>
+          <span class="arch-arrow">→</span>
+          <div class="arch-node cyan">📋 TODO List<span class="an-label">自動修正 + 輸出控制</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="feat-list reveal">
+      <div class="feat-item">
+        <span class="feat-icon">🔄</span>
+        <div><h4>閉環優化機制</h4><p>驗證失敗自動觸發重新執行，最多 3 次迭代，持續優化方案直到通過。</p></div>
+      </div>
+      <div class="feat-item">
+        <span class="feat-icon">📖</span>
+        <div><h4>知識驅動決策</h4><p>所有決策基於知識庫，非孤立輸入。任務自動關聯相關知識，提供完整決策背景。</p></div>
+      </div>
+      <div class="feat-item">
+        <span class="feat-icon">💰</span>
+        <div><h4>輕量級部署</h4><p>助 LLM 使用小模型，降低 70%+ 計算成本。推薦 DeepSeek API，性價比極高。</p></div>
+      </div>
+      <div class="feat-item">
+        <span class="feat-icon">🤖</span>
+        <div><h4>自動任務執行</h4><p>支持自動執行任務列表，按優先級排序。TODO List 自動修正，結果輸出條件控制。</p></div>
+      </div>
+      <div class="feat-item">
+        <span class="feat-icon">💾</span>
+        <div><h4>Markdown 存儲</h4><p>使用 Markdown 文件格式存儲數據，每個知識點、任務、交互都是獨立文件，易於版本控制。</p></div>
+      </div>
+      <div class="feat-item">
+        <span class="feat-icon">🔌</span>
+        <div><h4>向量嵌入支持</h4><p>集成 Embedding 模塊，支持語義搜索和知識檢索，實現智能知識關聯。</p></div>
+      </div>
+    </div>
+
+    <div class="reveal">
+      <h3 style="margin-bottom:1rem">🛠️ 技術棧</h3>
+      <div class="tech-row">
+        <span class="tech-chip">Python 3.9+</span>
+        <span class="tech-chip">DeepSeek API</span>
+        <span class="tech-chip">OpenAI 兼容</span>
+        <span class="tech-chip">Markdown DB</span>
+        <span class="tech-chip">向量嵌入</span>
+        <span class="tech-chip">YAML 能力描述</span>
+        <span class="tech-chip">CLI 介面</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== 神域 ====== -->
+  <div class="realm-panel shenyu" id="panel-shenyu">
+    <div class="realm-panel-header">
+      <span class="rp-icon">🌟</span>
+      <h2>神域 · Divine Domain</h2>
+      <span class="rp-badge shenyu">協作平台</span>
+    </div>
+
+    <div class="arch-section reveal">
+      <h3>🏗️ 七大核心模組架構</h3>
+      <div class="arch-diagram">
+        <div class="arch-flow">
+          <div class="arch-node violet">📡 AI 註冊中心<span class="an-label">Ch1 · 8001</span></div>
+          <span class="arch-arrow">↔</span>
+          <div class="arch-node violet">📚 知識共享<span class="an-label">Ch2 · 8002</span></div>
+          <span class="arch-arrow">↔</span>
+          <div class="arch-node violet">✅ 驗證評估<span class="an-label">Ch3 · 8003</span></div>
+          <span class="arch-arrow">↔</span>
+          <div class="arch-node violet">🏆 信任管理<span class="an-label">Ch4 · 8004</span></div>
+        </div>
+        <div style="text-align:center;margin:1rem 0;color:var(--text3)">↕</div>
+        <div class="arch-flow">
+          <div class="arch-node violet">⚙️ 協作工作流<span class="an-label">Ch5 · 8005</span></div>
+          <span class="arch-arrow">↔</span>
+          <div class="arch-node violet">🧬 自理發展<span class="an-label">Ch6 · 8006</span></div>
+          <span class="arch-arrow">↔</span>
+          <div class="arch-node violet">🛡️ 治理合規<span class="an-label">Ch7 · 8007</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mod-grid reveal">
+      <div class="mod-card"><div class="mc-head"><span class="mc-num">01</span><h4>AI 註冊中心</h4></div><p>AI 實例的註冊、發現和生命週期管理。支持 1000+ AI，Elasticsearch 全文搜索，JWT 認證。</p><div class="mc-tags"><span class="mc-tag">完整實現</span><span class="mc-tag">端口 8001</span></div></div>
+      <div class="mod-card"><div class="mc-head"><span class="mc-num">02</span><h4>知識共享系統</h4></div><p>管理 AI 之間共享的知識點。語義化搜索、版本控制、質量評分、貢獻追蹤。</p><div class="mc-tags"><span class="mc-tag">端口 8002</span><span class="mc-tag">向量檢索</span></div></div>
+      <div class="mod-card"><div class="mc-head"><span class="mc-num">03</span><h4>驗證與評估</h4></div><p>AI 工作成果的相互驗證流程。交叉驗證機制、自動化評估、結果可追溯。</p><div class="mc-tags"><span class="mc-tag">端口 8003</span></div></div>
+      <div class="mod-card"><div class="mc-head"><span class="mc-num">04</span><h4>信任管理系統</h4></div><p>基於 AI 歷史表現的動態評分。多維度信任評估、異常行為檢測、信任關係網絡。</p><div class="mc-tags"><span class="mc-tag">端口 8004</span><span class="mc-tag">動態評分</span></div></div>
+      <div class="mod-card"><div class="mc-head"><span class="mc-num">05</span><h4>協作工作流引擎</h4></div><p>多 AI 協同解決複雜問題。任務分解與分配、工作流編排、結果聚合。</p><div class="mc-tags"><span class="mc-tag">端口 8005</span></div></div>
+      <div class="mod-card"><div class="mc-head"><span class="mc-num">06</span><h4>AI 自理發展</h4></div><p>支持 AI 基於反饋自我改進。反饋分析、自動化學習循環、能力演進追蹤。</p><div class="mc-tags"><span class="mc-tag">端口 8006</span></div></div>
+      <div class="mod-card"><div class="mc-head"><span class="mc-num">07</span><h4>治理與合規</h4></div><p>確保 AI 行為符合規範。合規性檢查、審計追蹤、政策管理、風險評估。</p><div class="mc-tags"><span class="mc-tag">端口 8007</span></div></div>
+    </div>
+
+    <div class="reveal">
+      <h3 style="margin-bottom:1rem">🛠️ 技術棧</h3>
+      <div class="tech-row">
+        <span class="tech-chip">FastAPI</span>
+        <span class="tech-chip">PostgreSQL 13+</span>
+        <span class="tech-chip">Redis 6+</span>
+        <span class="tech-chip">NATS</span>
+        <span class="tech-chip">Docker</span>
+        <span class="tech-chip">Kubernetes</span>
+        <span class="tech-chip">JWT</span>
+        <span class="tech-chip">RBAC</span>
+        <span class="tech-chip">Prometheus</span>
+        <span class="tech-chip">Grafana</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== 鏡界 ====== -->
+  <div class="realm-panel jingjie" id="panel-jingjie">
+    <div class="realm-panel-header">
+      <span class="rp-icon">🪞</span>
+      <h2>鏡界 · Mirror World</h2>
+      <span class="rp-badge jingjie">數據引擎</span>
+    </div>
+
+    <div class="arch-section reveal">
+      <h3>🏗️ 數據生命週期全鏈路</h3>
+      <div class="arch-diagram">
+        <div class="arch-flow">
+          <div class="arch-node emerald">📡 資料源<span class="an-label">Ch1 · 註冊中心</span></div>
+          <span class="arch-arrow">→</span>
+          <div class="arch-node emerald">🔍 指紋分析<span class="an-label">Ch2 · 網站識別</span></div>
+          <span class="arch-arrow">→</span>
+          <div class="arch-node emerald">💓 健康監測<span class="an-label">Ch3 · 可用性</span></div>
+          <span class="arch-arrow">→</span>
+          <div class="arch-node emerald">🕷️ 爬蟲集群<span class="an-label">Ch8 · 分布式</span></div>
+        </div>
+        <div style="text-align:center;margin:1rem 0;color:var(--text3)">↓</div>
+        <div class="arch-flow">
+          <div class="arch-node emerald">⚙️ 工作流<span class="an-label">Ch4 · ETL 引擎</span></div>
+          <span class="arch-arrow">→</span>
+          <div class="arch-node emerald">🎬 媒體處理<span class="an-label">Ch5 · 轉碼管道</span></div>
+          <span class="arch-arrow">→</span>
+          <div class="arch-node emerald">📊 質量管理<span class="an-label">Ch12 · 數據品質</span></div>
+          <span class="arch-arrow">→</span>
+          <div class="arch-node emerald">🔌 集成層<span class="an-label">Ch9 · API 閘道</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mod-grid reveal">
+      <div class="mod-card"><div class="mc-head"><span class="mc-num">01</span><h4>資料源註冊中心</h4></div><p>數據源的元資料管理、版本控制、搜尋服務、分類管理。完整的 CRUD + 全文搜索。</p><div class="mc-tags"><span class="mc-tag">Ch1</span><span class="mc-tag">12 章節</span><span class="mc-tag">代碼範例</span></div></div>
+      <div class="mod-card"><div class="mc-head"><span class="mc-num">02</span><h4>網站指紋分析</h4></div><p>識別網站技術棧、反爬策略、頁面結構。智能分析目標網站特徵，輔助爬蟲策略制定。</p><div class="mc-tags"><span class="mc-tag">Ch2</span><span class="mc-tag">12 章節</span></div></div>
+      <div class="mod-card"><div class="mc-head"><span class="mc-num">03</span><h4>資源健康監測</h4></div><p>數據源可用性監控、異常告警、SLA 追蹤。即時監測數據源狀態，確保採集穩定性。</p><div class="mc-tags"><span class="mc-tag">Ch3</span><span class="mc-tag">12 章節</span></div></div>
+      <div class="mod-card"><div class="mc-head"><span class="mc-num">04</span><h4>數據處理工作流</h4></div><p>核心 ETL 引擎。DAG 工作流定義、節點級錯誤處理、檢查點機制、並行處理。</p><div class="mc-tags"><span class="mc-tag">Ch4</span><span class="mc-tag">12 章節</span><span class="mc-tag">DAG</span></div></div>
+      <div class="mod-card"><div class="mc-head"><span class="mc-num">05</span><h4>媒體處理管道</h4></div><p>圖片/影片/音頻處理。FFmpeg 轉碼、批量處理、進度追蹤、多格式支持。</p><div class="mc-tags"><span class="mc-tag">Ch5</span><span class="mc-tag">FFmpeg</span></div></div>
+      <div class="mod-card"><div class="mc-head"><span class="mc-num">06</span><h4>AI 輔助開發</h4></div><p>利用 LLM 提供代碼生成、問題診斷、學習推薦。降低爬蟲開發門檻，提高效率。</p><div class="mc-tags"><span class="mc-tag">Ch6</span><span class="mc-tag">LLM</span></div></div>
+      <div class="mod-card"><div class="mc-head"><span class="mc-num">07</span><h4>數據合規與安全</h4></div><p>數據隱私保護、合規性檢查、存取控制。確保數據處理符合法規要求。</p><div class="mc-tags"><span class="mc-tag">Ch7</span><span class="mc-tag">合規</span></div></div>
+      <div class="mod-card"><div class="mc-head"><span class="mc-num">08</span><h4>分布式爬蟲集群</h4></div><p>核心執行引擎。節點管理、任務調度、彈性擴展、容錯機制、沙箱隔離。</p><div class="mc-tags"><span class="mc-tag">Ch8</span><span class="mc-tag">13 章節</span><span class="mc-tag">分布式</span></div></div>
+      <div class="mod-card"><div class="mc-head"><span class="mc-num">09</span><h4>接入與集成層</h4></div><p>API 閘道、負載均衡、認證授權。部署架構、CI/CD、災難恢復、效能測試。</p><div class="mc-tags"><span class="mc-tag">Ch9</span><span class="mc-tag">17 章節</span></div></div>
+      <div class="mod-card"><div class="mc-head"><span class="mc-num">10</span><h4>實時數據處理</h4></div><p>流式數據處理引擎。低延遲數據管道、即時分析、事件驅動架構。</p><div class="mc-tags"><span class="mc-tag">Ch10</span><span class="mc-tag">Streaming</span></div></div>
+      <div class="mod-card"><div class="mc-head"><span class="mc-num">11</span><h4>智能調度與資源管理</h4></div><p>計算資源動態分配、任務優先級調度、負載均衡、自動擴縮容。</p><div class="mc-tags"><span class="mc-tag">Ch11</span></div></div>
+      <div class="mod-card"><div class="mc-head"><span class="mc-num">12</span><h4>數據質量管理</h4></div><p>數據清洗、驗證、去重、完整性檢查。質量評分、異常檢測、品質報告。</p><div class="mc-tags"><span class="mc-tag">Ch12</span><span class="mc-tag">品質</span></div></div>
+    </div>
+
+    <div class="reveal">
+      <h3 style="margin-bottom:1rem">🛠️ 技術棧</h3>
+      <div class="tech-row">
+        <span class="tech-chip">Python 3.11+</span>
+        <span class="tech-chip">FastAPI</span>
+        <span class="tech-chip">Scrapy</span>
+        <span class="tech-chip">Celery</span>
+        <span class="tech-chip">PostgreSQL</span>
+        <span class="tech-chip">MongoDB</span>
+        <span class="tech-chip">Redis</span>
+        <span class="tech-chip">Kafka</span>
+        <span class="tech-chip">Elasticsearch</span>
+        <span class="tech-chip">FFmpeg</span>
+        <span class="tech-chip">Docker</span>
+        <span class="tech-chip">Kubernetes</span>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- Comparison -->
+<section class="comparison" id="compare">
+  <h2 class="reveal">三界比較</h2>
+  <p class="section-desc reveal">定位不同，互補協作</p>
+  <div class="reveal" style="overflow-x:auto">
+    <table class="cmp-table">
+      <thead>
+        <tr><th>維度</th><th><span class="dot-tianyu">⚡</span> 天域</th><th><span class="dot-shenyu">🌟</span> 神域</th><th><span class="dot-jingjie">🪞</span> 鏡界</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>定位</td><td>任務管理引擎</td><td>AI 協作平台</td><td>數據處理平台</td></tr>
+        <tr><td>核心能力</td><td>4 LLM 協同決策</td><td>7 模組 AI 治理</td><td>12 模組數據鏈路</td></tr>
+        <tr><td>技術棧</td><td>Python + DeepSeek</td><td>FastAPI + PG + Redis</td><td>FastAPI + Scrapy + K8s</td></tr>
+        <tr><td>文檔完成度</td><td>✅ 完整</td><td>🔄 Ch1 完整，其餘框架</td><td>✅ 100% 完整</td></tr>
+        <tr><td>適用場景</td><td>個人/團隊任務自動化</td><td>多 AI 系統協作治理</td><td>大規模數據採集處理</td></tr>
+        <tr><td>部署複雜度</td><td>🟢 低（pip install）</td><td>🟡 中（Docker Compose）</td><td>🔴 高（K8s 集群）</td></tr>
+        <tr><td>代碼示例</td><td>✅ Python</td><td>✅ Python / SQL</td><td>✅ 40+ 範例</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-links">
+    <a href="https://github.com/iiooiioo888/Note" target="_blank">GitHub Repo</a>
+    <a href="https://github.com/iiooiioo888/Note/tree/main/%E5%A4%A9%E5%9F%9F" target="_blank">天域源碼</a>
+    <a href="https://github.com/iiooiioo888/Note/tree/main/%E7%A5%9E%E5%9F%9F" target="_blank">神域源碼</a>
+    <a href="https://github.com/iiooiioo888/Note/tree/main/%E9%8F%A1%E7%95%8C" target="_blank">鏡界源碼</a>
+    <a href="https://iiooiioo888.github.io/pysdn_index/" target="_blank">PySDN 平台</a>
+  </div>
+  <p>三界 — 天域 · 神域 · 鏡界 · Open Source</p>
+</footer>
+
+<script>
+/* ═══════════════════════════════════════════
+   PARTICLE BACKGROUND
+   ═══════════════════════════════════════════ */
+(function(){
+  const c=document.getElementById('bg-canvas'),ctx=c.getContext('2d');
+  let w,h,particles=[];
+  const COLORS=['#00d4ff','#a855f7','#10b981'];
+  function resize(){w=c.width=innerWidth;h=c.height=innerHeight}
+  function init(){
+    particles=[];
+    const count=Math.floor(w*h/18000);
+    for(let i=0;i<count;i++){
+      particles.push({
+        x:Math.random()*w,y:Math.random()*h,
+        vx:(Math.random()-.5)*.3,vy:(Math.random()-.5)*.3,
+        r:Math.random()*1.5+.5,
+        color:COLORS[Math.floor(Math.random()*3)],
+        alpha:Math.random()*.5+.1
+      });
+    }
+  }
+  function draw(){
+    ctx.clearRect(0,0,w,h);
+    for(const p of particles){
+      p.x+=p.vx;p.y+=p.vy;
+      if(p.x<0)p.x=w;if(p.x>w)p.x=0;
+      if(p.y<0)p.y=h;if(p.y>h)p.y=0;
+      ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle=p.color;ctx.globalAlpha=p.alpha;ctx.fill();
+    }
+    // Draw connections
+    ctx.globalAlpha=.06;ctx.strokeStyle='#fff';ctx.lineWidth=.5;
+    for(let i=0;i<particles.length;i++){
+      for(let j=i+1;j<particles.length;j++){
+        const dx=particles[i].x-particles[j].x,dy=particles[i].y-particles[j].y;
+        const dist=dx*dx+dy*dy;
+        if(dist<12000){
+          ctx.beginPath();ctx.moveTo(particles[i].x,particles[i].y);
+          ctx.lineTo(particles[j].x,particles[j].y);ctx.stroke();
+        }
+      }
+    }
+    ctx.globalAlpha=1;
+    requestAnimationFrame(draw);
+  }
+  resize();init();draw();
+  window.addEventListener('resize',()=>{resize();init()});
+})();
+
+/* ═══════════════════════════════════════════
+   REALM PANEL SWITCHING
+   ═══════════════════════════════════════════ */
+function showRealm(id){
+  document.querySelectorAll('.realm-panel').forEach(p=>p.classList.remove('active'));
+  const panel=document.getElementById('panel-'+id);
+  if(panel){
+    panel.classList.add('active');
+    panel.scrollIntoView({behavior:'smooth',block:'start'});
+  }
+}
+
+/* ═══════════════════════════════════════════
+   SCROLL REVEAL
+   ═══════════════════════════════════════════ */
+const observer=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target)}});
+},{threshold:.15});
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
+/* ═══════════════════════════════════════════
+   NAV HIDE ON SCROLL
+   ═══════════════════════════════════════════ */
+let lastY=0;
+window.addEventListener('scroll',()=>{
+  const y=scrollY;
+  document.getElementById('nav').classList.toggle('hide',y>lastY&&y>80);
+  lastY=y;
+},{passive:true});
+
+/* ═══════════════════════════════════════════
+   ACTIVE NAV LINK
+   ═══════════════════════════════════════════ */
+const sections=['hero','realms','detail','compare'];
+window.addEventListener('scroll',()=>{
+  const links=document.querySelectorAll('.nav-links a');
+  let current='hero';
+  for(const id of sections){
+    const el=document.getElementById(id);
+    if(el&&el.getBoundingClientRect().top<=200)current=id;
+  }
+  links.forEach(a=>{
+    a.classList.toggle('active',a.getAttribute('href')==='#'+current);
+  });
+},{passive:true});
+
+/* ═══════════════════════════════════════════
+   COUNTER ANIMATION
+   ═══════════════════════════════════════════ */
+const counterObserver=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(!e.isIntersecting)return;
+    const el=e.target;
+    const text=el.textContent;
+    const match=text.match(/^(\d+)(.*)$/);
+    if(!match)return;
+    const target=parseInt(match[1]);
+    const suffix=match[2];
+    let current=0;
+    const step=Math.max(1,Math.floor(target/40));
+    const timer=setInterval(()=>{
+      current=Math.min(current+step,target);
+      el.textContent=current+suffix;
+      if(current>=target)clearInterval(timer);
+    },30);
+    counterObserver.unobserve(el);
+  });
+},{threshold:.5});
+document.querySelectorAll('.rc-stat-val').forEach(el=>counterObserver.observe(el));
+</script>
+</body>
+</html>
