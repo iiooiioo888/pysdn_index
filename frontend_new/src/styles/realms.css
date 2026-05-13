@@ -1218,7 +1218,7 @@ main.realms-page-main {
 
 .realms-integration-grid {
   display: grid;
-  gap: 12px;
+  gap: 16px;
 }
 
 .realms-integration-textarea,
@@ -1245,4 +1245,767 @@ main.realms-page-main {
 .realms-integration-output {
   white-space: pre-wrap;
   margin: 0;
+}
+
+/* ═══════════════════════════════════════════════
+   三界整合頁 — 增強 UI 圖示與流程視覺
+   ═══════════════════════════════════════════════ */
+
+/* ─── hero icon inline ─── */
+.realms-page-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.rix-hero-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  flex-shrink: 0;
+  transition: transform 0.3s;
+}
+.rix-hero-icon:hover {
+  transform: scale(1.1) rotate(-3deg);
+}
+.rix-hero-icon--cyan {
+  color: #22d3ee;
+  background: rgba(6, 182, 212, 0.12);
+  border: 1px solid rgba(6, 182, 212, 0.28);
+  box-shadow: 0 0 20px rgba(6, 182, 212, 0.15);
+}
+.rix-hero-icon--emerald {
+  color: #34d399;
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.28);
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.15);
+}
+
+/* ─── flow diagram ─── */
+.rix-flow-diagram {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  padding: 24px 12px 28px;
+  margin-bottom: 8px;
+  overflow-x: auto;
+}
+
+.rix-flow-node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 18px 22px 14px;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.025);
+  min-width: 110px;
+  transition: all 0.4s cubic-bezier(0.34, 1.2, 0.64, 1);
+  position: relative;
+}
+.rix-flow-node::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 20px;
+  opacity: 0;
+  transition: opacity 0.4s;
+  pointer-events: none;
+}
+
+.rix-flow-node--tianyu::after {
+  box-shadow: 0 0 0 2px rgba(6, 182, 212, 0.35), 0 0 32px rgba(6, 182, 212, 0.15);
+}
+.rix-flow-node--jingjie::after {
+  box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.35), 0 0 32px rgba(16, 185, 129, 0.15);
+}
+.rix-flow-node--output::after {
+  box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.35), 0 0 32px rgba(245, 158, 11, 0.15);
+}
+
+.rix-flow-node--active {
+  transform: translateY(-4px) scale(1.04);
+}
+.rix-flow-node--active::after {
+  opacity: 1;
+}
+.rix-flow-node--active.rix-flow-node--tianyu {
+  border-color: rgba(6, 182, 212, 0.45);
+  background: linear-gradient(165deg, rgba(6, 182, 212, 0.12), rgba(6, 182, 212, 0.03));
+}
+.rix-flow-node--active.rix-flow-node--jingjie {
+  border-color: rgba(16, 185, 129, 0.45);
+  background: linear-gradient(165deg, rgba(16, 185, 129, 0.12), rgba(16, 185, 129, 0.03));
+}
+.rix-flow-node--active.rix-flow-node--output {
+  border-color: rgba(245, 158, 11, 0.45);
+  background: linear-gradient(165deg, rgba(245, 158, 11, 0.12), rgba(245, 158, 11, 0.03));
+}
+
+.rix-flow-node--done {
+  border-color: rgba(34, 197, 94, 0.35);
+}
+.rix-flow-node--done .rix-flow-node-icon {
+  color: #4ade80;
+}
+
+.rix-flow-node-icon {
+  width: 52px;
+  height: 52px;
+  display: grid;
+  place-items: center;
+  border-radius: 16px;
+  transition: all 0.3s;
+}
+.rix-flow-node--tianyu .rix-flow-node-icon {
+  color: #22d3ee;
+  background: rgba(6, 182, 212, 0.1);
+  border: 1px solid rgba(6, 182, 212, 0.22);
+}
+.rix-flow-node--jingjie .rix-flow-node-icon {
+  color: #34d399;
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.22);
+}
+.rix-flow-node--output .rix-flow-node-icon {
+  color: #fbbf24;
+  background: rgba(245, 158, 11, 0.1);
+  border: 1px solid rgba(245, 158, 11, 0.22);
+}
+
+.rix-flow-node-label {
+  font-size: 1rem;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -0.01em;
+}
+.rix-flow-node-sub {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+/* connectors */
+.rix-flow-connector {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0 6px;
+  color: rgba(148, 163, 184, 0.35);
+  transition: color 0.4s;
+}
+.rix-flow-connector--active {
+  color: rgba(6, 182, 212, 0.7);
+}
+.rix-flow-connector-line {
+  width: 24px;
+  height: 2px;
+  border-radius: 2px;
+  background: currentColor;
+  opacity: 0.5;
+}
+
+/* ─── step progress bar ─── */
+.rix-step-bar {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0;
+  padding: 20px 8px 24px;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.rix-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  flex: 1;
+  min-width: 0;
+  position: relative;
+}
+
+.rix-step-dot {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  border: 2px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-muted);
+  font-size: 0.72rem;
+  font-weight: 800;
+  transition: all 0.35s cubic-bezier(0.34, 1.2, 0.64, 1);
+  position: relative;
+  z-index: 2;
+}
+.rix-step-dot-num {
+  font-family: var(--font-mono, ui-monospace, monospace);
+}
+
+.rix-step--active .rix-step-dot {
+  border-color: var(--step-accent);
+  background: color-mix(in srgb, var(--step-accent) 18%, transparent);
+  color: var(--step-accent);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--step-accent) 15%, transparent), 0 0 20px color-mix(in srgb, var(--step-accent) 25%, transparent);
+  transform: scale(1.15);
+}
+.rix-step--past .rix-step-dot {
+  border-color: #22c55e;
+  background: rgba(34, 197, 94, 0.15);
+  color: #4ade80;
+}
+.rix-step--error .rix-step-dot {
+  border-color: #ef4444;
+  background: rgba(239, 68, 68, 0.15);
+  color: #f87171;
+  animation: rix-step-shake 0.5s ease;
+}
+
+@keyframes rix-step-shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-4px); }
+  40% { transform: translateX(4px); }
+  60% { transform: translateX(-3px); }
+  80% { transform: translateX(3px); }
+}
+
+.rix-step-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-dim);
+  transition: color 0.3s;
+}
+.rix-step--active .rix-step-label {
+  color: #fff;
+}
+.rix-step--past .rix-step-label {
+  color: rgba(34, 197, 94, 0.9);
+}
+
+.rix-step-sub {
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.rix-step-line {
+  position: absolute;
+  top: 16px;
+  left: calc(50% + 20px);
+  right: calc(-50% + 20px);
+  height: 2px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 2px;
+  z-index: 1;
+  transition: background 0.4s;
+}
+.rix-step-line--filled {
+  background: linear-gradient(90deg, #22c55e, rgba(34, 197, 94, 0.5));
+}
+
+/* ─── input groups ─── */
+.rix-input-group {
+  display: block;
+}
+.rix-input-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--text);
+  margin-bottom: 2px;
+}
+.rix-input-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  color: #22d3ee;
+  background: rgba(6, 182, 212, 0.1);
+  border: 1px solid rgba(6, 182, 212, 0.2);
+  flex-shrink: 0;
+}
+.rix-input-icon--emerald {
+  color: #34d399;
+  background: rgba(16, 185, 129, 0.1);
+  border-color: rgba(16, 185, 129, 0.2);
+}
+
+.rix-demo-toggle-label {
+  font-size: 0.85rem;
+  color: var(--text-dim);
+}
+
+/* ─── buttons ─── */
+.rix-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 22px;
+  border-radius: 14px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.25s;
+  font-family: inherit;
+}
+.rix-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.rix-btn--primary {
+  background: linear-gradient(135deg, rgba(6, 182, 212, 0.22), rgba(139, 92, 246, 0.15));
+  color: #fff;
+  border-color: rgba(6, 182, 212, 0.4);
+  box-shadow: 0 4px 20px rgba(6, 182, 212, 0.12);
+}
+.rix-btn--primary:hover:not(:disabled) {
+  background: linear-gradient(135deg, rgba(6, 182, 212, 0.32), rgba(139, 92, 246, 0.22));
+  border-color: rgba(6, 182, 212, 0.55);
+  box-shadow: 0 6px 28px rgba(6, 182, 212, 0.18);
+  transform: translateY(-1px);
+}
+.rix-btn--ghost {
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-dim);
+  border-color: var(--border);
+}
+.rix-btn--ghost:hover {
+  color: var(--text);
+  border-color: rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.07);
+}
+
+/* spinner */
+.rix-spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: rix-spin 0.7s linear infinite;
+}
+@keyframes rix-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ─── error box ─── */
+.rix-error-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 18px;
+  border-radius: 14px;
+  background: rgba(239, 68, 68, 0.08);
+  border: 1px solid rgba(239, 68, 68, 0.25);
+  color: #fca5a5;
+  font-size: 0.88rem;
+  font-weight: 600;
+  animation: rix-error-in 0.3s ease;
+}
+@keyframes rix-error-in {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── crawl progress ─── */
+.rix-progress-wrap {
+  padding: 16px 18px;
+  border-radius: 14px;
+  background: rgba(16, 185, 129, 0.04);
+  border: 1px solid rgba(16, 185, 129, 0.18);
+  animation: rix-progress-in 0.3s ease;
+}
+@keyframes rix-progress-in {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.rix-progress-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.rix-progress-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #6ee7b7;
+}
+.rix-progress-pct {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: #34d399;
+}
+.rix-progress-track {
+  height: 8px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.06);
+  overflow: hidden;
+}
+.rix-progress-fill {
+  height: 100%;
+  border-radius: 4px;
+  background: linear-gradient(90deg, #10b981, #34d399, #6ee7b7);
+  transition: width 0.5s cubic-bezier(0.34, 1.2, 0.64, 1);
+  box-shadow: 0 0 12px rgba(16, 185, 129, 0.4);
+  position: relative;
+}
+.rix-progress-fill::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 24px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3));
+  border-radius: 4px;
+  animation: rix-progress-shine 1.5s ease-in-out infinite;
+}
+@keyframes rix-progress-shine {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 1; }
+}
+
+/* ─── logs ─── */
+.rix-logs-section {
+  margin-top: 4px;
+}
+.rix-logs-section .realms-ix-highlights-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.rix-logs-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 32px 16px;
+  color: var(--text-muted);
+  text-align: center;
+}
+.rix-logs-empty p {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+.rix-logs-empty-hint {
+  font-size: 0.78rem !important;
+  font-weight: 400 !important;
+  opacity: 0.7;
+}
+
+.rix-logs-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.rix-log-entry {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-size: 0.82rem;
+  background: rgba(255, 255, 255, 0.015);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  animation: rix-log-slide 0.3s ease both;
+  transition: background 0.2s, border-color 0.2s;
+}
+.rix-log-entry:hover {
+  background: rgba(255, 255, 255, 0.035);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+@keyframes rix-log-slide {
+  from { opacity: 0; transform: translateX(-8px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* log icon badges */
+.rix-log-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  flex-shrink: 0;
+  transition: transform 0.2s;
+}
+.rix-log-entry:hover .rix-log-icon {
+  transform: scale(1.1);
+}
+.rix-log-icon--tianyu {
+  color: #22d3ee;
+  background: rgba(6, 182, 212, 0.1);
+  border: 1px solid rgba(6, 182, 212, 0.2);
+}
+.rix-log-icon--jingjie {
+  color: #34d399;
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+}
+.rix-log-icon--shenyu {
+  color: #a78bfa;
+  background: rgba(139, 92, 246, 0.1);
+  border: 1px solid rgba(139, 92, 246, 0.2);
+}
+.rix-log-icon--done {
+  color: #4ade80;
+  background: rgba(34, 197, 94, 0.1);
+  border: 1px solid rgba(34, 197, 94, 0.2);
+}
+.rix-log-icon--error {
+  color: #f87171;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+}
+.rix-log-icon--data {
+  color: #fbbf24;
+  background: rgba(245, 158, 11, 0.1);
+  border: 1px solid rgba(245, 158, 11, 0.2);
+}
+.rix-log-icon--arrow {
+  color: var(--text-muted);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.rix-log-time {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  flex-shrink: 0;
+  opacity: 0.7;
+}
+
+.rix-log-step {
+  font-weight: 700;
+  font-size: 0.78rem;
+  padding: 2px 8px;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+.rix-log-step--tianyu {
+  color: #22d3ee;
+  background: rgba(6, 182, 212, 0.08);
+}
+.rix-log-step--jingjie {
+  color: #34d399;
+  background: rgba(16, 185, 129, 0.08);
+}
+.rix-log-step--shenyu {
+  color: #a78bfa;
+  background: rgba(139, 92, 246, 0.08);
+}
+.rix-log-step--done {
+  color: #4ade80;
+  background: rgba(34, 197, 94, 0.08);
+}
+.rix-log-step--error {
+  color: #f87171;
+  background: rgba(239, 68, 68, 0.08);
+}
+.rix-log-step--data {
+  color: #fbbf24;
+  background: rgba(245, 158, 11, 0.08);
+}
+
+.rix-log-detail {
+  color: var(--text-dim);
+  flex: 1;
+  min-width: 0;
+  line-height: 1.45;
+}
+
+/* ─── output ─── */
+.rix-output-section {
+  animation: rix-output-in 0.4s ease;
+}
+@keyframes rix-output-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.rix-output-section .realms-ix-highlights-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #4ade80;
+}
+.rix-output-pre {
+  white-space: pre-wrap;
+  margin: 0;
+  padding: 20px;
+  border-radius: 14px;
+  background: rgba(34, 197, 94, 0.04);
+  border: 1px solid rgba(34, 197, 94, 0.18);
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 0.82rem;
+  color: var(--text);
+  line-height: 1.65;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+/* ─── architecture hint ─── */
+.rix-arch-hint {
+  margin-top: 8px;
+  padding: 20px 16px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.015);
+  border: 1px dashed rgba(255, 255, 255, 0.08);
+}
+.rix-arch-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.rix-arch-node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  min-width: 120px;
+  text-align: center;
+  transition: transform 0.2s, border-color 0.2s;
+}
+.rix-arch-node:hover {
+  transform: translateY(-2px);
+}
+.rix-arch-node span {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #fff;
+}
+.rix-arch-node small {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  line-height: 1.35;
+}
+.rix-arch-node--tianyu {
+  color: #22d3ee;
+  background: rgba(6, 182, 212, 0.06);
+  border: 1px solid rgba(6, 182, 212, 0.15);
+}
+.rix-arch-node--tianyu:hover {
+  border-color: rgba(6, 182, 212, 0.35);
+}
+.rix-arch-node--jingjie {
+  color: #34d399;
+  background: rgba(16, 185, 129, 0.06);
+  border: 1px solid rgba(16, 185, 129, 0.15);
+}
+.rix-arch-node--jingjie:hover {
+  border-color: rgba(16, 185, 129, 0.35);
+}
+.rix-arch-node--shenyu {
+  color: #a78bfa;
+  background: rgba(139, 92, 246, 0.06);
+  border: 1px solid rgba(139, 92, 246, 0.15);
+}
+.rix-arch-node--shenyu:hover {
+  border-color: rgba(139, 92, 246, 0.35);
+}
+.rix-arch-arrow {
+  font-size: 1.2rem;
+  color: var(--text-muted);
+  opacity: 0.5;
+  flex-shrink: 0;
+}
+
+/* ─── responsive ─── */
+@media (max-width: 768px) {
+  .rix-flow-diagram {
+    flex-direction: column;
+    gap: 8px;
+    padding: 16px 8px;
+  }
+  .rix-flow-connector {
+    transform: rotate(90deg);
+    padding: 4px 0;
+  }
+  .rix-flow-node {
+    min-width: 0;
+    width: 100%;
+    max-width: 200px;
+  }
+  .rix-step-bar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    padding: 12px 0;
+  }
+  .rix-step {
+    flex-direction: row;
+    gap: 12px;
+    align-items: center;
+  }
+  .rix-step-line {
+    display: none;
+  }
+  .rix-arch-row {
+    flex-direction: column;
+    gap: 8px;
+  }
+  .rix-arch-arrow {
+    transform: rotate(90deg);
+  }
+  .rix-log-entry {
+    flex-wrap: wrap;
+    gap: 6px 10px;
+  }
+  .rix-log-detail {
+    flex-basis: 100%;
+    padding-left: 38px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rix-flow-node,
+  .rix-step-dot,
+  .rix-log-entry,
+  .rix-error-box,
+  .rix-progress-wrap,
+  .rix-output-section {
+    animation: none;
+    transition: none;
+  }
+  .rix-flow-node:hover,
+  .rix-arch-node:hover,
+  .rix-log-entry:hover .rix-log-icon,
+  .rix-hero-icon:hover {
+    transform: none;
+  }
+  .rix-progress-fill::after {
+    animation: none;
+  }
 }
