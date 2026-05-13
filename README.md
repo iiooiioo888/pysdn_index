@@ -19,6 +19,7 @@
 
 <p align="center">
   <a href="https://iiooiioo888.github.io/pysdn_index/">🔗 Live Demo</a> ·
+  <a href="https://iiooiioo888.github.io/pysdn_index/realms">📚 三界資訊</a> ·
   <a href="#-快速開始">🚀 Quick Start</a> ·
   <a href="#-路由一覽">🗺 Routes</a> ·
   <a href="#-api-端點">📡 API</a>
@@ -48,7 +49,7 @@
 
 ```
 pysdn_index/
-├── frontend_new/                  # React 19 + Vite 8 前端（42 組件 / 8 Hooks / 14 頁面）
+├── frontend_new/                  # React 19 + Vite 8 前端（首頁、模組、模型、FAQ、三界、文件、實驗室、面板）
 │   ├── src/
 │   │   ├── components/            # UI 組件
 │   │   │   ├── docs/              # 文件頁共用（DocLayout, DocMermaid, DocFooter…）
@@ -136,6 +137,7 @@ SPA 路由定義於 `frontend_new/src/routes/registry.ts`，使用 `createBrowse
 | `/models` | AI 模型目錄（OpenRouter + Bedrock + 精選） | 核心 |
 | `/models/:modelId` | 模型詳情 | 核心 |
 | `/faq` | 常見問題 | 核心 |
+| `/realms` | **Note 三界**互動式資訊頁（天域／神域／鏡界；支援 `?realm=tianyu` / `shenyu` / `jingjie`） | 核心 |
 | `/docs/superforge` | SuperForge 技術文件 | 文件 |
 | `/docs/superscript` | SuperScript 技術文件 | 文件 |
 | `/docs/supertrack` | SuperTrack 技術文件 | 文件 |
@@ -191,7 +193,7 @@ main.tsx
 
 | 分組 | 載入方式 | 說明 |
 |------|----------|------|
-| 核心頁（Home, Modules, Models, FAQ） | `eagerPage()` 同步匯出 | 避免 dev 模式下 `base` 非 `/` 時的動態 import 問題 |
+| 核心頁（Home, Modules, Models, FAQ, Realms） | `eagerPage()` 同步匯出 | 避免 dev 模式下 `base` 非 `/` 時的動態 import 問題 |
 | 文件頁（docs/*） | `React.lazy()` | 按需載入 |
 | 實驗室（labs/*） | `React.lazy()` | 按需載入 |
 | 面板（panel/*） | `React.lazy()` | 按需載入 |
@@ -202,6 +204,7 @@ main.tsx
 |------|------|
 | `Hero` | 品牌主視覺、打字機動畫、計數器動效 |
 | `About` | 關於區塊（痛點 vs 方案對比 + 特性卡片） |
+| `ThreeRealmsSection` | **Note 三界**（`#three-realms`）：嵌入 `ThreeRealmsInteractive`，可切換天域／神域／鏡界並連結 [Note 倉庫](https://github.com/iiooiioo888/Note) |
 | `Products` | 影片 / 短劇 / 圖片分頁切換，含自動播放影片 mockup |
 | `ModulesPanel` | 四大模組卡片 + MiniCards |
 | `Showcase` | 案例展示輪播 |
@@ -210,6 +213,16 @@ main.tsx
 | `Footer` | 頁腳 |
 
 首頁使用 `HomeLazySection`（IntersectionObserver）延遲載入各區塊，觸發 React.lazy 分塊。
+
+### Note 三界互動頁
+
+| 項目 | 說明 |
+|------|------|
+| 首頁錨點 | `#three-realms`，與導覽／頁腳連結一致 |
+| 獨立路由 | `/realms`（`ThreeRealmsPage`），版面含標題與導讀 |
+| 互動元件 | `ThreeRealmsInteractive`：`role="tablist"` 切換境界、鍵盤 ←/→／Home／End、兩側箭頭循環；完整頁會將選取狀態同步至 **`?realm=`**（`tianyu` / `shenyu` / `jingjie`）便於分享 |
+| 內容來源 | 對應開源 Obsidian 筆記 [iiooiioo888/Note](https://github.com/iiooiioo888/Note) 頂層資料夾 **天域、神域、鏡界** 的敘事主軸（網站為精簡導覽，詳見倉庫內 Markdown） |
+| 翻譯鍵 | `realms_*`、`realms_ix_*`、`nav_realms`（五語系 JSON） |
 
 ### 設計系統
 
@@ -248,7 +261,9 @@ npm run build
 1. `src/pages/NewPage.tsx` — 建立頁面組件
 2. `src/routes/paths.ts` — 加入路徑常量
 3. `src/routes/registry.ts` — 加入路由條目（`group` 決定分組）
-4. `src/routes/lazyPages.tsx` — 加入 `lazy()` 匯出
+4. `src/routes/lazyPages.tsx` — 加入匯出：屬**核心頁**且需避開 dev 下動態 import 問題者，可仿 `FaqPage` / `ThreeRealmsPage` 使用 `eagerPage()`；其餘用 `lazy()`
+
+若為公開導覽頁，可同步更新 `public/sitemap.xml` 與首頁／頁腳導覽（如 `Navbar.tsx`、`Footer.tsx`）。
 
 ### 國際化
 
