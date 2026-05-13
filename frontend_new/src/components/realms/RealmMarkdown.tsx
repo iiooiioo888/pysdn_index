@@ -95,22 +95,30 @@ function parseMarkdown(markdown: string): MarkdownBlock[] {
   return blocks
 }
 
-export function RealmMarkdown({ markdown }: { markdown: string }) {
+export function RealmMarkdown({
+  markdown,
+  textTransform,
+}: {
+  markdown: string
+  /** 對標題／段落／清單套用轉換；不套用於程式碼區塊，避免破壞程式與資料格式 */
+  textTransform?: (plain: string) => string
+}) {
   const blocks = parseMarkdown(markdown)
+  const tx = textTransform ?? ((plain: string) => plain)
 
   return (
     <div className="realms-md">
       {blocks.map((block) => {
         if (block.type === 'heading') {
           const Tag = `h${Math.min(block.level + 1, 5)}` as 'h2' | 'h3' | 'h4' | 'h5'
-          return <Tag key={block.key}>{block.text}</Tag>
+          return <Tag key={block.key}>{tx(block.text)}</Tag>
         }
         if (block.type === 'list') {
           if (block.ordered) {
             return (
               <ol key={block.key}>
                 {block.items.map((item, index) => (
-                  <li key={`${block.key}-${index}`}>{item}</li>
+                  <li key={`${block.key}-${index}`}>{tx(item)}</li>
                 ))}
               </ol>
             )
@@ -118,7 +126,7 @@ export function RealmMarkdown({ markdown }: { markdown: string }) {
           return (
             <ul key={block.key}>
               {block.items.map((item, index) => (
-                <li key={`${block.key}-${index}`}>{item}</li>
+                <li key={`${block.key}-${index}`}>{tx(item)}</li>
               ))}
             </ul>
           )
@@ -130,7 +138,7 @@ export function RealmMarkdown({ markdown }: { markdown: string }) {
             </pre>
           )
         }
-        return <p key={block.key}>{block.text}</p>
+        return <p key={block.key}>{tx(block.text)}</p>
       })}
     </div>
   )

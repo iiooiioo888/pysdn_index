@@ -785,3 +785,413 @@ main.realms-page-main {
     animation: none;
   }
 }
+
+/* ---------- 天域資料看板（結論 / 交互） ---------- */
+.realms-breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 12px;
+  max-width: 48rem;
+  font-size: var(--text-ui, 0.875rem);
+  color: var(--text-muted);
+}
+.realms-bc-link {
+  color: rgba(103, 232, 249, 0.88);
+  font-weight: 700;
+  text-decoration: none;
+}
+.realms-bc-link:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+.realms-bc-current {
+  color: var(--text-dim);
+  font-weight: 700;
+  max-width: 18rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.realms-bc-sep {
+  opacity: 0.45;
+  user-select: none;
+}
+
+.realms-tianyu-board {
+  text-align: left;
+}
+.realms-tianyu-dash {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(138px, 1fr));
+  gap: 12px;
+  margin: 8px 0 22px;
+}
+.realms-tianyu-stat {
+  border-radius: var(--radius-md, 10px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.03);
+  padding: 14px 16px;
+}
+.realms-tianyu-stat h3 {
+  margin: 0 0 6px;
+  font-size: var(--text-caption);
+  letter-spacing: 0.06em;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.realms-tianyu-stat p {
+  margin: 0;
+  font-size: 1.45rem;
+  font-weight: 900;
+  color: #fff;
+}
+.realms-tianyu-stat small {
+  display: block;
+  margin-top: 6px;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  line-height: 1.45;
+}
+
+.realms-tianyu-toolbar {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+.realms-tianyu-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.realms-tianyu-tab {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-dim);
+  border-radius: 999px;
+  padding: 8px 14px;
+  font-weight: 800;
+  font-size: 0.82rem;
+  cursor: pointer;
+}
+.realms-tianyu-tab--active {
+  color: #fff;
+  border-color: rgba(14, 165, 233, 0.55);
+  background: rgba(14, 165, 233, 0.12);
+}
+.realms-tianyu-filters {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 10px 12px;
+}
+.realms-tianyu-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: var(--text-caption);
+  font-weight: 700;
+  color: var(--text-muted);
+}
+.realms-tianyu-field input,
+.realms-tianyu-field select {
+  border-radius: 9px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(10, 12, 18, 0.55);
+  color: #fff;
+  padding: 8px 10px;
+  font-size: 0.875rem;
+}
+
+.realms-tianyu-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+}
+@media (min-width: 900px) {
+  .realms-tianyu-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (min-width: 1280px) {
+  .realms-tianyu-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+.realms-tianyu-empty-full {
+  grid-column: 1 / -1;
+  text-align: center;
+}
+
+.realms-tianyu-card {
+  border-radius: var(--panel-radius-lg, var(--radius-lg));
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  background: linear-gradient(165deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.025));
+  padding: 16px 16px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 100%;
+}
+.realms-tianyu-card--cyan {
+  border-color: rgba(6, 182, 212, 0.24);
+}
+.realms-tianyu-cluster-label {
+  margin: 0 0 2px;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(103, 232, 249, 0.75);
+}
+.realms-tianyu-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+.realms-tianyu-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+}
+.realms-tianyu-iters,
+.realms-tianyu-when {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+.realms-tianyu-gh-mark {
+  flex: none;
+  display: inline-flex;
+  padding: 6px;
+  border-radius: 9px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: rgba(226, 232, 240, 0.88);
+  background: rgba(255, 255, 255, 0.04);
+}
+.realms-tianyu-gh-mark:hover {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.22);
+}
+.realms-tianyu-card-title {
+  margin: 0;
+  font-size: 1.05rem;
+  line-height: 1.35;
+}
+.realms-tianyu-card-title a {
+  color: #fff;
+  font-weight: 800;
+  text-decoration: none;
+}
+.realms-tianyu-card-title a:hover {
+  text-decoration: underline;
+}
+.realms-tianyu-card-summary {
+  margin: 0;
+  color: var(--text-dim);
+  font-size: 0.895rem;
+  line-height: 1.62;
+}
+.realms-tianyu-card-bullets {
+  margin: 4px 0 0;
+  padding-left: 1.05rem;
+  font-size: 0.845rem;
+  color: rgba(226, 232, 240, 0.86);
+}
+.realms-tianyu-card-tags {
+  margin-top: auto;
+}
+
+.realms-tianyu-badge {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 8px;
+  padding: 2px 8px;
+  font-size: 0.688rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.realms-tianyu-badge--prio-high {
+  background: rgba(248, 113, 113, 0.22);
+  color: #fecaca;
+  border: 1px solid rgba(248, 113, 113, 0.42);
+}
+.realms-tianyu-badge--prio-medium {
+  background: rgba(251, 191, 36, 0.18);
+  color: #fcd34d;
+  border: 1px solid rgba(251, 191, 36, 0.35);
+}
+.realms-tianyu-badge--prio-low {
+  background: rgba(148, 163, 184, 0.15);
+  color: #cbd5e1;
+  border: 1px solid rgba(148, 163, 184, 0.28);
+}
+
+.realms-tianyu-badge--stat-done {
+  background: rgba(34, 197, 94, 0.17);
+  color: #bbf7d0;
+  border: 1px solid rgba(34, 197, 94, 0.35);
+}
+.realms-tianyu-badge--stat-pending {
+  background: rgba(148, 163, 184, 0.15);
+  color: #cbd5e1;
+  border: 1px solid rgba(148, 163, 184, 0.28);
+}
+.realms-tianyu-badge--stat-mixed {
+  background: rgba(59, 130, 246, 0.18);
+  color: #dbeafe;
+  border: 1px solid rgba(59, 130, 246, 0.38);
+}
+.realms-tianyu-badge--stat-unknown {
+  background: rgba(148, 163, 184, 0.12);
+  color: rgba(226, 232, 240, 0.75);
+}
+
+.realms-tianyu-pager {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  margin: 20px 0 8px;
+  font-weight: 800;
+}
+.realms-tianyu-pager-btn {
+  padding: 8px 16px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+  cursor: pointer;
+  font-weight: 800;
+}
+.realms-tianyu-pager-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.realms-tianyu-foot-note {
+  margin: 18px 0 0;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  line-height: 1.55;
+}
+
+.realms-feature-meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+  margin: 10px 0 4px;
+}
+.realms-feature-request-id {
+  font-size: var(--text-caption);
+  color: rgba(148, 163, 184, 0.95);
+}
+.realms-feature-iters-chip {
+  font-size: var(--text-caption);
+  font-weight: 800;
+  color: rgba(103, 232, 249, 0.85);
+}
+
+.realms-feature-src-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+.realms-feature-gh-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: rgba(226, 232, 240, 0.92);
+  background: rgba(255, 255, 255, 0.05);
+}
+.realms-feature-gh-icon:hover {
+  color: #fff;
+}
+.realms-feature-src-tip {
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+}
+
+.realms-tianyu-detail-iters {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px dashed rgba(255, 255, 255, 0.1);
+}
+.realms-tianyu-detail-iters h3 {
+  margin: 0 0 10px;
+  font-size: 0.938rem;
+  color: #fff;
+}
+.realms-tianyu-detail-iters ol {
+  margin: 0;
+  padding-left: 1.2rem;
+  font-size: 0.8525rem;
+  color: rgba(226, 232, 240, 0.9);
+}
+.realms-tianyu-detail-iters a {
+  color: rgba(103, 232, 249, 0.95);
+}
+.realms-tianyu-iter-note {
+  margin: 10px 0 0;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* 天域看板：虛擬滾動列表（多欄以列為單位虛擬化） */
+.realms-tianyu-virtual-viewport {
+  max-height: min(78vh, 980px);
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-top: 10px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 12px 12px 16px;
+  position: relative;
+}
+.realms-tianyu-virtual-viewport--cyan {
+  border-color: rgba(6, 182, 212, 0.22);
+}
+.realms-tianyu-virtual-track {
+  position: relative;
+  width: 100%;
+}
+.realms-tianyu-virtual-row {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  box-sizing: border-box;
+  padding-bottom: 14px;
+}
+.realms-tianyu-grid-row {
+  display: grid;
+  gap: 14px;
+  align-items: stretch;
+}
+.realms-tianyu-grid-row--1 {
+  grid-template-columns: minmax(0, 1fr);
+}
+.realms-tianyu-grid-row--2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.realms-tianyu-grid-row--3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.realms-tianyu-virtual-cluster {
+  margin: 0 0 6px;
+}

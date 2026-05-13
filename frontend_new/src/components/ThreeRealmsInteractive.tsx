@@ -5,6 +5,7 @@ import type { ResolvedRealmFeatureCard } from '../data/threeRealmsFeatureUtils'
 import { REALM_META, REALM_ORDER, type RealmAccent } from '../data/threeRealmsMeta'
 import type { RealmId } from '../data/threeRealmsFeatures'
 import { useI18nRerender } from '../hooks/useI18nRerender'
+import { useCnToTwConverter } from '../hooks/useCnToTwConverter'
 import { useLangQuery } from '../hooks/useLangQuery'
 import { useRealmFeatures } from '../hooks/useRealmFeatures'
 import { PATHS, pathToRealm, pathToRealmFeature } from '../routes/paths'
@@ -39,23 +40,24 @@ export function RealmFeatureCardLink({
   sourceLabel: string
   detailLabel: string
 }) {
+  const { convert } = useCnToTwConverter()
   return (
     <article className={`realms-fc realms-fc--${accent}`}>
       <h5 className="realms-fc-title">
-        <Link to={pathToRealmFeature(card.realmId, card.slug)}>{card.title}</Link>
+        <Link to={pathToRealmFeature(card.realmId, card.slug)}>{convert(card.title)}</Link>
       </h5>
-      <p className="realms-fc-summary">{card.summary}</p>
+      <p className="realms-fc-summary">{convert(card.summary)}</p>
       {card.bullets.length > 0 ? (
         <ul className="realms-fc-bullets">
           {card.bullets.map((b) => (
-            <li key={b}>{b}</li>
+            <li key={b}>{convert(b)}</li>
           ))}
         </ul>
       ) : null}
       {card.tags.length > 0 ? (
         <div className="realms-fc-tags">
           {card.tags.map((tag) => (
-            <span key={tag} className="realms-fc-tag">{tag}</span>
+            <span key={tag} className="realms-fc-tag">{convert(tag)}</span>
           ))}
         </div>
       ) : null}

@@ -255,10 +255,397 @@ function inferPathTags(path) {
 function featureCard(realmId, card) {
   return {
     realmId,
-    slug: slugFromSourcePath(card.sourcePath),
+    slug: card.slug || slugFromSourcePath(card.sourcePath),
     bodyMarkdown: card.bodyMarkdown,
     ...card,
   }
+}
+
+/* ----- Tianyu: summaries, thematic tags, grouped interaction logs ----- */
+
+function normalizeForDedupe(text) {
+  return String(text ?? '')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .slice(0, 4000)
+}
+
+function interactionUserInputDedupeKey(text) {
+  return normalizeForDedupe(text).replace(/^【.*?】/, '').trim()
+}
+
+function extractFirstYamlFence(md) {
+  const m = md.match(/```yaml\s*\n([\s\S]*?)```/)
+  return m ? m[1].trimStart() : ''
+}
+
+/** @param {string} yamlFenceBody */
+function extractUserInputFromYamlFence(yamlFenceBody) {
+  if (!yamlFenceBody) return ''
+  let m = yamlFenceBody.match(/user_input:\s*'([\s\S]*?)'\r?\nsolver_output:/)
+  if (!m) m = yamlFenceBody.match(/user_input:\s*'([\s\S]*?)'\r?\nverifier_output:/)
+  return m ? m[1].replace(/\s+/g, ' ').trim() : ''
+}
+
+/** @param {string} yamlFenceBody */
+function extractYamlQuotedField(yamlFenceBody, key) {
+  const re = new RegExp(`^${key}:\\s*'([^']*)'`, 'm')
+  const m = yamlFenceBody.match(re)
+  return m ? m[1] : ''
+}
+
+/** @param {string} yamlFenceBody */
+function extractYamlBareField(yamlFenceBody, key) {
+  const m = yamlFenceBody.match(new RegExp(`^${key}:\\s*(.+)$`, 'mi'))
+  if (!m) return ''
+  return m[1].trim().replace(/^['"]|['"]$/g, '')
+}
+
+function inferTianyuTopic(text, sourcePath = '') {
+  const combined = `${text}\n${sourcePath}`
+  if (/鋁型材|全屋家具|書架|桌子|置物架|型材組裝|DIY製作|組裝示意/.test(combined)) return 'furniture_diy'
+  if (/MRP|物料需求|庫存策略|異常處理|分階段實施|監控機制/.test(combined)) return 'mrp_system'
+  if (/供應鏈|採購數據|供應商|運輸|EQQ|運輸優化|採購批次/.test(combined)) return 'supply_chain'
+  if (/KPI|績效|指標體系/.test(combined)) return 'kpi_metrics'
+  if (/風險|合規|衝突|緊急|質量檢查|安全操作/.test(combined)) return 'risk_compliance'
+  if (/數據質量|標準化|ABC分類|邊界處理|收集.*計劃/.test(combined)) return 'data_quality'
+  return 'general'
+}
+
+function extractConclusionQuote(md) {
+  const blk = md.match(/##\s*👤\s*用戶需求\s*\n+(>[\s\S]*?)(?=\n##\s+)/u)
+  if (!blk) return ''
+  return blk[1]
+    .split(/\n/)
+    .map(line => cleanInlineMarkdown(line.replace(/^>\s?/, '').trim()))
+    .filter(Boolean)
+    .join(' ')
+    .slice(0, 560)
+}
+
+function extractManagementSummary(md) {
+  const m = md.match(/\*\*摘要:\*\*\s*([^\n]+)/)
+  return m ? cleanInlineMarkdown(m[1]).trim() : ''
+}
+
+function extractConclusionRequestId(md) {
+  const m = md.match(/request_\d+_[a-f0-9]+/i)
+  return m ? m[0] : ''
+}
+
+function extractWorstPriorityAndStatus(md) {
+  /** @type {Set<string>} */
+  const statuses = new Set()
+
+  let maxPrio = null
+  for (const mm of md.matchAll(/優先級[:：]\s*(\d+)\/(\d+)/g)) {
+    const n = Number(mm[1])
+    if (maxPrio === null || n > maxPrio) maxPrio = n
+  }
+
+  const stHits = [...md.matchAll(/狀態[:：]\s*`?([A-Z_]+)`?/g)].map(x => x[1])
+  for (const s of stHits) statuses.add(s)
+
+  /** @type {'high' | 'medium' | 'low' | undefined} */
+  let priorityRank
+  if (maxPrio != null) {
+    if (maxPrio >= 4) priorityRank = 'high'
+    else if (maxPrio >= 3) priorityRank = 'medium'
+    else priorityRank = 'low'
+  }
+
+  /** @type {'pending'|'done'|'mixed'|'unknown'} */
+  let statusRank = 'unknown'
+  const hasPending = statuses.has('PENDING') || statuses.has('WAITING')
+  const hasDone =
+    statuses.has('DONE')
+    || statuses.has('COMPLETE')
+    || statuses.has('COMPLETED')
+    || statuses.has('RESOLVED')
+
+  if (hasPending && hasDone) statusRank = 'mixed'
+  else if (hasPending) statusRank = 'pending'
+  else if (hasDone) statusRank = 'done'
+
+  return { priorityRank, statusRank, maxNumericPriority: maxPrio }
+}
+
+function titleFromUserWish(text, max = 76) {
+  if (!text) return ''
+  const flat = normalizeForDedupe(text)
+  const sansPatch = flat.split(/【修正要求】/)[0]?.trim() || flat
+  const clause = sansPatch.split(/。|！|[.!?]\s+/)[0]?.trim() || sansPatch
+  let t = clause.trim()
+    .replace(/^我想/, '')
+    .replace(/^請/, '')
+    .replace(/^幫我/, '')
+  if (t.length > max) t = `${t.slice(0, max - 1)}…`
+  if (t.length < 10) {
+    let u = normalizeForDedupe(text)
+    if (u.length > max) u = `${u.slice(0, max - 1)}…`
+    return u
+  }
+  return t
+}
+
+function looksLikeGarbageSummary(text) {
+  if (!text || text.trim().length < 8) return true
+  const compact = text.replace(/\s+/g, ' ')
+  if (/\\\"|,\s*"due"|"due":|'due':|"assignee"|\\{/.test(compact)) return true
+  if (/^\s*[`[{]/.test(text)) return true
+  return false
+}
+
+function buildCardSummary(primary, fallbackMd) {
+  let s = normalizeForDedupe(primary)
+  if (looksLikeGarbageSummary(s)) {
+    const para = cleanInlineMarkdown(firstParagraph(fallbackMd) || '').trim()
+    s = normalizeForDedupe(para)
+  }
+  const guard = /\{|"due"|'due'/.exec(s)
+  if (guard && guard.index !== undefined && guard.index > 42) {
+    s = s.slice(0, guard.index).trim()
+  }
+  if (s.length > 320) s = `${s.slice(0, 317)}…`
+  return s || '—'
+}
+
+/**
+ * Interaction logs: collapse entries that share equivalent user prompts.
+ */
+async function processTianyu() {
+  const folder = REALM_FOLDERS.tianyu
+  const mdFiles = await listMarkdownFiles(folder)
+  /** @type Record<string, { path: string, raw: string, name: string, createdAt: string, istatus: string, slug: string, userResolved: string }[]> */
+  const interactionBuckets = {}
+  /** @type ReturnType<typeof featureCard>[] */
+  const outCards = []
+
+  for (const path of mdFiles) {
+    const kind = classifyTianyuPath(path)
+    const raw = await readSourceText(path)
+    const name = path.split('/').at(-1) ?? path
+
+    if (kind === 'interaction') {
+      const yamlBody = extractFirstYamlFence(raw)
+      let utext = extractUserInputFromYamlFence(yamlBody)
+      if (!utext) {
+        const uh = raw.match(/###\s*👤\s*用戶輸入\s*\n+>([\s\S]*?)(?=\n#{2,5}\s|\n###\s|$)/u)
+        utext = uh?.[1] ? uh[1].replace(/^>\s?/gm, '').replace(/\s+/g, ' ').trim() : ''
+      }
+      const userResolvedNorm = interactionUserInputDedupeKey(utext || '')
+      const createdAt =
+        extractYamlQuotedField(yamlBody, 'created_at')
+        || extractYamlBareField(yamlBody, 'created_at')
+      const istatus = extractYamlBareField(yamlBody, 'status')
+      const groupKey =
+        `${hashString(userResolvedNorm.slice(2000))}-u${Math.min(userResolvedNorm.length, 999)}`
+      interactionBuckets[groupKey] ??= []
+      interactionBuckets[groupKey].push({
+        path,
+        raw,
+        name,
+        createdAt,
+        istatus,
+        slug: slugFromSourcePath(path),
+        userResolved: utext ? normalizeForDedupe(utext) : '',
+      })
+      continue
+    }
+
+    const topic = inferTianyuTopic(raw, path)
+    let title = extractTitle(raw) || mdTitleFromName(name)
+    let summarySeed = ''
+
+    const meta = {}
+
+    if (kind === 'conclusion') {
+      const quote = extractConclusionQuote(raw)
+      const mgmt = extractManagementSummary(raw)
+      const wishTitle = titleFromUserWish(quote || mgmt || '')
+      title =
+        wishTitle || (mgmt ? mgmt.slice(0, 48) : '').trim() || title.replace(/^📋\s*/, '')
+      summarySeed = quote || mgmt || firstParagraph(raw)
+      meta.requestCanonicalId = extractConclusionRequestId(raw) || ''
+      meta.tianyuKind = 'conclusion'
+      const pr = extractWorstPriorityAndStatus(raw)
+      meta.priorityRank = pr.priorityRank
+      meta.statusRank = pr.statusRank
+      meta.maxNumericPriority = pr.maxNumericPriority ?? undefined
+    }
+    else if (kind === 'task') {
+      summarySeed = firstParagraph(raw)
+      meta.tianyuKind = 'task'
+      meta.priorityRank = 'medium'
+      meta.statusRank = 'pending'
+    }
+    else if (kind === 'knowledge') {
+      summarySeed = firstParagraph(raw)
+      meta.tianyuKind = 'knowledge'
+    }
+    else {
+      meta.tianyuKind = 'doc'
+      summarySeed = firstParagraph(raw)
+    }
+
+    const summary = buildCardSummary(summarySeed, raw)
+    const bullets = extractBullets(raw)
+    meta.topicCluster = topic
+    const semanticTags = semanticTianyuTags(topic, raw)
+    meta.tags = semanticTags
+
+    const cardPayload = {
+      title,
+      summary,
+      bullets,
+      bodyMarkdown: raw,
+      sourcePath: path,
+      sourceUrl: sourceUrl(path),
+      tags: semanticTags,
+      ...meta,
+    }
+
+    outCards.push(featureCard('tianyu', cardPayload))
+  }
+
+  for (const group of Object.values(interactionBuckets)) {
+    const sorted = [...group].sort((a, b) =>
+      `${a.createdAt}`.localeCompare(`${b.createdAt}`, 'en'),
+    )
+
+    /** De-dupe same file path accidental double add */
+    const seenPath = new Set()
+    const unique = sorted.filter((g) =>
+      seenPath.has(g.path) ? false : (seenPath.add(g.path), true),
+    )
+
+    const repLast = unique[unique.length - 1]
+    const userWishText = normalizeForDedupe(unique[0].userResolved || repLast.userResolved)
+    const slugEntropy = `${userWishText}\n${unique.map((x) => x.path).sort().join('\n')}`
+    const slug = `interaction-group-${hashString(slugEntropy)}`
+
+    const iterationItems = unique.map((g, i) => ({
+      ordinal: i + 1,
+      sourceSlug: g.slug,
+      sourcePath: g.path,
+      sourceUrl: sourceUrl(g.path),
+      createdAt: g.createdAt || undefined,
+      statusHint: g.istatus || undefined,
+    }))
+
+    const topic = inferTianyuTopic(repLast.raw, repLast.path)
+    const title = titleFromUserWish(userWishText.slice(0, 1200))
+
+    const iterationMd = unique
+      .map(
+        (g, i) => `## 🔁 輪次 ${i + 1}/${unique.length}
+
+_${g.path}_ · ${g.createdAt || '—'}_
+
+${g.raw}`,
+      )
+      .join('\n\n---\n\n')
+
+    const combinedMd = `# 💬 交互紀錄（同一請求・已合併 ${unique.length} 筆）
+
+> ${userWishText}
+
+---
+
+${iterationMd}`
+
+    const summary = buildCardSummary(normalizeForDedupe(userWishText.split('【')[0] || userWishText), repLast.raw)
+
+    const latestStatusRaw = [...unique].reverse().find((x) => x.istatus)?.istatus ?? ''
+    /** @type {'pending'|'done'|'mixed'|'unknown'} */
+    let statusRank = 'unknown'
+    const ls = `${latestStatusRaw}`.toLowerCase()
+    if (ls.includes('complete') || ls.includes('done') || ls === 'resolved') statusRank = 'done'
+    else if (ls.includes('pending')) statusRank = 'pending'
+
+    outCards.push(
+      featureCard('tianyu', {
+        slug,
+        title,
+        summary,
+        bullets: extractBullets(repLast.raw).length
+          ? extractBullets(repLast.raw)
+          : [userWishText.slice(0, 180)],
+        bodyMarkdown: combinedMd,
+        sourcePath: repLast.path,
+        sourceUrl: sourceUrl(repLast.path),
+        tags: semanticTianyuTags(topic, repLast.raw),
+        topicCluster: topic,
+        requestCanonicalId: extractConclusionRequestId(repLast.raw) || '',
+        interactionIterations:
+          iterationItems.length > 0 ? iterationItems : undefined,
+        iterationCount: unique.length,
+        tianyuKind: 'interaction',
+        priorityRank: inferPriorityFromInteractions(unique),
+        statusRank,
+        maxNumericPriority: inferMaxPriorityFromInteractions(repLast.raw),
+      }),
+    )
+  }
+
+  const kindOrder = { conclusion: 0, interaction: 1, task: 2, knowledge: 3, doc: 4 }
+  outCards.sort((a, b) => {
+    const ka = kindOrder[a.tianyuKind] ?? 9
+    const kb = kindOrder[b.tianyuKind] ?? 9
+    if (ka !== kb) return ka - kb
+    return `${a.sourcePath}`.localeCompare(`${b.sourcePath}`, 'zh-Hant')
+  })
+
+  return outCards
+}
+
+/** @returns {'conclusion'|'interaction'|'task'|'knowledge'|'doc'} */
+function classifyTianyuPath(path) {
+  if (path.includes('/data/conclusions/')) return 'conclusion'
+  if (path.includes('/data/interactions/')) return 'interaction'
+  if (path.includes('/data/tasks/')) return 'task'
+  if (path.includes('/data/knowledge/')) return 'knowledge'
+  return 'doc'
+}
+
+/** @returns {string[]} */
+function semanticTianyuTags(topicId, md) {
+  const tags = new Set()
+  const labelMap = {
+    furniture_diy: '家具',
+    supply_chain: '供應鏈',
+    mrp_system: 'MRP',
+    kpi_metrics: 'KPI',
+    risk_compliance: '風險管控',
+    data_quality: '數據品質',
+    general: '綜合',
+  }
+  tags.add(labelMap[topicId] ?? '綜合')
+
+  /** extra detectors */
+  const t = `${md}`
+  if (/ABC|分類/.test(t)) tags.add('ABC分類')
+  if (/缓冲|緩衝/.test(t)) tags.add('緩衝期')
+  if (/採購/.test(t)) tags.add('採購')
+  return [...tags].slice(0, 5)
+}
+
+function inferPriorityFromInteractions(iterGroup) {
+  let maxFound = null
+  for (const g of iterGroup) {
+    const pr = extractWorstPriorityAndStatus(g.raw)
+    const n = pr.maxNumericPriority
+    if (n != null && (maxFound === null || n > maxFound)) maxFound = n
+  }
+  if (maxFound == null) return 'medium'
+  if (maxFound >= 4) return 'high'
+  if (maxFound >= 3) return 'medium'
+  return 'low'
+}
+
+function inferMaxPriorityFromInteractions(md) {
+  const pr = extractWorstPriorityAndStatus(md)
+  return pr.maxNumericPriority ?? undefined
 }
 
 /* realm processors */
@@ -286,10 +673,6 @@ async function processRealmMarkdownFiles(realmId, folder, fallbackLabel) {
   }
 
   return cards
-}
-
-async function processTianyu() {
-  return processRealmMarkdownFiles('tianyu', REALM_FOLDERS.tianyu, '天域')
 }
 
 async function processShenyu() {
@@ -330,6 +713,35 @@ async function main() {
   const typeHeader = `// Auto-generated by scripts/sync-three-realms.mjs — DO NOT EDIT
 // Generated: ${new Date().toISOString()}
 
+export type TianyuCardKind =
+  | 'conclusion'
+  | 'interaction'
+  | 'task'
+  | 'knowledge'
+  | 'doc'
+
+export type TianyuPriorityRank = 'high' | 'medium' | 'low'
+
+export type TianyuStatusRank = 'pending' | 'done' | 'mixed' | 'unknown'
+
+export type TianyuTopicClusterId =
+  | 'furniture_diy'
+  | 'supply_chain'
+  | 'mrp_system'
+  | 'kpi_metrics'
+  | 'risk_compliance'
+  | 'data_quality'
+  | 'general'
+
+export interface RealmInteractionIteration {
+  ordinal: number
+  sourceSlug: string
+  sourcePath: string
+  sourceUrl: string
+  createdAt?: string
+  statusHint?: string
+}
+
 export interface RealmFeatureCard {
   realmId: RealmId
   slug: string
@@ -340,11 +752,18 @@ export interface RealmFeatureCard {
   sourcePath: string
   sourceUrl: string
   tags: string[]
+  tianyuKind?: TianyuCardKind
+  topicCluster?: TianyuTopicClusterId
+  requestCanonicalId?: string
+  interactionIterations?: RealmInteractionIteration[]
+  iterationCount?: number
+  priorityRank?: TianyuPriorityRank
+  statusRank?: TianyuStatusRank
+  maxNumericPriority?: number
 }
 
 export type RealmId = 'tianyu' | 'shenyu' | 'jingjie'
 `
-
   const indexTs = `${typeHeader}
 export const REALMS_FEATURE_COUNTS: Record<RealmId, number> = {
   tianyu: ${tianyu.length},
