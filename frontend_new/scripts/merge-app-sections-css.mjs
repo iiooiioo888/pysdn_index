@@ -20,6 +20,7 @@ const files = [
   'models-section',
   'model-detail',
   'footer',
+  'realms',
 ]
 
 let out =

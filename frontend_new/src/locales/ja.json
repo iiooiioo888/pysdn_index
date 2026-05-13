@@ -721,5 +721,8 @@
     "403 など障害とボット対策の切り分けと修正の方向性",
     "ドメイン知識・テンプレート・マルチモデルルーティング"
   ],
+  "realms_tianyu_folder": "GitHub で天域フォルダを開く",
+  "realms_shenyu_folder": "GitHub で神域フォルダを開く",
+  "realms_jingjie_folder": "GitHub で鏡界フォルダを開く",
   "models_badge_legacy": "旧版"
 }

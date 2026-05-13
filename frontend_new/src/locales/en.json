@@ -721,5 +721,8 @@
     "Triage for failures and anti-bot situations (e.g., 403) with fix guidance",
     "Domain KBs, templates, and multi-model routing support"
   ],
+  "realms_tianyu_folder": "Open Tianyu folder on GitHub",
+  "realms_shenyu_folder": "Open Shenyu folder on GitHub",
+  "realms_jingjie_folder": "Open Jingjie folder on GitHub",
   "models_badge_legacy": "Legacy"
 }

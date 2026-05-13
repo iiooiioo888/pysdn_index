@@ -12,13 +12,23 @@ export type RealmId = (typeof REALM_ORDER)[number]
 
 const REALM_META: Record<
   RealmId,
-  { titleKey: string; subKey: string; descKey: string; pointsKey: string; accent: 'cyan' | 'violet' | 'emerald' }
+  {
+    titleKey: string
+    subKey: string
+    descKey: string
+    pointsKey: string
+    folderTreeUrl: string
+    folderLabelKey: string
+    accent: 'cyan' | 'violet' | 'emerald'
+  }
 > = {
   tianyu: {
     titleKey: 'realms_tianyu_title',
     subKey: 'realms_tianyu_sub',
     descKey: 'realms_tianyu_desc',
     pointsKey: 'realms_tianyu_points',
+    folderTreeUrl: 'https://github.com/iiooiioo888/Note/tree/main/%E5%A4%A9%E5%9F%9F',
+    folderLabelKey: 'realms_tianyu_folder',
     accent: 'cyan',
   },
   shenyu: {
@@ -26,6 +36,8 @@ const REALM_META: Record<
     subKey: 'realms_shenyu_sub',
     descKey: 'realms_shenyu_desc',
     pointsKey: 'realms_shenyu_points',
+    folderTreeUrl: 'https://github.com/iiooiioo888/Note/tree/main/%E7%A5%9E%E5%9F%9F',
+    folderLabelKey: 'realms_shenyu_folder',
     accent: 'violet',
   },
   jingjie: {
@@ -33,6 +45,8 @@ const REALM_META: Record<
     subKey: 'realms_jingjie_sub',
     descKey: 'realms_jingjie_desc',
     pointsKey: 'realms_jingjie_points',
+    folderTreeUrl: 'https://github.com/iiooiioo888/Note/tree/main/%E9%8F%A1%E7%95%8C',
+    folderLabelKey: 'realms_jingjie_folder',
     accent: 'emerald',
   },
 }
@@ -169,6 +183,18 @@ export function ThreeRealmsInteractive({ layout, showFullPageLink }: ThreeRealms
               <li key={line}>{line}</li>
             ))}
           </ul>
+        </div>
+
+        <div className="realms-ix-actions">
+          <a
+            className="realms-ix-folder-link"
+            href={meta.folderTreeUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span className="realms-ix-folder-icon" aria-hidden="true">📂</span>
+            {t(meta.folderLabelKey)}
+          </a>
         </div>
       </div>
 

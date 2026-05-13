@@ -721,5 +721,8 @@
     "403 등 장애·봇 대응 상황 분석과 수정 방향",
     "도메인 지식·템플릿·멀티 모델 라우팅"
   ],
+  "realms_tianyu_folder": "GitHub에서 천역 폴더 열기",
+  "realms_shenyu_folder": "GitHub에서 신역 폴더 열기",
+  "realms_jingjie_folder": "GitHub에서 경계 폴더 열기",
   "models_badge_legacy": "구버전"
 }

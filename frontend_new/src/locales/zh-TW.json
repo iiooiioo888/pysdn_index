@@ -721,5 +721,8 @@
     "錯誤與反爬情境診斷（例如 403）並給出修復方向",
     "領域知識庫、模板庫與多模型路由支援"
   ],
+  "realms_tianyu_folder": "在 GitHub 開啟天域目錄",
+  "realms_shenyu_folder": "在 GitHub 開啟神域目錄",
+  "realms_jingjie_folder": "在 GitHub 開啟鏡界目錄",
   "models_badge_legacy": "舊版"
 }
