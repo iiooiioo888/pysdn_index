@@ -4,14 +4,13 @@
  *
  * Generates static Three Realms feature-card data from the Note repository.
  *
- * Sources, in priority order:
- * 1. NOTE_REALMS_SOURCE_DIR=/path/to/Note local clone
- * 2. GitHub API with GITHUB_TOKEN or NOTE_GITHUB_TOKEN
+ * Source:
+ * - GitHub API with GITHUB_TOKEN or NOTE_GITHUB_TOKEN
  *
  * Output: src/data/threeRealmsFeatures.ts
  */
 
-import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs'
+import { mkdirSync, writeFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
@@ -25,7 +24,6 @@ const OUT_REALM = {
 }
 
 const TOKEN = process.env.GITHUB_TOKEN || process.env.NOTE_GITHUB_TOKEN
-const LOCAL_SOURCE = process.env.NOTE_REALMS_SOURCE_DIR
 
 const REPO = 'iiooiioo888/Note'
 const API = 'https://api.github.com/repos'
@@ -75,25 +73,7 @@ function slugFromSourcePath(sourcePath) {
   return `${ascii || 'feature'}-${hashString(sourcePath).slice(0, 6)}`
 }
 
-function localPath(path) {
-  return join(LOCAL_SOURCE, ...path.split('/'))
-}
-
 async function listEntries(path) {
-  if (LOCAL_SOURCE) {
-    const dir = localPath(path)
-    if (!existsSync(dir)) {
-      throw new Error(`Local source path not found: ${dir}`)
-    }
-
-    return readdirSync(dir, { withFileTypes: true })
-      .map((entry) => ({
-        name: entry.name,
-        type: entry.isDirectory() ? 'dir' : 'file',
-      }))
-      .sort((a, b) => a.name.localeCompare(b.name, 'zh-Hant'))
-  }
-
   const data = await ghJson(path)
   if (!Array.isArray(data)) {
     throw new Error(`Expected directory listing for ${path}`)
@@ -119,17 +99,12 @@ async function listMarkdownFiles(path) {
 }
 
 async function readSourceText(path) {
-  if (LOCAL_SOURCE) {
-    return readFileSync(localPath(path), 'utf8')
-  }
   return fetchText(path)
 }
 
 async function ghJson(path) {
   if (!TOKEN) {
-    throw new Error(
-      'Set NOTE_REALMS_SOURCE_DIR to a local Note clone, or set GITHUB_TOKEN/NOTE_GITHUB_TOKEN for GitHub API access.',
-    )
+    throw new Error('Missing token. Set GITHUB_TOKEN or NOTE_GITHUB_TOKEN for GitHub API access.')
   }
 
   const url = `${API}/${REPO}/contents/${encodeRepoPath(path)}`
@@ -258,6 +233,44 @@ function featureCard(realmId, card) {
     slug: card.slug || slugFromSourcePath(card.sourcePath),
     bodyMarkdown: card.bodyMarkdown,
     ...card,
+  }
+}
+
+function validateCardsOrThrow(realmId, cards) {
+  const seenSlug = new Set()
+  const errors = []
+
+  for (const card of cards) {
+    if (!card.slug || typeof card.slug !== 'string') {
+      errors.push(`[${realmId}] missing slug at ${card.sourcePath ?? '(unknown path)'}`)
+    } else if (seenSlug.has(card.slug)) {
+      errors.push(`[${realmId}] duplicate slug: ${card.slug}`)
+    } else {
+      seenSlug.add(card.slug)
+    }
+
+    if (!card.title || typeof card.title !== 'string') {
+      errors.push(`[${realmId}] missing title at slug=${card.slug ?? '(unknown slug)'}`)
+    }
+    if (!card.summary || typeof card.summary !== 'string') {
+      errors.push(`[${realmId}] missing summary at slug=${card.slug ?? '(unknown slug)'}`)
+    }
+    if (!card.sourcePath || typeof card.sourcePath !== 'string') {
+      errors.push(`[${realmId}] missing sourcePath at slug=${card.slug ?? '(unknown slug)'}`)
+    }
+    if (!card.sourceUrl || typeof card.sourceUrl !== 'string') {
+      errors.push(`[${realmId}] missing sourceUrl at slug=${card.slug ?? '(unknown slug)'}`)
+    }
+    if (!Array.isArray(card.bullets)) {
+      errors.push(`[${realmId}] bullets must be array at slug=${card.slug ?? '(unknown slug)'}`)
+    }
+    if (!Array.isArray(card.tags)) {
+      errors.push(`[${realmId}] tags must be array at slug=${card.slug ?? '(unknown slug)'}`)
+    }
+  }
+
+  if (errors.length > 0) {
+    throw new Error(`Validation failed for ${realmId} (${errors.length} issue(s)):\n- ${errors.join('\n- ')}`)
   }
 }
 
@@ -534,7 +547,9 @@ async function processTianyu() {
     }))
 
     const topic = inferTianyuTopic(repLast.raw, repLast.path)
-    const title = titleFromUserWish(userWishText.slice(0, 1200))
+    const title =
+      titleFromUserWish(userWishText.slice(0, 1200))
+      || `交互紀錄 ${repLast.name.replace(/\.md$/i, '').slice(0, 56)}`
 
     const iterationMd = unique
       .map(
@@ -686,26 +701,26 @@ async function processJingjie() {
 /* main */
 
 async function main() {
-  if (LOCAL_SOURCE) {
-    console.log(`Using local Note source: ${LOCAL_SOURCE}`)
-  } else if (TOKEN) {
-    console.log(`Using GitHub API source: ${REPO}`)
-  } else {
+  if (!TOKEN) {
     throw new Error(
-      'Set NOTE_REALMS_SOURCE_DIR to a local Note clone, or set GITHUB_TOKEN/NOTE_GITHUB_TOKEN for GitHub API access.',
+      'Missing token. Set GITHUB_TOKEN or NOTE_GITHUB_TOKEN for GitHub API access.',
     )
   }
+  console.log(`Using GitHub API source: ${REPO}`)
 
   console.log('Fetching 天域...')
   const tianyu = await processTianyu()
+  validateCardsOrThrow('tianyu', tianyu)
   console.log(`   ${tianyu.length} cards`)
 
   console.log('Fetching 神域...')
   const shenyu = await processShenyu()
+  validateCardsOrThrow('shenyu', shenyu)
   console.log(`   ${shenyu.length} cards`)
 
   console.log('Fetching 鏡界...')
   const jingjie = await processJingjie()
+  validateCardsOrThrow('jingjie', jingjie)
   console.log(`   ${jingjie.length} cards`)
 
   const total = tianyu.length + shenyu.length + jingjie.length

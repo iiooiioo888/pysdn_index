@@ -123,6 +123,9 @@ npm run dev
 | `npm run build` | 生產構建：`tsc` → CSS 合併 → Vite build → 404 複製 → postbuild |
 | `npm run preview` | 預覽生產構建 |
 | `npm run merge:sections-css` | 手動合併區塊 CSS |
+| `npm run sync:realms` | 從 Note 倉庫（GitHub API）同步天域/神域/鏡界資料 |
+| `npm run validate:realms` | 檢查三界資料衝突與完整性（slug、計數、必要欄位） |
+| `npm run sync:realms:check` | 先同步再驗證（整合檢查用） |
 
 ---
 
@@ -274,6 +277,36 @@ npm run build
 - 使用 `useDocBundle('supertrack')` → `t('key')`
 
 新增語系：在 `src/locales/` 建立 JSON → 在 `src/lib/i18n.ts` 的 `loaders` 註冊 → 在 `src/routes/langQuery.ts` 的 `APP_LANG_CODES` 加入代碼。
+
+### 三界內容整合（Token 自動化）
+
+三界資料由 `frontend_new/scripts/sync-three-realms.mjs` 直接從 [iiooiioo888/Note](https://github.com/iiooiioo888/Note) 透過 GitHub Contents API 產生：
+
+- 輸入來源：`天域/`、`神域/`、`鏡界/`
+- 輸出檔案：
+  - `src/data/threeRealmsFeatures.ts`
+  - `src/data/threeRealmsFeatures.tianyu.ts`
+  - `src/data/threeRealmsFeatures.shenyu.ts`
+  - `src/data/threeRealmsFeatures.jingjie.ts`
+
+環境變數（擇一即可）：
+
+- `NOTE_GITHUB_TOKEN`
+- `GITHUB_TOKEN`
+
+本機流程：
+
+```bash
+cd frontend_new
+npm run sync:realms
+npm run validate:realms
+```
+
+CI 流程：
+
+- Workflow：`.github/workflows/realms-sync-validate.yml`
+- 需要設定 repository secret：`NOTE_GITHUB_TOKEN`
+- 會執行同步、驗證，並檢查產生檔是否已提交
 
 ### 添加新組件
 

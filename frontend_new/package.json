@@ -12,7 +12,9 @@
     "dev": "vite",
     "build": "tsc && node scripts/merge-app-sections-css.mjs && vite build && node scripts/copy-404.mjs && node scripts/postbuild.mjs",
     "preview": "vite preview",
-    "sync:realms": "node scripts/sync-three-realms.mjs"
+    "sync:realms": "node scripts/sync-three-realms.mjs",
+    "validate:realms": "node scripts/validate-three-realms.mjs",
+    "sync:realms:check": "npm run sync:realms && npm run validate:realms"
   },
   "dependencies": {
     "@tanstack/react-virtual": "^3.13.24",
