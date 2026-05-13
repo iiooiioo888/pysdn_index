@@ -1,4 +1,4 @@
-import { REALMS_FEATURES, type RealmFeatureCard, type RealmId } from './threeRealmsFeatures'
+import type { RealmFeatureCard, RealmId } from './threeRealmsFeatures'
 
 export type ResolvedRealmFeatureCard = RealmFeatureCard & {
   realmId: RealmId
@@ -33,10 +33,10 @@ function fallbackMarkdown(card: RealmFeatureCard): string {
   return `# ${card.title}\n\n${card.summary}${bullets}${tags}\n\n## 來源\n\n[${card.sourcePath}](${card.sourceUrl})`
 }
 
-export function resolveRealmFeatures(realmId: RealmId): ResolvedRealmFeatureCard[] {
+export function resolveRealmFeatureCards(realmId: RealmId, cards: RealmFeatureCard[]): ResolvedRealmFeatureCard[] {
   const seen = new Map<string, number>()
 
-  return (REALMS_FEATURES[realmId] ?? []).map((card) => {
+  return cards.map((card) => {
     const baseSlug = card.slug || slugFromSourcePath(card.sourcePath)
     const count = seen.get(baseSlug) ?? 0
     seen.set(baseSlug, count + 1)
@@ -51,10 +51,10 @@ export function resolveRealmFeatures(realmId: RealmId): ResolvedRealmFeatureCard
   })
 }
 
-export function resolveAllRealmFeatures(): ResolvedRealmFeatureCard[] {
-  return (Object.keys(REALMS_FEATURES) as RealmId[]).flatMap((realmId) => resolveRealmFeatures(realmId))
-}
-
-export function findRealmFeature(realmId: RealmId, featureSlug: string): ResolvedRealmFeatureCard | undefined {
-  return resolveRealmFeatures(realmId).find((card) => card.slug === featureSlug)
+export function findRealmFeatureInCards(
+  realmId: RealmId,
+  cards: RealmFeatureCard[],
+  featureSlug: string,
+): ResolvedRealmFeatureCard | undefined {
+  return resolveRealmFeatureCards(realmId, cards).find((card) => card.slug === featureSlug)
 }

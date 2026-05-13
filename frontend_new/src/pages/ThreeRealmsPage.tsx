@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next'
 import { Link, Navigate, useSearchParams } from 'react-router-dom'
 import { REALM_META, REALM_ORDER, isRealmId } from '../data/threeRealmsMeta'
-import { resolveRealmFeatures } from '../data/threeRealmsFeatureUtils'
+import { REALMS_FEATURE_COUNTS } from '../data/threeRealmsFeatures'
 import { useI18nRerender } from '../hooks/useI18nRerender'
 import { pathToRealm } from '../routes/paths'
 import { RealmsPageShell } from './realms/RealmsPageShell'
@@ -30,7 +30,7 @@ export function ThreeRealmsPage() {
         <div className="container realms-index-grid">
           {REALM_ORDER.map((realmId) => {
             const meta = REALM_META[realmId]
-            const count = resolveRealmFeatures(realmId).length
+            const count = REALMS_FEATURE_COUNTS[realmId]
             return (
               <Link key={realmId} className={`realms-index-card realms-index-card--${meta.accent}`} to={pathToRealm(realmId)}>
                 <span className="realms-index-card-step">{t('realms_ix_step', { n: REALM_ORDER.indexOf(realmId) + 1 })}</span>

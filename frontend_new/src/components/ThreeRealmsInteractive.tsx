@@ -1,11 +1,12 @@
-import { useCallback, useEffect, useId, useMemo, useState, type KeyboardEvent } from 'react'
+import { useCallback, useEffect, useId, useState, type KeyboardEvent } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, useSearchParams } from 'react-router-dom'
-import { resolveRealmFeatures, type ResolvedRealmFeatureCard } from '../data/threeRealmsFeatureUtils'
+import type { ResolvedRealmFeatureCard } from '../data/threeRealmsFeatureUtils'
 import { REALM_META, REALM_ORDER, type RealmAccent } from '../data/threeRealmsMeta'
 import type { RealmId } from '../data/threeRealmsFeatures'
 import { useI18nRerender } from '../hooks/useI18nRerender'
 import { useLangQuery } from '../hooks/useLangQuery'
+import { useRealmFeatures } from '../hooks/useRealmFeatures'
 import { PATHS, pathToRealm, pathToRealmFeature } from '../routes/paths'
 import { prefersReducedMotion } from '../lib/motionPreference'
 
@@ -89,7 +90,7 @@ export function ThreeRealmsInteractive({ layout, showFullPageLink }: ThreeRealms
   const realmId = REALM_ORDER[idx]
   const meta = REALM_META[realmId]
 
-  const allCards = useMemo(() => resolveRealmFeatures(realmId), [realmId])
+  const { features: allCards, loading } = useRealmFeatures(realmId)
   const visibleCards = layout === 'embedded' ? allCards.slice(0, EMBEDDED_CARD_LIMIT) : allCards
   const hasMore = layout === 'embedded' && allCards.length > EMBEDDED_CARD_LIMIT
 
@@ -216,7 +217,9 @@ export function ThreeRealmsInteractive({ layout, showFullPageLink }: ThreeRealms
           </ul>
         </div>
 
-        {visibleCards.length > 0 ? (
+        {loading ? (
+          <p className="realms-fc-empty">{t('realms_fc_loading')}</p>
+        ) : visibleCards.length > 0 ? (
           <div className="realms-fc-section">
             <h4 className="realms-fc-heading">{t('realms_fc_heading')}</h4>
             <div className="realms-fc-grid">

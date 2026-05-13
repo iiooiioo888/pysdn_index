@@ -18,6 +18,11 @@ import { fileURLToPath } from 'node:url'
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const ROOT = join(__dirname, '..')
 const OUT = join(ROOT, 'src', 'data', 'threeRealmsFeatures.ts')
+const OUT_REALM = {
+  tianyu: join(ROOT, 'src', 'data', 'threeRealmsFeatures.tianyu.ts'),
+  shenyu: join(ROOT, 'src', 'data', 'threeRealmsFeatures.shenyu.ts'),
+  jingjie: join(ROOT, 'src', 'data', 'threeRealmsFeatures.jingjie.ts'),
+}
 
 const TOKEN = process.env.GITHUB_TOKEN || process.env.NOTE_GITHUB_TOKEN
 const LOCAL_SOURCE = process.env.NOTE_REALMS_SOURCE_DIR
@@ -94,6 +99,23 @@ async function listEntries(path) {
     throw new Error(`Expected directory listing for ${path}`)
   }
   return data
+}
+
+async function listMarkdownFiles(path) {
+  const entries = await listEntries(path)
+  const files = []
+
+  for (const entry of entries) {
+    if (entry.name.startsWith('.')) continue
+    const childPath = `${path}/${entry.name}`
+    if (entry.type === 'dir') {
+      files.push(...await listMarkdownFiles(childPath))
+    } else if (entry.type === 'file' && entry.name.endsWith('.md') && entry.name !== 'README_old.md') {
+      files.push(childPath)
+    }
+  }
+
+  return files.sort((a, b) => a.localeCompare(b, 'zh-Hant'))
 }
 
 async function readSourceText(path) {
@@ -213,6 +235,23 @@ function inferDocTags(name) {
   return ['doc']
 }
 
+function inferPathTags(path) {
+  const parts = path.split('/')
+  const name = parts.at(-1) ?? path
+  const tags = new Set(inferDocTags(name))
+
+  for (const part of parts.slice(1, -1)) {
+    const match = part.match(/^ch(\d+)/i)
+    if (match) tags.add(`ch${match[1]}`)
+    if (part === 'data') tags.add('data')
+    if (part === 'tasks') tags.add('task')
+    if (part === 'knowledge') tags.add('knowledge')
+  }
+
+  if (parts.length > 2) tags.add('module')
+  return Array.from(tags).slice(0, 4)
+}
+
 function featureCard(realmId, card) {
   return {
     realmId,
@@ -224,154 +263,41 @@ function featureCard(realmId, card) {
 
 /* realm processors */
 
-/**
- * 天域: top-level .md files as features (README, guides, roadmap)
- * and Python source files grouped by purpose.
- */
+async function processRealmMarkdownFiles(realmId, folder, fallbackLabel) {
+  const mdFiles = await listMarkdownFiles(folder)
+  const cards = []
+
+  for (const path of mdFiles) {
+    const raw = await readSourceText(path)
+    const name = path.split('/').at(-1) ?? path
+    const title = extractTitle(raw) || mdTitleFromName(name)
+    const summary = firstParagraph(raw)
+    const bullets = extractBullets(raw)
+
+    cards.push(featureCard(realmId, {
+      title,
+      summary: summary || `${fallbackLabel}文檔：${title}`,
+      bullets,
+      bodyMarkdown: raw,
+      sourcePath: path,
+      sourceUrl: sourceUrl(path),
+      tags: inferPathTags(path),
+    }))
+  }
+
+  return cards
+}
+
 async function processTianyu() {
-  const folder = REALM_FOLDERS.tianyu
-  const entries = await listEntries(folder)
-  const mdFiles = entries.filter(e => e.type === 'file' && e.name.endsWith('.md') && e.name !== '.gitignore')
-  const cards = []
-
-  for (const f of mdFiles) {
-    const path = `${folder}/${f.name}`
-    const raw = await readSourceText(path)
-    const title = extractTitle(raw) || mdTitleFromName(f.name)
-    const summary = firstParagraph(raw)
-    const bullets = extractBullets(raw)
-
-    cards.push(featureCard('tianyu', {
-      title,
-      summary: summary || `天域文檔：${title}`,
-      bullets,
-      bodyMarkdown: raw,
-      sourcePath: path,
-      sourceUrl: sourceUrl(path),
-      tags: inferDocTags(f.name),
-    }))
-  }
-  return cards
+  return processRealmMarkdownFiles('tianyu', REALM_FOLDERS.tianyu, '天域')
 }
 
-/**
- * 神域: ch* directories are modules. Fetch their README or index.
- */
 async function processShenyu() {
-  const folder = REALM_FOLDERS.shenyu
-  const entries = await listEntries(folder)
-  const dirs = entries.filter(e => e.type === 'dir' && e.name.startsWith('ch'))
-  // also include standalone .md files that aren't README
-  const standalone = entries.filter(e => e.type === 'file' && e.name.endsWith('.md') && !['README.md', 'README_old.md'].includes(e.name))
-  const cards = []
-
-  for (const d of dirs) {
-    const dirPath = `${folder}/${d.name}`
-    const dirEntries = await listEntries(dirPath).catch(() => null)
-    if (!dirEntries || !Array.isArray(dirEntries)) continue
-
-    // find README or index
-    const readme = dirEntries.find(e => e.name === 'README.md')
-    const index = dirEntries.find(e => e.name.includes('index'))
-    const target = readme || index
-    if (!target) continue
-
-    const path = `${dirPath}/${target.name}`
-    const raw = await readSourceText(path)
-    const title = extractTitle(raw) || d.name
-    const summary = firstParagraph(raw)
-    const bullets = extractBullets(raw)
-
-    // extract chapter number for tag
-    const chMatch = d.name.match(/^ch(\d+)/)
-    const chNum = chMatch ? chMatch[1] : '?'
-
-    cards.push(featureCard('shenyu', {
-      title: title.replace(/^\s*\d+[\.\-]\s*/, ''),
-      summary: summary || `神域模組：${title}`,
-      bullets,
-      bodyMarkdown: raw,
-      sourcePath: path,
-      sourceUrl: sourceUrl(path),
-      tags: [`ch${chNum}`, 'module'],
-    }))
-  }
-
-  // standalone docs
-  for (const f of standalone) {
-    const path = `${folder}/${f.name}`
-    const raw = await readSourceText(path)
-    const title = extractTitle(raw) || mdTitleFromName(f.name)
-    const summary = firstParagraph(raw)
-    cards.push(featureCard('shenyu', {
-      title,
-      summary: summary || `神域文檔：${title}`,
-      bullets: extractBullets(raw),
-      bodyMarkdown: raw,
-      sourcePath: path,
-      sourceUrl: sourceUrl(path),
-      tags: inferDocTags(f.name),
-    }))
-  }
-
-  return cards
+  return processRealmMarkdownFiles('shenyu', REALM_FOLDERS.shenyu, '神域')
 }
 
-/**
- * 鏡界: subdirectories are modules. Fetch their README.md.
- */
 async function processJingjie() {
-  const folder = REALM_FOLDERS.jingjie
-  const entries = await listEntries(folder)
-  const dirs = entries.filter(e => e.type === 'dir')
-  const standalone = entries.filter(e => e.type === 'file' && e.name.endsWith('.md') && e.name !== 'README.md')
-  const cards = []
-
-  for (const d of dirs) {
-    const dirPath = `${folder}/${d.name}`
-    const dirEntries = await listEntries(dirPath).catch(() => null)
-    if (!dirEntries || !Array.isArray(dirEntries)) continue
-
-    const readme = dirEntries.find(e => e.name === 'README.md')
-    const index = dirEntries.find(e => e.name.includes('index') || e.name.includes('概述'))
-    const target = readme || index
-    if (!target) continue
-
-    const path = `${dirPath}/${target.name}`
-    const raw = await readSourceText(path)
-    const title = extractTitle(raw) || d.name
-    const summary = firstParagraph(raw)
-    const bullets = extractBullets(raw)
-
-    cards.push(featureCard('jingjie', {
-      title: title.replace(/^\s*[\d\.\-]+\s*/, ''),
-      summary: summary || `鏡界模組：${title}`,
-      bullets,
-      bodyMarkdown: raw,
-      sourcePath: path,
-      sourceUrl: sourceUrl(path),
-      tags: ['module'],
-    }))
-  }
-
-  // standalone docs (top-level .md files)
-  for (const f of standalone) {
-    const path = `${folder}/${f.name}`
-    const raw = await readSourceText(path)
-    const title = extractTitle(raw) || mdTitleFromName(f.name)
-    const summary = firstParagraph(raw)
-    cards.push(featureCard('jingjie', {
-      title,
-      summary: summary || `鏡界文檔：${title}`,
-      bullets: extractBullets(raw),
-      bodyMarkdown: raw,
-      sourcePath: path,
-      sourceUrl: sourceUrl(path),
-      tags: inferDocTags(f.name),
-    }))
-  }
-
-  return cards
+  return processRealmMarkdownFiles('jingjie', REALM_FOLDERS.jingjie, '鏡界')
 }
 
 /* main */
@@ -401,8 +327,7 @@ async function main() {
 
   const total = tianyu.length + shenyu.length + jingjie.length
 
-  // build TS output
-  const ts = `// Auto-generated by scripts/sync-three-realms.mjs — DO NOT EDIT
+  const typeHeader = `// Auto-generated by scripts/sync-three-realms.mjs — DO NOT EDIT
 // Generated: ${new Date().toISOString()}
 
 export interface RealmFeatureCard {
@@ -418,17 +343,38 @@ export interface RealmFeatureCard {
 }
 
 export type RealmId = 'tianyu' | 'shenyu' | 'jingjie'
+`
 
-export const REALMS_FEATURES: Record<RealmId, RealmFeatureCard[]> = {
-  tianyu: ${JSON.stringify(tianyu, null, 2).replace(/^/gm, '  ').trimStart()},
-  shenyu: ${JSON.stringify(shenyu, null, 2).replace(/^/gm, '  ').trimStart()},
-  jingjie: ${JSON.stringify(jingjie, null, 2).replace(/^/gm, '  ').trimStart()},
+  const indexTs = `${typeHeader}
+export const REALMS_FEATURE_COUNTS: Record<RealmId, number> = {
+  tianyu: ${tianyu.length},
+  shenyu: ${shenyu.length},
+  jingjie: ${jingjie.length},
 }
 `
 
   mkdirSync(dirname(OUT), { recursive: true })
-  writeFileSync(OUT, ts)
-  console.log(`\nWrote ${total} cards -> ${OUT.replace(`${process.cwd()}/`, '')}`)
+  writeFileSync(OUT, indexTs)
+
+  const realmOutputs = [
+    ['tianyu', tianyu],
+    ['shenyu', shenyu],
+    ['jingjie', jingjie],
+  ]
+
+  for (const [realmId, cards] of realmOutputs) {
+    const constName = `REALM_FEATURES_${realmId.toUpperCase()}`
+    const moduleTs = `// Auto-generated by scripts/sync-three-realms.mjs — DO NOT EDIT
+// Generated: ${new Date().toISOString()}
+
+import type { RealmFeatureCard } from './threeRealmsFeatures'
+
+export const ${constName}: RealmFeatureCard[] = ${JSON.stringify(cards, null, 2)}
+`
+    writeFileSync(OUT_REALM[realmId], moduleTs)
+  }
+
+  console.log(`\nWrote ${total} cards -> ${OUT.replace(`${process.cwd()}/`, '')} + realm data modules`)
 }
 
 main().catch((err) => {

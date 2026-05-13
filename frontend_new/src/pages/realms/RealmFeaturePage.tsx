@@ -2,8 +2,8 @@ import { useTranslation } from 'react-i18next'
 import { Link, Navigate, useParams } from 'react-router-dom'
 import { RealmMarkdown } from '../../components/realms/RealmMarkdown'
 import { REALM_META, isRealmId } from '../../data/threeRealmsMeta'
-import { findRealmFeature } from '../../data/threeRealmsFeatureUtils'
 import { useI18nRerender } from '../../hooks/useI18nRerender'
+import { useRealmFeatures } from '../../hooks/useRealmFeatures'
 import { PATHS, pathToRealm } from '../../routes/paths'
 import { RealmsPageShell } from './RealmsPageShell'
 
@@ -16,12 +16,30 @@ export function RealmFeaturePage() {
     return <Navigate to={PATHS.realmsIndex} replace />
   }
 
-  const feature = featureSlug ? findRealmFeature(realmId, featureSlug) : undefined
+  const { features, loading } = useRealmFeatures(realmId)
+  const feature = featureSlug ? features.find((card) => card.slug === featureSlug) : undefined
+  const meta = REALM_META[realmId]
+
+  if (loading) {
+    return (
+      <RealmsPageShell>
+        <main className="realms-page-main" id="realms-feature-page">
+          <div className={`container realms-feature-hero realms-feature-hero--${meta.accent}`}>
+            <Link className="realms-back-link" to={pathToRealm(realmId)}>
+              <span className="ui-chevron-right realms-back-chevron" aria-hidden="true" />
+              {t('realms_back_realm', { realm: t(meta.titleKey) })}
+            </Link>
+            <p className="section-label">{t(meta.titleKey)}</p>
+            <h1 className="realms-page-title">{t('realms_fc_loading')}</h1>
+          </div>
+        </main>
+      </RealmsPageShell>
+    )
+  }
+
   if (!feature) {
     return <Navigate to={pathToRealm(realmId)} replace />
   }
-
-  const meta = REALM_META[realmId]
 
   return (
     <RealmsPageShell>
