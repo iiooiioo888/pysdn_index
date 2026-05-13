@@ -727,5 +727,6 @@
   "realms_fc_heading": "功能清單",
   "realms_fc_more": "查看全部 {{count}} 項功能",
   "realms_fc_empty": "暫無功能資料",
+  "realms_fc_source": "查看來源",
   "models_badge_legacy": "舊版"
 }

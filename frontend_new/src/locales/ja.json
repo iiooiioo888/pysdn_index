@@ -727,5 +727,6 @@
   "realms_fc_heading": "機能一覧",
   "realms_fc_more": "全 {{count}} 件の機能を見る",
   "realms_fc_empty": "機能データはまだありません",
+  "realms_fc_source": "ソースを見る",
   "models_badge_legacy": "旧版"
 }

@@ -727,5 +727,6 @@
   "realms_fc_heading": "Features",
   "realms_fc_more": "View all {{count}} features",
   "realms_fc_empty": "No feature data available yet",
+  "realms_fc_source": "View source",
   "models_badge_legacy": "Legacy"
 }

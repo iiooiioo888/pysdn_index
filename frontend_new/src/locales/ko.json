@@ -727,5 +727,6 @@
   "realms_fc_heading": "기능 목록",
   "realms_fc_more": "전체 {{count}}개 기능 보기",
   "realms_fc_empty": "기능 데이터가 아직 없습니다",
+  "realms_fc_source": "원본 보기",
   "models_badge_legacy": "구버전"
 }

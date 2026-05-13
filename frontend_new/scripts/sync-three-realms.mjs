@@ -2,19 +2,17 @@
 /**
  * sync-three-realms.mjs
  *
- * Fetches directory listings + README content from iiooiioo888/Note (天域/神域/鏡界)
- * and generates a static TypeScript data file for the Three Realms feature cards.
+ * Generates static Three Realms feature-card data from the Note repository.
  *
- * Token: process.env.GITHUB_TOKEN or process.env.NOTE_GITHUB_TOKEN
+ * Sources, in priority order:
+ * 1. NOTE_REALMS_SOURCE_DIR=/path/to/Note local clone
+ * 2. GitHub API with GITHUB_TOKEN or NOTE_GITHUB_TOKEN
+ *
  * Output: src/data/threeRealmsFeatures.ts
- *
- * Usage:
- *   GITHUB_TOKEN=ghp_xxx node scripts/sync-three-realms.mjs
- *   # or: npm run sync:realms
  */
 
-import { writeFileSync, mkdirSync } from 'node:fs'
-import { join, dirname } from 'node:path'
+import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs'
+import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
@@ -22,24 +20,76 @@ const ROOT = join(__dirname, '..')
 const OUT = join(ROOT, 'src', 'data', 'threeRealmsFeatures.ts')
 
 const TOKEN = process.env.GITHUB_TOKEN || process.env.NOTE_GITHUB_TOKEN
-if (!TOKEN) {
-  console.error('❌  Set GITHUB_TOKEN or NOTE_GITHUB_TOKEN to read the Note repo.')
-  console.error('   Example: GITHUB_TOKEN=ghp_xxx node scripts/sync-three-realms.mjs')
-  process.exit(1)
-}
+const LOCAL_SOURCE = process.env.NOTE_REALMS_SOURCE_DIR
 
 const REPO = 'iiooiioo888/Note'
 const API = 'https://api.github.com/repos'
-const HEADERS = {
-  Authorization: `token ${TOKEN}`,
+const REALM_FOLDERS = {
+  tianyu: '天域',
+  shenyu: '神域',
+  jingjie: '鏡界',
+}
+const HEADERS = TOKEN ? {
+  Authorization: `Bearer ${TOKEN}`,
   Accept: 'application/vnd.github.v3+json',
   'User-Agent': 'pysdn-sync',
+} : undefined
+
+/* helpers */
+
+function encodeRepoPath(path) {
+  return path.split('/').map((segment) => encodeURIComponent(segment)).join('/')
 }
 
-/* ── helpers ───────────────────────────────────────────── */
+function sourceUrl(path) {
+  return `https://github.com/${REPO}/blob/main/${encodeRepoPath(path)}`
+}
+
+function sourceTreeUrl(path) {
+  return `https://github.com/${REPO}/tree/main/${encodeRepoPath(path)}`
+}
+
+function localPath(path) {
+  return join(LOCAL_SOURCE, ...path.split('/'))
+}
+
+async function listEntries(path) {
+  if (LOCAL_SOURCE) {
+    const dir = localPath(path)
+    if (!existsSync(dir)) {
+      throw new Error(`Local source path not found: ${dir}`)
+    }
+
+    return readdirSync(dir, { withFileTypes: true })
+      .map((entry) => ({
+        name: entry.name,
+        type: entry.isDirectory() ? 'dir' : 'file',
+      }))
+      .sort((a, b) => a.name.localeCompare(b.name, 'zh-Hant'))
+  }
+
+  const data = await ghJson(path)
+  if (!Array.isArray(data)) {
+    throw new Error(`Expected directory listing for ${path}`)
+  }
+  return data
+}
+
+async function readSourceText(path) {
+  if (LOCAL_SOURCE) {
+    return readFileSync(localPath(path), 'utf8')
+  }
+  return fetchText(path)
+}
 
 async function ghJson(path) {
-  const url = `${API}/${REPO}/contents/${path}`
+  if (!TOKEN) {
+    throw new Error(
+      'Set NOTE_REALMS_SOURCE_DIR to a local Note clone, or set GITHUB_TOKEN/NOTE_GITHUB_TOKEN for GitHub API access.',
+    )
+  }
+
+  const url = `${API}/${REPO}/contents/${encodeRepoPath(path)}`
   const res = await fetch(url, { headers: HEADERS })
   if (!res.ok) {
     const body = await res.text().catch(() => '')
@@ -56,22 +106,53 @@ async function fetchText(path) {
   return data.content ?? ''
 }
 
-/** Extract first meaningful paragraph (skip heading & blank lines) */
+function cleanInlineMarkdown(text) {
+  return text
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+    .replace(/[*_`~]/g, '')
+    .replace(/\s+/g, ' ')
+    .trim()
+}
+
+function isNoiseLine(line) {
+  return (
+    !line ||
+    line.startsWith('#') ||
+    line.startsWith('---') ||
+    line.startsWith('```') ||
+    line.startsWith('![') ||
+    line.startsWith('|') ||
+    line.startsWith('> **') ||
+    line === '[返回](../README.md)'
+  )
+}
+
+/** Extract first meaningful paragraph, skipping headings, tables, badges and code blocks. */
 function firstParagraph(md) {
   const lines = md.split('\n')
   let started = false
+  let inCode = false
   const buf = []
+
   for (const line of lines) {
     const trimmed = line.trim()
-    // skip front-matter, headings, badges, hr
-    if (!trimmed || trimmed.startsWith('#') || trimmed.startsWith('---') || trimmed.startsWith('![') || trimmed.startsWith('> **'))
-      { if (started) break; else continue }
+
+    if (trimmed.startsWith('```')) {
+      inCode = !inCode
+      if (started) break
+      continue
+    }
+    if (inCode) continue
+    if (isNoiseLine(trimmed)) {
+      if (started) break
+      continue
+    }
+
     started = true
-    // stop at next heading or blank-after-content
-    if (buf.length > 0 && !trimmed) break
-    buf.push(trimmed)
-    if (buf.join('').length > 280) break
+    buf.push(cleanInlineMarkdown(trimmed))
+    if (buf.join(' ').length > 280) break
   }
+
   return buf.join(' ').slice(0, 320)
 }
 
@@ -79,11 +160,11 @@ function firstParagraph(md) {
 function extractBullets(md, max = 4) {
   const bullets = []
   for (const line of md.split('\n')) {
-    const m = line.match(/^\s*[-*]\s+\*?\*?(.+?)\*?\*?\s*$/)
+    const m = line.match(/^\s*(?:[-*]|\d+\.)\s+(?:\[[ x]\]\s*)?(.+?)\s*$/i)
     if (m) {
-      // strip markdown bold/links
-      let text = m[1].replace(/\*\*/g, '').replace(/\[([^\]]+)\]\([^)]+\)/g, '$1').trim()
-      if (text.length > 120) text = text.slice(0, 117) + '…'
+      let text = cleanInlineMarkdown(m[1])
+      if (!text || text.startsWith('http')) continue
+      if (text.length > 120) text = `${text.slice(0, 117)}...`
       bullets.push(text)
       if (bullets.length >= max) break
     }
@@ -94,36 +175,54 @@ function extractBullets(md, max = 4) {
 /** Try to get a title from the first heading */
 function extractTitle(md) {
   const m = md.match(/^#\s+(.+)/m)
-  if (m) return m[1].replace(/[#*`]/g, '').trim()
+  if (m) return cleanInlineMarkdown(m[1].replace(/#/g, ''))
   return null
 }
 
-/* ── realm processors ─────────────────────────────────── */
+function mdTitleFromName(name) {
+  return name.replace(/\.md$/i, '').replace(/[-_]/g, ' ')
+}
+
+function inferDocTags(name) {
+  const slug = name.replace(/\.md$/i, '').toLowerCase()
+  if (slug === 'readme') return ['overview']
+  if (slug.includes('task')) return ['task']
+  if (slug.includes('road')) return ['roadmap']
+  if (slug.includes('guide')) return ['guide']
+  return ['doc']
+}
+
+function featureCard(realmId, card) {
+  return { realmId, ...card }
+}
+
+/* realm processors */
 
 /**
  * 天域: top-level .md files as features (README, guides, roadmap)
  * and Python source files grouped by purpose.
  */
 async function processTianyu() {
-  const entries = await ghJson('天域')
+  const folder = REALM_FOLDERS.tianyu
+  const entries = await listEntries(folder)
   const mdFiles = entries.filter(e => e.type === 'file' && e.name.endsWith('.md') && e.name !== '.gitignore')
   const cards = []
 
   for (const f of mdFiles) {
-    const raw = await fetchText(`天域/${f.name}`)
-    const title = extractTitle(raw) || f.name.replace('.md', '').replace(/[-_]/g, ' ')
+    const path = `${folder}/${f.name}`
+    const raw = await readSourceText(path)
+    const title = extractTitle(raw) || mdTitleFromName(f.name)
     const summary = firstParagraph(raw)
     const bullets = extractBullets(raw)
-    const slug = f.name.replace('.md', '')
 
-    cards.push({
+    cards.push(featureCard('tianyu', {
       title,
       summary: summary || `天域文檔：${title}`,
       bullets,
-      sourcePath: `天域/${f.name}`,
-      sourceUrl: `https://github.com/${REPO}/blob/main/${encodeURIComponent('天域')}/${encodeURIComponent(f.name)}`,
-      tags: slug === 'README' ? ['overview'] : slug.toLowerCase().includes('task') ? ['task'] : slug.toLowerCase().includes('road') ? ['roadmap'] : ['guide'],
-    })
+      sourcePath: path,
+      sourceUrl: sourceUrl(path),
+      tags: inferDocTags(f.name),
+    }))
   }
   return cards
 }
@@ -132,14 +231,16 @@ async function processTianyu() {
  * 神域: ch* directories are modules. Fetch their README or index.
  */
 async function processShenyu() {
-  const entries = await ghJson('神域')
+  const folder = REALM_FOLDERS.shenyu
+  const entries = await listEntries(folder)
   const dirs = entries.filter(e => e.type === 'dir' && e.name.startsWith('ch'))
   // also include standalone .md files that aren't README
   const standalone = entries.filter(e => e.type === 'file' && e.name.endsWith('.md') && !['README.md', 'README_old.md'].includes(e.name))
   const cards = []
 
   for (const d of dirs) {
-    const dirEntries = await ghJson(`神域/${encodeURIComponent(d.name)}`).catch(() => null)
+    const dirPath = `${folder}/${d.name}`
+    const dirEntries = await listEntries(dirPath).catch(() => null)
     if (!dirEntries || !Array.isArray(dirEntries)) continue
 
     // find README or index
@@ -148,7 +249,8 @@ async function processShenyu() {
     const target = readme || index
     if (!target) continue
 
-    const raw = await fetchText(`神域/${encodeURIComponent(d.name)}/${target.name}`)
+    const path = `${dirPath}/${target.name}`
+    const raw = await readSourceText(path)
     const title = extractTitle(raw) || d.name
     const summary = firstParagraph(raw)
     const bullets = extractBullets(raw)
@@ -157,29 +259,30 @@ async function processShenyu() {
     const chMatch = d.name.match(/^ch(\d+)/)
     const chNum = chMatch ? chMatch[1] : '?'
 
-    cards.push({
+    cards.push(featureCard('shenyu', {
       title: title.replace(/^\s*\d+[\.\-]\s*/, ''),
       summary: summary || `神域模組：${title}`,
       bullets,
-      sourcePath: `神域/${d.name}/${target.name}`,
-      sourceUrl: `https://github.com/${REPO}/blob/main/${encodeURIComponent('神域')}/${encodeURIComponent(d.name)}/${encodeURIComponent(target.name)}`,
+      sourcePath: path,
+      sourceUrl: sourceUrl(path),
       tags: [`ch${chNum}`, 'module'],
-    })
+    }))
   }
 
   // standalone docs
   for (const f of standalone) {
-    const raw = await fetchText(`神域/${encodeURIComponent(f.name)}`)
-    const title = extractTitle(raw) || f.name.replace('.md', '')
+    const path = `${folder}/${f.name}`
+    const raw = await readSourceText(path)
+    const title = extractTitle(raw) || mdTitleFromName(f.name)
     const summary = firstParagraph(raw)
-    cards.push({
+    cards.push(featureCard('shenyu', {
       title,
       summary: summary || `神域文檔：${title}`,
       bullets: extractBullets(raw),
-      sourcePath: `神域/${f.name}`,
-      sourceUrl: `https://github.com/${REPO}/blob/main/${encodeURIComponent('神域')}/${encodeURIComponent(f.name)}`,
-      tags: ['doc'],
-    })
+      sourcePath: path,
+      sourceUrl: sourceUrl(path),
+      tags: inferDocTags(f.name),
+    }))
   }
 
   return cards
@@ -189,13 +292,15 @@ async function processShenyu() {
  * 鏡界: subdirectories are modules. Fetch their README.md.
  */
 async function processJingjie() {
-  const entries = await ghJson('鏡界')
+  const folder = REALM_FOLDERS.jingjie
+  const entries = await listEntries(folder)
   const dirs = entries.filter(e => e.type === 'dir')
   const standalone = entries.filter(e => e.type === 'file' && e.name.endsWith('.md') && e.name !== 'README.md')
   const cards = []
 
   for (const d of dirs) {
-    const dirEntries = await ghJson(`鏡界/${encodeURIComponent(d.name)}`).catch(() => null)
+    const dirPath = `${folder}/${d.name}`
+    const dirEntries = await listEntries(dirPath).catch(() => null)
     if (!dirEntries || !Array.isArray(dirEntries)) continue
 
     const readme = dirEntries.find(e => e.name === 'README.md')
@@ -203,53 +308,65 @@ async function processJingjie() {
     const target = readme || index
     if (!target) continue
 
-    const raw = await fetchText(`鏡界/${encodeURIComponent(d.name)}/${target.name}`)
+    const path = `${dirPath}/${target.name}`
+    const raw = await readSourceText(path)
     const title = extractTitle(raw) || d.name
     const summary = firstParagraph(raw)
     const bullets = extractBullets(raw)
 
-    cards.push({
+    cards.push(featureCard('jingjie', {
       title: title.replace(/^\s*[\d\.\-]+\s*/, ''),
       summary: summary || `鏡界模組：${title}`,
       bullets,
-      sourcePath: `鏡界/${d.name}/${target.name}`,
-      sourceUrl: `https://github.com/${REPO}/blob/main/${encodeURIComponent('鏡界')}/${encodeURIComponent(d.name)}/${encodeURIComponent(target.name)}`,
+      sourcePath: path,
+      sourceUrl: sourceUrl(path),
       tags: ['module'],
-    })
+    }))
   }
 
   // standalone docs (top-level .md files)
   for (const f of standalone) {
-    const raw = await fetchText(`鏡界/${encodeURIComponent(f.name)}`)
-    const title = extractTitle(raw) || f.name.replace('.md', '')
+    const path = `${folder}/${f.name}`
+    const raw = await readSourceText(path)
+    const title = extractTitle(raw) || mdTitleFromName(f.name)
     const summary = firstParagraph(raw)
-    cards.push({
+    cards.push(featureCard('jingjie', {
       title,
       summary: summary || `鏡界文檔：${title}`,
       bullets: extractBullets(raw),
-      sourcePath: `鏡界/${f.name}`,
-      sourceUrl: `https://github.com/${REPO}/blob/main/${encodeURIComponent('鏡界')}/${encodeURIComponent(f.name)}`,
-      tags: ['doc'],
-    })
+      sourcePath: path,
+      sourceUrl: sourceUrl(path),
+      tags: inferDocTags(f.name),
+    }))
   }
 
   return cards
 }
 
-/* ── main ──────────────────────────────────────────────── */
+/* main */
 
 async function main() {
-  console.log('⏳ Fetching 天域…')
+  if (LOCAL_SOURCE) {
+    console.log(`Using local Note source: ${LOCAL_SOURCE}`)
+  } else if (TOKEN) {
+    console.log(`Using GitHub API source: ${REPO}`)
+  } else {
+    throw new Error(
+      'Set NOTE_REALMS_SOURCE_DIR to a local Note clone, or set GITHUB_TOKEN/NOTE_GITHUB_TOKEN for GitHub API access.',
+    )
+  }
+
+  console.log('Fetching 天域...')
   const tianyu = await processTianyu()
-  console.log(`   ✓ ${tianyu.length} cards`)
+  console.log(`   ${tianyu.length} cards`)
 
-  console.log('⏳ Fetching 神域…')
+  console.log('Fetching 神域...')
   const shenyu = await processShenyu()
-  console.log(`   ✓ ${shenyu.length} cards`)
+  console.log(`   ${shenyu.length} cards`)
 
-  console.log('⏳ Fetching 鏡界…')
+  console.log('Fetching 鏡界...')
   const jingjie = await processJingjie()
-  console.log(`   ✓ ${jingjie.length} cards`)
+  console.log(`   ${jingjie.length} cards`)
 
   const total = tianyu.length + shenyu.length + jingjie.length
 
@@ -258,6 +375,7 @@ async function main() {
 // Generated: ${new Date().toISOString()}
 
 export interface RealmFeatureCard {
+  realmId: RealmId
   title: string
   summary: string
   bullets: string[]
@@ -277,10 +395,11 @@ export const REALMS_FEATURES: Record<RealmId, RealmFeatureCard[]> = {
 
   mkdirSync(dirname(OUT), { recursive: true })
   writeFileSync(OUT, ts)
-  console.log(`\n✅ Wrote ${total} cards → ${OUT.replace(process.cwd() + '/', '')}`)
+  console.log(`\nWrote ${total} cards -> ${OUT.replace(`${process.cwd()}/`, '')}`)
 }
 
 main().catch((err) => {
-  console.error('❌ Sync failed:', err.message)
+  console.error('Sync failed:', err.message)
+  console.error(`GitHub source: ${sourceTreeUrl('天域')}`)
   process.exit(1)
 })

@@ -67,9 +67,15 @@ function readPoints(t: (key: string, opts?: { returnObjects?: boolean }) => unkn
   return Array.isArray(raw) ? raw.filter((x): x is string => typeof x === 'string') : []
 }
 
-/* ── Feature card component ────────────────────────────── */
-
-function FeatureCard({ card, accent }: { card: RealmFeatureCard; accent: 'cyan' | 'violet' | 'emerald' }) {
+function FeatureCard({
+  card,
+  accent,
+  sourceLabel,
+}: {
+  card: RealmFeatureCard
+  accent: 'cyan' | 'violet' | 'emerald'
+  sourceLabel: string
+}) {
   return (
     <article className={`realms-fc realms-fc--${accent}`}>
       <h5 className="realms-fc-title">{card.title}</h5>
@@ -93,15 +99,15 @@ function FeatureCard({ card, accent }: { card: RealmFeatureCard; accent: 'cyan' 
         href={card.sourceUrl}
         target="_blank"
         rel="noopener noreferrer"
+        aria-label={`${sourceLabel}: ${card.sourcePath}`}
       >
-        {card.sourcePath}
+        <span>{sourceLabel}</span>
+        <span className="realms-fc-source-path">{card.sourcePath}</span>
         <span className="ui-chevron-right" aria-hidden="true" />
       </a>
     </article>
   )
 }
-
-/* ── Main component ────────────────────────────────────── */
 
 export function ThreeRealmsInteractive({ layout, showFullPageLink }: ThreeRealmsInteractiveProps) {
   const { t } = useTranslation()
@@ -172,20 +178,37 @@ export function ThreeRealmsInteractive({ layout, showFullPageLink }: ThreeRealms
             return (
               <div key={id} className="realms-ix-flow-cell">
                 {i > 0 ? <span className="realms-ix-connector" aria-hidden="true" /> : null}
-                <button
-                  type="button"
-                  role="tab"
-                  id={`${baseId}-tab-${id}`}
-                  className={`realms-ix-tab realms-ix-tab--${m.accent} ${active ? 'realms-ix-tab--active' : ''}`}
-                  aria-selected={active ? 'true' : 'false'}
-                  aria-controls={`${baseId}-panel`}
-                  tabIndex={active ? 0 : -1}
-                  onClick={() => selectRealm(i)}
-                >
-                  <span className="realms-ix-tab-step">{t('realms_ix_step', { n: i + 1 })}</span>
-                  <span className="realms-ix-tab-title">{t(m.titleKey)}</span>
-                  <span className="realms-ix-tab-sub">{t(m.subKey)}</span>
-                </button>
+                {active ? (
+                  <button
+                    type="button"
+                    role="tab"
+                    id={`${baseId}-tab-${id}`}
+                    className={`realms-ix-tab realms-ix-tab--${m.accent} realms-ix-tab--active`}
+                    aria-selected="true"
+                    aria-controls={`${baseId}-panel`}
+                    tabIndex={0}
+                    onClick={() => selectRealm(i)}
+                  >
+                    <span className="realms-ix-tab-step">{t('realms_ix_step', { n: i + 1 })}</span>
+                    <span className="realms-ix-tab-title">{t(m.titleKey)}</span>
+                    <span className="realms-ix-tab-sub">{t(m.subKey)}</span>
+                  </button>
+                ) : (
+                  <button
+                    type="button"
+                    role="tab"
+                    id={`${baseId}-tab-${id}`}
+                    className={`realms-ix-tab realms-ix-tab--${m.accent}`}
+                    aria-selected="false"
+                    aria-controls={`${baseId}-panel`}
+                    tabIndex={-1}
+                    onClick={() => selectRealm(i)}
+                  >
+                    <span className="realms-ix-tab-step">{t('realms_ix_step', { n: i + 1 })}</span>
+                    <span className="realms-ix-tab-title">{t(m.titleKey)}</span>
+                    <span className="realms-ix-tab-sub">{t(m.subKey)}</span>
+                  </button>
+                )}
               </div>
             )
           })}
@@ -224,13 +247,12 @@ export function ThreeRealmsInteractive({ layout, showFullPageLink }: ThreeRealms
           </ul>
         </div>
 
-        {/* ── Feature cards ── */}
         {visibleCards.length > 0 ? (
           <div className="realms-fc-section">
             <h4 className="realms-fc-heading">{t('realms_fc_heading')}</h4>
             <div className="realms-fc-grid">
               {visibleCards.map((card) => (
-                <FeatureCard key={card.sourcePath} card={card} accent={meta.accent} />
+                <FeatureCard key={card.sourcePath} card={card} accent={meta.accent} sourceLabel={t('realms_fc_source')} />
               ))}
             </div>
             {hasMore ? (
@@ -244,16 +266,13 @@ export function ThreeRealmsInteractive({ layout, showFullPageLink }: ThreeRealms
           <p className="realms-fc-empty">{t('realms_fc_empty')}</p>
         )}
 
-        {/* ── Folder link ── */}
         <div className="realms-ix-actions">
           <a className="realms-ix-folder-link" href={meta.folderTreeUrl} target="_blank" rel="noopener noreferrer">
-            <span className="realms-ix-folder-icon" aria-hidden="true">📂</span>
             {t(meta.folderLabelKey)}
           </a>
         </div>
       </div>
 
-      {/* ── Global CTAs ── */}
       <div className="realms-ix-actions">
         {showFullPageLink ? (
           <Link className="realms-ix-link realms-ix-link--primary" to={{ pathname: PATHS.realms, search: langSearch }}>

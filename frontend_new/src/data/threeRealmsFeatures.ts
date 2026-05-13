@@ -2,6 +2,7 @@
 // Generated: 2026-05-13T06:46:01.670Z
 
 export interface RealmFeatureCard {
+  realmId?: RealmId
   title: string
   summary: string
   bullets: string[]
