@@ -19,6 +19,7 @@ const NAV_LINKS: NavLinkDef[] = [
   // 「首頁」省略——Logo 已經是回首頁的連結
   { type: 'homeHash', hash: '#products', i18nKey: 'nav_products' },
   { type: 'route', path: PATHS.models, i18nKey: 'nav_models' },
+  { type: 'route', path: PATHS.backup, i18nKey: 'nav_backup' },
   { type: 'route', path: PATHS.modules, i18nKey: 'nav_module_docs' },
   { type: 'route', path: PATHS.faq, i18nKey: 'nav_faq' },
   { type: 'route', path: PATHS.realms, i18nKey: 'nav_realms' },

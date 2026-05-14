@@ -21,6 +21,7 @@ const files = [
   'model-detail',
   'footer',
   'realms',
+  'backup',
 ]
 
 let out =

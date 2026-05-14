@@ -4,6 +4,7 @@ import { ModulesPage as ModulesPageCmp } from '../pages/ModulesPage'
 import { ModelsPage as ModelsPageCmp } from '../pages/ModelsPage'
 import { ModelDetailPage as ModelDetailPageCmp } from '../pages/ModelDetailPage'
 import { FaqPage as FaqPageCmp } from '../pages/FaqPage'
+import { BackupPage as BackupPageCmp } from '../pages/BackupPage'
 import { ThreeRealmsPage as ThreeRealmsPageCmp } from '../pages/ThreeRealmsPage'
 import { RealmIntegrationPage as RealmIntegrationPageCmp } from '../pages/realms/RealmIntegrationPage'
 import { RealmPage as RealmPageCmp } from '../pages/realms/RealmPage'
@@ -23,6 +24,7 @@ export const ModulesPage = eagerPage(ModulesPageCmp)
 export const ModelsPage = eagerPage(ModelsPageCmp)
 export const ModelDetailPage = eagerPage(ModelDetailPageCmp)
 export const FaqPage = eagerPage(FaqPageCmp)
+export const BackupPage = eagerPage(BackupPageCmp)
 export const ThreeRealmsPage = eagerPage(ThreeRealmsPageCmp)
 export const RealmIntegrationPage = eagerPage(RealmIntegrationPageCmp)
 export const RealmPage = eagerPage(RealmPageCmp)

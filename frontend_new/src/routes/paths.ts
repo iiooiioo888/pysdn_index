@@ -9,6 +9,8 @@ export const PATHS = {
   /** 動態段與 `CATALOG_MODELS[].id` 對齊，例如 `/models/seedance-2` */
   modelsDetailPattern: '/models/:modelId',
   faq: '/faq',
+  /** 網紅數位資產備份系統 */
+  backup: '/backup',
   /** Note 倉庫三界：互動式資訊導覽 */
   realms: '/realms',
   realmsIndex: '/realms',
