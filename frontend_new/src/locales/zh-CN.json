@@ -700,6 +700,7 @@
   "realms_page_lead": "切换下方境界即可查看摘要与要点；网址可带 ?realm=tianyu、shenyu、jingjie 直接定位。",
   "realms_index_title": "Note 三界总览",
   "realms_index_lead": "每一界都有独立页面，每个功能也能进入专属详情页，方便直接分享与查阅来源内容。",
+  "realms_integration_demo_link": "天域 ↔ 镜界整合流程 Demo",
   "realms_index_feature_count": "{{count}} 项功能",
   "realms_back_index": "返回三界总览",
   "realms_back_realm": "返回{{realm}}",

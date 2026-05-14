@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useId, useState, type KeyboardEvent } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Link, useSearchParams } from 'react-router-dom'
+import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import type { ResolvedRealmFeatureCard } from '../data/threeRealmsFeatureUtils'
 import { REALM_META, REALM_ORDER, type RealmAccent } from '../data/threeRealmsMeta'
 import type { RealmId } from '../data/threeRealmsFeatures'
@@ -41,10 +41,15 @@ export function RealmFeatureCardLink({
   detailLabel: string
 }) {
   const { convert } = useCnToTwConverter()
+  const langSearch = useLangQuery()
+  const featureTo = {
+    pathname: pathToRealmFeature(card.realmId, card.slug),
+    search: langSearch,
+  }
   return (
     <article className={`realms-fc realms-fc--${accent}`}>
       <h5 className="realms-fc-title">
-        <Link to={pathToRealmFeature(card.realmId, card.slug)}>{convert(card.title)}</Link>
+        <Link to={featureTo}>{convert(card.title)}</Link>
       </h5>
       <p className="realms-fc-summary">{convert(card.summary)}</p>
       {card.bullets.length > 0 ? (
@@ -61,7 +66,7 @@ export function RealmFeatureCardLink({
           ))}
         </div>
       ) : null}
-      <Link className="realms-fc-detail" to={pathToRealmFeature(card.realmId, card.slug)}>
+      <Link className="realms-fc-detail" to={featureTo}>
         {detailLabel}
         <span className="ui-chevron-right" aria-hidden="true" />
       </Link>
@@ -84,7 +89,8 @@ export function ThreeRealmsInteractive({ layout, showFullPageLink }: ThreeRealms
   const { t } = useTranslation()
   useI18nRerender()
   const langSearch = useLangQuery()
-  const [searchParams, setSearchParams] = useSearchParams()
+  const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
   const reduceMotion = prefersReducedMotion()
   const baseId = useId()
 
@@ -111,10 +117,11 @@ export function ThreeRealmsInteractive({ layout, showFullPageLink }: ThreeRealms
       const wrapped = ((i % n) + n) % n
       setIdx(wrapped)
       if (layout === 'standalone') {
-        setSearchParams({ realm: REALM_ORDER[wrapped] }, { replace: true })
+        const id = REALM_ORDER[wrapped]
+        navigate({ pathname: pathToRealm(id), search: langSearch })
       }
     },
-    [layout, setSearchParams],
+    [layout, navigate, langSearch],
   )
 
   const onTabListKeyDown = (e: KeyboardEvent) => {
@@ -147,38 +154,55 @@ export function ThreeRealmsInteractive({ layout, showFullPageLink }: ThreeRealms
           {REALM_ORDER.map((id, i) => {
             const m = REALM_META[id]
             const active = i === idx
+            const realmPath = { pathname: pathToRealm(id), search: langSearch }
+            const tabInner = (
+              <>
+                <span className="realms-ix-tab-step">{t('realms_ix_step', { n: i + 1 })}</span>
+                <span className="realms-ix-tab-title">{t(m.titleKey)}</span>
+                <span className="realms-ix-tab-sub">{t(m.subKey)}</span>
+              </>
+            )
+            const tabClassName = `realms-ix-tab realms-ix-tab--${m.accent}${active ? ' realms-ix-tab--active' : ''}`
             return (
               <div key={id} className="realms-ix-flow-cell">
                 {i > 0 ? <span className="realms-ix-connector" aria-hidden="true" /> : null}
-                {active ? (
+                {layout === 'standalone' ? (
+                  <Link
+                    role="tab"
+                    id={`${baseId}-tab-${id}`}
+                    className={tabClassName}
+                    to={realmPath}
+                    aria-selected={active}
+                    aria-controls={`${baseId}-panel`}
+                    tabIndex={active ? 0 : -1}
+                  >
+                    {tabInner}
+                  </Link>
+                ) : active ? (
                   <button
                     type="button"
                     role="tab"
                     id={`${baseId}-tab-${id}`}
-                    className={`realms-ix-tab realms-ix-tab--${m.accent} realms-ix-tab--active`}
+                    className={tabClassName}
                     aria-selected="true"
                     aria-controls={`${baseId}-panel`}
                     tabIndex={0}
                     onClick={() => selectRealm(i)}
                   >
-                    <span className="realms-ix-tab-step">{t('realms_ix_step', { n: i + 1 })}</span>
-                    <span className="realms-ix-tab-title">{t(m.titleKey)}</span>
-                    <span className="realms-ix-tab-sub">{t(m.subKey)}</span>
+                    {tabInner}
                   </button>
                 ) : (
                   <button
                     type="button"
                     role="tab"
                     id={`${baseId}-tab-${id}`}
-                    className={`realms-ix-tab realms-ix-tab--${m.accent}`}
+                    className={tabClassName}
                     aria-selected="false"
                     aria-controls={`${baseId}-panel`}
                     tabIndex={-1}
                     onClick={() => selectRealm(i)}
                   >
-                    <span className="realms-ix-tab-step">{t('realms_ix_step', { n: i + 1 })}</span>
-                    <span className="realms-ix-tab-title">{t(m.titleKey)}</span>
-                    <span className="realms-ix-tab-sub">{t(m.subKey)}</span>
+                    {tabInner}
                   </button>
                 )}
               </div>

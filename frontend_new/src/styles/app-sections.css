@@ -7029,20 +7029,21 @@ main.realms-page-main {
   margin: 0 0 6px;
 }
 
-/* 三界整合頁（天域 ↔ 鏡界） */
+/* 三界總覽：整合 Demo 連結置於 hero 內 */
 .realms-integration-entry {
-  padding-top: 16px;
-  position: relative;
-  z-index: 2;
+  margin-top: 18px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
 }
 
-.realms-index-iframe {
-  width: 100%;
-  height: 100vh;
-  border: none;
-  display: block;
-  position: relative;
-  z-index: 1;
+/** 總覽頁互動區與頁腳留白 */
+.realms-index-interactive-wrap {
+  padding-bottom: clamp(32px, 6vh, 72px);
+  max-width: min(72rem, 100%);
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .realms-integration-panel {

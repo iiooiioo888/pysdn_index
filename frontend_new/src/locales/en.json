@@ -700,6 +700,7 @@
   "realms_page_lead": "Pick a realm below for a concise brief and highlights. Deep-link with ?realm=tianyu, shenyu, or jingjie.",
   "realms_index_title": "Note Three Realms Overview",
   "realms_index_lead": "Each realm has its own page, and every feature opens a dedicated detail page for direct sharing and source reading.",
+  "realms_integration_demo_link": "Tianyu ↔ Jingjie integration demo",
   "realms_index_feature_count": "{{count}} features",
   "realms_back_index": "Back to Three Realms",
   "realms_back_realm": "Back to {{realm}}",

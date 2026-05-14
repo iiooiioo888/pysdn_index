@@ -700,6 +700,7 @@
   "realms_page_lead": "下のタブで各境界の概要と要点を表示。URL パラメータ ?realm=tianyu / shenyu / jingjie で直接開けます。",
   "realms_index_title": "Note 三界の概要",
   "realms_index_lead": "各境界には個別ページがあり、各機能も専用の詳細ページで共有・参照できます。",
+  "realms_integration_demo_link": "天域↔鏡界 統合フロー（デモ）",
   "realms_index_feature_count": "{{count}} 件の機能",
   "realms_back_index": "三界の概要に戻る",
   "realms_back_realm": "{{realm}}に戻る",

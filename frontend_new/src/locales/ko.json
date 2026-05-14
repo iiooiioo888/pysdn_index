@@ -700,6 +700,7 @@
   "realms_page_lead": "아래에서 각 경계의 요약과 하이라이트를 확인하세요. URL에 ?realm= 뒤에 tianyu·shenyu·jingjie 중 하나를 붙이면 바로 열 수 있습니다.",
   "realms_index_title": "Note 삼계 개요",
   "realms_index_lead": "각 경계는 독립 페이지를 갖고, 모든 기능도 전용 상세 페이지에서 공유하고 원본을 확인할 수 있습니다.",
+  "realms_integration_demo_link": "천역 ↔ 경계 통합 데모",
   "realms_index_feature_count": "기능 {{count}}개",
   "realms_back_index": "삼계 개요로 돌아가기",
   "realms_back_realm": "{{realm}}로 돌아가기",
