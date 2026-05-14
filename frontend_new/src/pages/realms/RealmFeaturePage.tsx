@@ -219,7 +219,7 @@ export function RealmFeaturePage() {
           </aside>
           <article className="realms-feature-body">
             <h2>{t('realms_feature_markdown')}</h2>
-            <RealmMarkdown markdown={feature.bodyMarkdown} textTransform={convert} />
+            <RealmMarkdown markdown={feature.bodyMarkdown} textTransform={convert} showToc />
           </article>
         </div>
       </main>

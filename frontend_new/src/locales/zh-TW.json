@@ -784,5 +784,10 @@
   "realms_tianyu_iteration_note": "合併卡僅對應本頁詳情路由；若要分享單輪快照，請使用下列連結。",
   "realms_tianyu_request_id_label": "請求",
   "realms_tianyu_source_hover_tip": "滑過圖示可於提示中看到完整來源路徑。點擊於 GitHub 開啟。",
+  "realms_md_toc": "目錄",
+  "realms_md_copy": "複製",
+  "realms_md_copied": "已複製",
+  "realms_md_close": "關閉",
+  "realms_md_image_zoom": "點擊圖片放大檢視",
   "models_badge_legacy": "舊版"
 }

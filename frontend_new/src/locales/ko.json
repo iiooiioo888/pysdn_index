@@ -784,5 +784,10 @@
   "realms_tianyu_iteration_note": "통합 상세 페이지 슬러그는 사이트 내부 전용입니다. 공유에는 아래 GitHub 링크를 이용하세요.",
   "realms_tianyu_request_id_label": "요청 ID",
   "realms_tianyu_source_hover_tip": "아이콘에 호버하면 전체 경로, 클릭 시 GitHub로 이동합니다.",
+  "realms_md_toc": "목차",
+  "realms_md_copy": "복사",
+  "realms_md_copied": "복사됨",
+  "realms_md_close": "닫기",
+  "realms_md_image_zoom": "클릭하여 확대",
   "models_badge_legacy": "구버전"
 }

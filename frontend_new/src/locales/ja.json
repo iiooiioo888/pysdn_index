@@ -784,5 +784,10 @@
   "realms_tianyu_iteration_note": "統合詳細ページのスラッグはサイト内のみ。共有はリンクをご利用ください。",
   "realms_tianyu_request_id_label": "リクエスト",
   "realms_tianyu_source_hover_tip": "アイコンにホバーでフルパス表示、クリックで GitHub を開きます。",
+  "realms_md_toc": "目次",
+  "realms_md_copy": "コピー",
+  "realms_md_copied": "コピーしました",
+  "realms_md_close": "閉じる",
+  "realms_md_image_zoom": "クリックして拡大",
   "models_badge_legacy": "旧版"
 }
