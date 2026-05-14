@@ -1,14 +1,16 @@
-import { useEffect, useMemo } from 'react'
+import { useCallback, useEffect, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Link, Navigate, useParams } from 'react-router-dom'
+import { Link, Navigate, useNavigate, useParams } from 'react-router-dom'
 import { RealmMarkdown } from '../../components/realms/RealmMarkdown'
+import { getRealmIllustration } from '../../components/realms/RealmIllustrations'
 import type { ResolvedRealmFeatureCard } from '../../data/threeRealmsFeatureUtils'
 import { REALM_META, isRealmId } from '../../data/threeRealmsMeta'
 import { formatZhDate, relativeZhFromIso } from '../../lib/tianyuFormat'
 import { useCnToTwConverter } from '../../hooks/useCnToTwConverter'
 import { useI18nRerender } from '../../hooks/useI18nRerender'
+import { useLangQuery } from '../../hooks/useLangQuery'
 import { useRealmFeatures } from '../../hooks/useRealmFeatures'
-import { PATHS, pathToRealm } from '../../routes/paths'
+import { PATHS, pathToRealm, pathToRealmFeature } from '../../routes/paths'
 import { RealmsPageShell } from './RealmsPageShell'
 
 function TianyuBadgeRow({ feature }: { feature: ResolvedRealmFeatureCard }) {
@@ -83,10 +85,74 @@ function GithubIconBtn({ href, title }: { href: string, title: string }) {
   )
 }
 
+/** Find features with overlapping tags */
+function findRelatedFeatures(
+  current: ResolvedRealmFeatureCard,
+  all: ResolvedRealmFeatureCard[],
+  max = 4,
+): ResolvedRealmFeatureCard[] {
+  if (current.tags.length === 0) return []
+  const currentTags = new Set(current.tags.map((t) => t.toLowerCase()))
+  const scored = all
+    .filter((c) => c.slug !== current.slug)
+    .map((c) => {
+      const overlap = c.tags.filter((t) => currentTags.has(t.toLowerCase())).length
+      return { card: c, score: overlap }
+    })
+    .filter((s) => s.score > 0)
+    .sort((a, b) => b.score - a.score)
+  return scored.slice(0, max).map((s) => s.card)
+}
+
+/** Iteration timeline for interaction cards */
+function IterationTimeline({ feature, convert }: { feature: ResolvedRealmFeatureCard; convert: (s: string) => string }) {
+  const { t } = useTranslation()
+  const iters = feature.interactionIterations ?? []
+  if (iters.length === 0) return null
+
+  return (
+    <div className="realms-tianyu-detail-iters">
+      <h3>{t('realms_tianyu_iteration_links')}</h3>
+      <ol className="realms-iter-timeline">
+        {iters.map((it) => {
+          const rel = relativeZhFromIso(it.createdAt)
+          return (
+            <li key={it.sourceSlug} className="realms-iter-timeline-item">
+              <span className="realms-iter-timeline-dot">{it.ordinal}</span>
+              <div className="realms-iter-timeline-content">
+                <a
+                  className="realms-iter-timeline-link"
+                  href={it.sourceUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {t('realms_tianyu_iteration_round', { n: it.ordinal })}
+                </a>
+                <div className="realms-iter-timeline-meta">
+                  {it.createdAt ? (
+                    <>
+                      {formatZhDate(it.createdAt)}
+                      {rel ? `（${rel}）` : ''}
+                    </>
+                  ) : null}
+                  {it.statusHint ? <> · {convert(it.statusHint)}</> : null}
+                </div>
+              </div>
+            </li>
+          )
+        })}
+      </ol>
+      <p className="realms-tianyu-iter-note">{t('realms_tianyu_iteration_note')}</p>
+    </div>
+  )
+}
+
 export function RealmFeaturePage() {
   const { t } = useTranslation()
   useI18nRerender()
   const { realmId, featureSlug } = useParams()
+  const navigate = useNavigate()
+  const langSearch = useLangQuery()
 
   if (!isRealmId(realmId)) {
     return <Navigate to={PATHS.realmsIndex} replace />
@@ -96,6 +162,18 @@ export function RealmFeaturePage() {
   const feature = featureSlug ? features.find((card) => card.slug === featureSlug) : undefined
   const meta = REALM_META[realmId]
   const { convert } = useCnToTwConverter()
+  const RealmIllustration = getRealmIllustration(realmId)
+
+  // Current feature index for keyboard nav
+  const currentIndex = featureSlug ? features.findIndex((c) => c.slug === featureSlug) : -1
+  const prevFeature = currentIndex > 0 ? features[currentIndex - 1] : null
+  const nextFeature = currentIndex >= 0 && currentIndex < features.length - 1 ? features[currentIndex + 1] : null
+
+  // Related features
+  const related = useMemo(
+    () => (feature ? findRelatedFeatures(feature, features) : []),
+    [feature, features],
+  )
 
   const display = useMemo(() => {
     if (!feature) return null
@@ -106,6 +184,26 @@ export function RealmFeaturePage() {
       tags: feature.tags.map((tag) => convert(tag)),
     }
   }, [convert, feature])
+
+  // Keyboard navigation: ← →
+  const handleKeyDown = useCallback(
+    (e: KeyboardEvent) => {
+      if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return
+      if (e.key === 'ArrowLeft' && prevFeature) {
+        e.preventDefault()
+        navigate({ pathname: pathToRealmFeature(realmId, prevFeature.slug), search: langSearch })
+      } else if (e.key === 'ArrowRight' && nextFeature) {
+        e.preventDefault()
+        navigate({ pathname: pathToRealmFeature(realmId, nextFeature.slug), search: langSearch })
+      }
+    },
+    [prevFeature, nextFeature, realmId, navigate, langSearch],
+  )
+
+  useEffect(() => {
+    document.addEventListener('keydown', handleKeyDown)
+    return () => document.removeEventListener('keydown', handleKeyDown)
+  }, [handleKeyDown])
 
   useEffect(() => {
     if (!feature || loading) return undefined
@@ -138,7 +236,6 @@ export function RealmFeaturePage() {
     return <Navigate to={pathToRealm(realmId)} replace />
   }
 
-  const iters = feature.interactionIterations ?? []
   if (!display) return null
 
   return (
@@ -157,6 +254,12 @@ export function RealmFeaturePage() {
             <span className="ui-chevron-right realms-back-chevron" aria-hidden="true" />
             {t('realms_back_realm', { realm: t(meta.titleKey) })}
           </Link>
+
+          {RealmIllustration ? (
+            <div className="realms-feature-hero-illustration">
+              <RealmIllustration className={`realms-ix-illustration realms-ix-illustration--${meta.accent}`} size={56} />
+            </div>
+          ) : null}
 
           <p className="section-label">{t(meta.titleKey)}</p>
           <h1 className="realms-page-title">{display.title}</h1>
@@ -190,38 +293,64 @@ export function RealmFeaturePage() {
             ) : (
               <p>{display.summary}</p>
             )}
-            {iters.length > 0 ? (
-              <div className="realms-tianyu-detail-iters">
-                <h3>{t('realms_tianyu_iteration_links')}</h3>
-                <ol>
-                  {iters.map((it) => {
-                    const rel = relativeZhFromIso(it.createdAt)
-                    return (
-                    <li key={it.sourceSlug}>
-                      <a href={it.sourceUrl} target="_blank" rel="noopener noreferrer">
-                        {t('realms_tianyu_iteration_round', { n: it.ordinal })}
-                      </a>
-                      {it.createdAt ? (
-                        <>
-                          {' '}
-                          · {formatZhDate(it.createdAt)}
-                          {rel ? `（${rel}）` : ''}
-                        </>
-                      ) : null}
-                      {it.statusHint ? <> · {convert(it.statusHint)}</> : null}
-                    </li>
-                    )
-                  })}
-                </ol>
-                <p className="realms-tianyu-iter-note">{t('realms_tianyu_iteration_note')}</p>
-              </div>
-            ) : null}
+            <IterationTimeline feature={feature} convert={convert} />
           </aside>
           <article className="realms-feature-body">
             <h2>{t('realms_feature_markdown')}</h2>
             <RealmMarkdown markdown={feature.bodyMarkdown} textTransform={convert} showToc />
           </article>
         </div>
+
+        {/* Keyboard navigation */}
+        <div className="container">
+          <nav className="realms-feature-kb-nav" aria-label={t('realms_feature_kb_nav_aria')}>
+            {prevFeature ? (
+              <Link
+                className="realms-feature-kb-btn"
+                to={{ pathname: pathToRealmFeature(realmId, prevFeature.slug), search: langSearch }}
+              >
+                <span aria-hidden="true">←</span>
+                {convert(prevFeature.title).slice(0, 32)}{convert(prevFeature.title).length > 32 ? '…' : ''}
+              </Link>
+            ) : <span />}
+            <span className="realms-feature-kb-hint">{t('realms_feature_kb_hint')}</span>
+            {nextFeature ? (
+              <Link
+                className="realms-feature-kb-btn"
+                to={{ pathname: pathToRealmFeature(realmId, nextFeature.slug), search: langSearch }}
+              >
+                {convert(nextFeature.title).slice(0, 32)}{convert(nextFeature.title).length > 32 ? '…' : ''}
+                <span aria-hidden="true">→</span>
+              </Link>
+            ) : <span />}
+          </nav>
+        </div>
+
+        {/* Related features */}
+        {related.length > 0 ? (
+          <div className="container realms-related-section">
+            <h2 className="realms-related-heading">{t('realms_related_heading')}</h2>
+            <div className="realms-related-grid">
+              {related.map((rel) => (
+                <Link
+                  key={rel.slug}
+                  className={`realms-index-card realms-index-card--${meta.accent}`}
+                  to={{ pathname: pathToRealmFeature(realmId, rel.slug), search: langSearch }}
+                >
+                  <h5 className="realms-fc-title">{convert(rel.title)}</h5>
+                  <p className="realms-fc-summary">{convert(rel.summary)}</p>
+                  {rel.tags.length > 0 ? (
+                    <div className="realms-fc-tags">
+                      {rel.tags.map((tag) => (
+                        <span key={tag} className="realms-fc-tag">{convert(tag)}</span>
+                      ))}
+                    </div>
+                  ) : null}
+                </Link>
+              ))}
+            </div>
+          </div>
+        ) : null}
       </main>
     </RealmsPageShell>
   )

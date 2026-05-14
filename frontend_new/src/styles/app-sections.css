@@ -6538,6 +6538,302 @@ main.realms-page-main {
   color: rgba(226, 232, 240, 0.96);
 }
 
+/* ── rich markdown: images ─────────────────────────────────────────── */
+.realms-md--rich img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  margin: 1em 0;
+  display: block;
+}
+
+/* ── rich markdown: links ──────────────────────────────────────────── */
+.realms-md--rich a {
+  color: var(--accent-cyan, #67e8f9);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  text-decoration-color: rgba(103, 232, 249, 0.35);
+  transition: text-decoration-color 0.15s;
+}
+.realms-md--rich a:hover {
+  text-decoration-color: rgba(103, 232, 249, 0.8);
+}
+.realms-md--rich a[target="_blank"]::after {
+  content: ' ↗';
+  font-size: 0.75em;
+  opacity: 0.6;
+}
+
+/* ── rich markdown: bold / italic ──────────────────────────────────── */
+.realms-md--rich strong,
+.realms-md--rich b {
+  color: #fff;
+  font-weight: 600;
+}
+.realms-md--rich em,
+.realms-md--rich i {
+  font-style: italic;
+  color: rgba(226, 232, 240, 0.85);
+}
+
+/* ── rich markdown: blockquote ─────────────────────────────────────── */
+.realms-md--rich blockquote {
+  margin: 1.2em 0;
+  padding: 12px 16px;
+  border-left: 3px solid rgba(103, 232, 249, 0.4);
+  background: rgba(103, 232, 249, 0.04);
+  border-radius: 0 8px 8px 0;
+  color: var(--text-dim);
+}
+.realms-md--rich blockquote p:last-child {
+  margin-bottom: 0;
+}
+
+/* ── rich markdown: table ──────────────────────────────────────────── */
+.realms-md--rich table {
+  width: 100%;
+  margin: 1.2em 0;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  overflow-x: auto;
+  display: block;
+}
+.realms-md--rich thead {
+  background: rgba(255, 255, 255, 0.04);
+}
+.realms-md--rich th {
+  text-align: left;
+  padding: 10px 12px;
+  font-weight: 600;
+  color: #fff;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+  white-space: nowrap;
+}
+.realms-md--rich td {
+  padding: 8px 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  color: var(--text-dim);
+}
+.realms-md--rich tbody tr:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+/* ── rich markdown: horizontal rule ────────────────────────────────── */
+.realms-md--rich hr {
+  border: none;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.08);
+  margin: 2em 0;
+}
+
+/* ── rich markdown: table wrapper ──────────────────────────────────── */
+.realms-md-table-wrap {
+  overflow-x: auto;
+  margin: 1.2em 0;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* ── rich markdown: heading anchors ────────────────────────────────── */
+.realms-md--rich h2[id],
+.realms-md--rich h3[id],
+.realms-md--rich h4[id] {
+  cursor: pointer;
+  position: relative;
+}
+.realms-md--rich h2[id]:hover::before,
+.realms-md--rich h3[id]:hover::before,
+.realms-md--rich h4[id]:hover::before {
+  content: '#';
+  position: absolute;
+  left: -1.2em;
+  color: rgba(103, 232, 249, 0.4);
+  font-weight: 400;
+}
+
+/* ── rich markdown: copy button ────────────────────────────────────── */
+.realms-md-copy-btn-slot {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 2;
+}
+.realms-md-copy-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.5);
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.15s;
+  backdrop-filter: blur(4px);
+}
+.realms-md-copy-btn:hover {
+  background: rgba(103, 232, 249, 0.15);
+  border-color: rgba(103, 232, 249, 0.3);
+  color: #fff;
+}
+
+/* ── rich markdown: image lightbox ─────────────────────────────────── */
+.realms-md-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: realms-fade-in 0.15s ease;
+}
+.realms-md-lightbox-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(8px);
+}
+.realms-md-lightbox-content {
+  position: relative;
+  max-width: 92vw;
+  max-height: 92vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.realms-md-lightbox-content img {
+  max-width: 100%;
+  max-height: 85vh;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
+}
+.realms-md-lightbox-caption {
+  margin-top: 12px;
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.7);
+  text-align: center;
+}
+.realms-md-lightbox-close {
+  position: absolute;
+  top: -40px;
+  right: 0;
+  width: 32px;
+  height: 32px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s;
+}
+.realms-md-lightbox-close:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+@keyframes realms-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ── rich markdown: table of contents ──────────────────────────────── */
+.realms-md--with-toc {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+}
+.realms-md-toc {
+  position: sticky;
+  top: 80px;
+  flex-shrink: 0;
+  width: 220px;
+  max-height: calc(100vh - 120px);
+  overflow-y: auto;
+  padding: 16px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.02);
+}
+.realms-md-toc-title {
+  margin: 0 0 10px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: rgba(255, 255, 255, 0.4);
+}
+.realms-md-toc-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.realms-md-toc-item {
+  margin: 0;
+}
+.realms-md-toc-item a {
+  display: block;
+  padding: 4px 0;
+  font-size: 0.8rem;
+  color: var(--text-muted, rgba(255, 255, 255, 0.5));
+  text-decoration: none;
+  line-height: 1.4;
+  transition: color 0.15s;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.realms-md-toc-item a:hover {
+  color: #fff;
+}
+.realms-md-toc-item--h3 {
+  padding-left: 12px;
+}
+.realms-md-toc-item--h4 {
+  padding-left: 24px;
+}
+.realms-md-body {
+  flex: 1;
+  min-width: 0;
+}
+
+@media (max-width: 900px) {
+  .realms-md--with-toc {
+    flex-direction: column;
+  }
+  .realms-md-toc {
+    position: static;
+    width: 100%;
+    max-height: none;
+  }
+}
+
+/* ── rich markdown: checkbox lists ─────────────────────────────────── */
+.realms-md--rich input[type="checkbox"] {
+  margin-right: 6px;
+  accent-color: var(--accent-cyan, #67e8f9);
+}
+
+/* ── rich markdown: inline code ────────────────────────────────────── */
+.realms-md--rich code {
+  background: rgba(255, 255, 255, 0.06);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.85em;
+}
+.realms-md--rich pre code {
+  background: none;
+  padding: 0;
+  border-radius: 0;
+  font-size: 0.86rem;
+}
+
 /* ---------- responsive (feature cards) ---------- */
 @media (max-width: 640px) {
   .realms-fc-grid {
@@ -7841,5 +8137,465 @@ main.realms-page-main {
   }
   .rix-progress-fill::after {
     animation: none;
+  }
+}
+
+/* ═══════════════════════════════════════════════
+   三界增強 — 插圖、搜索、類型標籤
+   ═══════════════════════════════════════════════ */
+
+/* ─── realm illustrations ─── */
+.realms-ix-illustration {
+  flex-shrink: 0;
+  transition: transform 0.3s;
+}
+.realms-ix-illustration:hover {
+  transform: scale(1.08) rotate(-2deg);
+}
+.realms-ix-illustration--cyan { filter: drop-shadow(0 0 8px rgba(6,182,212,0.3)); }
+.realms-ix-illustration--violet { filter: drop-shadow(0 0 8px rgba(139,92,246,0.3)); }
+.realms-ix-illustration--emerald { filter: drop-shadow(0 0 8px rgba(16,185,129,0.3)); }
+
+/* ─── panel title row with illustration ─── */
+.realms-ix-panel-title-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 6px;
+}
+
+/* ─── feature card section header ─── */
+.realms-fc-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+}
+
+/* ─── search input ─── */
+.realms-fc-search {
+  position: relative;
+  flex-shrink: 0;
+}
+.realms-fc-search-input {
+  width: 220px;
+  padding: 8px 32px 8px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(10,12,18,0.55);
+  color: #fff;
+  font-size: 0.85rem;
+  font-family: inherit;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  outline: none;
+}
+.realms-fc-search-input::placeholder {
+  color: rgba(255,255,255,0.35);
+}
+.realms-fc-search-input:focus {
+  border-color: rgba(6,182,212,0.5);
+  box-shadow: 0 0 0 2px rgba(6,182,212,0.15);
+}
+.realms-fc-search-clear {
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255,255,255,0.1);
+  color: rgba(255,255,255,0.6);
+  font-size: 11px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s;
+}
+.realms-fc-search-clear:hover {
+  background: rgba(255,255,255,0.2);
+  color: #fff;
+}
+
+/* ─── kind stats row ─── */
+.realms-fc-kind-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+.realms-fc-kind-stat {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.025);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-dim);
+  transition: border-color 0.2s, background 0.2s;
+}
+.realms-fc-kind-stat:hover {
+  border-color: rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.04);
+}
+.realms-fc-kind-stat-icon {
+  font-size: 0.85rem;
+}
+.realms-fc-kind-stat-count {
+  font-weight: 800;
+  color: #fff;
+  font-family: var(--font-mono, ui-monospace, monospace);
+}
+
+/* ─── card kind badges ─── */
+.realms-fc-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+.realms-fc-kind-icon {
+  flex-shrink: 0;
+  font-size: 1rem;
+  margin-top: 2px;
+}
+.realms-fc-kind-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+.realms-fc-kind-badge--conclusion {
+  background: rgba(6,182,212,0.12);
+  color: rgba(103,232,249,0.9);
+  border: 1px solid rgba(6,182,212,0.25);
+}
+.realms-fc-kind-badge--interaction {
+  background: rgba(139,92,246,0.12);
+  color: rgba(196,181,253,0.9);
+  border: 1px solid rgba(139,92,246,0.25);
+}
+.realms-fc-kind-badge--task {
+  background: rgba(245,158,11,0.12);
+  color: rgba(253,224,71,0.9);
+  border: 1px solid rgba(245,158,11,0.25);
+}
+.realms-fc-kind-badge--knowledge {
+  background: rgba(34,197,94,0.12);
+  color: rgba(134,239,172,0.9);
+  border: 1px solid rgba(34,197,94,0.25);
+}
+.realms-fc-kind-badge--doc {
+  background: rgba(148,163,184,0.1);
+  color: rgba(203,213,225,0.8);
+  border: 1px solid rgba(148,163,184,0.2);
+}
+
+/* ─── card kind left border accent ─── */
+.realms-fc--kind-conclusion { border-left: 3px solid rgba(6,182,212,0.5); }
+.realms-fc--kind-interaction { border-left: 3px solid rgba(139,92,246,0.5); }
+.realms-fc--kind-task { border-left: 3px solid rgba(245,158,11,0.5); }
+.realms-fc--kind-knowledge { border-left: 3px solid rgba(34,197,94,0.5); }
+.realms-fc--kind-doc { border-left: 3px solid rgba(148,163,184,0.3); }
+
+/* ─── card preview (first bullet) ─── */
+.realms-fc-preview {
+  margin: 0;
+  font-size: var(--text-caption, 0.8125rem);
+  color: var(--text-dim);
+  line-height: 1.55;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  font-style: italic;
+  opacity: 0.85;
+}
+
+/* ─── tag accent colors ─── */
+.realms-fc-tag--cyan { border-color: rgba(6,182,212,0.18); }
+.realms-fc-tag--violet { border-color: rgba(139,92,246,0.18); }
+.realms-fc-tag--emerald { border-color: rgba(16,185,129,0.18); }
+
+/* ─── responsive for new elements ─── */
+@media (max-width: 640px) {
+  .realms-fc-section-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .realms-fc-search-input {
+    width: 100%;
+  }
+  .realms-ix-panel-title-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+}
+
+/* ═══════════════════════════════════════════════
+   Feature Detail Page Enhancements
+   ═══════════════════════════════════════════════ */
+
+/* ─── feature hero illustration ─── */
+.realms-feature-hero-illustration {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 8px;
+}
+.realms-feature-hero-illustration .realms-ix-illustration {
+  opacity: 0.6;
+}
+
+/* ─── iteration timeline ─── */
+.realms-iter-timeline {
+  margin: 16px 0;
+  padding: 0;
+  list-style: none;
+  position: relative;
+}
+.realms-iter-timeline::before {
+  content: '';
+  position: absolute;
+  left: 14px;
+  top: 8px;
+  bottom: 8px;
+  width: 2px;
+  background: linear-gradient(to bottom, rgba(6,182,212,0.4), rgba(139,92,246,0.3));
+  border-radius: 1px;
+}
+.realms-iter-timeline-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 10px 0;
+  position: relative;
+}
+.realms-iter-timeline-dot {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid rgba(6,182,212,0.4);
+  background: rgba(10,12,18,0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.68rem;
+  font-weight: 800;
+  color: rgba(103,232,249,0.9);
+  flex-shrink: 0;
+  z-index: 1;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.realms-iter-timeline-item:hover .realms-iter-timeline-dot {
+  border-color: rgba(6,182,212,0.7);
+  box-shadow: 0 0 12px rgba(6,182,212,0.2);
+}
+.realms-iter-timeline-content {
+  flex: 1;
+  min-width: 0;
+}
+.realms-iter-timeline-link {
+  color: rgba(103,232,249,0.95);
+  font-weight: 700;
+  font-size: 0.88rem;
+  text-decoration: none;
+}
+.realms-iter-timeline-link:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+.realms-iter-timeline-meta {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+/* ─── related features section ─── */
+.realms-related-section {
+  margin-top: 40px;
+  padding-top: 28px;
+  border-top: 1px solid rgba(255,255,255,0.07);
+}
+.realms-related-heading {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 16px;
+}
+.realms-related-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 12px;
+}
+
+/* ─── keyboard nav hint ─── */
+.realms-feature-kb-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 32px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  gap: 12px;
+}
+.realms-feature-kb-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 10px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-dim);
+  text-decoration: none;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+.realms-feature-kb-btn:hover {
+  color: var(--text);
+  border-color: rgba(255,255,255,0.18);
+  background: rgba(255,255,255,0.07);
+}
+.realms-feature-kb-btn:focus-visible {
+  outline: 2px solid rgba(6,182,212,0.65);
+  outline-offset: 2px;
+}
+.realms-feature-kb-hint {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  opacity: 0.7;
+}
+
+/* ═══════════════════════════════════════════════
+   Index Page Enhancements
+   ═══════════════════════════════════════════════ */
+
+/* ─── realm quick-nav grid ─── */
+.realms-quicknav-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin-bottom: 40px;
+}
+.realms-quicknav-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 24px 16px;
+  border-radius: var(--panel-radius-lg, var(--radius-lg));
+  border: 1px solid rgba(255,255,255,0.08);
+  background: linear-gradient(165deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+  text-decoration: none;
+  color: var(--text);
+  transition: transform 0.18s, border-color 0.22s, box-shadow 0.22s;
+}
+.realms-quicknav-card:hover {
+  transform: translateY(-3px);
+}
+.realms-quicknav-card--cyan:hover {
+  border-color: rgba(6,182,212,0.4);
+  box-shadow: 0 10px 28px rgba(6,182,212,0.08);
+}
+.realms-quicknav-card--violet:hover {
+  border-color: rgba(139,92,246,0.4);
+  box-shadow: 0 10px 28px rgba(139,92,246,0.08);
+}
+.realms-quicknav-card--emerald:hover {
+  border-color: rgba(16,185,129,0.4);
+  box-shadow: 0 10px 28px rgba(16,185,129,0.08);
+}
+.realms-quicknav-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #fff;
+}
+.realms-quicknav-sub {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  text-align: center;
+  line-height: 1.4;
+}
+.realms-quicknav-count {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text-dim);
+}
+
+/* ─── index stats row ─── */
+.realms-index-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  margin-bottom: 32px;
+}
+.realms-index-stat {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.03);
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-dim);
+}
+.realms-index-stat-value {
+  font-weight: 800;
+  color: #fff;
+  font-family: var(--font-mono, ui-monospace, monospace);
+}
+
+/* ─── responsive for new detail/index elements ─── */
+@media (max-width: 768px) {
+  .realms-quicknav-grid {
+    grid-template-columns: 1fr;
+  }
+  .realms-related-grid {
+    grid-template-columns: 1fr;
+  }
+  .realms-feature-kb-nav {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+  }
+}
+@media (max-width: 480px) {
+  .realms-index-stats {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .realms-ix-illustration {
+    transition: none;
+  }
+  .realms-ix-illustration:hover {
+    transform: none;
+  }
+  .realms-quicknav-card {
+    transition: none;
+  }
+  .realms-quicknav-card:hover {
+    transform: none;
+  }
+  .realms-iter-timeline-dot {
+    transition: none;
   }
 }

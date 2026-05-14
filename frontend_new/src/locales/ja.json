@@ -789,5 +789,22 @@
   "realms_md_copied": "コピーしました",
   "realms_md_close": "閉じる",
   "realms_md_image_zoom": "クリックして拡大",
-  "models_badge_legacy": "旧版"
+  "models_badge_legacy": "旧版",
+  "realms_kind_conclusion": "結論",
+  "realms_kind_interaction": "インタラクション",
+  "realms_kind_task": "タスク",
+  "realms_kind_knowledge": "ナレッジ",
+  "realms_kind_doc": "ドキュメント",
+  "realms_fc_search_placeholder": "機能カードを検索…",
+  "realms_fc_search_aria": "機能カードを検索",
+  "realms_fc_search_clear": "検索をクリア",
+  "realms_fc_no_results": "一致するカードがありません",
+  "realms_related_heading": "関連機能",
+  "realms_feature_kb_nav_aria": "機能ナビゲーション",
+  "realms_feature_kb_hint": "← → で機能を切り替え",
+  "realms_stats_total": "合計機能",
+  "realms_related_features": "関連機能",
+  "realms_related_features_aria": "関連機能リスト",
+  "realms_feature_prev": "前へ",
+  "realms_feature_next": "次へ"
 }

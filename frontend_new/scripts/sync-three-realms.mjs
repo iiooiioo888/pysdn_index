@@ -551,23 +551,9 @@ async function processTianyu() {
       titleFromUserWish(userWishText.slice(0, 1200))
       || `交互紀錄 ${repLast.name.replace(/\.md$/i, '').slice(0, 56)}`
 
-    const iterationMd = unique
-      .map(
-        (g, i) => `## 🔁 輪次 ${i + 1}/${unique.length}
+    const combinedMd = `# 💬 交互紀錄（已合併 ${unique.length} 輪）
 
-_${g.path}_ · ${g.createdAt || '—'}_
-
-${g.raw}`,
-      )
-      .join('\n\n---\n\n')
-
-    const combinedMd = `# 💬 交互紀錄（同一請求・已合併 ${unique.length} 筆）
-
-> ${userWishText}
-
----
-
-${iterationMd}`
+${formatMergedInteractionGroup(unique, userWishText)}`
 
     const summary = buildCardSummary(normalizeForDedupe(userWishText.split('【')[0] || userWishText), repLast.raw)
 
@@ -656,6 +642,208 @@ function inferPriorityFromInteractions(iterGroup) {
   if (maxFound >= 4) return 'high'
   if (maxFound >= 3) return 'medium'
   return 'low'
+}
+
+/**
+ * Parse a JSON string safely, returning null on failure.
+ */
+function safeParseJson(str) {
+  try {
+    return JSON.parse(str)
+  } catch {
+    return null
+  }
+}
+
+/**
+ * Extract JSON blocks from markdown (fenced or bare).
+ */
+function extractJsonBlocks(md) {
+  const blocks = []
+  // fenced JSON blocks
+  for (const m of md.matchAll(/```json\s*\n([\s\S]*?)```/g)) {
+    const parsed = safeParseJson(m[1].trim())
+    if (parsed) blocks.push(parsed)
+  }
+  // bare JSON objects/arrays at line start
+  for (const m of md.matchAll(/^(?:\{[\s\S]*?\}|\[[\s\S]*?\])\s*$/gm)) {
+    const parsed = safeParseJson(m[0].trim())
+    if (parsed) blocks.push(parsed)
+  }
+  return blocks
+}
+
+/**
+ * Format a single interaction round as clean markdown.
+ * Extracts human-readable content from YAML fences and JSON blobs.
+ */
+function formatInteractionAsCleanMarkdown(interactionRaw, roundLabel) {
+  const lines = []
+  const yamlBody = extractFirstYamlFence(interactionRaw)
+
+  // 1. Extract user_input from YAML
+  const userInput = extractUserInputFromYamlFence(yamlBody)
+  if (userInput) {
+    lines.push(`> ${userInput}`)
+    lines.push('')
+  }
+
+  // 2. Extract status from YAML
+  const status = extractYamlBareField(yamlBody, 'status')
+  if (status) {
+    lines.push(`**狀態：** \`${status}\``)
+    lines.push('')
+  }
+
+  // 3. Extract and format JSON blocks
+  const jsonBlocks = extractJsonBlocks(interactionRaw)
+
+  for (const block of jsonBlocks) {
+    // Solver plan
+    if (block && typeof block === 'object') {
+      const plan = block.plan || block.solver_plan || block.plan_text
+      if (plan && typeof plan === 'string') {
+        lines.push('### 求解方案')
+        lines.push('')
+        lines.push(plan.trim())
+        lines.push('')
+      }
+
+      // Solver actions
+      const actions = block.actions || block.solver_actions
+      if (Array.isArray(actions) && actions.length > 0) {
+        lines.push('### 執行動作')
+        lines.push('')
+        for (const action of actions) {
+          if (typeof action === 'string') {
+            lines.push(`- ${action}`)
+          } else if (action && typeof action === 'object') {
+            const desc = action.description || action.desc || action.action || action.name || ''
+            const status = action.status || action.result || ''
+            if (desc) {
+              lines.push(`- ${desc}${status ? `（${status}）` : ''}`)
+            }
+          }
+        }
+        lines.push('')
+      }
+
+      // Verifier issues
+      const issues = block.issues || block.verifier_issues || block.problems
+      if (Array.isArray(issues) && issues.length > 0) {
+        lines.push('### 驗證問題')
+        lines.push('')
+        for (const issue of issues) {
+          if (typeof issue === 'string') {
+            lines.push(`- ${issue}`)
+          } else if (issue && typeof issue === 'object') {
+            const desc = issue.description || issue.desc || issue.message || issue.issue || ''
+            const sev = issue.severity || issue.level || ''
+            const sevIcon = sev === 'high' || sev === 'critical' ? '🔴' : sev === 'medium' || sev === 'warning' ? '🟡' : '🔵'
+            if (desc) {
+              lines.push(`- ${sevIcon} ${desc}`)
+            }
+          }
+        }
+        lines.push('')
+      }
+
+      // New knowledge items
+      const knowledge = block.new_knowledge || block.knowledge || block.knowledge_items
+      if (Array.isArray(knowledge) && knowledge.length > 0) {
+        lines.push('### 新增知識')
+        lines.push('')
+        for (const item of knowledge) {
+          if (typeof item === 'string') {
+            lines.push(`- ${item}`)
+          } else if (item && typeof item === 'object') {
+            const topic = item.topic || item.title || item.name || ''
+            const content = item.content || item.summary || item.description || ''
+            if (topic || content) {
+              lines.push(`- **${topic}**${content ? `：${content}` : ''}`)
+            }
+          }
+        }
+        lines.push('')
+      }
+
+      // Verification result / summary
+      const result = block.result || block.verification_result || block.summary || block.verdict
+      if (result && typeof result === 'string') {
+        lines.push('### 驗證結果')
+        lines.push('')
+        lines.push(result.trim())
+        lines.push('')
+      }
+    }
+  }
+
+  // 4. Extract any remaining meaningful headings from the raw markdown
+  // (skip YAML/JSON, look for ### headings with real content)
+  const headingMatches = interactionRaw.matchAll(/^###\s+(.+)$/gm)
+  for (const hm of headingMatches) {
+    const headingText = hm[1].trim()
+    // Skip headings we already processed
+    if (/求解方案|執行動作|驗證問題|新增知識|驗證結果/.test(headingText)) continue
+    // Find content after this heading until next heading or end
+    const headingIdx = interactionRaw.indexOf(hm[0])
+    const afterHeading = interactionRaw.slice(headingIdx + hm[0].length)
+    const nextHeadingMatch = afterHeading.match(/\n#{1,4}\s/)
+    const sectionContent = nextHeadingMatch
+      ? afterHeading.slice(0, nextHeadingMatch.index)
+      : afterHeading.slice(0, 500)
+
+    const cleanContent = sectionContent
+      .replace(/```[\s\S]*?```/g, '') // remove code blocks
+      .replace(/^\s*[-*]\s+/gm, '- ') // normalize bullets
+      .split('\n')
+      .map(l => l.trim())
+      .filter(l => l && !l.startsWith('{') && !l.startsWith('[') && !l.startsWith('```'))
+      .join('\n')
+      .trim()
+
+    if (cleanContent && cleanContent.length > 10) {
+      lines.push(`### ${headingText}`)
+      lines.push('')
+      lines.push(cleanContent.slice(0, 600))
+      lines.push('')
+    }
+  }
+
+  return lines.join('\n').replace(/\n{3,}/g, '\n\n').trim()
+}
+
+/**
+ * Format a merged interaction group as clean markdown.
+ */
+function formatMergedInteractionGroup(unique, userWishText) {
+  const parts = []
+
+  parts.push(`> ${userWishText}`)
+  parts.push('')
+
+  for (let i = 0; i < unique.length; i++) {
+    const g = unique[i]
+    parts.push(`## 輪次 ${i + 1}/${unique.length}`)
+    parts.push('')
+    parts.push(`_${g.path}_ · ${g.createdAt || '—'}_`)
+    parts.push('')
+
+    const cleanMd = formatInteractionAsCleanMarkdown(g.raw, `輪次 ${i + 1}`)
+    if (cleanMd) {
+      parts.push(cleanMd)
+    } else {
+      parts.push('（無內容摘要）')
+    }
+
+    if (i < unique.length - 1) {
+      parts.push('')
+      parts.push('---')
+      parts.push('')
+    }
+  }
+
+  return parts.join('\n')
 }
 
 function inferMaxPriorityFromInteractions(md) {

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useId, useState, type KeyboardEvent } from 'react'
+import { useCallback, useEffect, useId, useMemo, useState, type KeyboardEvent } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import type { ResolvedRealmFeatureCard } from '../data/threeRealmsFeatureUtils'
@@ -10,11 +10,30 @@ import { useLangQuery } from '../hooks/useLangQuery'
 import { useRealmFeatures } from '../hooks/useRealmFeatures'
 import { PATHS, pathToRealm, pathToRealmFeature } from '../routes/paths'
 import { prefersReducedMotion } from '../lib/motionPreference'
+import { getRealmIllustration } from './realms/RealmIllustrations'
 
 const NOTE_REPO = 'https://github.com/iiooiioo888/Note'
 
 /** How many cards to show in embedded (homepage) mode */
 const EMBEDDED_CARD_LIMIT = 4
+
+/** Kind icon SVGs for tianyu card kinds */
+const KIND_ICONS: Record<string, string> = {
+  conclusion: '📋',
+  interaction: '💬',
+  task: '⚡',
+  knowledge: '📖',
+  doc: '📄',
+}
+
+/** Border accent class per kind */
+const KIND_BORDER_CLASS: Record<string, string> = {
+  conclusion: 'realms-fc--kind-conclusion',
+  interaction: 'realms-fc--kind-interaction',
+  task: 'realms-fc--kind-task',
+  knowledge: 'realms-fc--kind-knowledge',
+  doc: 'realms-fc--kind-doc',
+}
 
 type Layout = 'embedded' | 'standalone'
 
@@ -34,11 +53,13 @@ export function RealmFeatureCardLink({
   accent,
   sourceLabel,
   detailLabel,
+  kindLabelMap,
 }: {
   card: ResolvedRealmFeatureCard
   accent: RealmAccent
   sourceLabel: string
   detailLabel: string
+  kindLabelMap?: Record<string, string>
 }) {
   const { convert } = useCnToTwConverter()
   const langSearch = useLangQuery()
@@ -46,23 +67,32 @@ export function RealmFeatureCardLink({
     pathname: pathToRealmFeature(card.realmId, card.slug),
     search: langSearch,
   }
+  const kind = card.tianyuKind
+  const kindIcon = kind ? KIND_ICONS[kind] : null
+  const kindLabel = kind && kindLabelMap ? kindLabelMap[kind] : null
+  const kindBorder = kind ? KIND_BORDER_CLASS[kind] : null
+  const firstBullet = card.bullets.length > 0 ? convert(card.bullets[0]) : null
+
   return (
-    <article className={`realms-fc realms-fc--${accent}`}>
-      <h5 className="realms-fc-title">
-        <Link to={featureTo}>{convert(card.title)}</Link>
-      </h5>
-      <p className="realms-fc-summary">{convert(card.summary)}</p>
-      {card.bullets.length > 0 ? (
-        <ul className="realms-fc-bullets">
-          {card.bullets.map((b) => (
-            <li key={b}>{convert(b)}</li>
-          ))}
-        </ul>
+    <article className={`realms-fc realms-fc--${accent}${kindBorder ? ` ${kindBorder}` : ''}`}>
+      <div className="realms-fc-header">
+        {kindIcon ? <span className="realms-fc-kind-icon" aria-hidden="true">{kindIcon}</span> : null}
+        <h5 className="realms-fc-title">
+          <Link to={featureTo}>{convert(card.title)}</Link>
+        </h5>
+      </div>
+      {kindLabel ? (
+        <span className={`realms-fc-kind-badge realms-fc-kind-badge--${kind}`}>{kindLabel}</span>
       ) : null}
+      {firstBullet ? (
+        <p className="realms-fc-preview">{firstBullet}</p>
+      ) : (
+        <p className="realms-fc-summary">{convert(card.summary)}</p>
+      )}
       {card.tags.length > 0 ? (
         <div className="realms-fc-tags">
           {card.tags.map((tag) => (
-            <span key={tag} className="realms-fc-tag">{convert(tag)}</span>
+            <span key={tag} className={`realms-fc-tag realms-fc-tag--${accent}`}>{convert(tag)}</span>
           ))}
         </div>
       ) : null}
@@ -95,12 +125,51 @@ export function ThreeRealmsInteractive({ layout, showFullPageLink }: ThreeRealms
   const baseId = useId()
 
   const [idx, setIdx] = useState(0)
+  const [searchQuery, setSearchQuery] = useState('')
   const realmId = REALM_ORDER[idx]
   const meta = REALM_META[realmId]
 
   const { features: allCards, loading } = useRealmFeatures(realmId)
-  const visibleCards = layout === 'embedded' ? allCards.slice(0, EMBEDDED_CARD_LIMIT) : allCards
-  const hasMore = layout === 'embedded' && allCards.length > EMBEDDED_CARD_LIMIT
+
+  // Kind label map for tianyu
+  const kindLabelMap = useMemo(() => ({
+    conclusion: t('realms_kind_conclusion'),
+    interaction: t('realms_kind_interaction'),
+    task: t('realms_kind_task'),
+    knowledge: t('realms_kind_knowledge'),
+    doc: t('realms_kind_doc'),
+  }), [t])
+
+  // Kind stats
+  const kindStats = useMemo(() => {
+    if (realmId !== 'tianyu') return null
+    const counts: Record<string, number> = {}
+    for (const card of allCards) {
+      const k = card.tianyuKind || 'doc'
+      counts[k] = (counts[k] || 0) + 1
+    }
+    return counts
+  }, [allCards, realmId])
+
+  // Search/filter
+  const filteredCards = useMemo(() => {
+    if (!searchQuery.trim()) return allCards
+    const q = searchQuery.toLowerCase()
+    return allCards.filter((card) =>
+      card.title.toLowerCase().includes(q)
+      || card.summary.toLowerCase().includes(q)
+      || card.tags.some((tag) => tag.toLowerCase().includes(q))
+      || (card.tianyuKind && card.tianyuKind.toLowerCase().includes(q))
+    )
+  }, [allCards, searchQuery])
+
+  const visibleCards = layout === 'embedded'
+    ? filteredCards.slice(0, EMBEDDED_CARD_LIMIT)
+    : filteredCards
+  const hasMore = layout === 'embedded' && filteredCards.length > EMBEDDED_CARD_LIMIT
+
+  // Realm illustration
+  const RealmIllustration = getRealmIllustration(realmId)
 
   useEffect(() => {
     if (layout !== 'standalone') return
@@ -110,6 +179,11 @@ export function ThreeRealmsInteractive({ layout, showFullPageLink }: ThreeRealms
       setIdx((prev) => (prev === next ? prev : next))
     }
   }, [layout, searchParams])
+
+  // Reset search when realm changes
+  useEffect(() => {
+    setSearchQuery('')
+  }, [realmId])
 
   const selectRealm = useCallback(
     (i: number) => {
@@ -230,8 +304,13 @@ export function ThreeRealmsInteractive({ layout, showFullPageLink }: ThreeRealms
         className={`realms-ix-panel realms-ix-panel--${meta.accent} ${reduceMotion ? 'realms-ix-panel--reduce' : ''}`}
       >
         <div className="realms-ix-panel-head">
-          <h3 className="realms-ix-panel-title">{t(meta.titleKey)}</h3>
-          <p className="realms-ix-panel-sub">{t(meta.subKey)}</p>
+          <div className="realms-ix-panel-title-row">
+            {RealmIllustration ? <RealmIllustration className={`realms-ix-illustration realms-ix-illustration--${meta.accent}`} size={48} /> : null}
+            <div>
+              <h3 className="realms-ix-panel-title">{t(meta.titleKey)}</h3>
+              <p className="realms-ix-panel-sub">{t(meta.subKey)}</p>
+            </div>
+          </div>
         </div>
         <p className="realms-ix-panel-desc">{t(meta.descKey)}</p>
         <div className="realms-ix-highlights">
@@ -245,23 +324,64 @@ export function ThreeRealmsInteractive({ layout, showFullPageLink }: ThreeRealms
 
         {loading ? (
           <p className="realms-fc-empty">{t('realms_fc_loading')}</p>
-        ) : visibleCards.length > 0 ? (
+        ) : allCards.length > 0 ? (
           <div className="realms-fc-section">
-            <h4 className="realms-fc-heading">{t('realms_fc_heading')}</h4>
-            <div className="realms-fc-grid">
-              {visibleCards.map((card) => (
-                <RealmFeatureCardLink
-                  key={card.slug}
-                  card={card}
-                  accent={meta.accent}
-                  detailLabel={t('realms_fc_detail')}
-                  sourceLabel={t('realms_fc_source')}
+            <div className="realms-fc-section-header">
+              <h4 className="realms-fc-heading">{t('realms_fc_heading')}</h4>
+              <div className="realms-fc-search">
+                <input
+                  type="text"
+                  className="realms-fc-search-input"
+                  placeholder={t('realms_fc_search_placeholder')}
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  aria-label={t('realms_fc_search_aria')}
                 />
-              ))}
+                {searchQuery ? (
+                  <button
+                    type="button"
+                    className="realms-fc-search-clear"
+                    onClick={() => setSearchQuery('')}
+                    aria-label={t('realms_fc_search_clear')}
+                  >
+                    ✕
+                  </button>
+                ) : null}
+              </div>
             </div>
+
+            {kindStats ? (
+              <div className="realms-fc-kind-stats">
+                {Object.entries(kindStats).map(([kind, count]) => (
+                  <span key={kind} className={`realms-fc-kind-stat realms-fc-kind-stat--${kind}`}>
+                    <span className="realms-fc-kind-stat-icon">{(KIND_ICONS as Record<string, string>)[kind] || '📄'}</span>
+                    <span className="realms-fc-kind-stat-label">{(kindLabelMap as Record<string, string>)[kind] || kind}</span>
+                    <span className="realms-fc-kind-stat-count">{count}</span>
+                  </span>
+                ))}
+              </div>
+            ) : null}
+
+            {visibleCards.length > 0 ? (
+              <div className="realms-fc-grid">
+                {visibleCards.map((card) => (
+                  <RealmFeatureCardLink
+                    key={card.slug}
+                    card={card}
+                    accent={meta.accent}
+                    detailLabel={t('realms_fc_detail')}
+                    sourceLabel={t('realms_fc_source')}
+                    kindLabelMap={kindLabelMap}
+                  />
+                ))}
+              </div>
+            ) : (
+              <p className="realms-fc-empty">{t('realms_fc_no_results')}</p>
+            )}
+
             {hasMore ? (
               <Link className="realms-fc-more" to={{ pathname: pathToRealm(realmId), search: langSearch }}>
-                {t('realms_fc_more', { count: allCards.length })}
+                {t('realms_fc_more', { count: filteredCards.length })}
                 <span className="ui-chevron-right" aria-hidden="true" />
               </Link>
             ) : null}

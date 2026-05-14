@@ -789,5 +789,22 @@
   "realms_md_copied": "Copied",
   "realms_md_close": "Close",
   "realms_md_image_zoom": "Click image to enlarge",
-  "models_badge_legacy": "Legacy"
+  "models_badge_legacy": "Legacy",
+  "realms_kind_conclusion": "Conclusion",
+  "realms_kind_interaction": "Interaction",
+  "realms_kind_task": "Task",
+  "realms_kind_knowledge": "Knowledge",
+  "realms_kind_doc": "Document",
+  "realms_fc_search_placeholder": "Search feature cards…",
+  "realms_fc_search_aria": "Search feature cards",
+  "realms_fc_search_clear": "Clear search",
+  "realms_fc_no_results": "No matching cards found",
+  "realms_related_heading": "Related Features",
+  "realms_feature_kb_nav_aria": "Feature navigation",
+  "realms_feature_kb_hint": "Press ← → to switch features",
+  "realms_stats_total": "Total features",
+  "realms_related_features": "Related Features",
+  "realms_related_features_aria": "Related features list",
+  "realms_feature_prev": "Previous",
+  "realms_feature_next": "Next"
 }
