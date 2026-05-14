@@ -207,7 +207,8 @@ main.tsx
 |------|------|
 | `Hero` | 品牌主視覺、打字機動畫、計數器動效 |
 | `About` | 關於區塊（痛點 vs 方案對比 + 特性卡片） |
-| `ThreeRealmsSection` | **Note 三界**（`#three-realms`）：嵌入 `ThreeRealmsInteractive`，可切換天域／神域／鏡界並連結 [Note 倉庫](https://github.com/iiooiioo888/Note) |
+| `ThreeRealmsSection` | **Note 三界**（`#three-realms`）：嵌入 `ThreeRealmsInteractive`，可切換天域／神域／鏡界，帶 SVG 插圖、類型標籤、搜索篩選 |
+| `RealmIllustrations` | 三界 SVG 插圖組件：天域（數據流）、神域（神經網絡）、鏡界（鏡像反射），帶脈動光效 |
 | `Products` | 影片 / 短劇 / 圖片分頁切換，含自動播放影片 mockup |
 | `ModulesPanel` | 四大模組卡片 + MiniCards |
 | `Showcase` | 案例展示輪播 |
@@ -222,10 +223,14 @@ main.tsx
 | 項目 | 說明 |
 |------|------|
 | 首頁錨點 | `#three-realms`，與導覽／頁腳連結一致 |
-| 獨立路由 | `/realms`（`ThreeRealmsPage`），版面含標題與導讀 |
+| 獨立路由 | `/realms`（`ThreeRealmsPage`），含快速導航卡片網格與統計數據 |
 | 互動元件 | `ThreeRealmsInteractive`：`role="tablist"` 切換境界、鍵盤 ←/→／Home／End、兩側箭頭循環；完整頁會將選取狀態同步至 **`?realm=`**（`tianyu` / `shenyu` / `jingjie`）便於分享 |
-| 內容來源 | 對應開源 Obsidian 筆記 [iiooiioo888/Note](https://github.com/iiooiioo888/Note) 頂層資料夾 **天域、神域、鏡界** 的敘事主軸（網站為精簡導覽，詳見倉庫內 Markdown） |
-| 翻譯鍵 | `realms_*`、`realms_ix_*`、`nav_realms`（五語系 JSON） |
+| SVG 插圖 | `RealmIllustrations`：天域（數據流動畫・cyan）、神域（神經網絡・violet）、鏡界（鏡像反射・emerald），帶脈動光效 |
+| 功能卡片 | 支援類型標籤（📋結論／💬交互／⚡任務／📖知識／📄文檔）、彩色左邊框、首行預覽、實時搜索篩選 |
+| 詳情頁 | `RealmFeaturePage`：關聯功能推薦（按標籤匹配）、迭代時間線視覺化、鍵盤 ← → 導航 |
+| 內容來源 | 對應開源 Obsidian 筆記 [iiooiioo888/Note](https://github.com/iiooiioo888/Note) 頂層資料夾 **天域、神域、鏡界** 的敘事主軸 |
+| 交互紀錄 | sync 腳本自動將 raw YAML/JSON 輸出轉為乾淨格式化 markdown（提取求解方案、驗證問題、知識項目） |
+| 翻譯鍵 | `realms_*`、`realms_ix_*`、`nav_realms`、`realms_kind_*`、`realms_fc_search_*`（五語系 JSON） |
 
 ### 設計系統
 
@@ -282,12 +287,13 @@ npm run build
 
 三界資料由 `frontend_new/scripts/sync-three-realms.mjs` 直接從 [iiooiioo888/Note](https://github.com/iiooiioo888/Note) 透過 GitHub Contents API 產生：
 
-- 輸入來源：`天域/`、`神域/`、`鏡界/`
+- 輸入來源：`天域/`（含 `data/conclusions/`、`data/interactions/`、`data/tasks/`、`data/knowledge/`）、`神域/`、`鏡界/`
+- 交互紀錄自動合併同請求的多輪迭代，並將 raw YAML/JSON 轉為乾淨格式化 markdown
 - 輸出檔案：
-  - `src/data/threeRealmsFeatures.ts`
-  - `src/data/threeRealmsFeatures.tianyu.ts`
-  - `src/data/threeRealmsFeatures.shenyu.ts`
-  - `src/data/threeRealmsFeatures.jingjie.ts`
+  - `src/data/threeRealmsFeatures.ts`（型別定義 + 計數）
+  - `src/data/threeRealmsFeatures.tianyu.ts`（天域卡片：結論/交互/任務/知識/文檔）
+  - `src/data/threeRealmsFeatures.shenyu.ts`（神域卡片）
+  - `src/data/threeRealmsFeatures.jingjie.ts`（鏡界卡片）
 
 環境變數（擇一即可）：
 
