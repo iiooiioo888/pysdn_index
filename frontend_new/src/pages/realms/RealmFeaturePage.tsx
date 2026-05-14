@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, Navigate, useNavigate, useParams } from 'react-router-dom'
 import { RealmMarkdown } from '../../components/realms/RealmMarkdown'
@@ -11,6 +11,7 @@ import { useI18nRerender } from '../../hooks/useI18nRerender'
 import { useLangQuery } from '../../hooks/useLangQuery'
 import { useRealmFeatures } from '../../hooks/useRealmFeatures'
 import { PATHS, pathToRealm, pathToRealmFeature } from '../../routes/paths'
+import { fetchJingjieBodies } from '../../lib/realmsJingjieBodies'
 import { RealmsPageShell } from './RealmsPageShell'
 
 function TianyuBadgeRow({ feature }: { feature: ResolvedRealmFeatureCard }) {
@@ -175,6 +176,34 @@ export function RealmFeaturePage() {
     [feature, features],
   )
 
+  const [jingjieBodyMarkdown, setJingjieBodyMarkdown] = useState<string | null>(realmId === 'jingjie' ? null : '')
+  const [jingjieBodyError, setJingjieBodyError] = useState<string | null>(null)
+
+  useEffect(() => {
+    if (realmId !== 'jingjie' || !featureSlug) {
+      setJingjieBodyMarkdown('')
+      setJingjieBodyError(null)
+      return
+    }
+
+    let cancelled = false
+    setJingjieBodyMarkdown(null)
+    setJingjieBodyError(null)
+
+    fetchJingjieBodies()
+      .then((bodies) => {
+        if (cancelled || !featureSlug) return
+        setJingjieBodyMarkdown(bodies[featureSlug] ?? '')
+      })
+      .catch((err) => {
+        if (!cancelled) setJingjieBodyError(err instanceof Error ? err.message : String(err))
+      })
+
+    return () => {
+      cancelled = true
+    }
+  }, [realmId, featureSlug])
+
   const display = useMemo(() => {
     if (!feature) return null
     return {
@@ -238,6 +267,8 @@ export function RealmFeaturePage() {
 
   if (!display) return null
 
+  const articleMarkdown = realmId === 'jingjie' ? (jingjieBodyMarkdown ?? '') : feature.bodyMarkdown
+
   return (
     <RealmsPageShell>
       <main className="realms-page-main" id="realms-feature-page">
@@ -297,7 +328,14 @@ export function RealmFeaturePage() {
           </aside>
           <article className="realms-feature-body">
             <h2>{t('realms_feature_markdown')}</h2>
-            <RealmMarkdown markdown={feature.bodyMarkdown} textTransform={convert} showToc />
+            {jingjieBodyError ? (
+              <p className="realms-fc-empty" role="alert">{jingjieBodyError}</p>
+            ) : null}
+            {realmId === 'jingjie' && jingjieBodyMarkdown === null ? (
+              <p className="realms-fc-empty" aria-busy="true">{t('realms_fc_loading')}</p>
+            ) : (
+              <RealmMarkdown markdown={articleMarkdown} textTransform={convert} showToc />
+            )}
           </article>
         </div>
 

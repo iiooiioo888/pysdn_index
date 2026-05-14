@@ -1,4 +1,5 @@
 import compression from 'compression'
+import { visualizer } from 'rollup-plugin-visualizer'
 import { defineConfig, type Plugin } from 'vite'
 import react from '@vitejs/plugin-react'
 
@@ -37,60 +38,77 @@ function devRewriteRootToBase(): Plugin {
   }
 }
 
-export default defineConfig({
-  plugins: [
-    {
-      name: 'dev-preview-compression',
-      configureServer(server) {
-        server.middlewares.use(compression({ threshold: 1024 }))
+export default defineConfig(({ mode }) => {
+  const analyze = mode === 'analyze'
+
+  return {
+    plugins: [
+      {
+        name: 'dev-preview-compression',
+        configureServer(server) {
+          server.middlewares.use(compression({ threshold: 1024 }))
+        },
+        configurePreviewServer(server) {
+          server.middlewares.use(compression({ threshold: 1024 }))
+        },
       },
-      configurePreviewServer(server) {
-        server.middlewares.use(compression({ threshold: 1024 }))
-      },
-    },
-    devRewriteRootToBase(),
-    react(),
-  ],
-  base: PUBLIC_BASE,
-  server: {
-    port: 3000,
-    host: true,
-    /* With non-root `base`, string `open` is resolved under `base` → duplicate path. Use `true` only. */
-    open: true,
-    proxy: {
-      '/api': {
-        target: process.env.VITE_SUPERTRACK_API_URL ?? 'http://localhost:8000',
-        changeOrigin: true,
-      },
-    },
-  },
-  build: {
-    target: 'es2022',
-    outDir: 'dist',
-    /** 產物含 map 供 Sentry 等上傳，但不寫入 bundle 註解連結，避免對外暴露路徑 */
-    sourcemap: 'hidden',
-    cssMinify: true,
-    cssCodeSplit: true,
-    /** 使用 esbuild 壓縮（預設），比 terser 更快 */
-    minify: 'oxc',
-    rollupOptions: {
-      output: {
-        /**
-         * Chunk 分割策略（Vite 8 + Rolldown）：
-         * - vendor / router / i18n / http / purify: 框架核心，長期穩定可快取
-         * - Mermaid 及其子依賴（cytoscape、katex）由 Rolldown 自動按動態 import 邊界分割
-         * - 大型 JSON 數據隨對應頁面 lazy chunk 一起載入
-         */
-        manualChunks(id) {
-          if (id.includes('node_modules/react-dom/')) return 'vendor'
-          if (id.includes('node_modules/react/')) return 'vendor'
-          if (id.includes('node_modules/react-router')) return 'router'
-          if (id.includes('node_modules/react-i18next/') || id.includes('node_modules/i18next/')) return 'i18n'
-          if (id.includes('node_modules/axios')) return 'http'
-          if (id.includes('node_modules/dompurify')) return 'purify'
+      devRewriteRootToBase(),
+      react(),
+      ...(analyze
+        ? [
+            visualizer({
+              filename: 'dist/stats.html',
+              title: 'pysdn-frontend bundles',
+              open: false,
+              gzipSize: true,
+              brotliSize: true,
+              template: 'treemap',
+            }),
+          ]
+        : []),
+    ],
+    base: PUBLIC_BASE,
+    server: {
+      port: 3000,
+      host: true,
+      /* With non-root `base`, string `open` is resolved under `base` → duplicate path. Use `true` only. */
+      open: true,
+      proxy: {
+        '/api': {
+          target: process.env.VITE_SUPERTRACK_API_URL ?? 'http://localhost:8000',
+          changeOrigin: true,
         },
       },
     },
-    chunkSizeWarningLimit: 500,
-  },
+    build: {
+      target: 'es2022',
+      outDir: 'dist',
+      /** 產物含 map 供 Sentry 等上傳，但不寫入 bundle 註解連結，避免對外暴露路徑 */
+      sourcemap: 'hidden',
+      cssMinify: true,
+      cssCodeSplit: true,
+      /** 使用 esbuild 壓縮（預設），比 terser 更快 */
+      minify: 'oxc',
+      rollupOptions: {
+        output: {
+          /**
+           * Chunk 分割策略（Vite 8 + Rolldown）：
+           * - vendor / router / i18n / http / purify: 框架核心，長期穩定可快取
+           * - mermaid-doc：文件頁動態載入時集中快取
+           * - 鏡界列表資料與正文分離：正文為 public/data JSON
+           */
+          manualChunks(id) {
+            if (id.includes('node_modules/react-dom/')) return 'vendor'
+            if (id.includes('node_modules/react/')) return 'vendor'
+            if (id.includes('node_modules/react-router')) return 'router'
+            if (id.includes('node_modules/react-i18next/') || id.includes('node_modules/i18next/')) return 'i18n'
+            if (id.includes('node_modules/axios')) return 'http'
+            if (id.includes('node_modules/dompurify')) return 'purify'
+            if (id.includes('/node_modules/mermaid')) return 'mermaid-doc'
+          },
+        },
+      },
+      chunkSizeWarningLimit: 500,
+    },
+  }
 })

@@ -42,11 +42,18 @@ export function resolveRealmFeatureCards(realmId: RealmId, cards: RealmFeatureCa
     seen.set(baseSlug, count + 1)
     const slug = count === 0 ? baseSlug : `${baseSlug}-${count + 1}`
 
+    const emptyBody = !card.bodyMarkdown || card.bodyMarkdown.trim() === ''
+    /** 鏡界正文改由 public JSON 載入；列表資料 body 可為空，勿套 fallback 以免詳情頁顯示錯誤草稿 */
+    let bodyMarkdown = card.bodyMarkdown
+    if (emptyBody) {
+      bodyMarkdown = realmId === 'jingjie' ? '' : fallbackMarkdown(card)
+    }
+
     return {
       ...card,
       realmId: card.realmId ?? realmId,
       slug,
-      bodyMarkdown: card.bodyMarkdown || fallbackMarkdown(card),
+      bodyMarkdown,
     }
   })
 }

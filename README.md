@@ -66,7 +66,9 @@ pysdn_index/
 │   │   ├── data/                  # 模型目錄 JSON（OpenRouter + Bedrock + 精選）
 │   │   └── main.tsx               # 入口
 │   ├── scripts/                   # 構建輔助腳本
-│   ├── public/                    # 靜態資源（影片、i18n JSON）
+│   ├── content/                   # 三界原始 Markdown（sync:realms 讀取來源）
+│   │   └── note-realms/
+│   ├── public/                    # 靜態資源（影片、i18n JSON、鏡界 bodies JSON）
 │   ├── vite.config.ts
 │   ├── tailwind.config.cjs
 │   ├── tsconfig.json
@@ -121,11 +123,13 @@ npm run dev
 |------|------|
 | `npm run dev` | 開發伺服器（port 3000，含 CSS 合併 + doc i18n 同步） |
 | `npm run build` | 生產構建：`tsc` → CSS 合併 → Vite build → 404 複製 → postbuild |
+| `npm run build:analyze` | 同 `build`，額外產出互動式體積報告至 `frontend_new/dist/stats.html`（`rollup-plugin-visualizer`） |
 | `npm run preview` | 預覽生產構建 |
 | `npm run merge:sections-css` | 手動合併區塊 CSS |
-| `npm run sync:realms` | 從 Note 倉庫（GitHub API）同步天域/神域/鏡界資料 |
+| `npm run sync:realms` | 依 `content/note-realms/{天域,神域,鏡界}/` 的 Markdown 重新產生三界資料檔 |
 | `npm run validate:realms` | 檢查三界資料衝突與完整性（slug、計數、必要欄位） |
 | `npm run sync:realms:check` | 先同步再驗證（整合檢查用） |
+| `npm run migrate:jingjie-bodies` | （維護用）將現有 `threeRealmsFeatures.jingjie.ts` 拆分為 lite TS + `public/data/three-realms-jingjie-bodies.json` |
 
 ---
 
@@ -283,22 +287,25 @@ npm run build
 
 新增語系：在 `src/locales/` 建立 JSON → 在 `src/lib/i18n.ts` 的 `loaders` 註冊 → 在 `src/routes/langQuery.ts` 的 `APP_LANG_CODES` 加入代碼。
 
-### 三界內容整合（Token 自動化）
+### 三界內容整合（本倉 Markdown）
 
-三界資料由 `frontend_new/scripts/sync-three-realms.mjs` 直接從 [iiooiioo888/Note](https://github.com/iiooiioo888/Note) 透過 GitHub Contents API 產生：
+三界資料由 `frontend_new/scripts/sync-three-realms.mjs` 讀取 **本專案** `frontend_new/content/note-realms/` 底下的 Markdown（**不需** GitHub API 或 token）：
 
-- 輸入來源：`天域/`（含 `data/conclusions/`、`data/interactions/`、`data/tasks/`、`data/knowledge/`）、`神域/`、`鏡界/`
-- 交互紀錄自動合併同請求的多輪迭代，並將 raw YAML/JSON 轉為乾淨格式化 markdown
-- 輸出檔案：
+- **來源目錄**：`天域/`、`神域/`、`鏡界/`（結構請維持與原 [Note](https://github.com/iiooiioo888/Note) 對應，便於對照）；說明見 `frontend_new/content/note-realms/README.md`。
+- **行為**：天域會依 `data/conclusions/`、`data/interactions/` 等規則分類與合併交互紀錄；神域／鏡界為一般 md 抽摘要與標籤。
+- **輸出檔案**：
   - `src/data/threeRealmsFeatures.ts`（型別定義 + 計數）
-  - `src/data/threeRealmsFeatures.tianyu.ts`（天域卡片：結論/交互/任務/知識/文檔）
-  - `src/data/threeRealmsFeatures.shenyu.ts`（神域卡片）
-  - `src/data/threeRealmsFeatures.jingjie.ts`（鏡界卡片）
+  - `src/data/threeRealmsFeatures.tianyu.ts`
+  - `src/data/threeRealmsFeatures.shenyu.ts`
+  - `src/data/threeRealmsFeatures.jingjie.ts`（鏡界列表，正文另存）
+  - `public/data/three-realms-jingjie-bodies.json`
 
-環境變數（擇一即可）：
+**連結規則**：卡片上的「原始檔」按鈕預設指向本倉庫 `frontend_new/content/note-realms/…`（可設 `REALMS_SOURCE_LINK_REPO` 改 forks 的 slug）。
 
-- `NOTE_GITHUB_TOKEN`
-- `GITHUB_TOKEN`
+選用環境變數：
+
+- `THREE_REALMS_LOCAL_ROOT` — 覆寫來源根目錄（相對 `frontend_new` 或絕對路徑）
+- `REALMS_SOURCE_LINK_REPO` — 「在 GitHub 上開啟來源檔」的 repo slug（預設 `iiooiioo888/pysdn_index`）
 
 本機流程：
 
@@ -310,9 +317,9 @@ npm run validate:realms
 
 CI 流程：
 
-- Workflow：`.github/workflows/realms-sync-validate.yml`
-- 需要設定 repository secret：`NOTE_GITHUB_TOKEN`
-- 會執行同步、驗證，並檢查產生檔是否已提交
+- Workflow：`.github/workflows/realms-sync-validate.yml`（僅驗證**已提交的**資料檔，不在 CI 內重做同步）。
+- **維護者**在更新了 `content/note-realms` 後於本機執行同步並提交 TS / JSON。
+- 驗證腳本仍接受舊版「來源連結指向 Note 倉庫」之資料，以利漸進遷移；重跑同步後來源會改為本倉 `content/note-realms` 路徑。
 
 ### 添加新組件
 

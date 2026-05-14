@@ -1,4 +1,5 @@
 import { useEffect, useId, useRef, useState } from 'react'
+import { renderDocMermaidSvg } from '../../lib/docMermaidRuntime'
 
 type DocMermaidProps = {
   chart: string
@@ -20,24 +21,8 @@ export function DocMermaid({ chart, className = '' }: DocMermaidProps) {
 
     const run = async () => {
       try {
-        const mermaid = (await import('mermaid')).default
-        mermaid.initialize({
-          startOnLoad: false,
-          theme: 'dark',
-          securityLevel: 'strict',
-          themeVariables: {
-            darkMode: true,
-            background: '#0c0c14',
-            primaryColor: '#1e293b',
-            primaryTextColor: '#e8edf5',
-            secondaryColor: '#334155',
-            tertiaryColor: '#0f172a',
-            lineColor: '#64748b',
-            fontFamily: "'Plus Jakarta Sans', 'Noto Sans SC', 'Noto Sans TC', 'Microsoft YaHei', system-ui, sans-serif",
-          },
-        })
         const graphId = `doc-mmd-${reactId}-${Math.random().toString(36).slice(2, 10)}`
-        const { svg } = await mermaid.render(graphId, chart.trim())
+        const svg = await renderDocMermaidSvg(chart.trim(), graphId)
         if (cancelled || !hostRef.current) return
         hostRef.current.innerHTML = svg
       } catch (e) {

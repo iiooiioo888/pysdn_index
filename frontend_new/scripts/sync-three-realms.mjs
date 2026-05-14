@@ -2,16 +2,19 @@
 /**
  * sync-three-realms.mjs
  *
- * Generates static Three Realms feature-card data from the Note repository.
+ * 從本專案目錄讀取 Markdown，產生三界靜態資料（不需 GitHub API / token）。
  *
- * Source:
- * - GitHub API with GITHUB_TOKEN or NOTE_GITHUB_TOKEN
+ * 預設來源：frontend_new/content/note-realms/{天域|神域|鏡界}/
  *
- * Output: src/data/threeRealmsFeatures.ts
+ * 選用環境變數：
+ * - THREE_REALMS_LOCAL_ROOT — 覆寫來源根目錄（相對於 frontend_new 之子路徑，或絕對路徑）
+ * - REALMS_SOURCE_LINK_REPO — 卡片「原始檔」連結用的 GitHub repo（slug 如 owner/name），預設本倉庫
+ *
+ * 輸出：src/data/threeRealmsFeatures*.ts、public/data/three-realms-jingjie-bodies.json
  */
 
-import { mkdirSync, writeFileSync } from 'node:fs'
-import { dirname, join } from 'node:path'
+import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs'
+import { dirname, isAbsolute, join, relative, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
@@ -22,21 +25,26 @@ const OUT_REALM = {
   shenyu: join(ROOT, 'src', 'data', 'threeRealmsFeatures.shenyu.ts'),
   jingjie: join(ROOT, 'src', 'data', 'threeRealmsFeatures.jingjie.ts'),
 }
+/** 鏡界 Markdown 正文（避免塞進 JS chunk）；由前端於詳情頁載入 */
+const OUT_JINGJIE_BODIES_JSON = join(ROOT, 'public', 'data', 'three-realms-jingjie-bodies.json')
 
-const TOKEN = process.env.GITHUB_TOKEN || process.env.NOTE_GITHUB_TOKEN
+/** 用於卡片 sourceUrl →「在 GitHub 上開啟對應檔案」 */
+const SOURCE_LINK_REPO = process.env.REALMS_SOURCE_LINK_REPO ?? 'iiooiioo888/pysdn_index'
+/** 在該 repo 內相對於 main 分枝的路徑前綴 */
+const SOURCE_LINK_PREFIX = 'frontend_new/content/note-realms'
 
-const REPO = 'iiooiioo888/Note'
-const API = 'https://api.github.com/repos'
+function resolveLocalSourceRoot() {
+  const raw = process.env.THREE_REALMS_LOCAL_ROOT?.trim()
+  if (!raw) return join(ROOT, 'content', 'note-realms')
+  if (isAbsolute(raw)) return resolve(raw)
+  return resolve(ROOT, raw)
+}
+
 const REALM_FOLDERS = {
   tianyu: '天域',
   shenyu: '神域',
   jingjie: '鏡界',
 }
-const HEADERS = TOKEN ? {
-  Authorization: `Bearer ${TOKEN}`,
-  Accept: 'application/vnd.github.v3+json',
-  'User-Agent': 'pysdn-sync',
-} : undefined
 
 /* helpers */
 
@@ -44,12 +52,10 @@ function encodeRepoPath(path) {
   return path.split('/').map((segment) => encodeURIComponent(segment)).join('/')
 }
 
-function sourceUrl(path) {
-  return `https://github.com/${REPO}/blob/main/${encodeRepoPath(path)}`
-}
-
-function sourceTreeUrl(path) {
-  return `https://github.com/${REPO}/tree/main/${encodeRepoPath(path)}`
+function sourceUrl(relPath) {
+  const norm = relPath.replace(/\\/g, '/')
+  const inRepo = `${SOURCE_LINK_PREFIX}/${norm}`
+  return `https://github.com/${SOURCE_LINK_REPO}/blob/main/${encodeRepoPath(inRepo)}`
 }
 
 function hashString(input) {
@@ -73,55 +79,56 @@ function slugFromSourcePath(sourcePath) {
   return `${ascii || 'feature'}-${hashString(sourcePath).slice(0, 6)}`
 }
 
-async function listEntries(path) {
-  const data = await ghJson(path)
-  if (!Array.isArray(data)) {
-    throw new Error(`Expected directory listing for ${path}`)
-  }
-  return data
+function isSkippableMdFileName(fileName) {
+  const lower = fileName.toLowerCase()
+  return lower === 'readme.md' || lower === 'readme_old.md'
 }
 
-async function listMarkdownFiles(path) {
-  const entries = await listEntries(path)
-  const files = []
+/**
+ * @param {string} realmTopFolder — e.g. 天域
+ * @returns {Promise<string[]>} — relative paths under note-realms, e.g. 天域/foo.md
+ */
+async function listMarkdownFiles(realmTopFolder) {
+  const LOCAL_SOURCE_ROOT = resolveLocalSourceRoot()
+  const absRoot = join(LOCAL_SOURCE_ROOT, realmTopFolder)
 
-  for (const entry of entries) {
-    if (entry.name.startsWith('.')) continue
-    const childPath = `${path}/${entry.name}`
-    if (entry.type === 'dir') {
-      files.push(...await listMarkdownFiles(childPath))
-    } else if (entry.type === 'file' && entry.name.endsWith('.md') && entry.name !== 'README_old.md') {
-      files.push(childPath)
+  if (!existsSync(absRoot)) {
+    throw new Error(
+      `找不到三界原始資料夾：${absRoot}\n`
+        + `請在專案中建立並放入 Markdown：${LOCAL_SOURCE_ROOT}/{天域|神域|鏡界}/\n`
+        + `（可將原 Note 倉庫同名目錄複製過來）`,
+    )
+  }
+
+  const out = []
+
+  function walk(dirAbs, suffixRel) {
+    for (const ent of readdirSync(dirAbs, { withFileTypes: true })) {
+      if (ent.name.startsWith('.')) continue
+      const piece = suffixRel ? `${suffixRel}/${ent.name}` : ent.name
+      const full = join(dirAbs, ent.name)
+      if (ent.isDirectory()) {
+        walk(full, piece)
+      } else if (ent.isFile() && ent.name.endsWith('.md') && !isSkippableMdFileName(ent.name)) {
+        out.push(`${realmTopFolder}/${piece}`.replace(/\\/g, '/'))
+      }
     }
   }
 
-  return files.sort((a, b) => a.localeCompare(b, 'zh-Hant'))
+  walk(absRoot, '')
+  return out.sort((a, b) => a.localeCompare(b, 'zh-Hant'))
 }
 
-async function readSourceText(path) {
-  return fetchText(path)
-}
-
-async function ghJson(path) {
-  if (!TOKEN) {
-    throw new Error('Missing token. Set GITHUB_TOKEN or NOTE_GITHUB_TOKEN for GitHub API access.')
+async function readSourceText(relPath) {
+  const LOCAL_SOURCE_ROOT = resolveLocalSourceRoot()
+  const norm = relPath.replace(/\\/g, '/')
+  const full = resolve(LOCAL_SOURCE_ROOT, norm)
+  const rootResolved = resolve(LOCAL_SOURCE_ROOT)
+  const relCheck = relative(rootResolved, full)
+  if (!relCheck || relCheck.startsWith('..') || isAbsolute(relCheck)) {
+    throw new Error(`非法來源路徑：${relPath}`)
   }
-
-  const url = `${API}/${REPO}/contents/${encodeRepoPath(path)}`
-  const res = await fetch(url, { headers: HEADERS })
-  if (!res.ok) {
-    const body = await res.text().catch(() => '')
-    throw new Error(`GitHub API ${res.status} for ${path}: ${body.slice(0, 200)}`)
-  }
-  return res.json()
-}
-
-async function fetchText(path) {
-  const data = await ghJson(path)
-  if (data.encoding === 'base64') {
-    return Buffer.from(data.content, 'base64').toString('utf-8')
-  }
-  return data.content ?? ''
+  return readFileSync(full, 'utf8')
 }
 
 function cleanInlineMarkdown(text) {
@@ -889,24 +896,21 @@ async function processJingjie() {
 /* main */
 
 async function main() {
-  if (!TOKEN) {
-    throw new Error(
-      'Missing token. Set GITHUB_TOKEN or NOTE_GITHUB_TOKEN for GitHub API access.',
-    )
-  }
-  console.log(`Using GitHub API source: ${REPO}`)
+  const srcRoot = resolveLocalSourceRoot()
+  console.log(`Using local Markdown source: ${srcRoot}`)
+  console.log(`  Source URLs: github.com/${SOURCE_LINK_REPO}/blob/main/${SOURCE_LINK_PREFIX}/…`)
 
-  console.log('Fetching 天域...')
+  console.log('Scanning 天域...')
   const tianyu = await processTianyu()
   validateCardsOrThrow('tianyu', tianyu)
   console.log(`   ${tianyu.length} cards`)
 
-  console.log('Fetching 神域...')
+  console.log('Scanning 神域...')
   const shenyu = await processShenyu()
   validateCardsOrThrow('shenyu', shenyu)
   console.log(`   ${shenyu.length} cards`)
 
-  console.log('Fetching 鏡界...')
+  console.log('Scanning 鏡界...')
   const jingjie = await processJingjie()
   validateCardsOrThrow('jingjie', jingjie)
   console.log(`   ${jingjie.length} cards`)
@@ -986,21 +990,38 @@ export const REALMS_FEATURE_COUNTS: Record<RealmId, number> = {
 
   for (const [realmId, cards] of realmOutputs) {
     const constName = `REALM_FEATURES_${realmId.toUpperCase()}`
+    let persistCards = cards
+
+    if (realmId === 'jingjie') {
+      const bodies = {}
+      for (const c of cards) {
+        bodies[c.slug] = c.bodyMarkdown ?? ''
+      }
+      mkdirSync(dirname(OUT_JINGJIE_BODIES_JSON), { recursive: true })
+      writeFileSync(OUT_JINGJIE_BODIES_JSON, `${JSON.stringify(bodies)}\n`)
+
+      persistCards = cards.map(({ bodyMarkdown: _body, ...rest }) => ({
+        ...rest,
+        bodyMarkdown: '',
+      }))
+    }
+
     const moduleTs = `// Auto-generated by scripts/sync-three-realms.mjs — DO NOT EDIT
 // Generated: ${new Date().toISOString()}
 
 import type { RealmFeatureCard } from './threeRealmsFeatures'
 
-export const ${constName}: RealmFeatureCard[] = ${JSON.stringify(cards, null, 2)}
+export const ${constName}: RealmFeatureCard[] = ${JSON.stringify(persistCards, null, 2)}
 `
     writeFileSync(OUT_REALM[realmId], moduleTs)
   }
 
   console.log(`\nWrote ${total} cards -> ${OUT.replace(`${process.cwd()}/`, '')} + realm data modules`)
+  console.log(`Jingjie bodies JSON -> ${OUT_JINGJIE_BODIES_JSON.replace(`${process.cwd()}/`, '')}`)
 }
 
 main().catch((err) => {
   console.error('Sync failed:', err.message)
-  console.error(`GitHub source: ${sourceTreeUrl('天域')}`)
+  console.error(`Local source root hint: ${join(ROOT, 'content', 'note-realms')}`)
   process.exit(1)
 })

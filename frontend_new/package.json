@@ -11,10 +11,12 @@
     "merge:sections-css": "node scripts/merge-app-sections-css.mjs",
     "dev": "vite",
     "build": "tsc && node scripts/merge-app-sections-css.mjs && vite build && node scripts/copy-404.mjs && node scripts/postbuild.mjs",
+    "build:analyze": "tsc && node scripts/merge-app-sections-css.mjs && vite build --mode analyze && node scripts/copy-404.mjs && node scripts/postbuild.mjs",
     "preview": "vite preview",
     "sync:realms": "node scripts/sync-three-realms.mjs",
     "validate:realms": "node scripts/validate-three-realms.mjs",
-    "sync:realms:check": "npm run sync:realms && npm run validate:realms"
+    "sync:realms:check": "npm run sync:realms && npm run validate:realms",
+    "migrate:jingjie-bodies": "node scripts/migrate-jingjie-bodies-to-json.mjs"
   },
   "dependencies": {
     "@tanstack/react-virtual": "^3.13.24",
@@ -42,6 +44,7 @@
     "globals": "^17.5.0",
     "mermaid": "^11.14.0",
     "postcss": "^8.5.10",
+    "rollup-plugin-visualizer": "^7.0.1",
     "tailwindcss": "^3.4.19",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.59.0",

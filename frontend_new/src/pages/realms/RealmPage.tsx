@@ -1,13 +1,21 @@
 import { useTranslation } from 'react-i18next'
 import { Link, Navigate, useParams } from 'react-router-dom'
-import { TianyuRealmBoard } from '../../components/realms/TianyuRealmBoard'
-import { ShenyuRealmBoard } from '../../components/realms/ShenyuRealmBoard'
-import { JingjieRealmBoard } from '../../components/realms/JingjieRealmBoard'
+import { lazy, Suspense } from 'react'
 import { REALM_META, isRealmId } from '../../data/threeRealmsMeta'
 import { useI18nRerender } from '../../hooks/useI18nRerender'
 import { useRealmFeatures } from '../../hooks/useRealmFeatures'
 import { PATHS } from '../../routes/paths'
 import { RealmsPageShell } from './RealmsPageShell'
+
+const TianyuRealmBoard = lazy(() =>
+  import('../../components/realms/TianyuRealmBoard').then((m) => ({ default: m.TianyuRealmBoard })),
+)
+const ShenyuRealmBoard = lazy(() =>
+  import('../../components/realms/ShenyuRealmBoard').then((m) => ({ default: m.ShenyuRealmBoard })),
+)
+const JingjieRealmBoard = lazy(() =>
+  import('../../components/realms/JingjieRealmBoard').then((m) => ({ default: m.JingjieRealmBoard })),
+)
 
 export function RealmPage() {
   const { t } = useTranslation()
@@ -47,11 +55,17 @@ export function RealmPage() {
             {loading ? (
               <p className="realms-fc-empty">{t('realms_fc_loading')}</p>
             ) : realmId === 'tianyu' ? (
-              <TianyuRealmBoard features={features} accent={meta.accent} />
+              <Suspense fallback={<p className="realms-fc-empty">{t('realms_fc_loading')}</p>}>
+                <TianyuRealmBoard features={features} accent={meta.accent} />
+              </Suspense>
             ) : realmId === 'shenyu' ? (
-              <ShenyuRealmBoard features={features} accent={meta.accent} />
+              <Suspense fallback={<p className="realms-fc-empty">{t('realms_fc_loading')}</p>}>
+                <ShenyuRealmBoard features={features} accent={meta.accent} />
+              </Suspense>
             ) : realmId === 'jingjie' ? (
-              <JingjieRealmBoard features={features} accent={meta.accent} />
+              <Suspense fallback={<p className="realms-fc-empty">{t('realms_fc_loading')}</p>}>
+                <JingjieRealmBoard features={features} accent={meta.accent} />
+              </Suspense>
             ) : null}
           </section>
         </div>

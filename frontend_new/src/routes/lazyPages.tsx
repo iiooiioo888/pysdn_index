@@ -8,8 +8,6 @@ import { BackupPage as BackupPageCmp } from '../pages/BackupPage'
 import { ThreeRealmsPage as ThreeRealmsPageCmp } from '../pages/ThreeRealmsPage'
 import { RealmIntegrationPage as RealmIntegrationPageCmp } from '../pages/realms/RealmIntegrationPage'
 import { RealmPage as RealmPageCmp } from '../pages/realms/RealmPage'
-import { RealmFeaturePage as RealmFeaturePageCmp } from '../pages/realms/RealmFeaturePage'
-
 /**
  * 對齊 `registry` 的 `LazyExoticComponent` 型別，但實際為同步元件。
  * 在 dev + `base` 非 `/` 時，`import()` 動態載入 `.tsx` 可能出現
@@ -28,7 +26,9 @@ export const BackupPage = eagerPage(BackupPageCmp)
 export const ThreeRealmsPage = eagerPage(ThreeRealmsPageCmp)
 export const RealmIntegrationPage = eagerPage(RealmIntegrationPageCmp)
 export const RealmPage = eagerPage(RealmPageCmp)
-export const RealmFeaturePage = eagerPage(RealmFeaturePageCmp)
+export const RealmFeaturePage = lazy(() =>
+  import('../pages/realms/RealmFeaturePage').then((m) => ({ default: m.RealmFeaturePage })),
+)
 export const SuperForgeDocPage = lazy(() =>
   import('../pages/docs/SuperForgeDocPage').then((m) => ({ default: m.SuperForgeDocPage })),
 )

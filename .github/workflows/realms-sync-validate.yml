@@ -1,4 +1,4 @@
-name: Realms Sync Validate
+name: Realms Data Validate
 
 on:
   push:
@@ -7,6 +7,7 @@ on:
       - "frontend_new/scripts/sync-three-realms.mjs"
       - "frontend_new/scripts/validate-three-realms.mjs"
       - "frontend_new/src/data/threeRealmsFeatures*.ts"
+      - "frontend_new/content/note-realms/**"
       - "frontend_new/package.json"
       - ".github/workflows/realms-sync-validate.yml"
   pull_request:
@@ -14,12 +15,13 @@ on:
       - "frontend_new/scripts/sync-three-realms.mjs"
       - "frontend_new/scripts/validate-three-realms.mjs"
       - "frontend_new/src/data/threeRealmsFeatures*.ts"
+      - "frontend_new/content/note-realms/**"
       - "frontend_new/package.json"
       - ".github/workflows/realms-sync-validate.yml"
   workflow_dispatch:
 
 jobs:
-  sync-and-validate:
+  validate-realms-data:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -34,25 +36,6 @@ jobs:
         working-directory: frontend_new
         run: npm ci
 
-      - name: Ensure NOTE_GITHUB_TOKEN is configured
-        env:
-          NOTE_GITHUB_TOKEN: ${{ secrets.NOTE_GITHUB_TOKEN }}
-        run: |
-          if [ -z "$NOTE_GITHUB_TOKEN" ]; then
-            echo "Missing required secret: NOTE_GITHUB_TOKEN"
-            exit 1
-          fi
-
-      - name: Sync realms data from Note (token required)
-        working-directory: frontend_new
-        env:
-          NOTE_GITHUB_TOKEN: ${{ secrets.NOTE_GITHUB_TOKEN }}
-          GITHUB_TOKEN: ${{ secrets.NOTE_GITHUB_TOKEN }}
-        run: npm run sync:realms
-
-      - name: Validate generated realms data
+      - name: Validate Three Realms data (committed artefacts)
         working-directory: frontend_new
         run: npm run validate:realms
-
-      - name: Ensure generated data is committed
-        run: git diff --exit-code -- frontend_new/src/data/threeRealmsFeatures.ts frontend_new/src/data/threeRealmsFeatures.tianyu.ts frontend_new/src/data/threeRealmsFeatures.shenyu.ts frontend_new/src/data/threeRealmsFeatures.jingjie.ts

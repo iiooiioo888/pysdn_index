@@ -12,7 +12,9 @@ import { PATHS, pathToRealm, pathToRealmFeature } from '../routes/paths'
 import { prefersReducedMotion } from '../lib/motionPreference'
 import { getRealmIllustration } from './realms/RealmIllustrations'
 
-const NOTE_REPO = 'https://github.com/iiooiioo888/Note'
+/** 三界 Markdown 來源在目錄 `content/note-realms/`（對應本倉 GitHub 樹） */
+const THREE_REALMS_SOURCE_TREE_ON_GITHUB =
+  'https://github.com/iiooiioo888/pysdn_index/tree/main/frontend_new/content/note-realms'
 
 /** How many cards to show in embedded (homepage) mode */
 const EMBEDDED_CARD_LIMIT = 4
@@ -406,7 +408,7 @@ export function ThreeRealmsInteractive({ layout, showFullPageLink }: ThreeRealms
         ) : null}
         <a
           className="realms-ix-link realms-ix-link--ghost"
-          href={NOTE_REPO}
+          href={THREE_REALMS_SOURCE_TREE_ON_GITHUB}
           target="_blank"
           rel="noopener noreferrer"
           aria-label={t('realms_github_aria')}
