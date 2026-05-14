@@ -1,6 +1,6 @@
 /* 美術／動效 token（單一來源；區塊樣式仍由 merge 產出） */
 @import './styles/visual-system.css';
-/* ===== Component Styles（原 13 個區塊 CSS 已合併為單檔，減少 dev 連線數）===== */
+/* ===== Component Styles（逐步遷移到 Tailwind 後將移除）===== */
 @import './styles/app-sections.css';
 
 @tailwind base;

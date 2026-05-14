@@ -1,6 +1,6 @@
 import { lazy, Suspense } from 'react'
 import { HomeLazySection } from '../components/HomeLazySection'
-import { Navbar } from '../components/Navbar'
+import { PageShell } from '../components/PageShell'
 import { useCanvasBackground } from '../hooks/useCanvasBackground'
 import { useHomeHashScroll } from '../hooks/useHomeHashScroll'
 
@@ -16,7 +16,6 @@ const WorkflowSection = lazy(() =>
   import('../components/WorkflowSection').then((m) => ({ default: m.WorkflowSection })),
 )
 const Contact = lazy(() => import('../components/Contact').then((m) => ({ default: m.Contact })))
-const Footer = lazy(() => import('../components/Footer').then((m) => ({ default: m.Footer })))
 
 export function HomePage() {
   const canvasRef = useCanvasBackground()
@@ -28,8 +27,7 @@ export function HomePage() {
         <canvas ref={canvasRef} id="bgCanvas" className="home-sf__cv" aria-hidden="true" />
       </div>
 
-      <div className="site-shell">
-        <Navbar />
+      <PageShell>
         <main className="home-main home-main--sf">
           <Suspense fallback={<section className="hero" aria-busy="true" />}>
             <Hero />
@@ -56,10 +54,7 @@ export function HomePage() {
             <Contact />
           </HomeLazySection>
         </main>
-        <HomeLazySection minHeight={120}>
-          <Footer />
-        </HomeLazySection>
-      </div>
+      </PageShell>
     </>
   )
 }

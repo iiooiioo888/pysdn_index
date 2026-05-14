@@ -1,8 +1,7 @@
-import { lazy, Suspense, useMemo } from 'react'
+import { useMemo } from 'react'
 import { Link, Navigate, useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { Navbar } from '../components/Navbar'
-import { useCanvasBackground } from '../hooks/useCanvasBackground'
+import { PageShell } from '../components/PageShell'
 import { useLangQuery } from '../hooks/useLangQuery'
 import { getModelDetailDoc } from '../data/modelDetailDocs'
 import { BEDROCK_MODELS } from '../data/bedrockCatalog'
@@ -20,8 +19,6 @@ import {
 } from '../data/modelDisplayLabels'
 import { OPENROUTER_MODELS } from '../data/openRouterModels'
 import { PATHS } from '../routes/paths'
-
-const Footer = lazy(() => import('../components/Footer').then((m) => ({ default: m.Footer })))
 
 function pickDetailLang<T>(row: Record<UiLang, T>, lang: UiLang): T {
   return row[lang] ?? row.en
@@ -41,7 +38,6 @@ export function ModelDetailPage() {
   const modelId = rawId ? decodeURIComponent(rawId) : ''
   const uiLang = resolveUiLang(i18n.language)
 
-  const canvasRef = useCanvasBackground()
   const langSearch = useLangQuery()
 
   const mergedModels = useMemo(
@@ -75,13 +71,9 @@ export function ModelDetailPage() {
     : undefined
 
   return (
-    <>
-      <canvas ref={canvasRef} id="bgCanvas" aria-hidden="true" />
-
-      <div className="site-shell">
-        <Navbar />
-        <main className="model-detail-main">
-          <div className="model-detail-inner">
+    <PageShell>
+      <main className="model-detail-main">
+        <div className="model-detail-inner">
             <Link className="model-detail-back" to={{ pathname: PATHS.models, search: langSearch }}>
               <span className="ui-chevron-right model-detail-back-chevron" aria-hidden="true" />
               {t('model_detail_back')}
@@ -221,10 +213,6 @@ export function ModelDetailPage() {
             <p className="model-detail-disclaimer">{t('model_detail_disclaimer')}</p>
           </div>
         </main>
-        <Suspense fallback={null}>
-          <Footer />
-        </Suspense>
-      </div>
-    </>
+    </PageShell>
   )
 }

@@ -1,26 +1,23 @@
 import { lazy, Suspense } from 'react'
-import { Navbar } from '../components/Navbar'
-import { useCanvasBackground } from '../hooks/useCanvasBackground'
+import { PageShell } from '../components/PageShell'
 
 const ModelsSection = lazy(() =>
   import('../components/ModelsSection').then((m) => ({ default: m.ModelsSection })),
 )
-const Footer = lazy(() => import('../components/Footer').then((m) => ({ default: m.Footer })))
 
-/** 骨架屏佔位（同步組件，不走 lazy） */
 function ModelsSkeletonFallback() {
   return (
     <section className="section models-section">
       <div className="container models-container">
-        <div className="models-skeleton-grid" aria-label="Loading models…">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5" aria-label="Loading models…">
           {Array.from({ length: 9 }, (_, i) => (
-            <div key={i} className="models-skeleton-card">
-              <div className="models-skeleton-thumb" />
-              <div className="models-skeleton-body">
-                <div className="models-skeleton-line models-skeleton-line--title" />
-                <div className="models-skeleton-line models-skeleton-line--desc" />
-                <div className="models-skeleton-line models-skeleton-line--desc2" />
-                <div className="models-skeleton-line models-skeleton-line--price" />
+            <div key={i} className="rounded-panel border border-white/[0.06] bg-white/[0.02] overflow-hidden animate-pulse">
+              <div className="aspect-video bg-white/[0.04]" />
+              <div className="p-4 space-y-3">
+                <div className="h-4 w-3/4 bg-white/[0.06] rounded" />
+                <div className="h-3 w-full bg-white/[0.04] rounded" />
+                <div className="h-3 w-5/6 bg-white/[0.04] rounded" />
+                <div className="h-3 w-1/3 bg-white/[0.06] rounded" />
               </div>
             </div>
           ))}
@@ -31,23 +28,11 @@ function ModelsSkeletonFallback() {
 }
 
 export function ModelsPage() {
-  const canvasRef = useCanvasBackground()
-
   return (
-    <>
-      <canvas ref={canvasRef} id="bgCanvas" aria-hidden="true" />
-
-      <div className="site-shell">
-        <Navbar />
-        <main className="models-page-main">
-          <Suspense fallback={<ModelsSkeletonFallback />}>
-            <ModelsSection />
-          </Suspense>
-        </main>
-        <Suspense fallback={null}>
-          <Footer />
-        </Suspense>
-      </div>
-    </>
+    <PageShell>
+      <Suspense fallback={<ModelsSkeletonFallback />}>
+        <ModelsSection />
+      </Suspense>
+    </PageShell>
   )
 }

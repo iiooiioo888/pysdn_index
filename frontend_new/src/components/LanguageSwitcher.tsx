@@ -72,26 +72,29 @@ export function LanguageSwitcher() {
   )
 
   return (
-    <div ref={rootRef} className={`lang-switcher ${isOpen ? 'open' : ''}`}>
+    <div ref={rootRef} className="relative shrink-0 z-[120] lang-switcher">
       <button
         type="button"
-        className="lang-current"
+        className="flex items-center gap-1.5 px-3 py-1.5 text-ui text-text-dim border border-border rounded-lg bg-transparent hover:border-border-hover hover:text-text transition-colors duration-200"
         id="lang-switcher-button"
-        onClick={(e) => {
-          e.stopPropagation()
-          setIsOpen((v) => !v)
-        }}
+        onClick={(e) => { e.stopPropagation(); setIsOpen((v) => !v) }}
         aria-haspopup="menu"
         aria-expanded={isOpen ? 'true' : 'false'}
         aria-controls="lang-switcher-menu"
         aria-label="Select language"
       >
-        <span className="lang-flag" aria-hidden="true">{current.flag}</span>
-        <span className="lang-code">{current.label}</span>
-        <span className={`ui-chevron-down ${isOpen ? 'ui-chevron-down--open' : ''}`} aria-hidden="true" />
+        <span aria-hidden="true">{current.flag}</span>
+        <span>{current.label}</span>
+        <span className={`inline-block w-[0.42em] h-[0.42em] border-r-2 border-b-2 border-current transition-transform duration-200 ml-1 ${isOpen ? 'rotate-[225deg]' : 'rotate-45'}`} aria-hidden="true" />
       </button>
       <div
-        className="lang-dropdown"
+        className={[
+          'absolute top-[calc(100%+8px)] right-0 min-w-[160px] z-[200]',
+          'bg-[rgba(12,12,22,0.96)] glass-blur border border-white/[0.08] rounded-[14px] p-1.5',
+          'shadow-[0_16px_40px_rgba(0,0,0,0.45)]',
+          'transition-all duration-200',
+          isOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2',
+        ].join(' ')}
         id="lang-switcher-menu"
         role="menu"
         aria-labelledby="lang-switcher-button"
@@ -103,10 +106,15 @@ export function LanguageSwitcher() {
             type="button"
             role="menuitemradio"
             aria-checked={langKey === lang.code}
-            className={`lang-option ${langKey === lang.code ? 'active' : ''}`}
+            className={[
+              'flex items-center gap-2 w-full px-3 py-2 text-ui rounded-lg transition-colors duration-150',
+              langKey === lang.code
+                ? 'bg-primary-500/10 text-primary-400'
+                : 'text-text-dim hover:bg-white/[0.06] hover:text-white',
+            ].join(' ')}
             onClick={() => selectLang(lang.code)}
           >
-            <span className="lang-opt-flag">{lang.flag}</span>
+            <span>{lang.flag}</span>
             {lang.label}
           </button>
         ))}
