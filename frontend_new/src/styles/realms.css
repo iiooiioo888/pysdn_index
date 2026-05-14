@@ -705,6 +705,115 @@ main.realms-page-main {
   color: rgba(226, 232, 240, 0.96);
 }
 
+/* ── rich markdown: images ─────────────────────────────────────────── */
+.realms-md--rich img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  margin: 1em 0;
+  display: block;
+}
+
+/* ── rich markdown: links ──────────────────────────────────────────── */
+.realms-md--rich a {
+  color: var(--accent-cyan, #67e8f9);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  text-decoration-color: rgba(103, 232, 249, 0.35);
+  transition: text-decoration-color 0.15s;
+}
+.realms-md--rich a:hover {
+  text-decoration-color: rgba(103, 232, 249, 0.8);
+}
+.realms-md--rich a[target="_blank"]::after {
+  content: ' ↗';
+  font-size: 0.75em;
+  opacity: 0.6;
+}
+
+/* ── rich markdown: bold / italic ──────────────────────────────────── */
+.realms-md--rich strong,
+.realms-md--rich b {
+  color: #fff;
+  font-weight: 600;
+}
+.realms-md--rich em,
+.realms-md--rich i {
+  font-style: italic;
+  color: rgba(226, 232, 240, 0.85);
+}
+
+/* ── rich markdown: blockquote ─────────────────────────────────────── */
+.realms-md--rich blockquote {
+  margin: 1.2em 0;
+  padding: 12px 16px;
+  border-left: 3px solid rgba(103, 232, 249, 0.4);
+  background: rgba(103, 232, 249, 0.04);
+  border-radius: 0 8px 8px 0;
+  color: var(--text-dim);
+}
+.realms-md--rich blockquote p:last-child {
+  margin-bottom: 0;
+}
+
+/* ── rich markdown: table ──────────────────────────────────────────── */
+.realms-md--rich table {
+  width: 100%;
+  margin: 1.2em 0;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  overflow-x: auto;
+  display: block;
+}
+.realms-md--rich thead {
+  background: rgba(255, 255, 255, 0.04);
+}
+.realms-md--rich th {
+  text-align: left;
+  padding: 10px 12px;
+  font-weight: 600;
+  color: #fff;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+  white-space: nowrap;
+}
+.realms-md--rich td {
+  padding: 8px 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  color: var(--text-dim);
+}
+.realms-md--rich tbody tr:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+/* ── rich markdown: horizontal rule ────────────────────────────────── */
+.realms-md--rich hr {
+  border: none;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.08);
+  margin: 2em 0;
+}
+
+/* ── rich markdown: checkbox lists ─────────────────────────────────── */
+.realms-md--rich input[type="checkbox"] {
+  margin-right: 6px;
+  accent-color: var(--accent-cyan, #67e8f9);
+}
+
+/* ── rich markdown: inline code ────────────────────────────────────── */
+.realms-md--rich code {
+  background: rgba(255, 255, 255, 0.06);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.85em;
+}
+.realms-md--rich pre code {
+  background: none;
+  padding: 0;
+  border-radius: 0;
+  font-size: 0.86rem;
+}
+
 /* ---------- responsive (feature cards) ---------- */
 @media (max-width: 640px) {
   .realms-fc-grid {
