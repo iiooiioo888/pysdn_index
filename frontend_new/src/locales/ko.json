@@ -11,7 +11,7 @@
   "nav_models": "모델 맵",
   "nav_module_docs": "모듈·문서",
   "nav_aria_main": "주 메뉴",
-  "doc_nav_mods_aria": "확장 모듈 바로가기",
+  "doc_nav_mods_aria": "8개 확장 모듈 간 빠른 전환",
   "doc_nav_mod_superforge": "SuperForge",
   "doc_nav_mod_superscript": "SuperScript",
   "doc_nav_mod_supertrack": "SuperTrack",
@@ -808,7 +808,6 @@
   "realms_related_features_aria": "관련 기능 목록",
   "realms_feature_prev": "이전",
   "realms_feature_next": "다음",
-
   "realms_global_search_ph": "삼계 전체 검색…",
   "realms_global_search_aria": "삼계 전체 글로벌 검색",
   "realms_global_filter_realm": "경계",
@@ -819,7 +818,6 @@
   "realms_global_sort_realm": "경계",
   "realms_global_results_count": "{{count}}개 결과 발견",
   "realms_global_no_results": "일치하는 결과가 없습니다. 다른 키워드를 시도해 주세요.",
-
   "realms_shenyu_browser_title": "신역 데이터｜Note 삼계｜Pysdn",
   "realms_shenyu_dash_aria": "신역 데이터 요약",
   "realms_shenyu_tabs_aria": "신역 카테고리 탭",
@@ -835,7 +833,6 @@
   "realms_shenyu_search": "검색",
   "realms_shenyu_search_ph": "제목, 요약 또는 태그 키워드…",
   "realms_shenyu_content_note": "신역은 AI 자율 협력 플랫폼의 아키텍처 설계, 모듈 설계, 기술 문서를 수록합니다.",
-
   "realms_jingjie_browser_title": "경계 데이터｜Note 삼계｜Pysdn",
   "realms_jingjie_dash_aria": "경계 데이터 요약",
   "realms_jingjie_tabs_aria": "경계 카테고리 탭",
@@ -853,23 +850,19 @@
   "realms_jingjie_search": "검색",
   "realms_jingjie_search_ph": "제목, 요약 또는 태그 키워드…",
   "realms_jingjie_content_note": "경계는 크롤러, 데이터 엔지니어링, 인프라스트럭처 기술 문서와 모듈 설계를 수록합니다.",
-
   "backup_breadcrumb": "백업 시스템",
   "backup_hero_title": "인플루언서 디지털 자산 백업 시스템",
   "backup_hero_lead": "제로 유지보수 엔터프라이즈 아키텍처. 콘텐츠 크리에이터에게 완전 자동, 고신뢰, 엔드투엔드 암호화 디지털 자산 보호 솔루션을 제공합니다.",
   "backup_hero_sub": "소셜 계정 · 영상素材 · 팬 데이터 · 브랜드 자산 — 모두 자동 백업, 버전 관리, 원클릭 복원",
-
   "backup_stat_maintenance": "유지보수 비용",
   "backup_stat_uptime": "가동률 SLA",
   "backup_stat_encryption": "암호화 표준",
   "backup_stat_versions": "버전 보관",
-
   "backup_tabs_aria": "백업 시스템 탭 내비게이션",
   "backup_tab_overview": "개요",
   "backup_tab_arch": "아키텍처",
   "backup_tab_features": "핵심 기능",
   "backup_tab_tech": "기술 스택",
-
   "backup_overview_hero_title": "한 번 배포, 영구 보호",
   "backup_overview_hero_desc": "기존 백업 솔루션은 전담 유지보수, 정기 점검, 수동 복원이 필요합니다. 제로 유지보수 아키텍처는这一切를 자동화——한 번 배포하면 영구 운영.",
   "backup_overview_pain_title": "痛点",
@@ -878,7 +871,6 @@
   "backup_overview_solution_desc": "통합 수집, 자동 백업, 버전 관리, 엔드투엔드 암호화. 모든 자산을集中管理하고任意時点으로 원클릭 복원을 지원합니다.",
   "backup_overview_benefit_title": "핵심 가치",
   "backup_overview_benefit_desc": "제로 유지보수: 배포 후人工干预 불필요. 엔터프라이즈급: AES-256 암호화, 다중地域冗余, 자동 헬스체크. 확장 가능: 개인 크리에이터부터 MCN机构까지.",
-
   "backup_selling_title": "선택하는 이유",
   "backup_sp_auto_title": "완전 자동 백업",
   "backup_sp_auto_desc": "스케줄 자동 실행,人工干预 불필요. 증분 백업으로存储空间과 대역폭을 절약.",
@@ -888,7 +880,6 @@
   "backup_sp_scale_desc": "개인 크리에이터에서万人 MCN까지, 아키텍처가业务成长에 맞춰 자동 확장. 재배포 불필요.",
   "backup_sp_integrate_title": "다중 플랫폼 통합",
   "backup_sp_integrate_desc": "YouTube, Instagram, TikTok, Weibo, Bilibili 등主流 플랫폼 지원. API로 커스텀 통합 가능.",
-
   "backup_arch_title": "제로 유지보수 엔터프라이즈 아키텍처",
   "backup_arch_desc": "4단계闭环管线: 자동 수집 → 스마트 처리 → 안전 저장 → 지속 검증. 각 단계에自我修复 기능.",
   "backup_arch_layers_title": "계층형 아키텍처",
@@ -900,7 +891,6 @@
   "backup_arch_store_desc": "암호화 저장, 다중地域 복제, 버전 관리",
   "backup_arch_verify_title": "검증 계층",
   "backup_arch_verify_desc": "무결성 검사, 자동 복구, 헬스 모니터링",
-
   "backup_layer_app": "애플리케이션 계층",
   "backup_layer_app_1": "Web 콘솔",
   "backup_layer_app_2": "REST API",
@@ -917,7 +907,6 @@
   "backup_layer_infra_1": "Docker / K8s",
   "backup_layer_infra_2": "Prometheus + Grafana",
   "backup_layer_infra_3": "NATS 메시지 큐",
-
   "backup_zero_maint_title": "제로 유지보수 설계",
   "backup_zero_auto_heal_title": "자동 복구",
   "backup_zero_auto_heal_desc": "서비스 이상 시 자동 재시작, 작업 실패 시 자동 재시도, 노드 장애 시 자동 마이그레이션.",
@@ -927,7 +916,6 @@
   "backup_zero_auto_scale_desc": "부하에 따라 리소스 자동 조절. 백업 피크 시 스케일업, 유휴 시 스케일다운으로 비용 절감.",
   "backup_zero_self_config_title": "자동 설정",
   "backup_zero_self_config_desc": "최초 배포 시 환경 자동 감지 및 최적 설정 생성. subsequent changes 자동 적용.",
-
   "backup_features_title": "핵심 기능",
   "backup_features_desc": "백업 생명주기의 모든 단계를涵盖하는 6가지 핵심 기능.",
   "backup_feat_auto_title": "완전 자동 스케줄 백업",
@@ -942,7 +930,6 @@
   "backup_feat_dedup_desc": "콘텐츠 인식 중복 제거 기술. 동일 파일은 1부만 저장. 스마트 압축으로 60-80%存储空间 절약.",
   "backup_feat_monitor_title": "실시간 모니터링 대시보드",
   "backup_feat_monitor_desc": "Grafana 기반 실시간 대시보드. 백업 상태, 저장 사용량, 시스템 헬스를한눈에 확인.",
-
   "backup_tag_auto": "자동화",
   "backup_tag_zero_touch": "제로 터치",
   "backup_tag_multi": "다중 플랫폼",
@@ -955,7 +942,6 @@
   "backup_tag_smart": "스마트",
   "backup_tag_alert": "알림",
   "backup_tag_dashboard": "대시보드",
-
   "backup_workflow_title": "백업 워크플로우",
   "backup_wf_step1_title": "변경 감지",
   "backup_wf_step1_desc": "플랫폼 API 모니터링, 콘텐츠 변경 감지",
@@ -965,7 +951,6 @@
   "backup_wf_step3_desc": "암호화 후 다중地域 저장소에 기록",
   "backup_wf_step4_title": "검증 완료",
   "backup_wf_step4_desc": "무결성 검사, 상태 업데이트",
-
   "backup_tech_title": "기술 스택",
   "backup_tech_desc": "성숙하고 안정적인 오픈소스 기술 기반, KISS 및 YAGNI 원칙 준수.",
   "backup_tech_pg": "주 데이터베이스. 작업 메타데이터, 사용자 설정, 버전 이력 저장. JSONB로 유연한 쿼리 지원.",
@@ -980,7 +965,6 @@
   "backup_tech_cat_compute": "컴퓨트",
   "backup_tech_cat_security": "보안",
   "backup_tech_cat_monitor": "모니터링",
-
   "backup_deploy_title": "배포 방식",
   "backup_deploy_local_title": "로컬 배포",
   "backup_deploy_local_desc": "Docker Compose 원클릭 시작. 개인 크리에이터 또는 소규모 팀에 적합.",
@@ -988,9 +972,12 @@
   "backup_deploy_docker_desc": "Kubernetes 오케스트레이션, 자동 스케일링. 중규모 팀 및 MCN에 적합.",
   "backup_deploy_cloud_title": "풀 매니지드 클라우드",
   "backup_deploy_cloud_desc": "완전 매니지드 서비스, 제로 운영. 대규모机构 및 엔터프라이즈 고객에 적합.",
-
   "backup_cta_title": "디지털 자산 보호 시작",
   "backup_cta_desc": "한 번 배포, 영구 보호. 제로 유지보수 아키텍처로创作에集中, 백업은맡기세요.",
   "backup_cta_contact": "상담 예약",
-  "backup_cta_github": "GitHub 프로젝트"
+  "backup_cta_github": "GitHub 프로젝트",
+  "doc_nav_mod_supernova": "SuperNova",
+  "doc_nav_mod_supersight": "SuperSight",
+  "doc_nav_mod_stocksx": "StocksX",
+  "doc_nav_mod_stockquant": "StockQuant"
 }

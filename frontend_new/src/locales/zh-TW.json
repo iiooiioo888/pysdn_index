@@ -11,7 +11,7 @@
   "nav_models": "模型選型",
   "nav_module_docs": "模組與文件",
   "nav_aria_main": "主導航",
-  "doc_nav_mods_aria": "四款擴展模組快速切換",
+  "doc_nav_mods_aria": "八款擴展模組快速切換",
   "doc_nav_mod_superforge": "SuperForge",
   "doc_nav_mod_superscript": "SuperScript",
   "doc_nav_mod_supertrack": "SuperTrack",
@@ -808,7 +808,6 @@
   "realms_related_features_aria": "關聯功能列表",
   "realms_feature_prev": "上一個",
   "realms_feature_next": "下一個",
-
   "realms_global_search_ph": "跨三界搜索功能、文檔、標籤…",
   "realms_global_search_aria": "跨三界全局搜索",
   "realms_global_filter_realm": "境界",
@@ -819,7 +818,6 @@
   "realms_global_sort_realm": "境界",
   "realms_global_results_count": "找到 {{count}} 項結果",
   "realms_global_no_results": "沒有符合條件的結果，請嘗試其他關鍵字。",
-
   "realms_shenyu_browser_title": "神域資料｜Note 三界｜Pysdn",
   "realms_shenyu_dash_aria": "神域資料摘要",
   "realms_shenyu_tabs_aria": "神域分類標籤",
@@ -835,7 +833,6 @@
   "realms_shenyu_search": "搜尋",
   "realms_shenyu_search_ph": "標題、摘要或標籤關鍵字…",
   "realms_shenyu_content_note": "神域收錄 AI 自理協作平台的架構設計、模組規劃與技術文檔。",
-
   "realms_jingjie_browser_title": "鏡界資料｜Note 三界｜Pysdn",
   "realms_jingjie_dash_aria": "鏡界資料摘要",
   "realms_jingjie_tabs_aria": "鏡界分類標籤",
@@ -853,23 +850,19 @@
   "realms_jingjie_search": "搜尋",
   "realms_jingjie_search_ph": "標題、摘要或標籤關鍵字…",
   "realms_jingjie_content_note": "鏡界收錄面向爬蟲、數據工程與基礎設施的技術文檔與模組設計。",
-
   "backup_breadcrumb": "備份系統",
   "backup_hero_title": "網紅數位資產備份系統",
   "backup_hero_lead": "零維護企業級架構，為內容創建者提供全自動、高可靠、端到端加密的數位資產保護方案。",
   "backup_hero_sub": "社交帳號 · 影片素材 · 粉絲數據 · 品牌資產 — 全部自動備份、版本管理、一鍵恢復",
-
   "backup_stat_maintenance": "維護成本",
   "backup_stat_uptime": "可用性 SLA",
   "backup_stat_encryption": "加密標準",
   "backup_stat_versions": "版本保留",
-
   "backup_tabs_aria": "備份系統分頁導覽",
   "backup_tab_overview": "總覽",
   "backup_tab_arch": "架構設計",
   "backup_tab_features": "核心功能",
   "backup_tab_tech": "技術選型",
-
   "backup_overview_hero_title": "一鍵部署，永久守護",
   "backup_overview_hero_desc": "傳統備份方案需要專人維護、定期檢查、手動恢復。我們的零維護架構讓這一切自動發生——部署一次，永久運行。",
   "backup_overview_pain_title": "痛點",
@@ -878,7 +871,6 @@
   "backup_overview_solution_desc": "統一採集、自動備份、版本管理、端到端加密，所有資產集中管理，支援一鍵恢復到任意時間點。",
   "backup_overview_benefit_title": "核心價值",
   "backup_overview_benefit_desc": "零維護：部署後無需人工干預。企業級：AES-256 加密、多地域冗餘、自動健康檢查。可擴展：從個人創作者到 MCN 機構皆可使用。",
-
   "backup_selling_title": "為什麼選擇我們",
   "backup_sp_auto_title": "全自動備份",
   "backup_sp_auto_desc": "排程自動執行，無需人工干預。支援增量備份，節省儲存空間與頻寬。",
@@ -888,7 +880,6 @@
   "backup_sp_scale_desc": "從單一創作者到萬人 MCN，架構隨業務成長自動擴展，無需重新部署。",
   "backup_sp_integrate_title": "多平台整合",
   "backup_sp_integrate_desc": "支援 YouTube、Instagram、TikTok、微博、B站等主流平台，API 開放整合更多來源。",
-
   "backup_arch_title": "零維護企業級架構",
   "backup_arch_desc": "四階段閉環管線：自動採集 → 智能處理 → 安全儲存 → 持續驗證，每個環節都具備自我修復能力。",
   "backup_arch_layers_title": "分層架構",
@@ -900,7 +891,6 @@
   "backup_arch_store_desc": "加密儲存、多地域複製、版本管理",
   "backup_arch_verify_title": "驗證層",
   "backup_arch_verify_desc": "完整性校驗、自動修復、健康監控",
-
   "backup_layer_app": "應用層",
   "backup_layer_app_1": "Web 控制台",
   "backup_layer_app_2": "REST API",
@@ -917,7 +907,6 @@
   "backup_layer_infra_1": "Docker / K8s",
   "backup_layer_infra_2": "Prometheus + Grafana",
   "backup_layer_infra_3": "NATS 訊息佇列",
-
   "backup_zero_maint_title": "零維護設計",
   "backup_zero_auto_heal_title": "自動修復",
   "backup_zero_auto_heal_desc": "服務異常時自動重啟、任務失敗自動重試、節點故障自動遷移。",
@@ -927,7 +916,6 @@
   "backup_zero_auto_scale_desc": "根據負載自動調整資源，備份高峰期自動擴容，空閒時自動縮容節省成本。",
   "backup_zero_self_config_title": "自動配置",
   "backup_zero_self_config_desc": "首次部署自動偵測環境、生成最佳配置。後續變更自動套用，無需手動修改。",
-
   "backup_features_title": "核心功能",
   "backup_features_desc": "六大核心功能，覆蓋備份生命週期的每個環節。",
   "backup_feat_auto_title": "全自動排程備份",
@@ -942,7 +930,6 @@
   "backup_feat_dedup_desc": "內容感知去重技術，相同檔案只儲存一份。智能壓縮可節省 60-80% 儲存空間。",
   "backup_feat_monitor_title": "即時監控儀表板",
   "backup_feat_monitor_desc": "Grafana 驅動的即時儀表板，監控備份狀態、儲存用量、系統健康，一目瞭然。",
-
   "backup_tag_auto": "自動化",
   "backup_tag_zero_touch": "零接觸",
   "backup_tag_multi": "多平台",
@@ -955,7 +942,6 @@
   "backup_tag_smart": "智能",
   "backup_tag_alert": "告警",
   "backup_tag_dashboard": "儀表板",
-
   "backup_workflow_title": "備份工作流程",
   "backup_wf_step1_title": "偵測變更",
   "backup_wf_step1_desc": "監控平台 API，偵測內容變更",
@@ -965,7 +951,6 @@
   "backup_wf_step3_desc": "加密後寫入多地域儲存",
   "backup_wf_step4_title": "驗證完成",
   "backup_wf_step4_desc": "完整性校驗，更新狀態",
-
   "backup_tech_title": "技術選型",
   "backup_tech_desc": "基於成熟、穩定的開源技術棧，遵循 KISS 與 YAGNI 原則。",
   "backup_tech_pg": "主資料庫，儲存任務元數據、使用者配置、版本記錄。JSONB 支援靈活查詢。",
@@ -980,7 +965,6 @@
   "backup_tech_cat_compute": "運算",
   "backup_tech_cat_security": "安全",
   "backup_tech_cat_monitor": "監控",
-
   "backup_deploy_title": "部署方式",
   "backup_deploy_local_title": "本地部署",
   "backup_deploy_local_desc": "Docker Compose 一鍵啟動，適合個人創作者或小型團隊。",
@@ -988,9 +972,12 @@
   "backup_deploy_docker_desc": "Kubernetes 編排，自動擴縮容，適合中型團隊與 MCN 機構。",
   "backup_deploy_cloud_title": "雲端全託管",
   "backup_deploy_cloud_desc": "完全託管服務，零運維。適合大型機構與企業客戶。",
-
   "backup_cta_title": "開始保護您的數位資產",
   "backup_cta_desc": "一次部署，永久守護。零維護架構讓您專注創作，備份交給我們。",
   "backup_cta_contact": "預約諮詢",
-  "backup_cta_github": "GitHub 上的專案"
+  "backup_cta_github": "GitHub 上的專案",
+  "doc_nav_mod_supernova": "SuperNova",
+  "doc_nav_mod_supersight": "SuperSight",
+  "doc_nav_mod_stocksx": "StocksX",
+  "doc_nav_mod_stockquant": "StockQuant"
 }

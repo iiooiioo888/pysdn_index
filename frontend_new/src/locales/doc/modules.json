@@ -170,7 +170,15 @@
     "mod_doc_guide_li1": "總覽與流程：先建立整體地圖，再對照管線圖理解核心與模組邊界。",
     "mod_doc_guide_li2": "四大模組：依角色分工（劇本／知識庫／優化／追蹤）閱讀卡片與延伸文件。",
     "mod_doc_guide_li3": "技術文件：安裝、環境變數、API、資料結構；各模組獨立頁面維護。",
-    "mod_doc_guide_li4": "跨模組串接：見「模組串接」了解訊號與資產如何回流。"
+    "mod_doc_guide_li4": "跨模組串接：見「模組串接」了解訊號與資產如何回流。",
+    "mod_nova_badge": "DATA COLLECTION",
+    "mod_nova_desc": "統一社交數據採集平台。插件化適配器支援 B 站、抖音、微博、Instagram、Telegram 等平台，三層存儲架構（MongoDB + PostgreSQL + Elasticsearch）與企業級容錯機制。",
+    "mod_sight_badge": "AI MEMORY",
+    "mod_sight_desc": "本地 AI 記憶體代理。100% 本地隱私，基於 ChromaDB 的長期記憶 RAG、InsightFace 人臉分析、Qwen3-VL 視覺理解，自動構建用戶「數位自傳」。",
+    "mod_stocks_badge": "QUANT TRADING",
+    "mod_stocks_desc": "機構級量化交易與投資組合管理平台。130+ 種量化策略、NumPy 向量化回測引擎（提速 10-100 倍）、多市場回測、投資組合優化。",
+    "mod_quant_badge": "STOCK QUANT",
+    "mod_quant_desc": "A 股量化回測 + 實時盯盤預警系統。30+ 回測策略、異步任務佇列、並行加速、四層 TTL 緩存，ECharts 可視化工作台。"
   },
   "zh-CN": {
     "title": "SuperCool 扩展模块总览｜SuperForge、SuperTune、SuperTrack、SuperScript | Pysdn",
@@ -343,7 +351,15 @@
     "mod_doc_guide_li1": "总览与流程：先建立整体地图，再对照管线图理解核心与模块边界。",
     "mod_doc_guide_li2": "四大模块：按角色分工（剧本／知识库／优化／追踪）阅读卡片与延伸文档。",
     "mod_doc_guide_li3": "技术文档：安装、环境变量、API、数据结构；各模块独立页面维护。",
-    "mod_doc_guide_li4": "跨模块衔接：见「模块衔接」了解信号与资产如何回流。"
+    "mod_doc_guide_li4": "跨模块衔接：见「模块衔接」了解信号与资产如何回流。",
+    "mod_nova_badge": "DATA COLLECTION",
+    "mod_nova_desc": "统一社交数据采集平台。插件化适配器支持 B 站、抖音、微博、Instagram、Telegram 等平台，三层存储架构（MongoDB + PostgreSQL + Elasticsearch）与企业级容错机制。",
+    "mod_sight_badge": "AI MEMORY",
+    "mod_sight_desc": "本地 AI 记忆体代理。100% 本地隐私，基于 ChromaDB 的长期记忆 RAG、InsightFace 人脸分析、Qwen3-VL 视觉理解，自动构建用户「数字自传」。",
+    "mod_stocks_badge": "QUANT TRADING",
+    "mod_stocks_desc": "机构级量化交易与投资组合管理平台。130+ 种量化策略、NumPy 向量化回测引擎（提速 10-100 倍）、多市场回测、投资组合优化。",
+    "mod_quant_badge": "STOCK QUANT",
+    "mod_quant_desc": "A 股量化回测 + 实时盯盘预警系统。30+ 回测策略、异步任务队列、并行加速、四层 TTL 缓存，ECharts 可视化工作台。"
   },
   "en": {
     "title": "SuperCool extension modules — SuperForge, SuperTune, SuperTrack, SuperScript | Pysdn",
@@ -516,7 +532,15 @@
     "mod_doc_guide_li1": "Overview & pipeline: get the map first, then the pipeline diagram.",
     "mod_doc_guide_li2": "Four modules: read cards by role—script, forge, tune, track.",
     "mod_doc_guide_li3": "Technical docs: install, env, API, data models—one page per module.",
-    "mod_doc_guide_li4": "Cross-module: see “How modules connect” for signal and asset flow."
+    "mod_doc_guide_li4": "Cross-module: see “How modules connect” for signal and asset flow.",
+    "mod_nova_badge": "DATA COLLECTION",
+    "mod_nova_desc": "Unified social data collection platform. Pluggable adapters for Bilibili, Douyin, Weibo, Instagram, Telegram with three-layer storage (MongoDB + PostgreSQL + Elasticsearch) and enterprise fault tolerance.",
+    "mod_sight_badge": "AI MEMORY",
+    "mod_sight_desc": "Local AI memory agent. 100% local privacy, ChromaDB-based long-term RAG memory, InsightFace face analysis, Qwen3-VL visual understanding, auto-building your 'digital autobiography'.",
+    "mod_stocks_badge": "QUANT TRADING",
+    "mod_stocks_desc": "Institutional-grade quantitative trading and portfolio management. 130+ strategies, NumPy vectorized backtesting (10-100x speedup), multi-market backtesting, portfolio optimization.",
+    "mod_quant_badge": "STOCK QUANT",
+    "mod_quant_desc": "A-share quantitative backtesting + real-time monitoring system. 30+ strategies, async task queue, parallel acceleration, 4-layer TTL cache, ECharts visualization workstation."
   },
   "ja": {
     "title": "SuperCool 拡張モジュール概要｜SuperForge、SuperTune、SuperTrack、SuperScript | Pysdn",
@@ -689,7 +713,15 @@
     "mod_doc_guide_li1": "概要とフロー：全体像を押さえてからパイプライン図へ。",
     "mod_doc_guide_li2": "4モジュール：役割（脚本／知識庫／最適化／追跡）でカードと資料を読む。",
     "mod_doc_guide_li3": "技術文書：インストール、環境変数、API、データ構造はモジュールごと。",
-    "mod_doc_guide_li4": "モジュール間連携：「連携」でシグナルと資産の流れを確認。"
+    "mod_doc_guide_li4": "モジュール間連携：「連携」でシグナルと資産の流れを確認。",
+    "mod_nova_badge": "DATA COLLECTION",
+    "mod_nova_desc": "統合ソーシャルデータ収集プラットフォーム。プラガブルアダプタでBilibili、Douyin、Weibo、Instagram、Telegramに対応。3層ストレージ（MongoDB + PostgreSQL + Elasticsearch）と企業級フォールトトレランス。",
+    "mod_sight_badge": "AI MEMORY",
+    "mod_sight_desc": "ローカルAIメモリエージェント。100%ローカルプライバシー、ChromaDBベースの長期記憶RAG、InsightFace顔分析、Qwen3-VL視覚理解、ユーザーの「デジタル自伝」を自動構築。",
+    "mod_stocks_badge": "QUANT TRADING",
+    "mod_stocks_desc": "機関級量化取引・ポートフォリオ管理プラットフォーム。130+の戦略、NumPyベクトル化バックテスト（10-100倍高速化）、マルチマーケットバックテスト、ポートフォリオ最適化。",
+    "mod_quant_badge": "STOCK QUANT",
+    "mod_quant_desc": "A株量化バックテスト + リアルタイム監視システム。30+の戦略、非同期タスクキュー、並列加速、4層TTLキャッシュ、ECharts可視化ワークステーション。"
   },
   "ko": {
     "title": "SuperCool 확장 모듈 개요｜SuperForge, SuperTune, SuperTrack, SuperScript | Pysdn",
@@ -862,6 +894,14 @@
     "mod_doc_guide_li1": "개요·흐름: 전체 지도를 본 뒤 파이프라인 다이어그램 대조.",
     "mod_doc_guide_li2": "네 모듈: 역할(각본/지식/최적화/추적)별로 카드·문서 확인.",
     "mod_doc_guide_li3": "기술 문서: 설치, 환경 변수, API, 데이터 구조는 모듈별 페이지.",
-    "mod_doc_guide_li4": "모듈 연동: 「연동」에서 시그널·자산 흐름 확인."
+    "mod_doc_guide_li4": "모듈 연동: 「연동」에서 시그널·자산 흐름 확인.",
+    "mod_nova_badge": "DATA COLLECTION",
+    "mod_nova_desc": "통합 소셜 데이터 수집 플랫폼. 플러그형 어댑터로 Bilibili, Douyin, Weibo, Instagram, Telegram 지원. 3계층 스토리지 (MongoDB + PostgreSQL + Elasticsearch)와 엔터프라이즈 장애 허용.",
+    "mod_sight_badge": "AI MEMORY",
+    "mod_sight_desc": "로컬 AI 메모리 에이전트. 100% 로컬 프라이버시, ChromaDB 기반 장기 기억 RAG, InsightFace 얼굴 분석, Qwen3-VL 시각적 이해, 사용자의 '디지털 자서전' 자동 구축.",
+    "mod_stocks_badge": "QUANT TRADING",
+    "mod_stocks_desc": "기관급 양적 거래 및 포트폴리오 관리 플랫폼. 130+ 전략, NumPy 벡터화 백테스트 (10-100배 가속), 다중 시장 백테스트, 포트폴리오 최적화.",
+    "mod_quant_badge": "STOCK QUANT",
+    "mod_quant_desc": "A주 양적 백테스트 + 실시간 모니터링 시스템. 30+ 전략, 비동기 작업 큐, 병렬 가속, 4계층 TTL 캐시, ECharts 시각화 워크스테이션."
   }
 }

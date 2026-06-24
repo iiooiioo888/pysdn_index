@@ -15,11 +15,19 @@ import {
   SuperScriptDocPage,
   SuperTrackDocPage,
   SuperTuneDocPage,
+  SuperNovaDocPage,
+  SuperSightDocPage,
+  StocksXDocPage,
+  StockQuantDocPage,
   SuperForgeLabPage,
   SuperScriptLabPage,
   SuperTrackLabPage,
   SuperTrackPanelPage,
   SuperTuneLabPage,
+  SuperNovaLabPage,
+  SuperSightLabPage,
+  StocksXLabPage,
+  StockQuantLabPage,
 } from './lazyPages'
 
 /** 與 React.lazy 相容的頁面元件型別 */
@@ -53,11 +61,19 @@ export const APP_ROUTE_ENTRIES: AppRouteEntry[] = [
   { path: PATHS.docs.superscript, group: 'docs', Page: SuperScriptDocPage },
   { path: PATHS.docs.supertrack, group: 'docs', Page: SuperTrackDocPage },
   { path: PATHS.docs.supertune, group: 'docs', Page: SuperTuneDocPage },
+  { path: PATHS.docs.supernova, group: 'docs', Page: SuperNovaDocPage },
+  { path: PATHS.docs.supersight, group: 'docs', Page: SuperSightDocPage },
+  { path: PATHS.docs.stocksx, group: 'docs', Page: StocksXDocPage },
+  { path: PATHS.docs.stockquant, group: 'docs', Page: StockQuantDocPage },
 
   { path: PATHS.labs.superforge, group: 'labs', Page: SuperForgeLabPage },
   { path: PATHS.labs.superscript, group: 'labs', Page: SuperScriptLabPage },
   { path: PATHS.labs.supertrack, group: 'labs', Page: SuperTrackLabPage },
   { path: PATHS.labs.supertune, group: 'labs', Page: SuperTuneLabPage },
+  { path: PATHS.labs.supernova, group: 'labs', Page: SuperNovaLabPage },
+  { path: PATHS.labs.supersight, group: 'labs', Page: SuperSightLabPage },
+  { path: PATHS.labs.stocksx, group: 'labs', Page: StocksXLabPage },
+  { path: PATHS.labs.stockquant, group: 'labs', Page: StockQuantLabPage },
 
   { path: PATHS.panel.supertrack, group: 'panel', Page: SuperTrackPanelPage },
 ]

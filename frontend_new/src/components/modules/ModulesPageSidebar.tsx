@@ -9,6 +9,10 @@ const MODULE_ANCHORS: { id: string; label: string }[] = [
   { id: 'module-tune', label: 'SuperTune' },
   { id: 'module-track', label: 'SuperTrack' },
   { id: 'module-script', label: 'SuperScript' },
+  { id: 'module-nova', label: 'SuperNova' },
+  { id: 'module-sight', label: 'SuperSight' },
+  { id: 'module-stocks', label: 'StocksX' },
+  { id: 'module-quant', label: 'StockQuant' },
 ]
 
 const DOC_LINKS: { slug: DocSlug; label: string }[] = [
@@ -16,6 +20,10 @@ const DOC_LINKS: { slug: DocSlug; label: string }[] = [
   { slug: 'supertune', label: 'SuperTune' },
   { slug: 'supertrack', label: 'SuperTrack' },
   { slug: 'superscript', label: 'SuperScript' },
+  { slug: 'supernova', label: 'SuperNova' },
+  { slug: 'supersight', label: 'SuperSight' },
+  { slug: 'stocksx', label: 'StocksX' },
+  { slug: 'stockquant', label: 'StockQuant' },
 ]
 
 export function ModulesPageSidebar({ tm, langSearch }: { tm: T; langSearch: string }) {

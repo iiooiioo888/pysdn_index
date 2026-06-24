@@ -56,3 +56,27 @@ export const SuperTrackPanelPage = lazy(() =>
 export const SuperTuneLabPage = lazy(() =>
   import('../pages/labs/SuperTuneLabPage').then((m) => ({ default: m.SuperTuneLabPage })),
 )
+export const SuperNovaDocPage = lazy(() =>
+  import('../pages/docs/SuperNovaDocPage').then((m) => ({ default: m.SuperNovaDocPage })),
+)
+export const SuperSightDocPage = lazy(() =>
+  import('../pages/docs/SuperSightDocPage').then((m) => ({ default: m.SuperSightDocPage })),
+)
+export const StocksXDocPage = lazy(() =>
+  import('../pages/docs/StocksXDocPage').then((m) => ({ default: m.StocksXDocPage })),
+)
+export const StockQuantDocPage = lazy(() =>
+  import('../pages/docs/StockQuantDocPage').then((m) => ({ default: m.StockQuantDocPage })),
+)
+export const SuperNovaLabPage = lazy(() =>
+  import('../pages/labs/SuperNovaLabPage').then((m) => ({ default: m.SuperNovaLabPage })),
+)
+export const SuperSightLabPage = lazy(() =>
+  import('../pages/labs/SuperSightLabPage').then((m) => ({ default: m.SuperSightLabPage })),
+)
+export const StocksXLabPage = lazy(() =>
+  import('../pages/labs/StocksXLabPage').then((m) => ({ default: m.StocksXLabPage })),
+)
+export const StockQuantLabPage = lazy(() =>
+  import('../pages/labs/StockQuantLabPage').then((m) => ({ default: m.StockQuantLabPage })),
+)

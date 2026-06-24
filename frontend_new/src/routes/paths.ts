@@ -22,6 +22,10 @@ export const PATHS = {
     superscript: '/docs/superscript',
     supertrack: '/docs/supertrack',
     supertune: '/docs/supertune',
+    supernova: '/docs/supernova',
+    supersight: '/docs/supersight',
+    stocksx: '/docs/stocksx',
+    stockquant: '/docs/stockquant',
   },
   /** 各模組大螢幕模擬儀表板（示範資料） */
   labs: {
@@ -29,6 +33,10 @@ export const PATHS = {
     superscript: '/labs/superscript',
     supertrack: '/labs/supertrack',
     supertune: '/labs/supertune',
+    supernova: '/labs/supernova',
+    supersight: '/labs/supersight',
+    stocksx: '/labs/stocksx',
+    stockquant: '/labs/stockquant',
   },
   /** SuperTrack 示範面板（/panel；與 /labs/supertrack 為同模組不同版面） */
   panel: {

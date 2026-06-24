@@ -8,13 +8,17 @@ import { prefetchDocRoute, prefetchLabRoute } from '../../routes/routePrefetch'
 import { toLangSearch } from '../../routes/langQuery'
 import { DocLangPills } from './DocLangPills'
 
-export type DocNavbarModule = 'superforge' | 'superscript' | 'supertrack' | 'supertune'
+export type DocNavbarModule = 'superforge' | 'superscript' | 'supertrack' | 'supertune' | 'supernova' | 'supersight' | 'stocksx' | 'stockquant'
 
 const MOD_ORDER: readonly DocNavbarModule[] = [
   'superforge',
   'superscript',
   'supertrack',
   'supertune',
+  'supernova',
+  'supersight',
+  'stocksx',
+  'stockquant',
 ] as const
 
 const MOD_I18N: Record<DocNavbarModule, string> = {
@@ -22,6 +26,10 @@ const MOD_I18N: Record<DocNavbarModule, string> = {
   superscript: 'doc_nav_mod_superscript',
   supertrack: 'doc_nav_mod_supertrack',
   supertune: 'doc_nav_mod_supertune',
+  supernova: 'doc_nav_mod_supernova',
+  supersight: 'doc_nav_mod_supersight',
+  stocksx: 'doc_nav_mod_stocksx',
+  stockquant: 'doc_nav_mod_stockquant',
 }
 
 const pathForMod = (mod: DocNavbarModule, mode: 'docs' | 'labs') =>

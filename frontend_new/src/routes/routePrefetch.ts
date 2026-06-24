@@ -6,6 +6,10 @@ const docImports: Record<DocSlug, () => Promise<unknown>> = {
   superscript: () => import('../pages/docs/SuperScriptDocPage'),
   supertrack: () => import('../pages/docs/SuperTrackDocPage'),
   supertune: () => import('../pages/docs/SuperTuneDocPage'),
+  supernova: () => import('../pages/docs/SuperNovaDocPage'),
+  supersight: () => import('../pages/docs/SuperSightDocPage'),
+  stocksx: () => import('../pages/docs/StocksXDocPage'),
+  stockquant: () => import('../pages/docs/StockQuantDocPage'),
 }
 
 const labImports: Record<DocSlug, () => Promise<unknown>> = {
@@ -13,6 +17,10 @@ const labImports: Record<DocSlug, () => Promise<unknown>> = {
   superscript: () => import('../pages/labs/SuperScriptLabPage'),
   supertrack: () => import('../pages/labs/SuperTrackLabPage'),
   supertune: () => import('../pages/labs/SuperTuneLabPage'),
+  supernova: () => import('../pages/labs/SuperNovaLabPage'),
+  supersight: () => import('../pages/labs/SuperSightLabPage'),
+  stocksx: () => import('../pages/labs/StocksXLabPage'),
+  stockquant: () => import('../pages/labs/StockQuantLabPage'),
 }
 
 export function prefetchDocRoute(slug: DocSlug): void {

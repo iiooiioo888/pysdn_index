@@ -15,6 +15,10 @@ export type DocBundleName =
   | 'superscript'
   | 'supertrack'
   | 'supertune'
+  | 'supernova'
+  | 'supersight'
+  | 'stocksx'
+  | 'stockquant'
   | 'modules'
 
 type BundleJson = Record<string, Record<string, string>>
@@ -24,6 +28,10 @@ const docLoaders: Record<DocBundleName, () => Promise<{ default: BundleJson }>> 
   superscript: () => import('../locales/doc/superscript.json'),
   supertrack: () => import('../locales/doc/supertrack.json'),
   supertune: () => import('../locales/doc/supertune.json'),
+  supernova: () => import('../locales/doc/supernova.json'),
+  supersight: () => import('../locales/doc/supersight.json'),
+  stocksx: () => import('../locales/doc/stocksx.json'),
+  stockquant: () => import('../locales/doc/stockquant.json'),
   modules: () => import('../locales/doc/modules.json'),
 }
 

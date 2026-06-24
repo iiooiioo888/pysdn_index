@@ -11,7 +11,7 @@
   "nav_models": "Model map",
   "nav_module_docs": "Modules & docs",
   "nav_aria_main": "Primary navigation",
-  "doc_nav_mods_aria": "Module shortcuts",
+  "doc_nav_mods_aria": "Quick switch between 8 extension modules",
   "doc_nav_mod_superforge": "SuperForge",
   "doc_nav_mod_superscript": "SuperScript",
   "doc_nav_mod_supertrack": "SuperTrack",
@@ -808,7 +808,6 @@
   "realms_related_features_aria": "Related features list",
   "realms_feature_prev": "Previous",
   "realms_feature_next": "Next",
-
   "realms_global_search_ph": "Search across all realms…",
   "realms_global_search_aria": "Global search across all realms",
   "realms_global_filter_realm": "Realm",
@@ -819,7 +818,6 @@
   "realms_global_sort_realm": "Realm",
   "realms_global_results_count": "Found {{count}} results",
   "realms_global_no_results": "No matching results. Try different keywords.",
-
   "realms_shenyu_browser_title": "Shenyu Data | Note Three Realms | Pysdn",
   "realms_shenyu_dash_aria": "Shenyu data summary",
   "realms_shenyu_tabs_aria": "Shenyu category tabs",
@@ -835,7 +833,6 @@
   "realms_shenyu_search": "Search",
   "realms_shenyu_search_ph": "Title, summary or tag keywords…",
   "realms_shenyu_content_note": "Shenyu收录 AI self-governance platform architecture, module design and technical documentation.",
-
   "realms_jingjie_browser_title": "Jingjie Data | Note Three Realms | Pysdn",
   "realms_jingjie_dash_aria": "Jingjie data summary",
   "realms_jingjie_tabs_aria": "Jingjie category tabs",
@@ -853,23 +850,19 @@
   "realms_jingjie_search": "Search",
   "realms_jingjie_search_ph": "Title, summary or tag keywords…",
   "realms_jingjie_content_note": "Jingjie收录 crawler, data engineering and infrastructure technical documentation.",
-
   "backup_breadcrumb": "Backup System",
   "backup_hero_title": "Influencer Digital Asset Backup System",
   "backup_hero_lead": "Zero-maintenance enterprise architecture providing fully automated, highly reliable, end-to-end encrypted digital asset protection for content creators.",
   "backup_hero_sub": "Social accounts · Video assets · Fan data · Brand assets — all auto-backed up, versioned, one-click restore",
-
   "backup_stat_maintenance": "Maintenance Cost",
   "backup_stat_uptime": "Uptime SLA",
   "backup_stat_encryption": "Encryption Standard",
   "backup_stat_versions": "Version Retention",
-
   "backup_tabs_aria": "Backup system tab navigation",
   "backup_tab_overview": "Overview",
   "backup_tab_arch": "Architecture",
   "backup_tab_features": "Features",
   "backup_tab_tech": "Tech Stack",
-
   "backup_overview_hero_title": "Deploy Once, Protect Forever",
   "backup_overview_hero_desc": "Traditional backup solutions require dedicated maintenance, regular checks, and manual recovery. Our zero-maintenance architecture makes it all happen automatically — deploy once, run forever.",
   "backup_overview_pain_title": "Pain Point",
@@ -878,7 +871,6 @@
   "backup_overview_solution_desc": "Unified collection, automatic backup, version management, end-to-end encryption. All assets centrally managed with one-click recovery to any point in time.",
   "backup_overview_benefit_title": "Core Value",
   "backup_overview_benefit_desc": "Zero maintenance: no human intervention after deployment. Enterprise-grade: AES-256 encryption, multi-region redundancy, automatic health checks. Scalable: from individual creators to MCN agencies.",
-
   "backup_selling_title": "Why Choose Us",
   "backup_sp_auto_title": "Fully Automated Backup",
   "backup_sp_auto_desc": "Scheduled automatic execution, no manual intervention. Supports incremental backup, saving storage space and bandwidth.",
@@ -888,7 +880,6 @@
   "backup_sp_scale_desc": "From solo creators to 10,000-person MCNs, the architecture scales with your business automatically, no redeployment needed.",
   "backup_sp_integrate_title": "Multi-Platform Integration",
   "backup_sp_integrate_desc": "Supports YouTube, Instagram, TikTok, Weibo, Bilibili and other major platforms. Open API for custom integrations.",
-
   "backup_arch_title": "Zero-Maintenance Enterprise Architecture",
   "backup_arch_desc": "Four-stage closed-loop pipeline: Auto-collect → Smart process → Secure store → Continuous verify. Each stage has self-healing capabilities.",
   "backup_arch_layers_title": "Layered Architecture",
@@ -900,7 +891,6 @@
   "backup_arch_store_desc": "Encrypted storage, multi-region replication, version management",
   "backup_arch_verify_title": "Verification Layer",
   "backup_arch_verify_desc": "Integrity checks, auto-repair, health monitoring",
-
   "backup_layer_app": "Application Layer",
   "backup_layer_app_1": "Web Console",
   "backup_layer_app_2": "REST API",
@@ -917,7 +907,6 @@
   "backup_layer_infra_1": "Docker / K8s",
   "backup_layer_infra_2": "Prometheus + Grafana",
   "backup_layer_infra_3": "NATS Message Queue",
-
   "backup_zero_maint_title": "Zero-Maintenance Design",
   "backup_zero_auto_heal_title": "Auto Healing",
   "backup_zero_auto_heal_desc": "Auto-restart on service failure, auto-retry on task failure, auto-migrate on node failure.",
@@ -927,7 +916,6 @@
   "backup_zero_auto_scale_desc": "Automatically adjusts resources based on load. Scales up during backup peaks, scales down during idle to save costs.",
   "backup_zero_self_config_title": "Auto Configuration",
   "backup_zero_self_config_desc": "First deployment auto-detects environment and generates optimal config. Subsequent changes apply automatically.",
-
   "backup_features_title": "Core Features",
   "backup_features_desc": "Six core features covering every stage of the backup lifecycle.",
   "backup_feat_auto_title": "Fully Automated Scheduled Backup",
@@ -942,7 +930,6 @@
   "backup_feat_dedup_desc": "Content-aware deduplication stores identical files only once. Smart compression saves 60-80% storage space.",
   "backup_feat_monitor_title": "Real-time Monitoring Dashboard",
   "backup_feat_monitor_desc": "Grafana-powered real-time dashboard monitoring backup status, storage usage, and system health at a glance.",
-
   "backup_tag_auto": "Automation",
   "backup_tag_zero_touch": "Zero Touch",
   "backup_tag_multi": "Multi-Platform",
@@ -955,7 +942,6 @@
   "backup_tag_smart": "Smart",
   "backup_tag_alert": "Alerting",
   "backup_tag_dashboard": "Dashboard",
-
   "backup_workflow_title": "Backup Workflow",
   "backup_wf_step1_title": "Detect Changes",
   "backup_wf_step1_desc": "Monitor platform APIs, detect content changes",
@@ -965,7 +951,6 @@
   "backup_wf_step3_desc": "Encrypt then write to multi-region storage",
   "backup_wf_step4_title": "Verify Complete",
   "backup_wf_step4_desc": "Integrity check, update status",
-
   "backup_tech_title": "Technology Stack",
   "backup_tech_desc": "Based on mature, stable open-source technologies, following KISS and YAGNI principles.",
   "backup_tech_pg": "Primary database storing task metadata, user config, version history. JSONB supports flexible queries.",
@@ -980,7 +965,6 @@
   "backup_tech_cat_compute": "Compute",
   "backup_tech_cat_security": "Security",
   "backup_tech_cat_monitor": "Monitoring",
-
   "backup_deploy_title": "Deployment Options",
   "backup_deploy_local_title": "Local Deployment",
   "backup_deploy_local_desc": "Docker Compose one-click launch, ideal for individual creators or small teams.",
@@ -988,9 +972,12 @@
   "backup_deploy_docker_desc": "Kubernetes orchestration with auto-scaling, ideal for mid-size teams and MCN agencies.",
   "backup_deploy_cloud_title": "Fully Managed Cloud",
   "backup_deploy_cloud_desc": "Fully managed service with zero ops. Ideal for large agencies and enterprise clients.",
-
   "backup_cta_title": "Start Protecting Your Digital Assets",
   "backup_cta_desc": "Deploy once, protect forever. Zero-maintenance architecture lets you focus on creation while we handle backups.",
   "backup_cta_contact": "Book Consultation",
-  "backup_cta_github": "Project on GitHub"
+  "backup_cta_github": "Project on GitHub",
+  "doc_nav_mod_supernova": "SuperNova",
+  "doc_nav_mod_supersight": "SuperSight",
+  "doc_nav_mod_stocksx": "StocksX",
+  "doc_nav_mod_stockquant": "StockQuant"
 }
