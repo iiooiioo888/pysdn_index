@@ -9,6 +9,10 @@ const MODULE_CHEATSHEET = [
   { id: 'script' as const, name: 'SuperScript', textKey: 'modules_split_cheat_script' },
   { id: 'track' as const, name: 'SuperTrack', textKey: 'modules_split_cheat_track' },
   { id: 'tune' as const, name: 'SuperTune', textKey: 'modules_split_cheat_tune' },
+  { id: 'nova' as const, name: 'SuperNova', textKey: 'modules_split_cheat_nova' },
+  { id: 'sight' as const, name: 'SuperSight', textKey: 'modules_split_cheat_sight' },
+  { id: 'stocksx' as const, name: 'StocksX', textKey: 'modules_split_cheat_stocksx' },
+  { id: 'stockquant' as const, name: 'StockQuant', textKey: 'modules_split_cheat_stockquant' },
 ]
 
 export function Products() {
@@ -128,6 +132,18 @@ export function Products() {
                 <li>
                   <span className="products-mod products-mod--script">SuperScript</span>
                 </li>
+                <li>
+                  <span className="products-mod" style={{color:'var(--color-primary-400,#60a5fa)'}}>SuperNova</span>
+                </li>
+                <li>
+                  <span className="products-mod" style={{color:'#34d399'}}>SuperSight</span>
+                </li>
+                <li>
+                  <span className="products-mod" style={{color:'#fbbf24'}}>StocksX</span>
+                </li>
+                <li>
+                  <span className="products-mod" style={{color:'#fb7185'}}>StockQuant</span>
+                </li>
               </ul>
               <div className="products-mini-cards">
                 <ModuleMiniCards variant="products" />
@@ -150,6 +166,10 @@ export function Products() {
                   <span className="products-rail-chip products-rail-chip--tune">Tune</span>
                   <span className="products-rail-chip products-rail-chip--track">Track</span>
                   <span className="products-rail-chip products-rail-chip--script">Script</span>
+                  <span className="products-rail-chip" style={{borderColor:'var(--color-primary-400,#60a5fa)'}}>Nova</span>
+                  <span className="products-rail-chip" style={{borderColor:'#34d399'}}>Sight</span>
+                  <span className="products-rail-chip" style={{borderColor:'#fbbf24'}}>StocksX</span>
+                  <span className="products-rail-chip" style={{borderColor:'#fb7185'}}>Quant</span>
                 </div>
               </div>
             </aside>
@@ -558,6 +578,62 @@ export function Products() {
                 <span className="tech-tag tech-tag--amber">Multi-Agent</span>
                 <span className="tech-tag tech-tag--amber">Branching</span>
                 <span className="tech-tag tech-tag--amber">Consistency</span>
+              </div>
+            </article>
+
+            <article className="module-card reveal">
+              <div className="module-card-header">
+                <span className="module-card-badge" style={{background:'rgba(96,165,250,0.15)',color:'#60a5fa'}}>SOCIAL DATA</span>
+                <span className="module-card-id">05</span>
+              </div>
+              <h4>SuperNova</h4>
+              <p>{t('mp_nova_desc', 'Multi-platform social data collection system.')}</p>
+              <div className="module-card-tags">
+                <span className="tech-tag" style={{color:'#60a5fa'}}>FastAPI</span>
+                <span className="tech-tag" style={{color:'#60a5fa'}}>Celery</span>
+                <span className="tech-tag" style={{color:'#60a5fa'}}>Multi-Platform</span>
+              </div>
+            </article>
+
+            <article className="module-card reveal">
+              <div className="module-card-header">
+                <span className="module-card-badge" style={{background:'rgba(52,211,153,0.15)',color:'#34d399'}}>AI VISION</span>
+                <span className="module-card-id">06</span>
+              </div>
+              <h4>SuperSight</h4>
+              <p>{t('mp_sight_desc', 'AI photo memory system with face recognition.')}</p>
+              <div className="module-card-tags">
+                <span className="tech-tag" style={{color:'#34d399'}}>Qwen3-VL</span>
+                <span className="tech-tag" style={{color:'#34d399'}}>InsightFace</span>
+                <span className="tech-tag" style={{color:'#34d399'}}>ChromaDB</span>
+              </div>
+            </article>
+
+            <article className="module-card reveal">
+              <div className="module-card-header">
+                <span className="module-card-badge" style={{background:'rgba(251,191,36,0.15)',color:'#fbbf24'}}>QUANT TRADING</span>
+                <span className="module-card-id">07</span>
+              </div>
+              <h4>StocksX</h4>
+              <p>{t('mp_stocksx_desc', 'Institutional-grade quant trading platform.')}</p>
+              <div className="module-card-tags">
+                <span className="tech-tag" style={{color:'#fbbf24'}}>130+ Strategies</span>
+                <span className="tech-tag" style={{color:'#fbbf24'}}>Streamlit</span>
+                <span className="tech-tag" style={{color:'#fbbf24'}}>CCXT</span>
+              </div>
+            </article>
+
+            <article className="module-card reveal">
+              <div className="module-card-header">
+                <span className="module-card-badge" style={{background:'rgba(251,113,133,0.15)',color:'#fb7185'}}>A-SHARE QUANT</span>
+                <span className="module-card-id">08</span>
+              </div>
+              <h4>Stock Quant</h4>
+              <p>{t('mp_stockquant_desc', 'A-share quant backtesting + real-time alerts.')}</p>
+              <div className="module-card-tags">
+                <span className="tech-tag" style={{color:'#fb7185'}}>Yahoo Finance</span>
+                <span className="tech-tag" style={{color:'#fb7185'}}>FastAPI</span>
+                <span className="tech-tag" style={{color:'#fb7185'}}>SQLite</span>
               </div>
             </article>
           </div>

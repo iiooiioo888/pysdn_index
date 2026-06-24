@@ -9,13 +9,17 @@ import { ModuleMiniCards } from './ModuleMiniCards'
 export function ModulesPanel() {
   const { t } = useTranslation()
   const langSearch = useLangQuery()
-  const [activeTab, setActiveTab] = useState<'forge' | 'script' | 'track' | 'tune'>('forge')
+  const [activeTab, setActiveTab] = useState<'forge' | 'script' | 'track' | 'tune' | 'nova' | 'sight' | 'stocksx' | 'stockquant'>('forge')
 
   const tabs = [
     { id: 'forge' as const, label: t('mp_tab_forge', 'SuperForge'), color: 'cyan' },
     { id: 'script' as const, label: t('mp_tab_script', 'SuperScript'), color: 'amber' },
     { id: 'track' as const, label: t('mp_tab_track', 'SuperTrack'), color: 'emerald' },
     { id: 'tune' as const, label: t('mp_tab_tune', 'SuperTune'), color: 'purple' },
+    { id: 'nova' as const, label: t('mp_tab_nova', 'SuperNova'), color: 'blue' },
+    { id: 'sight' as const, label: t('mp_tab_sight', 'SuperSight'), color: 'green' },
+    { id: 'stocksx' as const, label: t('mp_tab_stocksx', 'StocksX'), color: 'yellow' },
+    { id: 'stockquant' as const, label: t('mp_tab_stockquant', 'Stock Quant'), color: 'rose' },
   ]
 
   return (
@@ -442,6 +446,348 @@ export function ModulesPanel() {
                 <li>✅ {t('mp_tune_f5', '風格遷移：套用諾蘭、是枝裕和、王家衛等導演風格')}</li>
               </ul>
               <Link to={{ pathname: PATHS.docs.supertune, search: langSearch }} className="mp-doc-link">
+                {t('mp_view_docs', '查看完整文件')} →
+              </Link>
+            </div>
+          </div>
+        )}
+
+        {/* ===== SuperNova Panel ===== */}
+        {activeTab === 'nova' && (
+          <div className="mp-panel mp-panel--forge active" role="tabpanel">
+            <div className="mp-panel-mockup">
+              <div className="mp-mockup-header">
+                <div className="mockup-dots"><span /><span /><span /></div>
+                <span>{t('mp_nova_mockup_title', 'SuperNova — Social Data Collection')}</span>
+              </div>
+              <div className="mp-mockup-body">
+                <div className="mp-stats-row">
+                  <div className="mp-stat-card">
+                    <span className="mp-stat-num mp-num--cyan">5</span>
+                    <span className="mp-stat-label">{t('mp_nova_stat_platforms', 'Platforms')}</span>
+                  </div>
+                  <div className="mp-stat-card">
+                    <span className="mp-stat-num mp-num--cyan">2,847</span>
+                    <span className="mp-stat-label">{t('mp_nova_stat_tasks', 'Tasks')}</span>
+                  </div>
+                  <div className="mp-stat-card">
+                    <span className="mp-stat-num mp-num--cyan">1.2M</span>
+                    <span className="mp-stat-label">{t('mp_nova_stat_records', 'Records')}</span>
+                  </div>
+                  <div className="mp-stat-card">
+                    <span className="mp-stat-num mp-num--green">99.7%</span>
+                    <span className="mp-stat-label">{t('mp_nova_stat_uptime', 'Uptime')}</span>
+                  </div>
+                </div>
+                <div className="mp-flow">
+                  <div className="mp-flow-step">
+                    <div className="mp-flow-icon mp-flow-icon--cyan">📡</div>
+                    <span>{t('mp_nova_flow_1', 'Select Platform')}</span>
+                  </div>
+                  <div className="mp-flow-arrow">→</div>
+                  <div className="mp-flow-step">
+                    <div className="mp-flow-icon mp-flow-icon--cyan">⚙️</div>
+                    <span>{t('mp_nova_flow_2', 'Configure Crawl')}</span>
+                  </div>
+                  <div className="mp-flow-arrow">→</div>
+                  <div className="mp-flow-step">
+                    <div className="mp-flow-icon mp-flow-icon--cyan">📊</div>
+                    <span>{t('mp_nova_flow_3', 'Collect Data')}</span>
+                  </div>
+                  <div className="mp-flow-arrow">→</div>
+                  <div className="mp-flow-step">
+                    <div className="mp-flow-icon mp-flow-icon--cyan">💾</div>
+                    <span>{t('mp_nova_flow_4', 'Store & Analyze')}</span>
+                  </div>
+                </div>
+                <div className="mp-recent-list">
+                  <div className="mp-recent-head">
+                    <span>{t('mp_nova_stat_platforms', 'Platforms')}</span>
+                  </div>
+                  {[
+                    { name: 'Bilibili', status: 'Active', type: 'Video' },
+                    { name: 'Douyin', status: 'Active', type: 'Short Video' },
+                    { name: 'Weibo', status: 'Active', type: 'Social' },
+                    { name: 'Instagram', status: 'Active', type: 'Photo' },
+                    { name: 'Telegram', status: 'Active', type: 'Messaging' },
+                  ].map((item, i) => (
+                    <div className="mp-recent-item" key={i}>
+                      <div className="mp-recent-text">{item.name}</div>
+                      <div className="mp-recent-meta">
+                        <span className="mp-recent-tag">{item.type}</span>
+                        <span className="mp-recent-change mp-change--hot">{item.status}</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+            <div className="mp-panel-info">
+              <h3>{t('mp_nova_title', 'Multi-Platform Social Data Collection')}</h3>
+              <p>{t('mp_nova_desc', 'Enterprise-grade multi-platform social data collection system.')}</p>
+              <ul className="mp-features">
+                <li>✅ {t('mp_nova_f1', 'Plugin-based adapters for 5+ platforms')}</li>
+                <li>✅ {t('mp_nova_f2', 'Three-layer storage: MongoDB + PostgreSQL + Elasticsearch')}</li>
+                <li>✅ {t('mp_nova_f3', 'Enterprise fault tolerance: circuit breakers, retry, account pool')}</li>
+                <li>✅ {t('mp_nova_f4', 'Dynamic feature flags: 4-layer control with hot reload')}</li>
+                <li>✅ {t('mp_nova_f5', 'Async high concurrency: asyncio + uvloop + Celery')}</li>
+              </ul>
+              <Link to={{ pathname: PATHS.docs.supernova, search: langSearch }} className="mp-doc-link">
+                {t('mp_view_docs', '查看完整文件')} →
+              </Link>
+            </div>
+          </div>
+        )}
+
+        {/* ===== SuperSight Panel ===== */}
+        {activeTab === 'sight' && (
+          <div className="mp-panel mp-panel--track active" role="tabpanel">
+            <div className="mp-panel-mockup">
+              <div className="mp-mockup-header">
+                <div className="mockup-dots"><span /><span /><span /></div>
+                <span>{t('mp_sight_mockup_title', 'SuperSight — AI Photo Memory')}</span>
+              </div>
+              <div className="mp-mockup-body">
+                <div className="mp-stats-row">
+                  <div className="mp-stat-card">
+                    <span className="mp-stat-num mp-num--emerald">12,450</span>
+                    <span className="mp-stat-label">{t('mp_sight_stat_photos', 'Photos')}</span>
+                  </div>
+                  <div className="mp-stat-card">
+                    <span className="mp-stat-num mp-num--emerald">3,892</span>
+                    <span className="mp-stat-label">{t('mp_sight_stat_faces', 'Faces')}</span>
+                  </div>
+                  <div className="mp-stat-card">
+                    <span className="mp-stat-num mp-num--emerald">8,721</span>
+                    <span className="mp-stat-label">{t('mp_sight_stat_memories', 'Memories')}</span>
+                  </div>
+                  <div className="mp-stat-card">
+                    <span className="mp-stat-num mp-num--green">96.5%</span>
+                    <span className="mp-stat-label">{t('mp_sight_stat_accuracy', 'Accuracy')}</span>
+                  </div>
+                </div>
+                <div className="mp-flow">
+                  <div className="mp-flow-step">
+                    <div className="mp-flow-icon mp-flow-icon--emerald">📷</div>
+                    <span>{t('mp_sight_flow_1', 'Upload Photo')}</span>
+                  </div>
+                  <div className="mp-flow-arrow">→</div>
+                  <div className="mp-flow-step">
+                    <div className="mp-flow-icon mp-flow-icon--emerald">🧠</div>
+                    <span>{t('mp_sight_flow_2', 'AI Analysis')}</span>
+                  </div>
+                  <div className="mp-flow-arrow">→</div>
+                  <div className="mp-flow-step">
+                    <div className="mp-flow-icon mp-flow-icon--emerald">💾</div>
+                    <span>{t('mp_sight_flow_3', 'Memory Store')}</span>
+                  </div>
+                  <div className="mp-flow-arrow">→</div>
+                  <div className="mp-flow-step">
+                    <div className="mp-flow-icon mp-flow-icon--emerald">🔍</div>
+                    <span>{t('mp_sight_flow_4', 'Smart Recall')}</span>
+                  </div>
+                </div>
+                <div className="mp-recent-list">
+                  <div className="mp-recent-head">
+                    <span>{t('mp_sight_stat_memories', 'Memories')}</span>
+                  </div>
+                  {[
+                    { text: 'Qwen3-VL FP4 · 4.5GB VRAM', tag: 'Vision', time: 'V3.0' },
+                    { text: 'bge-m4 1024-dim · 96.5% recall', tag: 'Embedding', time: 'Active' },
+                    { text: 'ChromaDB 1.2.x · Hybrid Search', tag: 'Vector DB', time: 'Ready' },
+                  ].map((item, i) => (
+                    <div className="mp-recent-item" key={i}>
+                      <div className="mp-recent-text">{item.text}</div>
+                      <div className="mp-recent-meta">
+                        <span className="mp-recent-tag">{item.tag}</span>
+                        <span className="mp-recent-time">{item.time}</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+            <div className="mp-panel-info">
+              <h3>{t('mp_sight_title', 'AI Photo Memory System')}</h3>
+              <p>{t('mp_sight_desc', 'Advanced AI-powered photo analysis with face recognition, scene understanding, and knowledge graph.')}</p>
+              <ul className="mp-features">
+                <li>✅ {t('mp_sight_f1', 'Qwen3-VL FP4: native hardware acceleration, VRAM 4.5GB')}</li>
+                <li>✅ {t('mp_sight_f2', 'bge-m4 1024-dim: multimodal, 96.5% Chinese recall')}</li>
+                <li>✅ {t('mp_sight_f3', 'ChromaDB hybrid: vector + BM25 combined search')}</li>
+                <li>✅ {t('mp_sight_f4', 'InsightFace buffalo_m: 2026 updated, smaller & faster')}</li>
+                <li>✅ {t('mp_sight_f5', 'LangGraph 0.5.x: native async parallel branches')}</li>
+              </ul>
+              <Link to={{ pathname: PATHS.docs.supersight, search: langSearch }} className="mp-doc-link">
+                {t('mp_view_docs', '查看完整文件')} →
+              </Link>
+            </div>
+          </div>
+        )}
+
+        {/* ===== StocksX Panel ===== */}
+        {activeTab === 'stocksx' && (
+          <div className="mp-panel mp-panel--tune active" role="tabpanel">
+            <div className="mp-panel-mockup">
+              <div className="mp-mockup-header">
+                <div className="mockup-dots"><span /><span /><span /></div>
+                <span>{t('mp_stocksx_mockup_title', 'StocksX — Quant Trading')}</span>
+              </div>
+              <div className="mp-mockup-body">
+                <div className="mp-stats-row">
+                  <div className="mp-stat-card">
+                    <span className="mp-stat-num mp-num--amber">130+</span>
+                    <span className="mp-stat-label">{t('mp_stocksx_stat_strategies', 'Strategies')}</span>
+                  </div>
+                  <div className="mp-stat-card">
+                    <span className="mp-stat-num mp-num--amber">4</span>
+                    <span className="mp-stat-label">{t('mp_stocksx_stat_markets', 'Markets')}</span>
+                  </div>
+                  <div className="mp-stat-card">
+                    <span className="mp-stat-num mp-num--amber">50K+</span>
+                    <span className="mp-stat-label">{t('mp_stocksx_stat_backtests', 'Backtests')}</span>
+                  </div>
+                  <div className="mp-stat-card">
+                    <span className="mp-stat-num mp-num--green">+23%</span>
+                    <span className="mp-stat-label">{t('mp_stocksx_stat_return', 'Avg Return')}</span>
+                  </div>
+                </div>
+                <div className="mp-flow">
+                  <div className="mp-flow-step">
+                    <div className="mp-flow-icon mp-flow-icon--amber">📈</div>
+                    <span>{t('mp_stocksx_flow_1', 'Select Strategy')}</span>
+                  </div>
+                  <div className="mp-flow-arrow">→</div>
+                  <div className="mp-flow-step">
+                    <div className="mp-flow-icon mp-flow-icon--amber">⚙️</div>
+                    <span>{t('mp_stocksx_flow_2', 'Configure Params')}</span>
+                  </div>
+                  <div className="mp-flow-arrow">→</div>
+                  <div className="mp-flow-step">
+                    <div className="mp-flow-icon mp-flow-icon--amber">🔄</div>
+                    <span>{t('mp_stocksx_flow_3', 'Run Backtest')}</span>
+                  </div>
+                  <div className="mp-flow-arrow">→</div>
+                  <div className="mp-flow-step">
+                    <div className="mp-flow-icon mp-flow-icon--amber">📊</div>
+                    <span>{t('mp_stocksx_flow_4', 'Analyze Results')}</span>
+                  </div>
+                </div>
+                <div className="mp-recent-list">
+                  <div className="mp-recent-head">
+                    <span>{t('mp_stocksx_stat_strategies', 'Strategies')}</span>
+                  </div>
+                  {[
+                    { text: 'MACD · RSI · Bollinger Bands', tag: 'Trend', time: '18 strats' },
+                    { text: 'LSTM · Transformer · FinBERT', tag: 'AI/ML', time: '16 strats' },
+                    { text: 'Markowitz · Black-Litterman · HRP', tag: 'Portfolio', time: '12 methods' },
+                  ].map((item, i) => (
+                    <div className="mp-recent-item" key={i}>
+                      <div className="mp-recent-text">{item.text}</div>
+                      <div className="mp-recent-meta">
+                        <span className="mp-recent-tag">{item.tag}</span>
+                        <span className="mp-recent-time">{item.time}</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+            <div className="mp-panel-info">
+              <h3>{t('mp_stocksx_title', 'Institutional-Grade Quant Trading')}</h3>
+              <p>{t('mp_stocksx_desc', '130+ quantitative strategies across 10 categories. Multi-market backtesting, portfolio optimization, AI-driven analysis.')}</p>
+              <ul className="mp-features">
+                <li>✅ {t('mp_stocksx_f1', '130+ strategies across 10 categories')}</li>
+                <li>✅ {t('mp_stocksx_f2', 'NumPy vectorized: 10-100x backtest speedup')}</li>
+                <li>✅ {t('mp_stocksx_f3', 'Portfolio optimization: Markowitz, Black-Litterman, HRP')}</li>
+                <li>✅ {t('mp_stocksx_f4', 'Multi-market: Crypto (CCXT), US/TW stocks, ETF')}</li>
+                <li>✅ {t('mp_stocksx_f5', 'AI enhancement: LSTM, Transformer, FinBERT, DQN')}</li>
+              </ul>
+              <Link to={{ pathname: PATHS.docs.stocksx, search: langSearch }} className="mp-doc-link">
+                {t('mp_view_docs', '查看完整文件')} →
+              </Link>
+            </div>
+          </div>
+        )}
+
+        {/* ===== Stock Quant Panel ===== */}
+        {activeTab === 'stockquant' && (
+          <div className="mp-panel mp-panel--forge active" role="tabpanel">
+            <div className="mp-panel-mockup">
+              <div className="mp-mockup-header">
+                <div className="mockup-dots"><span /><span /><span /></div>
+                <span>{t('mp_stockquant_mockup_title', 'Stock Quant — A-Share Backtesting')}</span>
+              </div>
+              <div className="mp-mockup-body">
+                <div className="mp-stats-row">
+                  <div className="mp-stat-card">
+                    <span className="mp-stat-num mp-num--cyan">30+</span>
+                    <span className="mp-stat-label">{t('mp_stockquant_stat_strategies', 'Strategies')}</span>
+                  </div>
+                  <div className="mp-stat-card">
+                    <span className="mp-stat-num mp-num--cyan">5,000+</span>
+                    <span className="mp-stat-label">{t('mp_stockquant_stat_stocks', 'Stocks')}</span>
+                  </div>
+                  <div className="mp-stat-card">
+                    <span className="mp-stat-num mp-num--cyan">1,247</span>
+                    <span className="mp-stat-label">{t('mp_stockquant_stat_tasks', 'Tasks')}</span>
+                  </div>
+                  <div className="mp-stat-card">
+                    <span className="mp-stat-num mp-num--green">65%</span>
+                    <span className="mp-stat-label">{t('mp_stockquant_stat_cache', 'Cache Hit')}</span>
+                  </div>
+                </div>
+                <div className="mp-flow">
+                  <div className="mp-flow-step">
+                    <div className="mp-flow-icon mp-flow-icon--cyan">📥</div>
+                    <span>{t('mp_stockquant_flow_1', 'Download Data')}</span>
+                  </div>
+                  <div className="mp-flow-arrow">→</div>
+                  <div className="mp-flow-step">
+                    <div className="mp-flow-icon mp-flow-icon--cyan">📈</div>
+                    <span>{t('mp_stockquant_flow_2', 'Select Strategy')}</span>
+                  </div>
+                  <div className="mp-flow-arrow">→</div>
+                  <div className="mp-flow-step">
+                    <div className="mp-flow-icon mp-flow-icon--cyan">🔄</div>
+                    <span>{t('mp_stockquant_flow_3', 'Run Backtest')}</span>
+                  </div>
+                  <div className="mp-flow-arrow">→</div>
+                  <div className="mp-flow-step">
+                    <div className="mp-flow-icon mp-flow-icon--cyan">📊</div>
+                    <span>{t('mp_stockquant_flow_4', 'View Results')}</span>
+                  </div>
+                </div>
+                <div className="mp-recent-list">
+                  <div className="mp-recent-head">
+                    <span>{t('mp_stockquant_stat_strategies', 'Strategies')}</span>
+                  </div>
+                  {[
+                    { text: 'Dual MA · MACD · RSI', tag: 'Classic', time: '10 strats' },
+                    { text: 'Bollinger · Keltner · ATR', tag: 'Volatility', time: '8 strats' },
+                    { text: 'Walk-Forward · Optuna · Grid', tag: 'Optimize', time: '5 methods' },
+                  ].map((item, i) => (
+                    <div className="mp-recent-item" key={i}>
+                      <div className="mp-recent-text">{item.text}</div>
+                      <div className="mp-recent-meta">
+                        <span className="mp-recent-tag">{item.tag}</span>
+                        <span className="mp-recent-time">{item.time}</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+            <div className="mp-panel-info">
+              <h3>{t('mp_stockquant_title', 'A-Share Quant Backtesting')}</h3>
+              <p>{t('mp_stockquant_desc', 'Production-grade quant system with Yahoo Finance as primary data source. 30+ strategies, smart caching.')}</p>
+              <ul className="mp-features">
+                <li>✅ {t('mp_stockquant_f1', 'Pro workstation: ECharts + lazy-loading, unified dashboard')}</li>
+                <li>✅ {t('mp_stockquant_f2', '30+ strategies with modular registration')}</li>
+                <li>✅ {t('mp_stockquant_f3', 'Async task queue: submit & poll workflow')}</li>
+                <li>✅ {t('mp_stockquant_f4', 'Smart cache: same params = instant return')}</li>
+                <li>✅ {t('mp_stockquant_f5', 'Frontend: smart prefetch, batch, virtual scroll, Web Workers')}</li>
+              </ul>
+              <Link to={{ pathname: PATHS.docs.stockquant, search: langSearch }} className="mp-doc-link">
                 {t('mp_view_docs', '查看完整文件')} →
               </Link>
             </div>

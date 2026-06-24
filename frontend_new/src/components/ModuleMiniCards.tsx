@@ -10,11 +10,15 @@ const CARDS = [
   { id: 'script', name: 'SuperScript', descKey: 'modules_split_cheat_script', to: (s: string) => ({ pathname: PATHS.docs.superscript, search: s }), border: 'border-script', bg: 'bg-script/10' },
   { id: 'track', name: 'SuperTrack', descKey: 'modules_split_cheat_track', to: (s: string) => ({ pathname: PATHS.docs.supertrack, search: s }), border: 'border-track', bg: 'bg-track/10' },
   { id: 'tune', name: 'SuperTune', descKey: 'modules_split_cheat_tune', to: (s: string) => ({ pathname: PATHS.docs.supertune, search: s }), border: 'border-tune', bg: 'bg-tune/10' },
+  { id: 'nova', name: 'SuperNova', descKey: 'modules_split_cheat_nova', to: (s: string) => ({ pathname: PATHS.docs.supernova, search: s }), border: 'border-primary-500/30', bg: 'bg-primary-500/10' },
+  { id: 'sight', name: 'SuperSight', descKey: 'modules_split_cheat_sight', to: (s: string) => ({ pathname: PATHS.docs.supersight, search: s }), border: 'border-emerald-500/30', bg: 'bg-emerald-500/10' },
+  { id: 'stocksx', name: 'StocksX', descKey: 'modules_split_cheat_stocksx', to: (s: string) => ({ pathname: PATHS.docs.stocksx, search: s }), border: 'border-amber-500/30', bg: 'bg-amber-500/10' },
+  { id: 'stockquant', name: 'Stock Quant', descKey: 'modules_split_cheat_stockquant', to: (s: string) => ({ pathname: PATHS.docs.stockquant, search: s }), border: 'border-rose-500/30', bg: 'bg-rose-500/10' },
 ] as const
 
 const variantStyles: Record<Variant, string> = {
   'products': 'grid grid-cols-2 gap-3 sm:grid-cols-4',
-  'modules-panel': 'flex flex-wrap gap-3',
+  'modules-panel': 'grid grid-cols-2 gap-3 sm:grid-cols-4',
 }
 
 export function ModuleMiniCards({ variant }: { variant: Variant }) {
