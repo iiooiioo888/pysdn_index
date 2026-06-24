@@ -1281,3 +1281,77 @@
     animation: none;
   }
 }
+
+/* ── New Module Cards (Nova, Sight, Stocks, Quant) ── */
+.modules-page .mod-card--nova::before {
+  background: linear-gradient(90deg, #f97316, #fb923c);
+}
+.modules-page .mod-card--sight::before {
+  background: linear-gradient(90deg, #ec4899, #f472b6);
+}
+.modules-page .mod-card--stocks::before {
+  background: linear-gradient(90deg, #14b8a6, #2dd4bf);
+}
+.modules-page .mod-card--quant::before {
+  background: linear-gradient(90deg, #6366f1, #818cf8);
+}
+
+.modules-page .mod-card--nova:hover {
+  box-shadow: 0 20px 60px -15px rgba(249, 115, 22, 0.15);
+}
+.modules-page .mod-card--sight:hover {
+  box-shadow: 0 20px 60px -15px rgba(236, 72, 153, 0.15);
+}
+.modules-page .mod-card--stocks:hover {
+  box-shadow: 0 20px 60px -15px rgba(20, 184, 166, 0.15);
+}
+.modules-page .mod-card--quant:hover {
+  box-shadow: 0 20px 60px -15px rgba(99, 102, 241, 0.15);
+}
+
+.modules-page .mod-card--nova .mod-card-icon {
+  background: rgba(249, 115, 22, 0.08);
+}
+.modules-page .mod-card--sight .mod-card-icon {
+  background: rgba(236, 72, 153, 0.08);
+}
+.modules-page .mod-card--stocks .mod-card-icon {
+  background: rgba(20, 184, 166, 0.08);
+}
+.modules-page .mod-card--quant .mod-card-icon {
+  background: rgba(99, 102, 241, 0.08);
+}
+
+.modules-page .mod-card--nova .mod-card-badge {
+  background: rgba(249, 115, 22, 0.06);
+  color: #fb923c;
+  border-color: rgba(249, 115, 22, 0.15);
+}
+.modules-page .mod-card--sight .mod-card-badge {
+  background: rgba(236, 72, 153, 0.06);
+  color: #f472b6;
+  border-color: rgba(236, 72, 153, 0.15);
+}
+.modules-page .mod-card--stocks .mod-card-badge {
+  background: rgba(20, 184, 166, 0.06);
+  color: #2dd4bf;
+  border-color: rgba(20, 184, 166, 0.15);
+}
+.modules-page .mod-card--quant .mod-card-badge {
+  background: rgba(99, 102, 241, 0.06);
+  color: #818cf8;
+  border-color: rgba(99, 102, 241, 0.15);
+}
+
+.modules-page .mod-card--nova .mod-card-features li::before {
+  color: rgba(249, 115, 22, 0.5);
+}
+.modules-page .mod-card--sight .mod-card-features li::before {
+  color: rgba(236, 72, 153, 0.5);
+}
+.modules-page .mod-card--stocks .mod-card-features li::before {
+  color: rgba(20, 184, 166, 0.5);
+}
+.modules-page .mod-card--quant .mod-card-features li::before {
+  color: rgba(99, 102, 241, 0.5);
+}

@@ -188,6 +188,104 @@ export function ModulesPage() {
               </div>
             </div>
 
+            <div id="mod-ext" className="mod-core-block">
+              <div className="mod-section-heading">
+                <div className="mod-section-label">{t('mod_sec_ext_label')}</div>
+                <h2 className="mod-section-title">{t('mod_sec_ext_title')}</h2>
+                <p className="mod-section-desc">{t('mod_sec_ext_desc')}</p>
+              </div>
+
+              <div className="mod-grid">
+                <article id="module-nova" className="mod-card mod-card--nova">
+                  <span className="mod-card-num">05</span>
+                  <div className="mod-card-icon">📡</div>
+                  <span className="mod-card-badge">{t('mod_nova_badge')}</span>
+                  <h2>SuperNova</h2>
+                  <p className="mod-card-desc">{t('mod_nova_desc')}</p>
+                  <ul className="mod-card-features">
+                    <li>{t('mod_nova_f1')}</li>
+                    <li>{t('mod_nova_f2')}</li>
+                    <li>{t('mod_nova_f3')}</li>
+                    <li>{t('mod_nova_f4')}</li>
+                  </ul>
+                  <Link className="mod-card-link" to={{ pathname: PATHS.docs.supernova, search: langSearch }}>
+                    {t('mod_link_doc')}
+                  </Link>
+                  <div className="mod-card-tags">
+                    <span>{t('mod_nova_tag1')}</span>
+                    <span>{t('mod_nova_tag2')}</span>
+                    <span>{t('mod_nova_tag3')}</span>
+                  </div>
+                </article>
+
+                <article id="module-sight" className="mod-card mod-card--sight">
+                  <span className="mod-card-num">06</span>
+                  <div className="mod-card-icon">🧠</div>
+                  <span className="mod-card-badge">{t('mod_sight_badge')}</span>
+                  <h2>SuperSight</h2>
+                  <p className="mod-card-desc">{t('mod_sight_desc')}</p>
+                  <ul className="mod-card-features">
+                    <li>{t('mod_sight_f1')}</li>
+                    <li>{t('mod_sight_f2')}</li>
+                    <li>{t('mod_sight_f3')}</li>
+                    <li>{t('mod_sight_f4')}</li>
+                  </ul>
+                  <Link className="mod-card-link" to={{ pathname: PATHS.docs.supersight, search: langSearch }}>
+                    {t('mod_link_doc')}
+                  </Link>
+                  <div className="mod-card-tags">
+                    <span>{t('mod_sight_tag1')}</span>
+                    <span>{t('mod_sight_tag2')}</span>
+                    <span>{t('mod_sight_tag3')}</span>
+                  </div>
+                </article>
+
+                <article id="module-stocks" className="mod-card mod-card--stocks">
+                  <span className="mod-card-num">07</span>
+                  <div className="mod-card-icon">📈</div>
+                  <span className="mod-card-badge">{t('mod_stocks_badge')}</span>
+                  <h2>StocksX</h2>
+                  <p className="mod-card-desc">{t('mod_stocks_desc')}</p>
+                  <ul className="mod-card-features">
+                    <li>{t('mod_stocks_f1')}</li>
+                    <li>{t('mod_stocks_f2')}</li>
+                    <li>{t('mod_stocks_f3')}</li>
+                    <li>{t('mod_stocks_f4')}</li>
+                  </ul>
+                  <Link className="mod-card-link" to={{ pathname: PATHS.docs.stocksx, search: langSearch }}>
+                    {t('mod_link_doc')}
+                  </Link>
+                  <div className="mod-card-tags">
+                    <span>{t('mod_stocks_tag1')}</span>
+                    <span>{t('mod_stocks_tag2')}</span>
+                    <span>{t('mod_stocks_tag3')}</span>
+                  </div>
+                </article>
+
+                <article id="module-quant" className="mod-card mod-card--quant">
+                  <span className="mod-card-num">08</span>
+                  <div className="mod-card-icon">💹</div>
+                  <span className="mod-card-badge">{t('mod_quant_badge')}</span>
+                  <h2>StockQuant</h2>
+                  <p className="mod-card-desc">{t('mod_quant_desc')}</p>
+                  <ul className="mod-card-features">
+                    <li>{t('mod_quant_f1')}</li>
+                    <li>{t('mod_quant_f2')}</li>
+                    <li>{t('mod_quant_f3')}</li>
+                    <li>{t('mod_quant_f4')}</li>
+                  </ul>
+                  <Link className="mod-card-link" to={{ pathname: PATHS.docs.stockquant, search: langSearch }}>
+                    {t('mod_link_doc')}
+                  </Link>
+                  <div className="mod-card-tags">
+                    <span>{t('mod_quant_tag1')}</span>
+                    <span>{t('mod_quant_tag2')}</span>
+                    <span>{t('mod_quant_tag3')}</span>
+                  </div>
+                </article>
+              </div>
+            </div>
+
             <div id="mod-cross" className="mod-cross-block">
               <div className="mod-section-heading" style={{ marginTop: 20 }}>
                 <div className="mod-section-label">{t('mod_cross_label')}</div>
