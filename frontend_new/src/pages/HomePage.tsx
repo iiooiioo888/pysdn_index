@@ -11,6 +11,7 @@ const ThreeRealmsSection = lazy(() =>
 )
 const Products = lazy(() => import('../components/Products').then((m) => ({ default: m.Products })))
 const ModulesPanel = lazy(() => import('../components/ModulesPanel').then((m) => ({ default: m.ModulesPanel })))
+const HardwarePlanSection = lazy(() => import('../components/HardwarePlanSection').then((m) => ({ default: m.HardwarePlanSection })))
 const Showcase = lazy(() => import('../components/Showcase').then((m) => ({ default: m.Showcase })))
 const WorkflowSection = lazy(() =>
   import('../components/WorkflowSection').then((m) => ({ default: m.WorkflowSection })),
@@ -43,6 +44,9 @@ export function HomePage() {
           </HomeLazySection>
           <HomeLazySection minHeight={360}>
             <ModulesPanel />
+          </HomeLazySection>
+          <HomeLazySection minHeight={400}>
+            <HardwarePlanSection />
           </HomeLazySection>
           <HomeLazySection minHeight={280}>
             <Showcase />
