@@ -537,6 +537,10 @@ export function Products() {
                 <span className="tech-tag tech-tag--cyan">Prompt</span>
                 <span className="tech-tag tech-tag--cyan">Full-text</span>
               </div>
+              <a className="module-card-github" href="https://github.com/iiooiioo888/SuperForge" target="_blank" rel="noopener noreferrer">
+                <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+                GitHub
+              </a>
             </article>
 
             <article className="module-card module-card--tune reveal">
@@ -551,6 +555,10 @@ export function Products() {
                 <span className="tech-tag tech-tag--violet">Batch</span>
                 <span className="tech-tag tech-tag--violet">Cost</span>
               </div>
+              <a className="module-card-github" href="https://github.com/iiooiioo888/SuperTune" target="_blank" rel="noopener noreferrer">
+                <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+                GitHub
+              </a>
             </article>
 
             <article className="module-card module-card--track reveal">
@@ -561,10 +569,14 @@ export function Products() {
               <h4>SuperTrack</h4>
               <p>{t('track_desc')}</p>
               <div className="module-card-tags">
-                <span className="tech-tag tech-tag--emerald">Crawl</span>
-                <span className="tech-tag tech-tag--emerald">Time-series</span>
-                <span className="tech-tag tech-tag--emerald">AlertEngine</span>
+                <span className="tech-tag tech-tag--emerald">18 Platforms</span>
+                <span className="tech-tag tech-tag--emerald">One-Click</span>
+                <span className="tech-tag tech-tag--emerald">CLI</span>
               </div>
+              <a className="module-card-github" href="https://github.com/iiooiioo888/SuperTrack" target="_blank" rel="noopener noreferrer">
+                <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+                GitHub
+              </a>
             </article>
 
             <article className="module-card reveal">
@@ -579,6 +591,10 @@ export function Products() {
                 <span className="tech-tag tech-tag--amber">Branching</span>
                 <span className="tech-tag tech-tag--amber">Consistency</span>
               </div>
+              <a className="module-card-github" href="https://github.com/iiooiioo888/SuperScript" target="_blank" rel="noopener noreferrer">
+                <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+                GitHub
+              </a>
             </article>
 
             <article className="module-card reveal">
@@ -587,12 +603,16 @@ export function Products() {
                 <span className="module-card-id">05</span>
               </div>
               <h4>SuperNova</h4>
-              <p>{t('mp_nova_desc', 'Multi-platform social data collection system.')}</p>
+              <p>企业级多平台社交数据采集系统 — B站/抖音/微博/IG/TG，插件化适配器、三层存储、动态降级与灰度发布。</p>
               <div className="module-card-tags">
                 <span className="tech-tag" style={{color:'#60a5fa'}}>FastAPI</span>
                 <span className="tech-tag" style={{color:'#60a5fa'}}>Celery</span>
-                <span className="tech-tag" style={{color:'#60a5fa'}}>Multi-Platform</span>
+                <span className="tech-tag" style={{color:'#60a5fa'}}>5 Platforms</span>
               </div>
+              <a className="module-card-github" href="https://github.com/iiooiioo888/SuperNova" target="_blank" rel="noopener noreferrer">
+                <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+                GitHub
+              </a>
             </article>
 
             <article className="module-card reveal">
@@ -601,12 +621,16 @@ export function Products() {
                 <span className="module-card-id">06</span>
               </div>
               <h4>SuperSight</h4>
-              <p>{t('mp_sight_desc', 'AI photo memory system with face recognition.')}</p>
+              <p>本地 AI 記憶體代理 — 人臉識別、場景理解、RAG 語義檢索，為你構建「數字自傳」。</p>
               <div className="module-card-tags">
                 <span className="tech-tag" style={{color:'#34d399'}}>Qwen3-VL</span>
                 <span className="tech-tag" style={{color:'#34d399'}}>InsightFace</span>
                 <span className="tech-tag" style={{color:'#34d399'}}>ChromaDB</span>
               </div>
+              <a className="module-card-github" href="https://github.com/iiooiioo888/SuperSight" target="_blank" rel="noopener noreferrer">
+                <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+                GitHub
+              </a>
             </article>
 
             <article className="module-card reveal">
@@ -615,12 +639,16 @@ export function Products() {
                 <span className="module-card-id">07</span>
               </div>
               <h4>StocksX</h4>
-              <p>{t('mp_stocksx_desc', 'Institutional-grade quant trading platform.')}</p>
+              <p>機構級量化交易平台 — 130+ 種策略、10 大類、多市場回測、投資組合優化、AI 驅動即時監控。</p>
               <div className="module-card-tags">
                 <span className="tech-tag" style={{color:'#fbbf24'}}>130+ Strategies</span>
                 <span className="tech-tag" style={{color:'#fbbf24'}}>Streamlit</span>
                 <span className="tech-tag" style={{color:'#fbbf24'}}>CCXT</span>
               </div>
+              <a className="module-card-github" href="https://github.com/iiooiioo888/StocksX_V0" target="_blank" rel="noopener noreferrer">
+                <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+                GitHub
+              </a>
             </article>
 
             <article className="module-card reveal">
@@ -629,12 +657,16 @@ export function Products() {
                 <span className="module-card-id">08</span>
               </div>
               <h4>Stock Quant</h4>
-              <p>{t('mp_stockquant_desc', 'A-share quant backtesting + real-time alerts.')}</p>
+              <p>A股量化回測 + 實時盯盤預警 — 30+ 策略、ECharts 工作台、異步任務佇列、Optuna 貝葉斯優化。</p>
               <div className="module-card-tags">
                 <span className="tech-tag" style={{color:'#fb7185'}}>Yahoo Finance</span>
                 <span className="tech-tag" style={{color:'#fb7185'}}>FastAPI</span>
-                <span className="tech-tag" style={{color:'#fb7185'}}>SQLite</span>
+                <span className="tech-tag" style={{color:'#fb7185'}}>30+ Strategies</span>
               </div>
+              <a className="module-card-github" href="https://github.com/iiooiioo888/stock-quant" target="_blank" rel="noopener noreferrer">
+                <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+                GitHub
+              </a>
             </article>
           </div>
         </div>

@@ -2483,6 +2483,31 @@ button.drama-episode-item {
   margin-bottom: 16px;
 }
 .module-card-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+.module-card-github {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 12px;
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.7);
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  text-decoration: none;
+  transition: all 0.2s;
+}
+.module-card-github:hover {
+  color: #fff;
+  background: rgba(255,255,255,0.1);
+  border-color: rgba(255,255,255,0.15);
+}
+.module-card-github svg {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+}
 .tech-tag {
   padding: 3px 10px;
   font-size: var(--text-meta, 0.6875rem);
