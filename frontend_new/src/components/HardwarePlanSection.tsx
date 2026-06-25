@@ -1,5 +1,3 @@
-import { useEffect, useRef, useState } from 'react'
-
 const KPI = [
   { val: '¥71,670', label: '建設期投入', color: 'var(--accent, #e8a830)' },
   { val: '¥3,200', label: '月均負擔', color: 'var(--color-primary-400, #60a5fa)' },
@@ -11,9 +9,9 @@ const KPI = [
 
 const PHASES = [
   { name: '建設期', range: 'M0-20', color: 'var(--accent, #e8a830)', desc: '採購主伺服器 + 5 節點集群 + 12U 機櫃' },
-  { name: '維護 I', range: 'M21-60', color: 'var(--color-primary-400, #60a5fa)', desc: '水冷 M36 · 風扇 M40 · 電源+UPS M48 · SSD M56' },
+  { name: '維護 I', range: 'M21-60', color: '#60a5fa', desc: '水冷 M36 · 風扇 M40 · 電源+UPS M48 · SSD M56' },
   { name: '★ 刷新 I', range: 'M60-72', color: '#e85454', desc: 'DDR5 / EPYC 9004+ / MI350?' },
-  { name: '維護 II', range: 'M73-108', color: 'var(--color-primary-400, #60a5fa)', desc: '水冷 M84 · 電源 M96 · SSD M102' },
+  { name: '維護 II', range: 'M73-108', color: '#60a5fa', desc: '水冷 M84 · 電源 M96 · SSD M102' },
   { name: '★ 刷新 II', range: 'M108-120', color: '#e85454', desc: '第三代平台 · 基金充足' },
 ]
 
@@ -50,34 +48,20 @@ const ARCH_LAYERS = [
 ]
 
 export function HardwarePlanSection() {
-  const ref = useRef<HTMLElement>(null)
-  const [visible, setVisible] = useState(false)
-
-  useEffect(() => {
-    const el = ref.current
-    if (!el) return
-    const io = new IntersectionObserver(
-      ([e]) => { if (e.isIntersecting) setVisible(true) },
-      { threshold: 0.1 },
-    )
-    io.observe(el)
-    return () => io.disconnect()
-  }, [])
-
   return (
-    <section ref={ref} id="hardware-plan" className="section hw-plan-section">
+    <section id="hardware-plan" className="section hw-plan-section">
       <div className="container">
         {/* Header */}
-        <div className={`hw-plan-head reveal${visible ? ' visible' : ''}`}>
+        <div className="section-heading hw-plan-head reveal">
           <span className="hw-plan-label">HARDWARE 10-YEAR PLAN</span>
-          <h2 className="hw-plan-title">硬件全生命周期 · 十年計劃</h2>
-          <p className="hw-plan-sub">
+          <h2 className="section-title hw-plan-title">硬件全生命周期 · 十年計劃</h2>
+          <p className="section-desc hw-plan-sub">
             雙路 EPYC + A40×2 NVLink，5 節點 K3s 集群。月均 ≈¥3,200，十年結束餘額 ≈¥235k。
           </p>
         </div>
 
         {/* KPI Strip */}
-        <div className={`hw-plan-kpi reveal${visible ? ' visible' : ''}`}>
+        <div className="hw-plan-kpi reveal">
           {KPI.map((k) => (
             <div className="hw-plan-kpi-item" key={k.label}>
               <span className="hw-plan-kpi-val" style={{ color: k.color }}>{k.val}</span>
@@ -87,8 +71,8 @@ export function HardwarePlanSection() {
         </div>
 
         {/* Architecture */}
-        <div className={`hw-plan-arch reveal${visible ? ' visible' : ''}`}>
-          <h3 className="hw-plan-arch-title">系統架構</h3>
+        <div className="hw-plan-arch reveal">
+          <h3 className="hw-plan-section-title">系統架構</h3>
           {ARCH_LAYERS.map((layer, li) => (
             <div className="hw-plan-arch-layer" key={li}>
               <span className={`hw-plan-arch-layer-label${layer.highlight ? ' hl' : ''}`}>
@@ -109,7 +93,7 @@ export function HardwarePlanSection() {
               </div>
               {li < ARCH_LAYERS.length - 1 && (
                 <div className="hw-plan-arch-connector">
-                  <span>↕ vLLM / Ollama API · 10GbE ↕</span>
+                  ↕ vLLM / Ollama API · 10GbE ↕
                 </div>
               )}
             </div>
@@ -117,8 +101,8 @@ export function HardwarePlanSection() {
         </div>
 
         {/* Timeline Phases */}
-        <div className={`hw-plan-phases reveal${visible ? ' visible' : ''}`}>
-          <h3 className="hw-plan-arch-title">十年路線圖</h3>
+        <div className="hw-plan-phases reveal">
+          <h3 className="hw-plan-section-title">十年路線圖</h3>
           <div className="hw-plan-phase-grid">
             {PHASES.map((p, i) => (
               <div className="hw-plan-phase-card" key={i}>
@@ -133,8 +117,8 @@ export function HardwarePlanSection() {
         </div>
 
         {/* Cost Breakdown */}
-        <div className={`hw-plan-cost reveal${visible ? ' visible' : ''}`}>
-          <h3 className="hw-plan-arch-title">建設期成本明細</h3>
+        <div className="hw-plan-cost reveal">
+          <h3 className="hw-plan-section-title">建設期成本明細</h3>
           <div className="hw-plan-cost-table">
             {COST_ROWS.map((r, i) => (
               <div className="hw-plan-cost-row" key={i}>
@@ -152,7 +136,7 @@ export function HardwarePlanSection() {
         </div>
 
         {/* CTA */}
-        <div className="hw-plan-cta">
+        <div className="hw-plan-cta reveal">
           <a
             href="https://github.com/iiooiioo888/SuperSight/blob/main/plan3.html"
             target="_blank"

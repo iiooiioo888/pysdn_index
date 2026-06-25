@@ -9494,8 +9494,15 @@ main.realms-page-main {
   text-align: center;
   margin-bottom: 2.5rem;
 }
+.hw-plan-section-title {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+  color: var(--txt, #f0ece4);
+}
 .hw-plan-label {
-  font-family: 'DM Mono', monospace;
+  font-family: var(--font-mono);
   font-size: 0.65rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -9504,7 +9511,7 @@ main.realms-page-main {
   margin-bottom: 0.5rem;
 }
 .hw-plan-title {
-  font-family: 'Syne', sans-serif;
+  font-family: var(--font-sans);
   font-weight: 700;
   font-size: clamp(1.3rem, 3vw, 2rem);
   line-height: 1.2;
@@ -9536,14 +9543,14 @@ main.realms-page-main {
   background: var(--accent-t, rgba(232,168,48,0.15));
 }
 .hw-plan-kpi-val {
-  font-family: 'Syne', sans-serif;
+  font-family: var(--font-sans);
   font-weight: 700;
   font-size: 1.3rem;
   display: block;
   line-height: 1.2;
 }
 .hw-plan-kpi-label {
-  font-family: 'DM Mono', monospace;
+  font-family: var(--font-mono);
   font-size: 0.55rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -9569,17 +9576,11 @@ main.realms-page-main {
   background: linear-gradient(90deg, transparent, var(--accent, #e8a830), transparent);
   opacity: 0.4;
 }
-.hw-plan-arch-title {
-  font-family: 'Syne', sans-serif;
-  font-weight: 600;
-  font-size: 0.92rem;
-  margin-bottom: 1rem;
-}
 .hw-plan-arch-layer {
   margin-bottom: 1rem;
 }
 .hw-plan-arch-layer-label {
-  font-family: 'DM Mono', monospace;
+  font-family: var(--font-mono);
   font-size: 0.55rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -9615,7 +9616,7 @@ main.realms-page-main {
   background: var(--accent-t, rgba(232,168,48,0.15));
 }
 .hw-plan-arch-node-tag {
-  font-family: 'DM Mono', monospace;
+  font-family: var(--font-mono);
   font-size: 0.48rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -9624,14 +9625,14 @@ main.realms-page-main {
   margin-bottom: 0.1rem;
 }
 .hw-plan-arch-node-name {
-  font-family: 'Syne', sans-serif;
+  font-family: var(--font-sans);
   font-weight: 600;
   font-size: 0.72rem;
   color: var(--txt, #f0ece4);
   display: block;
 }
 .hw-plan-arch-node-detail {
-  font-family: 'DM Mono', monospace;
+  font-family: var(--font-mono);
   font-size: 0.48rem;
   color: var(--txt3, #5f5b56);
   margin-top: 0.08rem;
@@ -9640,7 +9641,7 @@ main.realms-page-main {
 .hw-plan-arch-connector {
   text-align: center;
   color: var(--txt3, #5f5b56);
-  font-family: 'DM Mono', monospace;
+  font-family: var(--font-mono);
   font-size: 0.58rem;
   padding: 0.3rem 0;
   letter-spacing: 0.04em;
@@ -9672,12 +9673,12 @@ main.realms-page-main {
   margin-bottom: 0.4rem;
 }
 .hw-plan-phase-name {
-  font-family: 'Syne', sans-serif;
+  font-family: var(--font-sans);
   font-weight: 700;
   font-size: 0.85rem;
 }
 .hw-plan-phase-range {
-  font-family: 'DM Mono', monospace;
+  font-family: var(--font-mono);
   font-size: 0.52rem;
   color: var(--txt3, #5f5b56);
   letter-spacing: 0.05em;
@@ -9717,7 +9718,7 @@ main.realms-page-main {
   font-weight: 700;
 }
 .hw-plan-cost-cat {
-  font-family: 'DM Mono', monospace;
+  font-family: var(--font-mono);
   font-size: 0.6rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -9728,7 +9729,7 @@ main.realms-page-main {
   font-size: 0.78rem;
 }
 .hw-plan-cost-amount {
-  font-family: 'Syne', sans-serif;
+  font-family: var(--font-sans);
   font-weight: 600;
   text-align: right;
   color: var(--txt, #f0ece4);
@@ -9743,7 +9744,7 @@ main.realms-page-main {
   gap: 8px;
   padding: 12px 28px;
   border-radius: 10px;
-  font-family: 'Syne', sans-serif;
+  font-family: var(--font-sans);
   font-weight: 600;
   font-size: 0.88rem;
   color: var(--bg, #08090c);
